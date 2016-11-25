@@ -1,0 +1,208 @@
+// Market clearing information
+object recorder {
+	parent market;
+	property current_market.clearing_quantity,capacity_reference_bid_price,current_market.clearing_price,current_price_mean_24h,current_price_stdev_24h;
+	interval 60;
+	file market_clearing.csv;
+}
+
+// Weather information
+object recorder {
+	parent "ColumbusOH";
+	property temperature,humidity,solar_flux;
+	interval 60;
+	file weather.csv;
+}
+
+// Net load at substation
+object recorder {
+	parent substation_root;
+	property measured_real_power,measured_reactive_power;
+	interval 60;
+	file substation_load.csv;
+}
+
+// Solar metering
+object group_recorder {
+	group "class=triplex_meter AND groupid=inverter_meter";
+	property measured_real_power;
+	interval 60;
+	file solar_output.csv;
+}
+
+// Net metering
+object group_recorder {
+	group "class=triplex_meter AND groupid=F1_flatrate_meter";
+	property measured_real_power;
+	interval 60;
+	file net_meter_output.csv;
+}
+
+// Comfort measurements
+object group_recorder {
+     group "class=controller";
+     property base_setpoint;
+     interval 60;
+     file desired_cooling_setpoint.csv;
+}
+
+object group_recorder {
+     group "class=house";
+     property cooling_setpoint;
+     interval 60;
+     file actual_cooling_setpoint.csv;
+}
+
+object group_recorder {
+     group "class=house";
+     property air_temperature;
+     interval 60;
+     file internal_air_temperature.csv;
+}
+
+// Collecting each consumers bill at the end of the month
+object billdump {
+      filename BDF_1.csv;
+      runtime 2009-02-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_2.csv;
+      runtime 2009-03-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_3.csv;
+      runtime 2009-04-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_4.csv;
+      runtime 2009-05-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_5.csv;
+      runtime 2009-06-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_6.csv;
+      runtime 2009-07-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_7.csv;
+      runtime 2009-08-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_8.csv;
+      runtime 2009-09-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_9.csv;
+      runtime 2009-10-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_10.csv;
+      runtime 2009-11-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_11.csv;
+      runtime 2009-12-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BDF_12.csv;
+      runtime 2014-01-01 02:00:00;
+      group F1_flatrate_meter;
+}
+
+object billdump {
+      filename BD_rt_1.csv;
+      runtime 2009-02-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_2.csv;
+      runtime 2009-03-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_3.csv;
+      runtime 2009-04-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_4.csv;
+      runtime 2009-05-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_5.csv;
+      runtime 2009-06-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_6.csv;
+      runtime 2009-07-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_7.csv;
+      runtime 2009-08-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_8.csv;
+      runtime 2009-09-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_9.csv;
+      runtime 2009-10-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_10.csv;
+      runtime 2009-11-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_11.csv;
+      runtime 2009-12-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+object billdump {
+      filename BD_rt_12.csv;
+      runtime 2014-01-01 02:00:00;
+      group  F1_rt_meter;
+}
+
+	

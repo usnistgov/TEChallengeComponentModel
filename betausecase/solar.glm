@@ -1,0 +1,932 @@
+module generators;
+
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B0;
+	parent F1_tpm_rt_B0;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B0;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B0;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C1;
+	parent F1_tpm_rt_C1;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C1;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C1;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C2;
+	parent F1_tpm_rt_C2;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C2;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C2;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B3;
+	parent F1_tpm_rt_B3;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B3;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B3;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B4;
+	parent F1_tpm_rt_B4;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B4;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B4;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A5;
+	parent F1_tpm_rt_A5;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A5;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A5;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B6;
+	parent F1_tpm_rt_B6;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B6;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B6;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B7;
+	parent F1_tpm_rt_B7;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B7;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B7;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A8;
+	parent F1_tpm_rt_A8;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A8;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A8;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A9;
+	parent F1_tpm_rt_A9;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A9;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A9;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C10;
+	parent F1_tpm_rt_C10;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C10;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C10;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A11;
+	parent F1_tpm_rt_A11;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A11;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A11;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A12;
+	parent F1_tpm_rt_A12;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A12;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A12;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A13;
+	parent F1_tpm_rt_A13;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A13;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A13;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C14;
+	parent F1_tpm_rt_C14;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C14;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C14;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A15;
+	parent F1_tpm_rt_A15;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A15;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A15;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A16;
+	parent F1_tpm_rt_A16;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A16;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A16;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C17;
+	parent F1_tpm_rt_C17;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C17;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C17;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C18;
+	parent F1_tpm_rt_C18;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C18;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C18;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B19;
+	parent F1_tpm_rt_B19;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B19;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B19;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B20;
+	parent F1_tpm_rt_B20;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B20;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B20;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C21;
+	parent F1_tpm_rt_C21;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C21;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C21;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B22;
+	parent F1_tpm_rt_B22;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B22;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B22;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B23;
+	parent F1_tpm_rt_B23;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B23;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B23;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_B24;
+	parent F1_tpm_rt_B24;
+	phases BS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_B24;
+		phases BS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_B24;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A25;
+	parent F1_tpm_rt_A25;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A25;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A25;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A26;
+	parent F1_tpm_rt_A26;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A26;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A26;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C27;
+	parent F1_tpm_rt_C27;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C27;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C27;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_A28;
+	parent F1_tpm_rt_A28;
+	phases AS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_A28;
+		phases AS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_A28;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
+
+object triplex_meter {
+	name solar_F1_tpm_rt_C29;
+	parent F1_tpm_rt_C29;
+	phases CS;
+	nominal_voltage 120;
+	groupid inverter_meter;
+	
+	object inverter {
+		name inv_F1_house_C29;
+		phases CS;
+		inverter_type FOUR_QUADRANT;
+		power_factor 1;
+		use_multipoint_efficiency TRUE;
+		inverter_manufacturer XANTREX;
+		maximum_dc_power 6500; 
+		four_quadrant_control_mode CONSTANT_PF;
+		generator_status ONLINE;
+		rated_power 6.5 kW;	
+		inverter_efficiency 0.90;
+
+		object solar {
+			name sol_inv_F1_house_C29;
+			generator_mode SUPPLY_DRIVEN;
+			generator_status ONLINE;
+			panel_type SINGLE_CRYSTAL_SILICON;
+			orientation FIXED_AXIS; 
+			rated_power 7.5 kW;
+		};
+	};
+}
