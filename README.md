@@ -6,3 +6,5 @@ GridLABD Code: svn checkout svn://svn.code.sf.net/p/gridlab-d/code/trunk gridlab
 
 Fetch gridlab-d outputs from simulation: 
 https://s3.amazonaws.com/nist-sgcps/development/TEChallengeComponentModel/NIST_TE_Model_outputs.zip
+
+Link to Vulcanforge test UCEF server: teserver.isis.vanderbilt.edu
