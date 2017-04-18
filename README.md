@@ -1,24 +1,10 @@
 # TEChallengeComponentModel
 Component model for NIST Transactive Energy Challenge
 
-GridLAB-D site - https://sourceforge.net/projects/gridlab-d/
-GridLABD Code: svn checkout svn://svn.code.sf.net/p/gridlab-d/code/trunk gridlab-d-code
+This project contains:
 
-Fetch gridlab-d outputs from simulation: 
-https://s3.amazonaws.com/nist-sgcps/development/TEChallengeComponentModel/NIST_TE_Model_outputs.zip
-
-Link to Vulcanforge test UCEF server: teserver.isis.vanderbilt.edu
+1. UML Model of an Abstract Component Model to support comparable Transactive Energy simulations on multiple platforms.
+2. A Microsoft Word (TM) export of that model
+3. A sample applied "Beta Use Case" contributed by PNNL using Gridlab-D that demonstrates and application of the abstract model.
 
 
-Building gridlab-d on linux platform:
-
-    sudo apt-get install automake autoconf libtool curl subversion build-essential libxerces-c-dev  cmake -y 
-
-    cd $HOME/Downloads/
-    sudo svn co -q svn://svn.code.sf.net/p/gridlab-d/code/trunk gridlab-d-code
-    
-    cd $HOME/Downloads/gridlab-d-code
-    sudo mkdir -p /usr/local/gridlab-d
-    sudo autoreconf -isf
-    sudo ./configure --prefix=/usr/local/gridlab-d --enable-silent-rules
-    sudo make && sudo make install 
