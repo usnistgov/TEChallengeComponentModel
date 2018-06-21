@@ -135,15 +135,15 @@ object load {
 //	constant_power_A +1800000.000+871779.789j;
 //	constant_power_B +1800000.000+871779.789j;
 //	constant_power_C +1800000.000+871779.789j;
-	constant_power_A_real PHASE_A_REAL.value;
-	constant_power_A_reac PHASE_A_IMAG.value;
-	constant_power_B PHASE_A_REAL.value;
-	constant_power_C PHASE_A_IMAG.value;
+	constant_current_A_real PHASE_A_REAL.value;
+	constant_current_A_reac PHASE_A_IMAG.value;
+	constant_current_B PHASE_A_REAL.value;
+	constant_current_C PHASE_A_IMAG.value;
 	nominal_voltage 2400;
 }
 
 object multi_recorder {
-    property node2:voltage_A, node2:power_A, load4:voltage_A, load4:power_A;
+    property node1:voltage_A, node1:power_A, node2:voltage_A, node2:power_A, node3:voltage_A, node3:power_A, load4:voltage_A, load4:power_A;
     file node_data.csv;
     interval 1;
 }
