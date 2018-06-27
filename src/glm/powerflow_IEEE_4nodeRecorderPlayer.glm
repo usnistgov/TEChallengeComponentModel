@@ -9,15 +9,11 @@
 
 module tape;
 
-
 clock {
 	timestamp '2000-01-01 0:00:00';
 	timezone EST+5EDT;
-//     starttime '2000-01-01 00:00:00';
-//     stoptime '2000-01-01 00:00:20';
      starttime 1528981797;
-     stoptime 1528981817;
-}
+     stoptime 1528981817;}
 
 module powerflow;
 
@@ -36,6 +32,7 @@ object player {
 	file sub_power_imag.player;
     loop 1;
 }
+
 object overhead_line_conductor:100 {
 	geometric_mean_radius 0.0244;
 	resistance 0.306;
@@ -78,11 +75,11 @@ object transformer_configuration:400 {
 object node {
 	name node1;
 	phases "ABCN";
-	bustype SWING;
 	voltage_A +7199.558+0.000j;
 	voltage_B -3599.779-6235.000j;
 	voltage_C -3599.779+6235.000j;
 	nominal_voltage 7200;
+    bustype SWING;
 }
 
 object overhead_line:12 {
@@ -135,10 +132,13 @@ object load {
 //	constant_power_A +1800000.000+871779.789j;
 //	constant_power_B +1800000.000+871779.789j;
 //	constant_power_C +1800000.000+871779.789j;
-	constant_current_A_real PHASE_A_REAL.value;
-	constant_current_A_reac PHASE_A_IMAG.value;
-	constant_current_B PHASE_A_REAL.value;
-	constant_current_C PHASE_A_IMAG.value;
+
+	constant_power_A_real PHASE_A_REAL.value;
+	constant_power_A_reac PHASE_A_IMAG.value;
+	constant_power_B PHASE_A_REAL.value;
+	constant_power_C PHASE_A_IMAG.value;
+
+
 	nominal_voltage 2400;
 }
 
@@ -147,6 +147,7 @@ object multi_recorder {
     file node_data.csv;
     interval 1;
 }
+
 ///////////////////////////////
 // END
 ///////////////////////////////
