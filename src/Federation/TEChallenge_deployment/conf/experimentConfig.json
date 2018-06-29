@@ -1,0 +1,26 @@
+{
+  "federateTypesAllowed": [
+    "Grid",
+    "Load"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Grid",
+      "count": 1
+    },
+    {
+      "federateType": "Load",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Grid",
+      "count": 0
+    },
+    {
+      "federateType": "Load",
+      "count": 0
+    }
+  ]
+}

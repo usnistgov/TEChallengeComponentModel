@@ -1,0 +1,21 @@
+{
+	"federateRTIInitWaitTimeMs": 200,
+	"federateType": "Load",
+	"federationId": "FedManager",
+	"isLateJoiner": false,
+	"lookAhead": 0.1,
+	"stepSize": 1.0,
+	"id": 1,
+
+	"houses": [{
+			"voltageRA": 10,
+			"currentRA": 5,
+			"node": 1
+		},
+		{
+			"voltageRA": 100,
+			"currentRA": 50,
+			"node": 2
+		}
+	]
+}
