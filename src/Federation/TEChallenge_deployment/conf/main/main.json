@@ -1,7 +1,7 @@
 {
   "federateTypesAllowed": [
     "Grid",
-    "Load"
+    "Loads"
   ],
   "expectedFederates": [
     {
@@ -9,7 +9,7 @@
       "count": 1
     },
     {
-      "federateType": "Load",
+      "federateType": "Loads",
       "count": 1
     }
   ],

@@ -56,6 +56,7 @@ public class GridBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_impedance_Real_A();
         resourcesPhysicalStatus.subscribe_impedance_Real_B();
         resourcesPhysicalStatus.subscribe_impedance_Real_C();
+        resourcesPhysicalStatus.subscribe_loadInstanceName();
         resourcesPhysicalStatus.subscribe_phases();
         resourcesPhysicalStatus.subscribe_power_Imaginary_A();
         resourcesPhysicalStatus.subscribe_power_Imaginary_B();
@@ -64,6 +65,7 @@ public class GridBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_power_Real_B();
         resourcesPhysicalStatus.subscribe_power_Real_C();
         resourcesPhysicalStatus.subscribe_status();
+        resourcesPhysicalStatus.subscribe_type();
         resourcesPhysicalStatus.subscribe_voltage_Imaginary_A();
         resourcesPhysicalStatus.subscribe_voltage_Imaginary_B();
         resourcesPhysicalStatus.subscribe_voltage_Imaginary_C();

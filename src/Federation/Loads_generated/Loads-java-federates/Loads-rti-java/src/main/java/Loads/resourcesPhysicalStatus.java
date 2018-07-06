@@ -1,5 +1,5 @@
 
-package TEChallenge;
+package Loads;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,7 @@ import org.cpswt.hla.*;
 
 /**
 * The resourcesPhysicalStatus class implements the resourcesPhysicalStatus object in the
-* TEChallenge simulation.
+* Loads simulation.
 */
 public class resourcesPhysicalStatus extends ObjectRoot {
 

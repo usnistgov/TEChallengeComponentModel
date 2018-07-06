@@ -29,7 +29,7 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>org.webgme.guest</groupId>
-			<artifactId>Load</artifactId>
+			<artifactId>Loads</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -167,7 +167,7 @@
                                 <echo message="Creating folder for the execution..." />
                                 
                                 <mkdir dir="${project.basedir}/target/Grid" />
-                                <mkdir dir="${project.basedir}/target/Load" />
+                                <mkdir dir="${project.basedir}/target/Loads" />
                         	</tasks>
                     	</configuration>
 	                    <goals>
@@ -228,10 +228,10 @@
             </properties>
         </profile>
         <profile>
-            <id>Load</id>
+            <id>Loads</id>
             <properties>
-                <federate.name>Load</federate.name>
-                <federate.configFile>conf/load.json</federate.configFile>
+                <federate.name>Loads</federate.name>
+                <federate.configFile>conf/loads.json</federate.configFile>
             </properties>
         </profile>
 		<profile>

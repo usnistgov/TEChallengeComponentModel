@@ -1,4 +1,4 @@
-package Grid;
+package TEChallenge;
 
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
@@ -11,28 +11,29 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The Grid type of federate for the federation designed in WebGME.
+ * The Loads type of federate for the federation designed in WebGME.
  *
  */
-public class Grid extends GridBase {
+public class Loads extends LoadsBase {
 
-    private final static Logger log = LogManager.getLogger(Grid.class);
+    private final static Logger log = LogManager.getLogger(Loads.class);
 
     double currentTime = 0;
+
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-     gridVoltageState vgridVoltageState = new gridVoltageState();
+    // resourcesPhysicalStatus vresourcesPhysicalStatus = new resourcesPhysicalStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public Grid(FederateConfig params) throws Exception {
+    public Loads(FederateConfig params) throws Exception {
         super(params);
 
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-         vgridVoltageState.registerObject(getLRC());
+        // vresourcesPhysicalStatus.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -43,8 +44,8 @@ public class Grid extends GridBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof gridVoltageState) {
+                handleObjectClass((gridVoltageState) object);
             }
             log.info("Object received and handled: " + s);
         }
@@ -96,13 +97,36 @@ public class Grid extends GridBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-                vgridVoltageState.set_grid_Voltage_Imaginary_A(00+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Imaginary_B(11+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Imaginary_C(22+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_A(33+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_B(44+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_C(55+(float)currentTime);
-                vgridVoltageState.updateAttributeValues(getLRC(), currentTime);
+            //    vresourcesPhysicalStatus.set_current_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_status(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_type(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.updateAttributeValues(getLRC(), currentTime);
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -125,56 +149,22 @@ public class Grid extends GridBase {
         super.notifyFederationOfResign();
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(gridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
-         log.info("loadInstance: " + object.get_loadInstanceName());
-         log.info("gridNodeId: " + object.get_gridNodeId());
-         log.info("phases: " + object.get_phases());
-         log.info("status: " + object.get_status());
-         log.info("type: " + object.get_type());
-
-         log.info("voltage_Real_A: " + object.get_voltage_Real_A());
-         log.info("voltage_Imaginary_A: " + object.get_voltage_Imaginary_A());
-         log.info("voltage_Real_B: " + object.get_voltage_Real_B());
-         log.info("voltage_Imaginary_B: " + object.get_voltage_Imaginary_B());
-         log.info("voltage_Real_C: " + object.get_voltage_Real_C());
-         log.info("voltage_Imaginary_C: " + object.get_voltage_Imaginary_C());
-
-         log.info("current_Real_A: " + object.get_current_Real_A());
-         log.info("current_Imaginary_A: " + object.get_current_Imaginary_A());
-         log.info("current_Real_B: " + object.get_current_Real_B());
-         log.info("current_Imaginary_B: " + object.get_current_Imaginary_B());
-         log.info("current_Real_C: " + object.get_current_Real_C());
-         log.info("current_Imaginary_C: " + object.get_current_Imaginary_C());
-
-         log.info("impedance_Real_A: " + object.get_impedance_Real_A());
-         log.info("impedance_Imaginary_A: " + object.get_impedance_Imaginary_A());
-         log.info("impedance_Real_B: " + object.get_impedance_Real_B());
-         log.info("impedance_Imaginary_B: " + object.get_impedance_Imaginary_B());
-         log.info("impedance_Real_C: " + object.get_impedance_Real_C());
-         log.info("impedance_Imaginary_C: " + object.get_impedance_Imaginary_C());
-
-         log.info("power_Real_A: " + object.get_power_Real_A());
-         log.info("power_Imaginary_A: " + object.get_power_Imaginary_A());
-         log.info("power_Real_B: " + object.get_power_Real_B());
-         log.info("power_Imaginary_B: " + object.get_power_Imaginary_B());
-         log.info("power_Real_C: " + object.get_power_Real_C());
-         log.info("power_Imaginary_C: " + object.get_power_Imaginary_C());
-
     }
 
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            Grid federate = new Grid(federateConfig);
+            Loads federate = new Loads(federateConfig);
             federate.execute();
 
             System.exit(0);
         } catch (Exception e) {
-            log.error("There was a problem executing the Grid federate: {}", e.getMessage());
+            log.error("There was a problem executing the Loads federate: {}", e.getMessage());
             log.error(e);
 
             System.exit(1);

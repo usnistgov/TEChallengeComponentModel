@@ -198,6 +198,14 @@
             </attribute>
 
             <attribute>
+                <name>loadInstanceName</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
                 <name>phases</name>
                 <dataType>String</dataType>
                 <transportation>HLAreliable</transportation>
@@ -256,6 +264,14 @@
             <attribute>
                 <name>status</name>
                 <dataType>boolean</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>type</name>
+                <dataType>String</dataType>
                 <transportation>HLAreliable</transportation>
                 <order>TimeStamp</order>
                 <semantics></semantics>
