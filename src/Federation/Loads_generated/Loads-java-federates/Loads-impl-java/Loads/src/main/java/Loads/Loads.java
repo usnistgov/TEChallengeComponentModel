@@ -163,12 +163,7 @@ public class Loads extends LoadsBase {
 
         startAdvanceTimeThread();
 
-        // this is the exit condition of the following while loop
-        // it is used to break the loop so that latejoiner federates can
-        // notify the federation manager that they left the federation
-        boolean exitCondition = false;
-
-        while (true) {
+        while (exitCondition == false) {
             currentTime += super.getStepSize();
 
             atr.requestSyncStart();
@@ -184,13 +179,16 @@ public class Loads extends LoadsBase {
             atr.requestSyncEnd();
             atr = newATR;
 
-            if(exitCondition) {
-                break;
-            }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+		// call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed to before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+
     }
 
     private void handleObjectClass(gridVoltageState object) {

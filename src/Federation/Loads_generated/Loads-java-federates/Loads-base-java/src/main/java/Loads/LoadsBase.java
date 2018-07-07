@@ -3,17 +3,28 @@ package Loads;
 import hla.rti.EventRetractionHandle;
 import hla.rti.LogicalTime;
 import hla.rti.ReceivedInteraction;
+import hla.rti.ResignAction;
 
 import org.cpswt.hla.C2WInteractionRoot;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
+import org.cpswt.hla.SimEnd;
 
 import org.cpswt.config.FederateConfig;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+
 public class LoadsBase extends SynchronizedFederate {
+
+	private static final Logger logger = LogManager.getLogger(LoadsBase.class);
+	boolean exitCondition = false;	// set to true when SimEnd is received
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
@@ -114,5 +125,40 @@ public class LoadsBase extends SynchronizedFederate {
 		}
 
 		super.receiveInteraction( interactionClass, theInteraction, userSuppliedTag, theTime, retractionHandle );			
+	}
+
+    /**
+     * Handles a simEnd interaction. Overrides the SynchronizedFederate default behavior which is to abort 
+     *
+     * @return void
+     */
+	@Override
+    protected void handleIfSimEnd(int interactionClass, ReceivedInteraction theInteraction, LogicalTime theTime) {
+        if (SimEnd.match(interactionClass)) {
+            logger.info("{}: SimEnd interaction received, exiting...", getFederateId());
+            
+            // this one will set flag allowing foreground federate to gracefully shut down
+            exitCondition = true;
+        }
+    }
+    
+	/**
+	 * Processes graceful shut-down of hla federate
+	 *
+	 * @return void
+	 * @throws hla.rti.ConcurrentAccessAttempted 
+	 */    
+	public void exitGracefully() throws hla.rti.ConcurrentAccessAttempted
+	{
+
+		// notify FederationManager about resign
+		super.notifyFederationOfResign();
+
+		// Wait for 10 seconds for Federation Manager to recognize that the federate has resigned.
+		try {
+			Thread.sleep(CpswtDefaults.SimEndWaitingTimeMillis);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
 	}
 }

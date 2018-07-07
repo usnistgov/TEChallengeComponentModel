@@ -5,7 +5,6 @@ import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
-import org.cpswt.utils.CpswtDefaults;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,12 +82,7 @@ public class Loads extends LoadsBase {
 
         startAdvanceTimeThread();
 
-        // this is the exit condition of the following while loop
-        // it is used to break the loop so that latejoiner federates can
-        // notify the federation manager that they left the federation
-        boolean exitCondition = false;
-
-        while (true) {
+        while (exitCondition == false) {
             currentTime += super.getStepSize();
 
             atr.requestSyncStart();
@@ -132,21 +126,30 @@ public class Loads extends LoadsBase {
 
             CheckReceivedSubscriptions("Main Loop");
 
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // TODO break here if ready to resign and break out of while loop
+            //	break;
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY FILE BEYOND THIS LINE
+            // DO NOT MODIFY Method BEYOND THIS LINE
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
             putAdvanceTimeRequest(newATR);
             atr.requestSyncEnd();
             atr = newATR;
 
-            if(exitCondition) {
-                break;
-            }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+		// call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed to before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+
     }
 
     private void handleObjectClass(gridVoltageState object) {
