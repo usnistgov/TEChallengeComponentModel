@@ -1,0 +1,20 @@
+{
+  "federateTypesAllowed": [
+    "Grid",
+    "Loads"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Grid",
+      "count": 1
+    },
+    {
+      "federateType": "Loads",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [],
+  "coaDefinition": "conf/NewcoaConfig.json",
+  "coaSelection": "conf/main/coaSelection_main.json",
+  "terminateOnCOAFinish": false
+}
