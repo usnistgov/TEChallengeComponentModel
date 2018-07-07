@@ -5,6 +5,7 @@
 	"isLateJoiner": false,
 	"lookAhead": 0.1,
 	"stepSize": 1.0,
+	"number": 10,
 	"loads": [{
 		"gNodeId": "1",
             "state":true,

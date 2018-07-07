@@ -38,6 +38,9 @@ public class Loads extends LoadsBase {
 
         
         this.configuration = params; 
+        
+        numberOfInstances = configuration.number;
+        
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
     }

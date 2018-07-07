@@ -7,6 +7,8 @@ import org.cpswt.config.FederateParameter;
 
 public class LoadsConfig extends FederateConfig {
 
+    @FederateParameter
+    public int number;
 
     @FederateParameter
     public Load[] loads = new Load[2];
