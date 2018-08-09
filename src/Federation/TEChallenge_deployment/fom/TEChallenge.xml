@@ -89,6 +89,211 @@
             </attribute>
         </objectClass>
         <objectClass>
+            <name>resourceControl</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>Resources</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>activePowerCurve</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>actualDemand</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>adjustedFullDRPower</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>adjustedNoDRPower</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>downBeginRamp</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>downDuration</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>downRampToCompletion</name>
+                <dataType>boolean</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>downRate</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>loadStatusType</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>locked</name>
+                <dataType>boolean</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>maximumReactivePower</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>maximumRealPower</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>reactiveDesiredFractionOfFullRatedOutputBegin</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>reactiveDesiredFractionOfFullRatedOutputEnd</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>realDesiredFractionOfFullRatedOutputBegin</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>realDesiredFractionOfFullRatedOutputEnd</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>realRequiredFractionOfFullRatedInputPowerDrawnBegin</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>realRequiredFractionOfFullRatedInputPowerDrawnEnd</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>upBeginRamp</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>upDuration</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>upRampToCompletion</name>
+                <dataType>boolean</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>upRate</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
             <name>resourcesPhysicalStatus</name>
             <sharing>PublishSubscribe</sharing>
             <semantics></semantics>
@@ -319,6 +524,27 @@
 
             <attribute>
                 <name>voltage_Real_C</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>supervisoryControlSignal</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>localControllerName</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>modulationSignal</name>
                 <dataType>float</dataType>
                 <transportation>HLAreliable</transportation>
                 <order>TimeStamp</order>

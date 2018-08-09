@@ -21,10 +21,11 @@ public class Loads extends LoadsBase {
     private final static Logger log = LogManager.getLogger(Loads.class);
 
     double currentTime = 0;
-    int numberOfInstances=10 ;   
+    int numberOfInstances;   
     private LoadsConfig configuration;  
-    public Load[] loads = new Load[numberOfInstances];                                                   
-    resourcesPhysicalStatus[] vresourcesPhysicalStatus= new resourcesPhysicalStatus[numberOfInstances];
+    public Load[] loads = null;                                                   
+    resourcesPhysicalStatus[] vresourcesPhysicalStatus= null ;
+
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
@@ -40,7 +41,8 @@ public class Loads extends LoadsBase {
         this.configuration = params; 
         
         numberOfInstances = configuration.number;
-        
+        loads = new Load[numberOfInstances];  
+        vresourcesPhysicalStatus= new resourcesPhysicalStatus[numberOfInstances];  
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
     }
@@ -54,18 +56,14 @@ public class Loads extends LoadsBase {
                  vresourcesPhysicalStatus[i] = new resourcesPhysicalStatus();
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                   loads[i] = new Load();
-               
-                    
-                    try {
+                      try {
 						vresourcesPhysicalStatus[i].registerObject(getLRC(), configuration.loads[i].loadInstanceName);
 					} catch (ObjectAlreadyRegistered e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-               
-              
-               
-                
+                      
+                              
             }
         }
         
@@ -79,12 +77,15 @@ public class Loads extends LoadsBase {
             if (object instanceof gridVoltageState) {
                 handleObjectClass((gridVoltageState) object);
             }
-            log.info("Object received and handled: " + s);
+            else if (object instanceof resourceControl) {
+                handleObjectClass((resourceControl) object);
+            }
+            log.info("---------------------------Object received and handled:------------------------------- " + s);
         }
     }
     
      private void updateInstances(int numberOfInstances) {
-        log.trace("updateOperandInstances");
+        log.trace("...................................updating Resourse Physical Status Instances.............................................");
         
         for (int i = 0; i < numberOfInstances; i++) {
             
@@ -148,22 +149,16 @@ public class Loads extends LoadsBase {
             readyToPopulate();
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // Call CheckReceivedSubscriptions(<message>) here to receive
-        // subscriptions published before the first time step.
-        ///////////////////////////////////////////////////////////////////////
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
-
         if(!super.isLateJoiner()) {
             readyToRun();
         }
 
         startAdvanceTimeThread();
 
-        while (exitCondition == false) {
+
+        boolean exitCondition = false;
+
+        while (true) {
             currentTime += super.getStepSize();
 
             atr.requestSyncStart();
@@ -179,17 +174,16 @@ public class Loads extends LoadsBase {
             atr.requestSyncEnd();
             atr = newATR;
 
+            if(exitCondition) {
+                break;
+            }
         }
 
-		// call exitGracefully to shut down federate
-        exitGracefully();
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups needed to before exiting the app
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-
+        // while loop finished, notify FederationManager about resign
+        super.notifyFederationOfResign();
     }
+
+
 
     private void handleObjectClass(gridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
@@ -202,6 +196,44 @@ public class Loads extends LoadsBase {
          log.info("grid_Voltage_Real_B: " + object.get_grid_Voltage_Real_B());
          log.info("grid_Voltage_Real_C: " + object.get_grid_Voltage_Real_C());
 
+    }
+
+    
+    private void handleObjectClass(resourceControl object) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the object                 //
+        //////////////////////////////////////////////////////////////////////////
+         log.info("actualDemand: " + object.get_actualDemand());
+         log.info("locked: " + object.get_locked());
+         log.info("loadStatusType: " + object.get_loadStatusType());
+         log.info("Resources: " + object.get_Resources());
+
+         log.info("activePowerCurve: " + object.get_activePowerCurve());
+         log.info("adjustedFullDRPower: " + object.get_adjustedFullDRPower());
+         log.info("adjustedNoDRPower: " + object.get_adjustedNoDRPower());
+
+         log.info("maximumReactivePower: " + object.get_maximumReactivePower());
+         log.info("maximumRealPower: " + object.get_maximumRealPower());
+
+         log.info("downBeginRamp: " + object.get_downBeginRamp());
+         log.info("downDuration: " + object.get_downDuration());
+         log.info("downRampToCompletion: " + object.get_downRampToCompletion());
+         log.info("downRate: " + object.get_downRate());
+
+         log.info("reactiveDesiredFractionOfFullRatedOutputBegin: " + object.get_reactiveDesiredFractionOfFullRatedOutputBegin());
+         log.info("reactiveDesiredFractionOfFullRatedOutputEnd: " + object.get_reactiveDesiredFractionOfFullRatedOutputEnd());
+         log.info("reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin: " + object.get_reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin());
+         log.info("reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd: " + object.get_reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd());
+         
+         log.info("realDesiredFractionOfFullRatedOutputBegin: " + object.get_realDesiredFractionOfFullRatedOutputBegin());
+         log.info("realDesiredFractionOfFullRatedOutputEnd: " + object.get_realDesiredFractionOfFullRatedOutputEnd());
+         log.info("realRequiredFractionOfFullRatedInputPowerDrawnBegin: " + object.get_realRequiredFractionOfFullRatedInputPowerDrawnBegin());
+         log.info("realRequiredFractionOfFullRatedInputPowerDrawnEnd: " + object.get_realRequiredFractionOfFullRatedInputPowerDrawnEnd());
+
+         log.info("upBeginRamp: " + object.get_upBeginRamp());
+         log.info("upDuration: " + object.get_upDuration());
+         log.info("upRampToCompletion: " + object.get_upRampToCompletion());
+         log.info("upRate: " + object.get_upRate());
     }
 
     public static void main(String[] args) {

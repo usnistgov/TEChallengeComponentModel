@@ -11,7 +11,9 @@ public class LoadsConfig extends FederateConfig {
     public int number;
 
     @FederateParameter
-    public Load[] loads = new Load[2];
+     public Load[] loads ;
+
+    //public Load[] loads = new Load[2];
 	
 
  
