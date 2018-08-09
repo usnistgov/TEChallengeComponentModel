@@ -15,5 +15,9 @@
         
         <module>Loads</module>
         
+        <module>LocalController</module>
+        
+        <module>supervisoryController</module>
+        
     </modules>
 </project>

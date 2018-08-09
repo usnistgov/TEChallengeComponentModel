@@ -1,7 +1,9 @@
 {
   "federateTypesAllowed": [
     "Grid",
-    "Loads"
+    "Loads",
+    "LocalController",
+    "supervisoryController"
   ],
   "expectedFederates": [
     {
@@ -10,6 +12,14 @@
     },
     {
       "federateType": "Loads",
+      "count": 1
+    },
+    {
+      "federateType": "LocalController",
+      "count": 1
+    },
+    {
+      "federateType": "supervisoryController",
       "count": 1
     }
   ],
@@ -20,6 +30,14 @@
     },
     {
       "federateType": "Loads",
+      "count": 0
+    },
+    {
+      "federateType": "LocalController",
+      "count": 0
+    },
+    {
+      "federateType": "supervisoryController",
       "count": 0
     }
   ]
