@@ -82,15 +82,16 @@ public class Grid extends GridBase {
 
         startAdvanceTimeThread();
 
-        while (exitCondition == false) {
+
+
+        boolean exitCondition = false;
+
+        while (true) {
             currentTime += super.getStepSize();
 
             atr.requestSyncStart();
             enteredTimeGrantedState();
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO objects that must be sent every logical time step
-            //
+            
                 vgridVoltageState.set_grid_Voltage_Imaginary_A(00+(float)currentTime);
                 vgridVoltageState.set_grid_Voltage_Imaginary_B(11+(float)currentTime);
                 vgridVoltageState.set_grid_Voltage_Imaginary_C(22+(float)currentTime);
@@ -98,16 +99,8 @@ public class Grid extends GridBase {
                 vgridVoltageState.set_grid_Voltage_Real_B(44+(float)currentTime);
                 vgridVoltageState.set_grid_Voltage_Real_C(55+(float)currentTime);
                 vgridVoltageState.updateAttributeValues(getLRC(), currentTime);
-            //
-            //////////////////////////////////////////////////////////////////////////////////////////
-
+            
             CheckReceivedSubscriptions("Main Loop");
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop
-            //	break;
-            ////////////////////////////////////////////////////////////////////////////////////////
-
 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // DO NOT MODIFY FILE BEYOND THIS LINE
@@ -117,17 +110,17 @@ public class Grid extends GridBase {
             atr.requestSyncEnd();
             atr = newATR;
 
+            if(exitCondition) {
+                break;
+            }
         }
 
-		// call exitGracefully to shut down federate
-        exitGracefully();
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups needed to before exiting the app
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-
+        // while loop finished, notify FederationManager about resign
+        super.notifyFederationOfResign();
     }
+
+
+      
 
     private void handleObjectClass(resourcesPhysicalStatus object) {
         //////////////////////////////////////////////////////////////////////////

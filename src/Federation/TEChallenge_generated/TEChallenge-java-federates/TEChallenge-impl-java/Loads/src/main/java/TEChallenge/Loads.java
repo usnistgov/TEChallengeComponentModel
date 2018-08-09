@@ -5,6 +5,7 @@ import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +47,9 @@ public class Loads extends LoadsBase {
             if (object instanceof gridVoltageState) {
                 handleObjectClass((gridVoltageState) object);
             }
+            else if (object instanceof resourceControl) {
+                handleObjectClass((resourceControl) object);
+            }
             log.info("Object received and handled: " + s);
         }
     }
@@ -82,7 +86,12 @@ public class Loads extends LoadsBase {
 
         startAdvanceTimeThread();
 
-        while (exitCondition == false) {
+        // this is the exit condition of the following while loop
+        // it is used to break the loop so that latejoiner federates can
+        // notify the federation manager that they left the federation
+        boolean exitCondition = false;
+
+        while (true) {
             currentTime += super.getStepSize();
 
             atr.requestSyncStart();
@@ -126,33 +135,30 @@ public class Loads extends LoadsBase {
 
             CheckReceivedSubscriptions("Main Loop");
 
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop
-            //	break;
-            ////////////////////////////////////////////////////////////////////////////////////////
-
-
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY Method BEYOND THIS LINE
+            // DO NOT MODIFY FILE BEYOND THIS LINE
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
             putAdvanceTimeRequest(newATR);
             atr.requestSyncEnd();
             atr = newATR;
 
+            if(exitCondition) {
+                break;
+            }
         }
 
-		// call exitGracefully to shut down federate
-        exitGracefully();
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups needed to before exiting the app
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-
+        // while loop finished, notify FederationManager about resign
+        super.notifyFederationOfResign();
     }
 
     private void handleObjectClass(gridVoltageState object) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the object                 //
+        //////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleObjectClass(resourceControl object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
