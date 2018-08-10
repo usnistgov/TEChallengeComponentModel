@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<objectModel xsi:schemaLocation="http://standards.ieee.org/IEEE1516-2010 http://standards.ieee.org/downloads/1516/1516.2-2010/IEEE1516-DIF-2010.xsd https://pages.nist.gov/ucef ucef.xsd" xmlns="http://standards.ieee.org/IEEE1516-2010" xmlns:ucef="https://pages.nist.gov/ucef" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelIdentification />
+    <objects>
+        <objectClass>
+            <name>ObjectRoot</name>
+            <sharing>Neither</sharing>
+            <semantics></semantics>
+        <objectClass>
+            <name>CoolingControlObject</name>
+            <sharing>Subscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>cooling_setpoint</name>
+                <dataType>double</dataType>
+                <sharing>Subscribe</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+                <ucef:attributeConfig>
+                    <ucef:unitConversion>
+                        <ucef:linearConversion>
+                            <ucef:scale>0.5556</ucef:scale>
+                            <ucef:offset>-17.7778</ucef:offset>
+                        </ucef:linearConversion>
+                    </ucef:unitConversion>
+                </ucef:attributeConfig>
+            </attribute>
+
+            <attribute>
+                <name>name</name>
+                <dataType>String</dataType>
+                <sharing>Subscribe</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>GlobalVariablesObject</name>
+            <sharing>Publish</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>clock</name>
+                <dataType>String</dataType>
+                <sharing>Publish</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>HouseObject</name>
+            <sharing>Publish</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>air_temperature</name>
+                <dataType>double</dataType>
+                <sharing>Publish</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+                <ucef:attributeConfig>
+                    <ucef:unitConversion>
+                        <ucef:linearConversion>
+                            <ucef:scale>0.5556</ucef:scale>
+                            <ucef:offset>-17.7778</ucef:offset>
+                        </ucef:linearConversion>
+                    </ucef:unitConversion>
+                    <ucef:updatePeriod>1.5</ucef:updatePeriod>
+                </ucef:attributeConfig>
+            </attribute>
+
+            <attribute>
+                <name>compressor_count</name>
+                <dataType>int</dataType>
+                <sharing>Publish</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+                <ucef:attributeConfig>
+                    <ucef:updatePeriod>1.0</ucef:updatePeriod>
+                </ucef:attributeConfig>
+            </attribute>
+
+            <attribute>
+                <name>compressor_on</name>
+                <dataType>boolean</dataType>
+                <sharing>Publish</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+                <ucef:attributeConfig>
+                    <ucef:updatePeriod>0.5</ucef:updatePeriod>
+                </ucef:attributeConfig>
+            </attribute>
+
+            <attribute>
+                <name>name</name>
+                <dataType>String</dataType>
+                <sharing>Publish</sharing>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <ucef:objectClassConfig>
+                <ucef:publishedObjects>
+                    <ucef:objectName>house2</ucef:objectName>
+                    <ucef:objectName>house3</ucef:objectName>
+                </ucef:publishedObjects>
+            </ucef:objectClassConfig>
+        </objectClass>
+        </objectClass>
+    </objects>
+    <interactions>
+        <interactionClass>
+            <name>InteractionRoot</name>
+            <sharing>Neither</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+        <interactionClass>
+            <name>C2WInteractionRoot</name>
+            <sharing>Neither</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>actualLogicalGenerationTime</name>
+                <dataType>double</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>federateFilter</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>originFed</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>sourceFed</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+        <interactionClass>
+            <name>FederateJoinInteraction</name>
+            <sharing>Publish</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>FederateId</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>FederateType</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>IsLateJoiner</name>
+                <dataType>boolean</dataType>
+                <semantics></semantics>
+            </parameter>
+        </interactionClass>
+        <interactionClass>
+            <name>FederateResignInteraction</name>
+            <sharing>Publish</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>FederateId</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>FederateType</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>IsLateJoiner</name>
+                <dataType>boolean</dataType>
+                <semantics></semantics>
+            </parameter>
+        </interactionClass>
+        <interactionClass>
+            <name>SimulationControl</name>
+            <sharing>Neither</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+        <interactionClass>
+            <name>SimEnd</name>
+            <sharing>Subscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+        </interactionClass>
+        <interactionClass>
+            <name>SimTime</name>
+            <sharing>Subscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>timeScale</name>
+                <dataType>double</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>timeZone</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>unixTimeStart</name>
+                <dataType>long</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>unixTimeStop</name>
+                <dataType>long</dataType>
+                <semantics></semantics>
+            </parameter>
+        </interactionClass>
+        </interactionClass>
+        <interactionClass>
+            <name>CoolingControl</name>
+            <sharing>Subscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>cooling_setpoint</name>
+                <dataType>double</dataType>
+                <semantics></semantics>
+                <ucef:parameterConfig>
+                    <ucef:unitConversion>
+                        <ucef:nameConversion>degC</ucef:nameConversion>
+                    </ucef:unitConversion>
+                </ucef:parameterConfig>
+            </parameter>
+
+            <parameter> 
+                <name>name</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+        </interactionClass>
+        <interactionClass>
+            <name>GlobalVariables</name>
+            <sharing>Publish</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>clock</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+        </interactionClass>
+        <interactionClass>
+            <name>House</name>
+            <sharing>Publish</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+
+            <parameter> 
+                <name>air_temperature</name>
+                <dataType>double</dataType>
+                <semantics></semantics>
+                <ucef:parameterConfig>
+                    <ucef:unitConversion>
+                        <ucef:nameConversion>degC</ucef:nameConversion>
+                    </ucef:unitConversion>
+                </ucef:parameterConfig>
+            </parameter>
+
+            <parameter> 
+                <name>compressor_count</name>
+                <dataType>int</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>compressor_on</name>
+                <dataType>boolean</dataType>
+                <semantics></semantics>
+            </parameter>
+
+            <parameter> 
+                <name>name</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+            <ucef:interactionClassConfig>
+                <ucef:updatePeriod>2</ucef:updatePeriod>
+                <ucef:publishedObjects>
+                    <ucef:objectName>house1</ucef:objectName>
+                </ucef:publishedObjects>
+            </ucef:interactionClassConfig>
+        </interactionClass>
+        </interactionClass>
+        </interactionClass>
+    </interactions>
+    <dimensions />
+</objectModel>
