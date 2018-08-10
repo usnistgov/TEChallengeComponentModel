@@ -131,7 +131,9 @@ object load {
      name load1;
      nominal_voltage 7216.88;
      phases ABC;
-	constant_power_A 345481+158342j;
+	constant_power_A 1.0E6+0.0j;
+	constant_power_B 1.0E6+0.0j;
+	constant_power_C 1.0E6+0.0j;
 }
 
 
@@ -140,7 +142,9 @@ object load {
      name load2;
      nominal_voltage 7216.88;
      phases ABC;
-	constant_power_A 345481+158342j;
+	constant_power_A 1.0E6+0.0j;
+	constant_power_B 1.0E6+0.0j;
+	constant_power_C 1.0E6+0.0j;
 }
 
 object load {
@@ -148,7 +152,9 @@ object load {
      name load3;
      nominal_voltage 7216.88;
      phases ABC;
-	constant_power_A 345481+158342j;
+	constant_power_A 1.0E6+0.0j;
+	constant_power_B 1.0E6+0.0j;
+	constant_power_C 1.0E6+0.0j;
 }
 
 object load {
@@ -158,12 +164,14 @@ object load {
      phases ABC;
 	constant_power_A_real PHASE_A_REAL.value;
 	constant_power_A_reac PHASE_A_IMAG.value;
-	constant_power_B PHASE_A_REAL.value;
-	constant_power_C PHASE_A_IMAG.value;
+	constant_power_B_real PHASE_A_REAL.value;
+	constant_power_B_reac PHASE_A_IMAG.value;
+	constant_power_C_real PHASE_A_REAL.value;
+	constant_power_C_reac PHASE_A_IMAG.value;
 }
 
 object multi_recorder {
-    property substation_meter:measured_power_A, load_meter:measured_power_A;
+    property substation_meter:measured_power_A, load_meter:measured_power_A, load_meter:measured_power_B,load_meter:measured_power_C;
     file node_data.csv;
     interval 1;
 }
