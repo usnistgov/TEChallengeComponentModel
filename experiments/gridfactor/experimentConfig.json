@@ -1,0 +1,44 @@
+{
+  "federateTypesAllowed": [
+    "Grid",
+    "Loads",
+    "LocalController",
+    "supervisoryController"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Grid",
+      "count": 1
+    },
+    {
+      "federateType": "Loads",
+      "count": 1
+    },
+    {
+      "federateType": "LocalController",
+      "count": 0
+    },
+    {
+      "federateType": "supervisoryController",
+      "count": 0
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Grid",
+      "count": 0
+    },
+    {
+      "federateType": "Loads",
+      "count": 0
+    },
+    {
+      "federateType": "LocalController",
+      "count": 0
+    },
+    {
+      "federateType": "supervisoryController",
+      "count": 0
+    }
+  ]
+}
