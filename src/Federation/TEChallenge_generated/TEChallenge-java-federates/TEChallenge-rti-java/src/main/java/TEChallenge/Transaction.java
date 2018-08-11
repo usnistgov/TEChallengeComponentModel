@@ -23,26 +23,26 @@ import hla.rti.SuppliedAttributes;
 import org.cpswt.hla.*;
 
 /**
-* Implements ObjectRoot.supervisoryControlSignal
+* Implements ObjectRoot.Transaction
 */
-public class supervisoryControlSignal extends ObjectRoot {
+public class Transaction extends ObjectRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the supervisoryControlSignal object class with default attribute values.
+    * Creates an instance of the Transaction object class with default attribute values.
     */
-    public supervisoryControlSignal() {}
+    public Transaction() {}
 
-    private static int _localControllerName_handle;
-    private static int _modulationSignal_handle;
+    private static int _accept_handle;
+    private static int _tenderId_handle;
 
     private static boolean _isInitialized = false;
 
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the supervisoryControlSignal object class.
+    * Returns the handle (RTI assigned) of the Transaction object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -55,7 +55,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the supervisoryControlSignal object class.
+    * Returns the fully-qualified (dot-delimited) name of the Transaction object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -64,17 +64,17 @@ public class supervisoryControlSignal extends ObjectRoot {
     * @return the fully-qualified HLA class path for this object class
     */
     public static String get_class_name() {
-        return "ObjectRoot.supervisoryControlSignal";
+        return "ObjectRoot.Transaction";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the supervisoryControlSignal object class.
+    * class name) of the Transaction object class.
     *
     * @return the name of this object class
     */
     public static String get_simple_class_name() {
-        return "supervisoryControlSignal";
+        return "Transaction";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -82,7 +82,7 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden attributes in the
-    * supervisoryControlSignal object class.
+    * Transaction object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -97,7 +97,7 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the attributes in the
-    * supervisoryControlSignal object class.
+    * Transaction object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -114,23 +114,23 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static Set< String > _subscribeAttributeNameSet = new HashSet< String >();
 
     static {
-        _classNameSet.add("ObjectRoot.supervisoryControlSignal");
-        _classNameClassMap.put("ObjectRoot.supervisoryControlSignal", supervisoryControlSignal.class);
+        _classNameSet.add("ObjectRoot.Transaction");
+        _classNameClassMap.put("ObjectRoot.Transaction", Transaction.class);
 
-        _datamemberClassNameSetMap.put("ObjectRoot.supervisoryControlSignal", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("ObjectRoot.supervisoryControlSignal", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("ObjectRoot.Transaction", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("ObjectRoot.Transaction", _allDatamemberNames);
 
-        _datamemberNames.add("localControllerName");
-        _datamemberNames.add("modulationSignal");
+        _datamemberNames.add("accept");
+        _datamemberNames.add("tenderId");
 
-        _datamemberTypeMap.put("localControllerName", "String");
-        _datamemberTypeMap.put("modulationSignal", "float");
+        _datamemberTypeMap.put("accept", "boolean");
+        _datamemberTypeMap.put("tenderId", "int");
 
-        _allDatamemberNames.add("localControllerName");
-        _allDatamemberNames.add("modulationSignal");
+        _allDatamemberNames.add("accept");
+        _allDatamemberNames.add("tenderId");
 
-        _classNamePublishAttributeNameMap.put("ObjectRoot.supervisoryControlSignal", _publishAttributeNameSet);
-        _classNameSubscribeAttributeNameMap.put("ObjectRoot.supervisoryControlSignal", _subscribeAttributeNameSet);
+        _classNamePublishAttributeNameMap.put("ObjectRoot.Transaction", _publishAttributeNameSet);
+        _classNameSubscribeAttributeNameMap.put("ObjectRoot.Transaction", _subscribeAttributeNameSet);
     }
 
     protected static void init(RTIambassador rti) {
@@ -142,7 +142,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getObjectClassHandle("ObjectRoot.supervisoryControlSignal");
+                _handle = rti.getObjectClassHandle("ObjectRoot.Transaction");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -156,15 +156,15 @@ public class supervisoryControlSignal extends ObjectRoot {
             }
         }
 
-        _classNameHandleMap.put("ObjectRoot.supervisoryControlSignal", get_handle());
-        _classHandleNameMap.put(get_handle(), "ObjectRoot.supervisoryControlSignal");
-        _classHandleSimpleNameMap.put(get_handle(), "supervisoryControlSignal");
+        _classNameHandleMap.put("ObjectRoot.Transaction", get_handle());
+        _classHandleNameMap.put(get_handle(), "ObjectRoot.Transaction");
+        _classHandleSimpleNameMap.put(get_handle(), "Transaction");
 
         isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _localControllerName_handle = rti.getAttributeHandle("localControllerName", get_handle());
-                _modulationSignal_handle = rti.getAttributeHandle("modulationSignal", get_handle());
+                _accept_handle = rti.getAttributeHandle("accept", get_handle());
+                _tenderId_handle = rti.getAttributeHandle("tenderId", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -181,17 +181,17 @@ public class supervisoryControlSignal extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.supervisoryControlSignal.localControllerName", _localControllerName_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.supervisoryControlSignal.modulationSignal", _modulationSignal_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Transaction.accept", _accept_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Transaction.tenderId", _tenderId_handle);
 
-        _datamemberHandleNameMap.put(_localControllerName_handle, "localControllerName");
-        _datamemberHandleNameMap.put(_modulationSignal_handle, "modulationSignal");
+        _datamemberHandleNameMap.put(_accept_handle, "accept");
+        _datamemberHandleNameMap.put(_tenderId_handle, "tenderId");
     }
 
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the supervisoryControlSignal object class for a federate.
+    * Publishes the Transaction object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -203,7 +203,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         AttributeHandleSet publishedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _publishAttributeNameSet) {
             try {
-                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.supervisoryControlSignal." + attributeName));
+                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.Transaction." + attributeName));
                 logger.trace("publish {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not publish \"" + attributeName + "\" attribute.", e);
@@ -234,7 +234,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Unpublishes the supervisoryControlSignal object class for a federate.
+    * Unpublishes the Transaction object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -272,7 +272,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the supervisoryControlSignal object class.
+    * Subscribes a federate to the Transaction object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -284,7 +284,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         AttributeHandleSet subscribedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _subscribeAttributeNameSet) {
             try {
-                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.supervisoryControlSignal." + attributeName));
+                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.Transaction." + attributeName));
                 logger.trace("subscribe {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not subscribe to \"" + attributeName + "\" attribute.", e);
@@ -315,7 +315,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Unsubscribes a federate from the supervisoryControlSignal object class.
+    * Unsubscribes a federate from the Transaction object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -352,12 +352,12 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the supervisoryControlSignal object class).
+    * (that is, the Transaction object class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the supervisoryControlSignal object class).
+    * this class (the Transaction object class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the supervisoryControlSignal object class).
+    * (that is, the Transaction object class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -415,8 +415,8 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     @Override
     public String getAttributeName(int datamemberHandle) {
-        if (datamemberHandle == _localControllerName_handle) return "localControllerName";
-        else if (datamemberHandle == _modulationSignal_handle) return "modulationSignal";
+        if (datamemberHandle == _accept_handle) return "accept";
+        else if (datamemberHandle == _tenderId_handle) return "tenderId";
         else return super.getAttributeName(datamemberHandle);
     }
 
@@ -459,220 +459,220 @@ public class supervisoryControlSignal extends ObjectRoot {
     @Override
     public String toString() {
         return getClass().getName() + "("
-                + "localControllerName:" + get_localControllerName()
-                + "," + "modulationSignal:" + get_modulationSignal()
+                + "accept:" + get_accept()
+                + "," + "tenderId:" + get_tenderId()
                 + ")";
     }
 
 
     /**
-    * Publishes the "localControllerName" attribute of the attribute's containing object
+    * Publishes the "accept" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "localControllerName" attribute for publication.
+    * Note:  This method only marks the "accept" attribute for publication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void publish_localControllerName() {
-        _publishAttributeNameSet.add( "localControllerName" );
+    public static void publish_accept() {
+        _publishAttributeNameSet.add( "accept" );
     }
 
     /**
-    * Unpublishes the "localControllerName" attribute of the attribute's containing object
+    * Unpublishes the "accept" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "localControllerName" attribute for unpublication.
+    * Note:  This method only marks the "accept" attribute for unpublication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void unpublish_localControllerName() {
-        _publishAttributeNameSet.remove( "localControllerName" );
+    public static void unpublish_accept() {
+        _publishAttributeNameSet.remove( "accept" );
     }
 
     /**
-    * Subscribes a federate to the "localControllerName" attribute of the attribute's
+    * Subscribes a federate to the "accept" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "localControllerName" attribute for subscription.
+    * Note:  This method only marks the "accept" attribute for subscription.
     * To actually subscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void subscribe_localControllerName() {
-        _subscribeAttributeNameSet.add( "localControllerName" );
+    public static void subscribe_accept() {
+        _subscribeAttributeNameSet.add( "accept" );
     }
 
     /**
-    * Unsubscribes a federate from the "localControllerName" attribute of the attribute's
+    * Unsubscribes a federate from the "accept" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "localControllerName" attribute for unsubscription.
+    * Note:  This method only marks the "accept" attribute for unsubscription.
     * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void unsubscribe_localControllerName() {
-        _subscribeAttributeNameSet.remove( "localControllerName" );
+    public static void unsubscribe_accept() {
+        _subscribeAttributeNameSet.remove( "accept" );
     }
 
     /**
-    * Publishes the "modulationSignal" attribute of the attribute's containing object
+    * Publishes the "tenderId" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "modulationSignal" attribute for publication.
+    * Note:  This method only marks the "tenderId" attribute for publication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void publish_modulationSignal() {
-        _publishAttributeNameSet.add( "modulationSignal" );
+    public static void publish_tenderId() {
+        _publishAttributeNameSet.add( "tenderId" );
     }
 
     /**
-    * Unpublishes the "modulationSignal" attribute of the attribute's containing object
+    * Unpublishes the "tenderId" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "modulationSignal" attribute for unpublication.
+    * Note:  This method only marks the "tenderId" attribute for unpublication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void unpublish_modulationSignal() {
-        _publishAttributeNameSet.remove( "modulationSignal" );
+    public static void unpublish_tenderId() {
+        _publishAttributeNameSet.remove( "tenderId" );
     }
 
     /**
-    * Subscribes a federate to the "modulationSignal" attribute of the attribute's
+    * Subscribes a federate to the "tenderId" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "modulationSignal" attribute for subscription.
+    * Note:  This method only marks the "tenderId" attribute for subscription.
     * To actually subscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void subscribe_modulationSignal() {
-        _subscribeAttributeNameSet.add( "modulationSignal" );
+    public static void subscribe_tenderId() {
+        _subscribeAttributeNameSet.add( "tenderId" );
     }
 
     /**
-    * Unsubscribes a federate from the "modulationSignal" attribute of the attribute's
+    * Unsubscribes a federate from the "tenderId" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "modulationSignal" attribute for unsubscription.
+    * Note:  This method only marks the "tenderId" attribute for unsubscription.
     * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void unsubscribe_modulationSignal() {
-        _subscribeAttributeNameSet.remove( "modulationSignal" );
+    public static void unsubscribe_tenderId() {
+        _subscribeAttributeNameSet.remove( "tenderId" );
     }
 
-    protected Attribute< String > _localControllerName =
-            new Attribute< String >(  new String( "" )  );
+    protected Attribute< Boolean > _accept =
+            new Attribute< Boolean >(  new Boolean( false )  );
 
     /**
-    * Set the value of the "localControllerName" attribute to "value" for this object.
+    * Set the value of the "accept" attribute to "value" for this object.
     *
-    * @param value the new value for the "localControllerName" attribute
+    * @param value the new value for the "accept" attribute
     */
-    public void set_localControllerName( String value ) {
-        _localControllerName.setValue( value );
-        _localControllerName.setTime( getTime() );
-    }
-
-    /**
-    * Returns the value of the "localControllerName" attribute of this object.
-    *
-    * @return the value of the "localControllerName" attribute
-    */
-    public String get_localControllerName() {
-        return _localControllerName.getValue();
+    public void set_accept( boolean value ) {
+        _accept.setValue( value );
+        _accept.setTime( getTime() );
     }
 
     /**
-    * Returns the current timestamp of the "localControllerName" attribute of this object.
+    * Returns the value of the "accept" attribute of this object.
     *
-    * @return the current timestamp of the "localControllerName" attribute
+    * @return the value of the "accept" attribute
     */
-    public double get_localControllerName_time() {
-        return _localControllerName.getTime();
-    }
-
-    protected Attribute< Float > _modulationSignal =
-            new Attribute< Float >(  new Float( 0 )  );
-
-    /**
-    * Set the value of the "modulationSignal" attribute to "value" for this object.
-    *
-    * @param value the new value for the "modulationSignal" attribute
-    */
-    public void set_modulationSignal( float value ) {
-        _modulationSignal.setValue( value );
-        _modulationSignal.setTime( getTime() );
+    public boolean get_accept() {
+        return _accept.getValue();
     }
 
     /**
-    * Returns the value of the "modulationSignal" attribute of this object.
+    * Returns the current timestamp of the "accept" attribute of this object.
     *
-    * @return the value of the "modulationSignal" attribute
+    * @return the current timestamp of the "accept" attribute
     */
-    public float get_modulationSignal() {
-        return _modulationSignal.getValue();
+    public double get_accept_time() {
+        return _accept.getTime();
+    }
+
+    protected Attribute< Integer > _tenderId =
+            new Attribute< Integer >(  new Integer( 0 )  );
+
+    /**
+    * Set the value of the "tenderId" attribute to "value" for this object.
+    *
+    * @param value the new value for the "tenderId" attribute
+    */
+    public void set_tenderId( int value ) {
+        _tenderId.setValue( value );
+        _tenderId.setTime( getTime() );
     }
 
     /**
-    * Returns the current timestamp of the "modulationSignal" attribute of this object.
+    * Returns the value of the "tenderId" attribute of this object.
     *
-    * @return the current timestamp of the "modulationSignal" attribute
+    * @return the value of the "tenderId" attribute
     */
-    public double get_modulationSignal_time() {
-        return _modulationSignal.getTime();
+    public int get_tenderId() {
+        return _tenderId.getValue();
     }
 
-    protected supervisoryControlSignal( ReflectedAttributes datamemberMap, boolean initFlag ) {
+    /**
+    * Returns the current timestamp of the "tenderId" attribute of this object.
+    *
+    * @return the current timestamp of the "tenderId" attribute
+    */
+    public double get_tenderId_time() {
+        return _tenderId.getTime();
+    }
+
+    protected Transaction( ReflectedAttributes datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
-    protected supervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected Transaction( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
     /**
-    * Creates an instance of the supervisoryControlSignal object class, using
+    * Creates an instance of the Transaction object class, using
     * "datamemberMap" to initialize its attribute values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new supervisoryControlSignal object class instance
+    * attributes of this new Transaction object class instance
     */
-    public supervisoryControlSignal( ReflectedAttributes datamemberMap ) {
+    public Transaction( ReflectedAttributes datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #supervisoryControlSignal( ReflectedAttributes datamemberMap )}, except this
-    * new supervisoryControlSignal object class instance is given a timestamp of
+    * Like {@link #Transaction( ReflectedAttributes datamemberMap )}, except this
+    * new Transaction object class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new supervisoryControlSignal object class instance
-    * @param logicalTime timestamp for this new supervisoryControlSignal object class
+    * attributes of this new Transaction object class instance
+    * @param logicalTime timestamp for this new Transaction object class
     * instance
     */
-    public supervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
+    public Transaction( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new supervisoryControlSignal object class instance that is a duplicate
-    * of the instance referred to by supervisoryControlSignal_var.
+    * Creates a new Transaction object class instance that is a duplicate
+    * of the instance referred to by Transaction_var.
     *
-    * @param supervisoryControlSignal_var supervisoryControlSignal object class instance of which
-    * this newly created supervisoryControlSignal object class instance will be a
+    * @param Transaction_var Transaction object class instance of which
+    * this newly created Transaction object class instance will be a
     * duplicate
     */
-    public supervisoryControlSignal( supervisoryControlSignal supervisoryControlSignal_var ) {
-        super( supervisoryControlSignal_var );
+    public Transaction( Transaction Transaction_var ) {
+        super( Transaction_var );
 
-        set_localControllerName( supervisoryControlSignal_var.get_localControllerName() );
-        set_modulationSignal( supervisoryControlSignal_var.get_modulationSignal() );
+        set_accept( Transaction_var.get_accept() );
+        set_tenderId( Transaction_var.get_tenderId() );
     }
 
     /**
@@ -685,15 +685,15 @@ public class supervisoryControlSignal extends ObjectRoot {
     * for this object
     */
     public Object getAttribute( String datamemberName ) {
-        if ( "localControllerName".equals(datamemberName) ) return get_localControllerName();
-        else if ( "modulationSignal".equals(datamemberName) ) return new Float(get_modulationSignal());
+        if ( "accept".equals(datamemberName) ) return new Boolean(get_accept());
+        else if ( "tenderId".equals(datamemberName) ) return new Integer(get_tenderId());
         else return super.getAttribute( datamemberName );
     }
 
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "localControllerName".equals( datamemberName) ) set_localControllerName( val );
-        else if ( "modulationSignal".equals( datamemberName) ) set_modulationSignal( Float.parseFloat(val) );
+        if ( "accept".equals( datamemberName) ) set_accept( Boolean.parseBoolean(val) );
+        else if ( "tenderId".equals( datamemberName) ) set_tenderId( Integer.parseInt(val) );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -701,8 +701,8 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "localControllerName".equals( datamemberName) ) set_localControllerName( (String)val );
-        else if ( "modulationSignal".equals( datamemberName) ) set_modulationSignal( (Float)val );
+        if ( "accept".equals( datamemberName) ) set_accept( (Boolean)val );
+        else if ( "tenderId".equals( datamemberName) ) set_tenderId( (Integer)val );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -712,14 +712,14 @@ public class supervisoryControlSignal extends ObjectRoot {
     protected SuppliedAttributes createSuppliedDatamembers(boolean force) {
         SuppliedAttributes datamembers = _factory.createSuppliedAttributes();
  
-        if (_publishAttributeNameSet.contains("localControllerName") && _localControllerName.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("localControllerName"), getAttribute("localControllerName").toString().getBytes() );
-            _localControllerName.setHasBeenUpdated();
+        if (_publishAttributeNameSet.contains("accept") && _accept.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("accept"), getAttribute("accept").toString().getBytes() );
+            _accept.setHasBeenUpdated();
         }
 
-        if (_publishAttributeNameSet.contains("modulationSignal") && _modulationSignal.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("modulationSignal"), getAttribute("modulationSignal").toString().getBytes() );
-            _modulationSignal.setHasBeenUpdated();
+        if (_publishAttributeNameSet.contains("tenderId") && _tenderId.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("tenderId"), getAttribute("tenderId").toString().getBytes() );
+            _tenderId.setHasBeenUpdated();
         }
 
         return datamembers;
@@ -727,10 +727,10 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof supervisoryControlSignal ) {
-            supervisoryControlSignal data = (supervisoryControlSignal)object;
-            _localControllerName = data._localControllerName;
-            _modulationSignal = data._modulationSignal;
+        if ( object instanceof Transaction ) {
+            Transaction data = (Transaction)object;
+            _accept = data._accept;
+            _tenderId = data._tenderId;
         }
     }
 }

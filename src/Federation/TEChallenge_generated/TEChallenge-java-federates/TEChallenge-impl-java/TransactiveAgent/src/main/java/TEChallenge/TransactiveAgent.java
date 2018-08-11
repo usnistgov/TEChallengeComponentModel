@@ -10,10 +10,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The Loads type of federate for the federation designed in WebGME.
+ * The TransactiveAgent type of federate for the federation designed in WebGME.
  *
  */
-public class Loads extends LoadsBase {
+public class TransactiveAgent extends TransactiveAgentBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -21,17 +21,17 @@ public class Loads extends LoadsBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // resourcesPhysicalStatus vresourcesPhysicalStatus = new resourcesPhysicalStatus();
+    // Transaction vTransaction = new Transaction();
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public Loads(FederateConfig params) throws Exception {
+    public TransactiveAgent(FederateConfig params) throws Exception {
         super(params);
 
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vresourcesPhysicalStatus.registerObject(getLRC());
+        // vTransaction.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -42,11 +42,11 @@ public class Loads extends LoadsBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof gridVoltageState) {
-                handleObjectClass((gridVoltageState) object);
+            if (object instanceof Tender) {
+                handleObjectClass((Tender) object);
             }
-            else if (object instanceof resourceControl) {
-                handleObjectClass((resourceControl) object);
+            else if (object instanceof Quote) {
+                handleObjectClass((Quote) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -94,36 +94,9 @@ public class Loads extends LoadsBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vresourcesPhysicalStatus.set_current_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_status(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_type(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vTransaction.set_accept(<YOUR VALUE HERE >);
+            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
+            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -151,13 +124,13 @@ public class Loads extends LoadsBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(gridVoltageState object) {
+    private void handleObjectClass(Tender object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourceControl object) {
+    private void handleObjectClass(Quote object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
@@ -167,7 +140,7 @@ public class Loads extends LoadsBase {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            Loads federate = new Loads(federateConfig);
+            TransactiveAgent federate = new TransactiveAgent(federateConfig);
             federate.execute();
             log.info("Done.");
             System.exit(0);

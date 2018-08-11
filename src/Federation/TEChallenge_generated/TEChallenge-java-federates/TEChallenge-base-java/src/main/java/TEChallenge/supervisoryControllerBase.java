@@ -10,8 +10,10 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
+
 
 public class supervisoryControllerBase extends SynchronizedFederate {
 
@@ -34,10 +36,31 @@ public class supervisoryControllerBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        Quote.publish_price();
+        Quote.publish_quantity();
+        Quote.publish_quoteId();
+        Quote.publish_timeReference();
+        Quote.publish_type();
+        Quote.publish(getLRC());
+        
+        	
+        Tender.publish_price();
+        Tender.publish_quantity();
+        Tender.publish_tenderId();
+        Tender.publish_timeReference();
+        Tender.publish_type();
+        Tender.publish(getLRC());
+        
+        	
         supervisoryControlSignal.publish_localControllerName();
         supervisoryControlSignal.publish_modulationSignal();
         supervisoryControlSignal.publish(getLRC());
                 
+        	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
+        
         	
         resourcesPhysicalStatus.subscribe_current_Imaginary_A();
         resourcesPhysicalStatus.subscribe_current_Imaginary_B();

@@ -2,53 +2,22 @@ package TEChallenge;
 
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
-import org.cpswt.hla.base.ObjectReflector;
-import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The Grid type of federate for the federation designed in WebGME.
+ * The Metronome type of federate for the federation designed in WebGME.
  *
  */
-public class Grid extends GridBase {
+public class Metronome extends MetronomeBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
 
-    ///////////////////////////////////////////////////////////////////////
-    // TODO Instantiate objects that must be sent every logical time step
-    //
-    // gridVoltageState vgridVoltageState = new gridVoltageState();
-    //
-    ///////////////////////////////////////////////////////////////////////
-
-    public Grid(FederateConfig params) throws Exception {
+    public Metronome(FederateConfig params) throws Exception {
         super(params);
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO Must register object instances after super(args)
-        //
-        // vgridVoltageState.registerObject(getLRC());
-        //
-        ///////////////////////////////////////////////////////////////////////
-    }
-
-    private void checkReceivedSubscriptions() {
-
-        ObjectReflector reflector = null;
-        while ((reflector = getNextObjectReflectorNoWait()) != null) {
-            reflector.reflect();
-            ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
-            }
-            else {
-                log.debug("unhandled object reflection: {}", object.getClassName());
-            }
-        }
     }
 
     private void execute() throws Exception {
@@ -89,19 +58,31 @@ public class Grid extends GridBase {
             enteredTimeGrantedState();
 
             ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO objects that must be sent every logical time step
+            // TODO send interactions that must be sent every logical time step below.
+            // Set the interaction's parameters.
             //
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_A(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_B(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_C(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_A(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_B(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_C(<YOUR VALUE HERE >);
-            //    vgridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    InteractionRoot vInteractionRoot = create_InteractionRoot();
+            //    vInteractionRoot.sendInteraction(getLRC(), currentTime + getLookAhead());
             //
-            //////////////////////////////////////////////////////////////////////////////////////////
-
-            checkReceivedSubscriptions();
+            //    C2WInteractionRoot vC2WInteractionRoot = create_C2WInteractionRoot();
+            //    vC2WInteractionRoot.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
+            //    vC2WInteractionRoot.set_federateFilter( < YOUR VALUE HERE > );
+            //    vC2WInteractionRoot.set_originFed( < YOUR VALUE HERE > );
+            //    vC2WInteractionRoot.set_sourceFed( < YOUR VALUE HERE > );
+            //    vC2WInteractionRoot.sendInteraction(getLRC(), currentTime + getLookAhead());
+            //
+            //    SimTime vSimTime = create_SimTime();
+            //    vSimTime.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
+            //    vSimTime.set_federateFilter( < YOUR VALUE HERE > );
+            //    vSimTime.set_ignoreTil( < YOUR VALUE HERE > );
+            //    vSimTime.set_originFed( < YOUR VALUE HERE > );
+            //    vSimTime.set_secondsPerLogicalTime( < YOUR VALUE HERE > );
+            //    vSimTime.set_sourceFed( < YOUR VALUE HERE > );
+            //    vSimTime.set_startTime( < YOUR VALUE HERE > );
+            //    vSimTime.set_stopTime( < YOUR VALUE HERE > );
+            //    vSimTime.sendInteraction(getLRC(), currentTime + getLookAhead());
+            //
+            ////////////////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop
@@ -125,17 +106,11 @@ public class Grid extends GridBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            Grid federate = new Grid(federateConfig);
+            Metronome federate = new Metronome(federateConfig);
             federate.execute();
             log.info("Done.");
             System.exit(0);
