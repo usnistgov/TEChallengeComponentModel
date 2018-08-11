@@ -7,111 +7,437 @@
             <sharing>Neither</sharing>
             <semantics></semantics>
         <objectClass>
-            <name>CoolingControlObject</name>
-            <sharing>Subscribe</sharing>
+            <name>FederateObject</name>
+            <sharing>PublishSubscribe</sharing>
             <semantics></semantics>
-
             <attribute>
-                <name>cooling_setpoint</name>
-                <dataType>double</dataType>
-                <sharing>Subscribe</sharing>
-                <transportation>HLAreliable</transportation>
-                <order>TimeStamp</order>
-                <semantics></semantics>
-                <ucef:attributeConfig>
-                    <ucef:unitConversion>
-                        <ucef:linearConversion>
-                            <ucef:scale>0.5556</ucef:scale>
-                            <ucef:offset>-17.7778</ucef:offset>
-                        </ucef:linearConversion>
-                    </ucef:unitConversion>
-                </ucef:attributeConfig>
-            </attribute>
-
-            <attribute>
-                <name>name</name>
-                <dataType>String</dataType>
-                <sharing>Subscribe</sharing>
-                <transportation>HLAreliable</transportation>
-                <order>TimeStamp</order>
-                <semantics></semantics>
-            </attribute>
-        </objectClass>
-        <objectClass>
-            <name>GlobalVariablesObject</name>
-            <sharing>Publish</sharing>
-            <semantics></semantics>
-
-            <attribute>
-                <name>clock</name>
-                <dataType>String</dataType>
-                <sharing>Publish</sharing>
-                <transportation>HLAreliable</transportation>
-                <order>TimeStamp</order>
-                <semantics></semantics>
-            </attribute>
-        </objectClass>
-        <objectClass>
-            <name>HouseObject</name>
-            <sharing>Publish</sharing>
-            <semantics></semantics>
-
-            <attribute>
-                <name>air_temperature</name>
-                <dataType>double</dataType>
-                <sharing>Publish</sharing>
-                <transportation>HLAreliable</transportation>
-                <order>TimeStamp</order>
-                <semantics></semantics>
-                <ucef:attributeConfig>
-                    <ucef:unitConversion>
-                        <ucef:linearConversion>
-                            <ucef:scale>0.5556</ucef:scale>
-                            <ucef:offset>-17.7778</ucef:offset>
-                        </ucef:linearConversion>
-                    </ucef:unitConversion>
-                    <ucef:updatePeriod>1.5</ucef:updatePeriod>
-                </ucef:attributeConfig>
-            </attribute>
-
-            <attribute>
-                <name>compressor_count</name>
+                <name>FederateHandle</name>
                 <dataType>int</dataType>
-                <sharing>Publish</sharing>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
                 <transportation>HLAreliable</transportation>
                 <order>TimeStamp</order>
                 <semantics></semantics>
-                <ucef:attributeConfig>
-                    <ucef:updatePeriod>1.0</ucef:updatePeriod>
-                </ucef:attributeConfig>
             </attribute>
-
             <attribute>
-                <name>compressor_on</name>
-                <dataType>boolean</dataType>
-                <sharing>Publish</sharing>
-                <transportation>HLAreliable</transportation>
-                <order>TimeStamp</order>
-                <semantics></semantics>
-                <ucef:attributeConfig>
-                    <ucef:updatePeriod>0.5</ucef:updatePeriod>
-                </ucef:attributeConfig>
-            </attribute>
-
-            <attribute>
-                <name>name</name>
+                <name>FederateHost</name>
                 <dataType>String</dataType>
-                <sharing>Publish</sharing>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
                 <transportation>HLAreliable</transportation>
                 <order>TimeStamp</order>
                 <semantics></semantics>
             </attribute>
-            <ucef:objectClassConfig>
-                <ucef:publishedObjects>
-                    <ucef:objectName>house2</ucef:objectName>
-                    <ucef:objectName>house3</ucef:objectName>
-                </ucef:publishedObjects>
-            </ucef:objectClassConfig>
+            <attribute>
+                <name>FederateType</name>
+                <dataType>String</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>gridVoltageState</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+            <attribute>
+                <name>grid_Voltage_Imaginary_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>grid_Voltage_Imaginary_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>grid_Voltage_Imaginary_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>grid_Voltage_Real_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>grid_Voltage_Real_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>grid_Voltage_Real_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>resourcesPhysicalStatus</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+            <attribute>
+                <name>current_Imaginary_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>current_Imaginary_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>current_Imaginary_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>current_Real_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>current_Real_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>current_Real_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>gridNodeId</name>
+                <dataType>String</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Imaginary_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Imaginary_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Imaginary_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Real_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Real_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>impedance_Real_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>loadInstanceName</name>
+                <dataType>String</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>phases</name>
+                <dataType>String</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Imaginary_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Imaginary_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Imaginary_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Real_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Real_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>power_Real_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>status</name>
+                <dataType>boolean</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>type</name>
+                <dataType>String</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Imaginary_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Imaginary_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Imaginary_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Real_A</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Real_B</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+            <attribute>
+                <name>voltage_Real_C</name>
+                <dataType>float</dataType>
+                <updateType>NA</updateType>
+                <ownership>NoTransfer</ownership>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions></dimensions>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
         </objectClass>
         </objectClass>
     </objects>
@@ -121,53 +447,56 @@
             <sharing>Neither</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
+            <semantics></semantics>
         <interactionClass>
             <name>C2WInteractionRoot</name>
             <sharing>Neither</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
-
+            <semantics></semantics>
             <parameter> 
                 <name>actualLogicalGenerationTime</name>
                 <dataType>double</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>federateFilter</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>originFed</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>sourceFed</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
         <interactionClass>
-            <name>FederateJoinInteraction</name>
-            <sharing>Publish</sharing>
+            <name>ActionBase</name>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
-
+            <semantics></semantics>
+        </interactionClass>
+        <interactionClass>
+            <name>FederateJoinInteraction</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
             <parameter> 
                 <name>FederateId</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>FederateType</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>IsLateJoiner</name>
                 <dataType>boolean</dataType>
@@ -176,22 +505,20 @@
         </interactionClass>
         <interactionClass>
             <name>FederateResignInteraction</name>
-            <sharing>Publish</sharing>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
-
+            <semantics></semantics>
             <parameter> 
                 <name>FederateId</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>FederateType</name>
                 <dataType>String</dataType>
                 <semantics></semantics>
             </parameter>
-
             <parameter> 
                 <name>IsLateJoiner</name>
                 <dataType>boolean</dataType>
@@ -199,125 +526,95 @@
             </parameter>
         </interactionClass>
         <interactionClass>
-            <name>SimulationControl</name>
-            <sharing>Neither</sharing>
+            <name>OutcomeBase</name>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
+            <semantics></semantics>
+        </interactionClass>
+        <interactionClass>
+            <name>SimLog</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
+            <parameter> 
+                <name>Comment</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+            <parameter> 
+                <name>FedName</name>
+                <dataType>String</dataType>
+                <semantics></semantics>
+            </parameter>
+            <parameter> 
+                <name>Time</name>
+                <dataType>double</dataType>
+                <semantics></semantics>
+            </parameter>
+        <interactionClass>
+            <name>HighPrio</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
+        </interactionClass>
+        <interactionClass>
+            <name>LowPrio</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
+        </interactionClass>
+        <interactionClass>
+            <name>MediumPrio</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
+        </interactionClass>
+        <interactionClass>
+            <name>VeryLowPrio</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
+        </interactionClass>
+        </interactionClass>
+        <interactionClass>
+            <name>SimulationControl</name>
+            <sharing>PublishSubscribe</sharing>
+            <transportation>HLAreliable</transportation>
+            <order>TimeStamp</order>
+            <semantics></semantics>
         <interactionClass>
             <name>SimEnd</name>
-            <sharing>Subscribe</sharing>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
+            <semantics></semantics>
         </interactionClass>
         <interactionClass>
-            <name>SimTime</name>
-            <sharing>Subscribe</sharing>
+            <name>SimPause</name>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
-
-            <parameter> 
-                <name>timeScale</name>
-                <dataType>double</dataType>
-                <semantics></semantics>
-            </parameter>
-
-            <parameter> 
-                <name>timeZone</name>
-                <dataType>String</dataType>
-                <semantics></semantics>
-            </parameter>
-
-            <parameter> 
-                <name>unixTimeStart</name>
-                <dataType>long</dataType>
-                <semantics></semantics>
-            </parameter>
-
-            <parameter> 
-                <name>unixTimeStop</name>
-                <dataType>long</dataType>
-                <semantics></semantics>
-            </parameter>
-        </interactionClass>
+            <semantics></semantics>
         </interactionClass>
         <interactionClass>
-            <name>CoolingControl</name>
-            <sharing>Subscribe</sharing>
+            <name>SimResume</name>
+            <sharing>PublishSubscribe</sharing>
             <transportation>HLAreliable</transportation>
             <order>TimeStamp</order>
-
-            <parameter> 
-                <name>cooling_setpoint</name>
-                <dataType>double</dataType>
-                <semantics></semantics>
-                <ucef:parameterConfig>
-                    <ucef:unitConversion>
-                        <ucef:nameConversion>degC</ucef:nameConversion>
-                    </ucef:unitConversion>
-                </ucef:parameterConfig>
-            </parameter>
-
-            <parameter> 
-                <name>name</name>
-                <dataType>String</dataType>
-                <semantics></semantics>
-            </parameter>
+            <semantics></semantics>
         </interactionClass>
-        <interactionClass>
-            <name>GlobalVariables</name>
-            <sharing>Publish</sharing>
-            <transportation>HLAreliable</transportation>
-            <order>TimeStamp</order>
-
-            <parameter> 
-                <name>clock</name>
-                <dataType>String</dataType>
-                <semantics></semantics>
-            </parameter>
-        </interactionClass>
-        <interactionClass>
-            <name>House</name>
-            <sharing>Publish</sharing>
-            <transportation>HLAreliable</transportation>
-            <order>TimeStamp</order>
-
-            <parameter> 
-                <name>air_temperature</name>
-                <dataType>double</dataType>
-                <semantics></semantics>
-                <ucef:parameterConfig>
-                    <ucef:unitConversion>
-                        <ucef:nameConversion>degC</ucef:nameConversion>
-                    </ucef:unitConversion>
-                </ucef:parameterConfig>
-            </parameter>
-
-            <parameter> 
-                <name>compressor_count</name>
-                <dataType>int</dataType>
-                <semantics></semantics>
-            </parameter>
-
-            <parameter> 
-                <name>compressor_on</name>
-                <dataType>boolean</dataType>
-                <semantics></semantics>
-            </parameter>
-
-            <parameter> 
-                <name>name</name>
-                <dataType>String</dataType>
-                <semantics></semantics>
-            </parameter>
-            <ucef:interactionClassConfig>
-                <ucef:updatePeriod>2</ucef:updatePeriod>
-                <ucef:publishedObjects>
-                    <ucef:objectName>house1</ucef:objectName>
-                </ucef:publishedObjects>
-            </ucef:interactionClassConfig>
         </interactionClass>
         </interactionClass>
         </interactionClass>
     </interactions>
     <dimensions />
+    <transportations />
+    <switches />
+    <dataTypes />
 </objectModel>

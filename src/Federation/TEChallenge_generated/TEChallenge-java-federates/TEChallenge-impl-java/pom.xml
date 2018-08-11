@@ -17,6 +17,10 @@
         
         <module>LocalController</module>
         
+        <module>Metronome</module>
+        
+        <module>TransactiveAgent</module>
+        
         <module>supervisoryController</module>
         
     </modules>
