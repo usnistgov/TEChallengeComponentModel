@@ -3,7 +3,8 @@
     "Grid",
     "Loads",
     "LocalController",
-    "supervisoryController"
+    "supervisoryController",
+    "Metronome"
   ],
   "expectedFederates": [
     {
@@ -21,8 +22,12 @@
     {
       "federateType": "supervisoryController",
       "count": 0
+    },
+    {
+      "federateType": "Metronome",
+      "count": 1
     }
-  ],
+],
   "lateJoinerFederates": [
     {
       "federateType": "Grid",
@@ -38,6 +43,10 @@
     },
     {
       "federateType": "supervisoryController",
+      "count": 0
+    },
+    {
+      "federateType": "Metronome",
       "count": 0
     }
   ]
