@@ -85,14 +85,15 @@ xterm -fg red -bg black -l -lf $logs_directory/metronome-${timestamp}.log -T "Me
 cd $pathtofederate_grid
 xterm -fg green  -bg black -l -lf $logs_directory/grid-${timestamp}.log -T "Grid"  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
 cd $pathtofederate_loads
-xterm -fg yellow -bg black -l -lf $logs_directory/grid-${timestamp}.log -T "Loads" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Loads-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LoadsConfig.json" &
-
-
+xterm -fg yellow -bg black -l -lf $logs_directory/loads-${timestamp}.log -T "Loads" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Loads-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LoadsConfig.json" &
 
 
 ##################################
 # start the simulation
 ##################################
+read -n 1 -r -s -p "Press any key to start the federation execution..."
+printf "\n"
+
 curl -o /dev/null -s -X POST http://127.0.0.1:8083/fedmgr --data '{"action": "START"}' -H "Content-Type: application/json"
 
 
