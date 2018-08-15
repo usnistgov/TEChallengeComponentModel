@@ -11,7 +11,6 @@ clock {
 }
 
 module climate;
-module market;
 module powerflow {
 	solver_method FBS;
 	NR_iteration_limit 100;
@@ -21,7 +20,6 @@ module residential {
 }
 module tape;
 
-#include "fixed_rate_schedule_v2.glm"
 
 object climate {
 	name "ColumbusOH";
@@ -29,55 +27,6 @@ object climate {
 	interpolate QUADRATIC;
 }
 
-class player {
-      double value;
-}
-
-object player {
-    name PHASE_A;
-    file phase_A.player;
-    loop 1;
-}
-object player {
-    name PHASE_B;
-    file phase_B.player;
-    loop 1;
-}
-object player {
-    name PHASE_C;
-    file phase_C.player;
-    loop 1;
-}
-
-class auction {
-	double current_price_stdev_24h;
-	double current_price_mean_24h;
-}
-
-object auction {
-	name market;
-	unit kW;
-	period 300;
-	price_cap 3.78;
-    capacity_reference_object F1_Transformer1;
-    capacity_reference_property power_out_real;	
-	max_capacity_reference_bid_quantity 120;
-	
-	object player {
-		property capacity_reference_bid_price;
-		file AEP_RT_LMP.player;
-		loop 1;
-	};
-
-	init_price 0.043;
-	init_stdev 0.02;
-	use_future_mean_price false;
-	warmup 0;
-	
-	curve_log_file bid_curve.csv;
-    curve_log_info EXTRA;
-	transaction_log_file log_file.csv;
-}
 
 object transformer_configuration {
 	name substation_config;
@@ -162,33 +111,6 @@ object transformer {
 	configuration substation_config;
 }
 
-// %%%%% remove
-object load {
-     name unresp_load;
-     nominal_voltage 7200;
-     phases ABCN;
-     parent F1_transformer_meter;
-	 
-     base_power_A PHASE_A.value*0.05;
-     base_power_B PHASE_B.value*0.05;
-     base_power_C PHASE_C.value*0.05;
-	 
-	 power_pf_A 0.9;
-	 power_pf_B 0.9;
-	 power_pf_C 0.0;
-	 
-	 power_fraction_A 1.0;
-	 power_fraction_B 1.0;
-	 power_fraction_C 1.0;
-	 
-	 current_fraction_A 0.0;
-	 current_fraction_B 0.0;
-	 current_fraction_C 0.0;
-	 
-	 impedance_fraction_A 0.0;
-	 impedance_fraction_B 0.0;
-	 impedance_fraction_C 0.0;
-};
 
 object triplex_meter {
 	name F1_triplex_node_A;
@@ -237,16 +159,7 @@ object triplex_meter {
 	groupid F1_flatrate_meter;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
+
 }
 
 object triplex_line {
@@ -264,17 +177,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B0;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -283,16 +185,6 @@ object triplex_meter {
 	groupid F1_flatrate_meter;
 	phases SC;
 	nominal_voltage 120;
-		bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -310,17 +202,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C1;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -330,15 +211,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -356,17 +228,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C2;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 object triplex_meter {
@@ -375,15 +236,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -401,17 +253,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B3;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -421,15 +262,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -447,17 +279,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B4;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -467,15 +288,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -493,17 +305,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A5;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -513,15 +314,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -539,17 +331,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B6;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -559,15 +340,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;	
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -585,17 +357,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B7;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -605,15 +366,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -631,17 +383,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A8;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -651,15 +392,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -677,17 +409,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A9;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -697,15 +418,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -723,17 +435,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C10;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -743,15 +444,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -769,17 +461,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A11;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -789,15 +470,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -815,17 +487,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A12;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -835,15 +496,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -861,17 +513,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A13;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -881,15 +522,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -907,17 +539,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C14;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -927,15 +548,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -953,17 +565,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A15;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -973,15 +574,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -999,17 +591,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A16;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1019,15 +600,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1045,17 +617,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C17;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1065,15 +626,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1091,17 +643,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C18;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1111,15 +652,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1137,17 +669,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B19;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1157,15 +678,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1183,17 +695,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B20;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1203,15 +704,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1229,17 +721,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C21;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1249,15 +730,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1275,17 +747,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B22;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1295,15 +756,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1321,17 +773,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B23;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1341,15 +782,6 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1367,17 +799,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_B24;
 	phases SB;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1387,15 +808,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1413,17 +825,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A25;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1433,15 +834,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1459,17 +851,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A26;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1479,15 +860,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1505,17 +877,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C27;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1525,15 +886,6 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1551,17 +903,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_A28;
 	phases SA;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
@@ -1571,15 +912,6 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode TIERED;
-    price FIXED_PRICE;
-    first_tier_price FIXED_TIER1;
-    second_tier_price FIXED_TIER2;
-    third_tier_price FIXED_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
-    bill_day 1;
-    monthly_fee 6;
 }
 
 object triplex_line {
@@ -1597,17 +929,6 @@ object triplex_meter {
 	parent F1_tpm_flatrate_C29;
 	phases SC;
 	nominal_voltage 120;
-	bill_mode TIERED_RTP;
-    power_market market;
-    bill_day 1;
-    monthly_fee 6;
-    price_base RTP_BASE_PRICE;
-    first_tier_price RTP_TIER1;
-    second_tier_price RTP_TIER2;
-    third_tier_price RTP_TIER3;
-    first_tier_energy 800;
-    second_tier_energy 2000;
-    third_tier_energy 15000;
 }
 
 
