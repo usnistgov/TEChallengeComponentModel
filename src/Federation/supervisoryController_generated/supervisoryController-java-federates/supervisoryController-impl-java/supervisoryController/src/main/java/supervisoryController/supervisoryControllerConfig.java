@@ -12,6 +12,9 @@ public class supervisoryControllerConfig extends FederateConfig {
 
     @FederateParameter
      public Scontroller[]  superControls;   
+
+    @FederateParameter
+    public Stender[]  tenders; 
 	
 
 	

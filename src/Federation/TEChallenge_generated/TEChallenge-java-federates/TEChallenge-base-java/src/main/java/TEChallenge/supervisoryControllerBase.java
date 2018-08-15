@@ -34,6 +34,14 @@ public class supervisoryControllerBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        Tender.publish_price();
+        Tender.publish_quantity();
+        Tender.publish_tenderId();
+        Tender.publish_timeReference();
+        Tender.publish_type();
+        Tender.publish(getLRC());
+        
+        	
         supervisoryControlSignal.publish_localControllerName();
         supervisoryControlSignal.publish_modulationSignal();
         supervisoryControlSignal.publish(getLRC());
@@ -69,6 +77,25 @@ public class supervisoryControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_voltage_Real_B();
         resourcesPhysicalStatus.subscribe_voltage_Real_C();
         resourcesPhysicalStatus.subscribe(getLRC());
+        
+        	
+        Quote.subscribe_price();
+        Quote.subscribe_quantity();
+        Quote.subscribe_quoteId();
+        Quote.subscribe_timeReference();
+        Quote.subscribe_type();
+        Quote.subscribe(getLRC());
+        
+        	
+        marketStatus.subscribe_price();
+        marketStatus.subscribe_time();
+        marketStatus.subscribe_type();
+        marketStatus.subscribe(getLRC());
+        
+        	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
         	}
         
 	

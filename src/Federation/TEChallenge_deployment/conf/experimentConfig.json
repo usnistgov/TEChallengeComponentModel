@@ -3,6 +3,7 @@
     "Grid",
     "Loads",
     "LocalController",
+    "TransactiveAgent",
     "supervisoryController"
   ],
   "expectedFederates": [
@@ -16,6 +17,10 @@
     },
     {
       "federateType": "LocalController",
+      "count": 1
+    },
+    {
+      "federateType": "TransactiveAgent",
       "count": 1
     },
     {
@@ -34,6 +39,10 @@
     },
     {
       "federateType": "LocalController",
+      "count": 0
+    },
+    {
+      "federateType": "TransactiveAgent",
       "count": 0
     },
     {

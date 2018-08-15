@@ -2,6 +2,7 @@
   "federateTypesAllowed": [
     "Grid",
     "Load",
+    "TransactiveAgent",
     "localController",
     "supervisoryController"
   ],
@@ -12,6 +13,10 @@
     },
     {
       "federateType": "Load",
+      "count": 1
+    },
+    {
+      "federateType": "TransactiveAgent",
       "count": 1
     },
     {

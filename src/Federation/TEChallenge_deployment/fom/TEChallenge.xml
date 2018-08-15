@@ -36,6 +36,117 @@
             </attribute>
         </objectClass>
         <objectClass>
+            <name>Quote</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>price</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>quantity</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>quoteId</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>timeReference</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>type</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>Tender</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>price</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>quantity</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>tenderId</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>timeReference</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>type</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>Transaction</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>accept</name>
+                <dataType>boolean</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>tenderId</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
             <name>gridVoltageState</name>
             <sharing>PublishSubscribe</sharing>
             <semantics></semantics>
@@ -83,6 +194,35 @@
             <attribute>
                 <name>grid_Voltage_Real_C</name>
                 <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+        </objectClass>
+        <objectClass>
+            <name>marketStatus</name>
+            <sharing>PublishSubscribe</sharing>
+            <semantics></semantics>
+
+            <attribute>
+                <name>price</name>
+                <dataType>float</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>time</name>
+                <dataType>int</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
+                <name>type</name>
+                <dataType>String</dataType>
                 <transportation>HLAreliable</transportation>
                 <order>TimeStamp</order>
                 <semantics></semantics>

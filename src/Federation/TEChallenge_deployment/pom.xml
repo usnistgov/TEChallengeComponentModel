@@ -41,6 +41,12 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>org.webgme.guest</groupId>
+			<artifactId>TransactiveAgent</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>org.webgme.guest</groupId>
 			<artifactId>supervisoryController</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
@@ -181,6 +187,7 @@
                                 <mkdir dir="${project.basedir}/target/Grid" />
                                 <mkdir dir="${project.basedir}/target/Loads" />
                                 <mkdir dir="${project.basedir}/target/LocalController" />
+                                <mkdir dir="${project.basedir}/target/TransactiveAgent" />
                                 <mkdir dir="${project.basedir}/target/supervisoryController" />
                         	</tasks>
                     	</configuration>
@@ -253,6 +260,13 @@
             <properties>
                 <federate.name>LocalController</federate.name>
                 <federate.configFile>conf/localcontroller.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>TransactiveAgent</id>
+            <properties>
+                <federate.name>TransactiveAgent</federate.name>
+                <federate.configFile>conf/transactiveagent.json</federate.configFile>
             </properties>
         </profile>
         <profile>

@@ -49,6 +49,21 @@
   (attribute FederateHandle reliable timestamp)
   (attribute FederateHost reliable timestamp)
   (attribute FederateType reliable timestamp) )
+(class Quote
+  (attribute price reliable timestamp)
+  (attribute quantity reliable timestamp)
+  (attribute quoteId reliable timestamp)
+  (attribute timeReference reliable timestamp)
+  (attribute type reliable timestamp) )
+(class Tender
+  (attribute price reliable timestamp)
+  (attribute quantity reliable timestamp)
+  (attribute tenderId reliable timestamp)
+  (attribute timeReference reliable timestamp)
+  (attribute type reliable timestamp) )
+(class Transaction
+  (attribute accept reliable timestamp)
+  (attribute tenderId reliable timestamp) )
 (class gridVoltageState
   (attribute grid_Voltage_Imaginary_A reliable timestamp)
   (attribute grid_Voltage_Imaginary_B reliable timestamp)
@@ -56,6 +71,10 @@
   (attribute grid_Voltage_Real_A reliable timestamp)
   (attribute grid_Voltage_Real_B reliable timestamp)
   (attribute grid_Voltage_Real_C reliable timestamp) )
+(class marketStatus
+  (attribute price reliable timestamp)
+  (attribute time reliable timestamp)
+  (attribute type reliable timestamp) )
 (class resourceControl
   (attribute Resources reliable timestamp)
   (attribute activePowerCurve reliable timestamp)
