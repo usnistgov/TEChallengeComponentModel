@@ -25,7 +25,11 @@
     },
     {
       "federateType": "Metronome",
-      "count": 1
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
+      "count": 0
     }
 ],
   "lateJoinerFederates": [
@@ -47,6 +51,10 @@
     },
     {
       "federateType": "Metronome",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
       "count": 0
     }
   ]

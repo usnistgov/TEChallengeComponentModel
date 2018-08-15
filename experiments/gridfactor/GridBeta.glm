@@ -11,12 +11,17 @@ clock {
 }
 
 module climate;
+module market;
 module powerflow {
 	solver_method FBS;
 	NR_iteration_limit 100;
 }
+module residential {
+	implicit_enduses NONE;
+}
 module tape;
 
+#include "fixed_rate_schedule_v2.glm"
 
 object climate {
 	name "ColumbusOH";
@@ -44,7 +49,35 @@ object player {
     loop 1;
 }
 
+class auction {
+	double current_price_stdev_24h;
+	double current_price_mean_24h;
+}
 
+object auction {
+	name market;
+	unit kW;
+	period 300;
+	price_cap 3.78;
+    capacity_reference_object F1_Transformer1;
+    capacity_reference_property power_out_real;	
+	max_capacity_reference_bid_quantity 120;
+	
+	object player {
+		property capacity_reference_bid_price;
+		file AEP_RT_LMP.player;
+		loop 1;
+	};
+
+	init_price 0.043;
+	init_stdev 0.02;
+	use_future_mean_price false;
+	warmup 0;
+	
+	curve_log_file bid_curve.csv;
+    curve_log_info EXTRA;
+	transaction_log_file log_file.csv;
+}
 
 object transformer_configuration {
 	name substation_config;
