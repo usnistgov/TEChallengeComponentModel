@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/" xmlns="http://www.w3.org/" elementFormDefault="qualified">
+
+<xs:element name="load">
+	<xs:complexType>
+		<xs:all>
+			<xs:element name="id">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parent">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rank">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="clock">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="valid_to">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="latitude">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="longitude">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="in_svc">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="out_svc">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="flags">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="NONE|HASPLC|LOCKED|RERANKED|RECALC|DELTAMODE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="load_class">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="A|I|C|R|U"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="constant_power_A" type="xs:string"/>
+				<xs:element name="constant_power_B" type="xs:string"/>
+				<xs:element name="constant_power_C" type="xs:string"/>
+				<xs:element name="constant_power_A_real" type="xs:string"/>
+				<xs:element name="constant_power_B_real" type="xs:string"/>
+				<xs:element name="constant_power_C_real" type="xs:string"/>
+				<xs:element name="constant_power_A_reac" type="xs:string"/>
+				<xs:element name="constant_power_B_reac" type="xs:string"/>
+				<xs:element name="constant_power_C_reac" type="xs:string"/>
+				<xs:element name="constant_current_A" type="xs:string"/>
+				<xs:element name="constant_current_B" type="xs:string"/>
+				<xs:element name="constant_current_C" type="xs:string"/>
+				<xs:element name="constant_current_A_real" type="xs:string"/>
+				<xs:element name="constant_current_B_real" type="xs:string"/>
+				<xs:element name="constant_current_C_real" type="xs:string"/>
+				<xs:element name="constant_current_A_reac" type="xs:string"/>
+				<xs:element name="constant_current_B_reac" type="xs:string"/>
+				<xs:element name="constant_current_C_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_A" type="xs:string"/>
+				<xs:element name="constant_impedance_B" type="xs:string"/>
+				<xs:element name="constant_impedance_C" type="xs:string"/>
+				<xs:element name="constant_impedance_A_real" type="xs:string"/>
+				<xs:element name="constant_impedance_B_real" type="xs:string"/>
+				<xs:element name="constant_impedance_C_real" type="xs:string"/>
+				<xs:element name="constant_impedance_A_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_B_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_C_reac" type="xs:string"/>
+				<xs:element name="constant_power_AN" type="xs:string"/>
+				<xs:element name="constant_power_BN" type="xs:string"/>
+				<xs:element name="constant_power_CN" type="xs:string"/>
+				<xs:element name="constant_power_AN_real" type="xs:string"/>
+				<xs:element name="constant_power_BN_real" type="xs:string"/>
+				<xs:element name="constant_power_CN_real" type="xs:string"/>
+				<xs:element name="constant_power_AN_reac" type="xs:string"/>
+				<xs:element name="constant_power_BN_reac" type="xs:string"/>
+				<xs:element name="constant_power_CN_reac" type="xs:string"/>
+				<xs:element name="constant_current_AN" type="xs:string"/>
+				<xs:element name="constant_current_BN" type="xs:string"/>
+				<xs:element name="constant_current_CN" type="xs:string"/>
+				<xs:element name="constant_current_AN_real" type="xs:string"/>
+				<xs:element name="constant_current_BN_real" type="xs:string"/>
+				<xs:element name="constant_current_CN_real" type="xs:string"/>
+				<xs:element name="constant_current_AN_reac" type="xs:string"/>
+				<xs:element name="constant_current_BN_reac" type="xs:string"/>
+				<xs:element name="constant_current_CN_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_AN" type="xs:string"/>
+				<xs:element name="constant_impedance_BN" type="xs:string"/>
+				<xs:element name="constant_impedance_CN" type="xs:string"/>
+				<xs:element name="constant_impedance_AN_real" type="xs:string"/>
+				<xs:element name="constant_impedance_BN_real" type="xs:string"/>
+				<xs:element name="constant_impedance_CN_real" type="xs:string"/>
+				<xs:element name="constant_impedance_AN_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_BN_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_CN_reac" type="xs:string"/>
+				<xs:element name="constant_power_AB" type="xs:string"/>
+				<xs:element name="constant_power_BC" type="xs:string"/>
+				<xs:element name="constant_power_CA" type="xs:string"/>
+				<xs:element name="constant_power_AB_real" type="xs:string"/>
+				<xs:element name="constant_power_BC_real" type="xs:string"/>
+				<xs:element name="constant_power_CA_real" type="xs:string"/>
+				<xs:element name="constant_power_AB_reac" type="xs:string"/>
+				<xs:element name="constant_power_BC_reac" type="xs:string"/>
+				<xs:element name="constant_power_CA_reac" type="xs:string"/>
+				<xs:element name="constant_current_AB" type="xs:string"/>
+				<xs:element name="constant_current_BC" type="xs:string"/>
+				<xs:element name="constant_current_CA" type="xs:string"/>
+				<xs:element name="constant_current_AB_real" type="xs:string"/>
+				<xs:element name="constant_current_BC_real" type="xs:string"/>
+				<xs:element name="constant_current_CA_real" type="xs:string"/>
+				<xs:element name="constant_current_AB_reac" type="xs:string"/>
+				<xs:element name="constant_current_BC_reac" type="xs:string"/>
+				<xs:element name="constant_current_CA_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_AB" type="xs:string"/>
+				<xs:element name="constant_impedance_BC" type="xs:string"/>
+				<xs:element name="constant_impedance_CA" type="xs:string"/>
+				<xs:element name="constant_impedance_AB_real" type="xs:string"/>
+				<xs:element name="constant_impedance_BC_real" type="xs:string"/>
+				<xs:element name="constant_impedance_CA_real" type="xs:string"/>
+				<xs:element name="constant_impedance_AB_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_BC_reac" type="xs:string"/>
+				<xs:element name="constant_impedance_CA_reac" type="xs:string"/>
+			<xs:element name="measured_voltage_A">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="measured_voltage_B">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="measured_voltage_C">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="measured_voltage_AB">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="measured_voltage_BC">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="measured_voltage_CA">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="phase_loss_protection">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="base_power_A" type="xs:string"/>
+				<xs:element name="base_power_B" type="xs:string"/>
+				<xs:element name="base_power_C" type="xs:string"/>
+				<xs:element name="power_pf_A" type="xs:string"/>
+				<xs:element name="current_pf_A" type="xs:string"/>
+				<xs:element name="impedance_pf_A" type="xs:string"/>
+				<xs:element name="power_pf_B" type="xs:string"/>
+				<xs:element name="current_pf_B" type="xs:string"/>
+				<xs:element name="impedance_pf_B" type="xs:string"/>
+				<xs:element name="power_pf_C" type="xs:string"/>
+				<xs:element name="current_pf_C" type="xs:string"/>
+				<xs:element name="impedance_pf_C" type="xs:string"/>
+				<xs:element name="power_fraction_A" type="xs:string"/>
+				<xs:element name="current_fraction_A" type="xs:string"/>
+				<xs:element name="impedance_fraction_A" type="xs:string"/>
+				<xs:element name="power_fraction_B" type="xs:string"/>
+				<xs:element name="current_fraction_B" type="xs:string"/>
+				<xs:element name="impedance_fraction_B" type="xs:string"/>
+				<xs:element name="power_fraction_C" type="xs:string"/>
+				<xs:element name="current_fraction_C" type="xs:string"/>
+				<xs:element name="impedance_fraction_C" type="xs:string"/>
+			<xs:element name="bustype">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="SWING_PQ|SWING|PV|PQ"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="busflags">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="ISSOURCE|HASSOURCE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reference_bus">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="maximum_voltage_error" type="xs:string"/>
+				<xs:element name="voltage_A" type="xs:string"/>
+				<xs:element name="voltage_B" type="xs:string"/>
+				<xs:element name="voltage_C" type="xs:string"/>
+				<xs:element name="voltage_AB" type="xs:string"/>
+				<xs:element name="voltage_BC" type="xs:string"/>
+				<xs:element name="voltage_CA" type="xs:string"/>
+				<xs:element name="current_A" type="xs:string"/>
+				<xs:element name="current_B" type="xs:string"/>
+				<xs:element name="current_C" type="xs:string"/>
+				<xs:element name="power_A" type="xs:string"/>
+				<xs:element name="power_B" type="xs:string"/>
+				<xs:element name="power_C" type="xs:string"/>
+				<xs:element name="shunt_A" type="xs:string"/>
+				<xs:element name="shunt_B" type="xs:string"/>
+				<xs:element name="shunt_C" type="xs:string"/>
+				<xs:element name="prerotated_current_A" type="xs:string"/>
+				<xs:element name="prerotated_current_B" type="xs:string"/>
+				<xs:element name="prerotated_current_C" type="xs:string"/>
+				<xs:element name="current_AB" type="xs:string"/>
+				<xs:element name="current_BC" type="xs:string"/>
+				<xs:element name="current_CA" type="xs:string"/>
+				<xs:element name="current_AN" type="xs:string"/>
+				<xs:element name="current_BN" type="xs:string"/>
+				<xs:element name="current_CN" type="xs:string"/>
+				<xs:element name="power_AB" type="xs:string"/>
+				<xs:element name="power_BC" type="xs:string"/>
+				<xs:element name="power_CA" type="xs:string"/>
+				<xs:element name="power_AN" type="xs:string"/>
+				<xs:element name="power_BN" type="xs:string"/>
+				<xs:element name="power_CN" type="xs:string"/>
+				<xs:element name="shunt_AB" type="xs:string"/>
+				<xs:element name="shunt_BC" type="xs:string"/>
+				<xs:element name="shunt_CA" type="xs:string"/>
+				<xs:element name="shunt_AN" type="xs:string"/>
+				<xs:element name="shunt_BN" type="xs:string"/>
+				<xs:element name="shunt_CN" type="xs:string"/>
+				<xs:element name="mean_repair_time" type="xs:string"/>
+			<xs:element name="frequency_measure_type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="PLL|SIMPLE|NONE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="sfm_T" type="xs:string"/>
+				<xs:element name="pll_Kp" type="xs:string"/>
+				<xs:element name="pll_Ki" type="xs:string"/>
+				<xs:element name="measured_angle_A" type="xs:string"/>
+				<xs:element name="measured_frequency_A" type="xs:string"/>
+				<xs:element name="measured_angle_B" type="xs:string"/>
+				<xs:element name="measured_frequency_B" type="xs:string"/>
+				<xs:element name="measured_angle_C" type="xs:string"/>
+				<xs:element name="measured_frequency_C" type="xs:string"/>
+				<xs:element name="measured_frequency" type="xs:string"/>
+			<xs:element name="service_status">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="OUT_OF_SERVICE|IN_SERVICE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="service_status_double">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="previous_uptime" type="xs:string"/>
+				<xs:element name="current_uptime" type="xs:string"/>
+			<xs:element name="Norton_dynamic">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="GFA_enable">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="GFA_freq_low_trip" type="xs:string"/>
+				<xs:element name="GFA_freq_high_trip" type="xs:string"/>
+				<xs:element name="GFA_volt_low_trip" type="xs:string"/>
+				<xs:element name="GFA_volt_high_trip" type="xs:string"/>
+				<xs:element name="GFA_reconnect_time" type="xs:string"/>
+				<xs:element name="GFA_freq_disconnect_time" type="xs:string"/>
+				<xs:element name="GFA_volt_disconnect_time" type="xs:string"/>
+			<xs:element name="GFA_status">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="topological_parent">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="phases">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					<xs:pattern value="A|B|C|D|N|S|G"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+				<xs:element name="nominal_voltage" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+</xs:element>
+
+</xs:schema>
+
