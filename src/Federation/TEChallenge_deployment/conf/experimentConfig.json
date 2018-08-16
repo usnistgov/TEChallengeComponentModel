@@ -3,8 +3,8 @@
     "Grid",
     "Loads",
     "LocalController",
-    "TransactiveAgent",
-    "supervisoryController"
+    "supervisoryController",
+    "Metronome"
   ],
   "expectedFederates": [
     {
@@ -17,17 +17,21 @@
     },
     {
       "federateType": "LocalController",
-      "count": 1
-    },
-    {
-      "federateType": "TransactiveAgent",
-      "count": 1
+      "count": 0
     },
     {
       "federateType": "supervisoryController",
-      "count": 1
+      "count": 0
+    },
+    {
+      "federateType": "Metronome",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
+      "count": 0
     }
-  ],
+],
   "lateJoinerFederates": [
     {
       "federateType": "Grid",
@@ -42,11 +46,15 @@
       "count": 0
     },
     {
-      "federateType": "TransactiveAgent",
+      "federateType": "supervisoryController",
       "count": 0
     },
     {
-      "federateType": "supervisoryController",
+      "federateType": "Metronome",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
       "count": 0
     }
   ]
