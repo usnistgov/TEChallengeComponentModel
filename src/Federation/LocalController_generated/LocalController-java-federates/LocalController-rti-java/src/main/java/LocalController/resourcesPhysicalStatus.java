@@ -35,6 +35,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	private static int _current_Real_A_handle;
 	private static int _current_Real_B_handle;
 	private static int _current_Real_C_handle;
+	private static int _gldName_handle;
 	private static int _gridNodeId_handle;
 	private static int _impedance_Imaginary_A_handle;
 	private static int _impedance_Imaginary_B_handle;
@@ -107,6 +108,14 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	* @return the handle (RTI assigned) of the "current_Real_C" attribute
 	*/
 	public static int get_current_Real_C_handle() { return _current_Real_C_handle; }
+	
+	/**
+	* Returns the handle (RTI assigned) of the "gldName" attribute of
+	* its containing object class.
+	*
+	* @return the handle (RTI assigned) of the "gldName" attribute
+	*/
+	public static int get_gldName_handle() { return _gldName_handle; }
 	
 	/**
 	* Returns the handle (RTI assigned) of the "gridNodeId" attribute of
@@ -378,6 +387,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberNames.add("current_Real_A");
 		_datamemberNames.add("current_Real_B");
 		_datamemberNames.add("current_Real_C");
+		_datamemberNames.add("gldName");
 		_datamemberNames.add("gridNodeId");
 		_datamemberNames.add("impedance_Imaginary_A");
 		_datamemberNames.add("impedance_Imaginary_B");
@@ -409,6 +419,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_allDatamemberNames.add("current_Real_A");
 		_allDatamemberNames.add("current_Real_B");
 		_allDatamemberNames.add("current_Real_C");
+		_allDatamemberNames.add("gldName");
 		_allDatamemberNames.add("gridNodeId");
 		_allDatamemberNames.add("impedance_Imaginary_A");
 		_allDatamemberNames.add("impedance_Imaginary_B");
@@ -440,6 +451,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberTypeMap.put("current_Real_A", "float");
 		_datamemberTypeMap.put("current_Real_B", "float");
 		_datamemberTypeMap.put("current_Real_C", "float");
+		_datamemberTypeMap.put("gldName", "String");
 		_datamemberTypeMap.put("gridNodeId", "String");
 		_datamemberTypeMap.put("impedance_Imaginary_A", "float");
 		_datamemberTypeMap.put("impedance_Imaginary_B", "float");
@@ -518,6 +530,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 				_current_Real_A_handle = rti.getAttributeHandle("current_Real_A", get_handle());			
 				_current_Real_B_handle = rti.getAttributeHandle("current_Real_B", get_handle());			
 				_current_Real_C_handle = rti.getAttributeHandle("current_Real_C", get_handle());			
+				_gldName_handle = rti.getAttributeHandle("gldName", get_handle());			
 				_gridNodeId_handle = rti.getAttributeHandle("gridNodeId", get_handle());			
 				_impedance_Imaginary_A_handle = rti.getAttributeHandle("impedance_Imaginary_A", get_handle());			
 				_impedance_Imaginary_B_handle = rti.getAttributeHandle("impedance_Imaginary_B", get_handle());			
@@ -567,6 +580,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,current_Real_A", get_current_Real_A_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,current_Real_B", get_current_Real_B_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,current_Real_C", get_current_Real_C_handle());
+		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,gldName", get_gldName_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,gridNodeId", get_gridNodeId_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,impedance_Imaginary_A", get_impedance_Imaginary_A_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,impedance_Imaginary_B", get_impedance_Imaginary_B_handle());
@@ -598,6 +612,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberHandleNameMap.put(get_current_Real_A_handle(), "current_Real_A");
 		_datamemberHandleNameMap.put(get_current_Real_B_handle(), "current_Real_B");
 		_datamemberHandleNameMap.put(get_current_Real_C_handle(), "current_Real_C");
+		_datamemberHandleNameMap.put(get_gldName_handle(), "gldName");
 		_datamemberHandleNameMap.put(get_gridNodeId_handle(), "gridNodeId");
 		_datamemberHandleNameMap.put(get_impedance_Imaginary_A_handle(), "impedance_Imaginary_A");
 		_datamemberHandleNameMap.put(get_impedance_Imaginary_B_handle(), "impedance_Imaginary_B");
@@ -895,6 +910,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 			+ "," + "current_Real_A:" + get_current_Real_A()
 			+ "," + "current_Real_B:" + get_current_Real_B()
 			+ "," + "current_Real_C:" + get_current_Real_C()
+			+ "," + "gldName:" + get_gldName()
 			+ "," + "gridNodeId:" + get_gridNodeId()
 			+ "," + "impedance_Imaginary_A:" + get_impedance_Imaginary_A()
 			+ "," + "impedance_Imaginary_B:" + get_impedance_Imaginary_B()
@@ -1217,6 +1233,55 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	*/
 	public static void unsubscribe_current_Real_C() {
 		_subscribeAttributeNameSet.remove( "current_Real_C" );
+	}
+	
+	
+	/**
+	* Publishes the "gldName" attribute of the attribute's containing object
+	* class for a federate.
+	* Note:  This method only marks the "gldName" attribute for publication.
+	* To actually publish the attribute, the federate must (re)publish its containing
+	* object class.
+	* (using <objectClassName>.publish( RTIambassador rti ) ).
+	*/
+	public static void publish_gldName() {
+		_publishAttributeNameSet.add( "gldName" );
+	}
+
+	/**
+	* Unpublishes the "gldName" attribute of the attribute's containing object
+	* class for a federate.
+	* Note:  This method only marks the "gldName" attribute for unpublication.
+	* To actually publish the attribute, the federate must (re)publish its containing
+	* object class.
+	* (using <objectClassName>.publish( RTIambassador rti ) ).
+	*/
+	public static void unpublish_gldName() {
+		_publishAttributeNameSet.remove( "gldName" );
+	}
+	
+	/**
+	* Subscribes a federate to the "gldName" attribute of the attribute's
+	* containing object class.
+	* Note:  This method only marks the "gldName" attribute for subscription.
+	* To actually subscribe to the attribute, the federate must (re)subscribe to its
+	* containing object class.
+	* (using <objectClassName>.subscribe( RTIambassador rti ) ).
+	*/
+	public static void subscribe_gldName() {
+		_subscribeAttributeNameSet.add( "gldName" );
+	}
+
+	/**
+	* Unsubscribes a federate from the "gldName" attribute of the attribute's
+	* containing object class.
+	* Note:  This method only marks the "gldName" attribute for unsubscription.
+	* To actually unsubscribe to the attribute, the federate must (re)subscribe to its
+	* containing object class.
+	* (using <objectClassName>.subscribe( RTIambassador rti ) ).
+	*/
+	public static void unsubscribe_gldName() {
+		_subscribeAttributeNameSet.remove( "gldName" );
 	}
 	
 	
@@ -2541,6 +2606,38 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	}
 	
 	
+	private Attribute< String > _gldName =
+ 		new Attribute< String >(  new String( "" )  );
+	
+	/**
+	* Set the value of the "gldName" attribute to "value" for this object.
+	*
+	* @param value the new value for the "gldName" attribute
+	*/
+	public void set_gldName( String value ) {
+		_gldName.setValue( value );
+		_gldName.setTime( getTime() );
+	}
+	
+	/**
+	* Returns the value of the "gldName" attribute of this object.
+	*
+	* @return the value of the "gldName" attribute
+	*/
+	public String get_gldName() {
+		return _gldName.getValue();
+	}
+	
+	/**
+	* Returns the current timestamp of the "gldName" attribute of this object.
+	* 
+	* @return the current timestamp of the "gldName" attribute
+	*/
+	public double get_gldName_time() {
+		return _gldName.getTime();
+	}
+	
+	
 	private Attribute< String > _gridNodeId =
  		new Attribute< String >(  new String( "" )  );
 	
@@ -3334,6 +3431,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		set_current_Real_A( resourcesPhysicalStatus_var.get_current_Real_A() );
 		set_current_Real_B( resourcesPhysicalStatus_var.get_current_Real_B() );
 		set_current_Real_C( resourcesPhysicalStatus_var.get_current_Real_C() );
+		set_gldName( resourcesPhysicalStatus_var.get_gldName() );
 		set_gridNodeId( resourcesPhysicalStatus_var.get_gridNodeId() );
 		set_impedance_Imaginary_A( resourcesPhysicalStatus_var.get_impedance_Imaginary_A() );
 		set_impedance_Imaginary_B( resourcesPhysicalStatus_var.get_impedance_Imaginary_B() );
@@ -3379,6 +3477,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "current_Real_A".equals( datamemberName )  ) return new Float(get_current_Real_A());
 		else if (  "current_Real_B".equals( datamemberName )  ) return new Float(get_current_Real_B());
 		else if (  "current_Real_C".equals( datamemberName )  ) return new Float(get_current_Real_C());
+		else if (  "gldName".equals( datamemberName )  ) return get_gldName();
 		else if (  "gridNodeId".equals( datamemberName )  ) return get_gridNodeId();
 		else if (  "impedance_Imaginary_A".equals( datamemberName )  ) return new Float(get_impedance_Imaginary_A());
 		else if (  "impedance_Imaginary_B".equals( datamemberName )  ) return new Float(get_impedance_Imaginary_B());
@@ -3424,6 +3523,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if ( get_current_Real_A_handle() == datamemberHandle ) return new Float(get_current_Real_A());
 		else if ( get_current_Real_B_handle() == datamemberHandle ) return new Float(get_current_Real_B());
 		else if ( get_current_Real_C_handle() == datamemberHandle ) return new Float(get_current_Real_C());
+		else if ( get_gldName_handle() == datamemberHandle ) return get_gldName();
 		else if ( get_gridNodeId_handle() == datamemberHandle ) return get_gridNodeId();
 		else if ( get_impedance_Imaginary_A_handle() == datamemberHandle ) return new Float(get_impedance_Imaginary_A());
 		else if ( get_impedance_Imaginary_B_handle() == datamemberHandle ) return new Float(get_impedance_Imaginary_B());
@@ -3461,6 +3561,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if ( param_handle == get_current_Real_A_handle() ) set_current_Real_A( Float.parseFloat(val) );
 		else if ( param_handle == get_current_Real_B_handle() ) set_current_Real_B( Float.parseFloat(val) );
 		else if ( param_handle == get_current_Real_C_handle() ) set_current_Real_C( Float.parseFloat(val) );
+		else if ( param_handle == get_gldName_handle() ) set_gldName( val );
 		else if ( param_handle == get_gridNodeId_handle() ) set_gridNodeId( val );
 		else if ( param_handle == get_impedance_Imaginary_A_handle() ) set_impedance_Imaginary_A( Float.parseFloat(val) );
 		else if ( param_handle == get_impedance_Imaginary_B_handle() ) set_impedance_Imaginary_B( Float.parseFloat(val) );
@@ -3500,6 +3601,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "current_Real_A".equals( datamemberName )  ) set_current_Real_A( Float.parseFloat(val) );
 		else if (  "current_Real_B".equals( datamemberName )  ) set_current_Real_B( Float.parseFloat(val) );
 		else if (  "current_Real_C".equals( datamemberName )  ) set_current_Real_C( Float.parseFloat(val) );
+		else if (  "gldName".equals( datamemberName )  ) set_gldName( val );
 		else if (  "gridNodeId".equals( datamemberName )  ) set_gridNodeId( val );
 		else if (  "impedance_Imaginary_A".equals( datamemberName )  ) set_impedance_Imaginary_A( Float.parseFloat(val) );
 		else if (  "impedance_Imaginary_B".equals( datamemberName )  ) set_impedance_Imaginary_B( Float.parseFloat(val) );
@@ -3539,6 +3641,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "current_Real_A".equals( datamemberName )  ) set_current_Real_A( (Float)val );
 		else if (  "current_Real_B".equals( datamemberName )  ) set_current_Real_B( (Float)val );
 		else if (  "current_Real_C".equals( datamemberName )  ) set_current_Real_C( (Float)val );
+		else if (  "gldName".equals( datamemberName )  ) set_gldName( (String)val );
 		else if (  "gridNodeId".equals( datamemberName )  ) set_gridNodeId( (String)val );
 		else if (  "impedance_Imaginary_A".equals( datamemberName )  ) set_impedance_Imaginary_A( (Float)val );
 		else if (  "impedance_Imaginary_B".equals( datamemberName )  ) set_impedance_Imaginary_B( (Float)val );
@@ -3633,6 +3736,16 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 			if (  isPublished && _current_Real_C.shouldBeUpdated( force )  ) {
 				datamembers.add( get_current_Real_C_handle(), Float.toString(get_current_Real_C()).getBytes() );
 				_current_Real_C.setHasBeenUpdated();
+			}
+			try {
+				isPublished = _publishedAttributeHandleSet.isMember( get_gldName_handle() );
+			} catch ( Exception e ) {
+				logger.error("ERROR:  ObjectRoot.resourcesPhysicalStatus.createSuppliedAttributes:  could not determine if gldName is published.");
+				isPublished = false;
+			}
+			if (  isPublished && _gldName.shouldBeUpdated( force )  ) {
+				datamembers.add( get_gldName_handle(), get_gldName().getBytes() );
+				_gldName.setHasBeenUpdated();
 			}
 			try {
 				isPublished = _publishedAttributeHandleSet.isMember( get_gridNodeId_handle() );
@@ -3881,6 +3994,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 				_current_Real_A = data._current_Real_A;
 				_current_Real_B = data._current_Real_B;
 				_current_Real_C = data._current_Real_C;
+				_gldName = data._gldName;
 				_gridNodeId = data._gridNodeId;
 				_impedance_Imaginary_A = data._impedance_Imaginary_A;
 				_impedance_Imaginary_B = data._impedance_Imaginary_B;
