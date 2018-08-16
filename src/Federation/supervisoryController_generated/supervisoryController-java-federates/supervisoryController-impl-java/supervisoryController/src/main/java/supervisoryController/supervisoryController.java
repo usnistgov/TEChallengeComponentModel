@@ -23,16 +23,12 @@ public class supervisoryController extends supervisoryControllerBase {
     private supervisoryControllerConfig configuration;  
     public Scontroller[] superControls = null;  
     public SLcontroller[] localControls = null;  
-   // public int[] modsig;
-   // public String[] nameoflocal;
+    public Stender[] tenders = null;
+   
     public supervisoryControlSignal[] vsupervisoryControlSignal= null ;
+    public Tender[] vTender = null;
 
-    ///////////////////////////////////////////////////////////////////////
-    // TODO Instantiate objects that must be sent every logical time step
-    //
-    // supervisoryControlSignal vsupervisoryControlSignal = new supervisoryControlSignal();
-    //
-    ///////////////////////////////////////////////////////////////////////
+   
 
     public supervisoryController(supervisoryControllerConfig params) throws Exception {
         super(params);
@@ -41,16 +37,27 @@ public class supervisoryController extends supervisoryControllerBase {
         numberOfSInstances = configuration.numberofsc;
         registerlocalcontroller(numberOfSInstances);
         vsupervisoryControlSignal= new supervisoryControlSignal[numberOfObjectInstances];
+        vTender = new Tender[numberOfSInstances];
        // modsig = new int[numberOfObjectInstances] ;
        // nameoflocal = new String[numberOfObjectInstances];
- 
         registerInstances(numberOfObjectInstances);
-
+        registertq(numberOfSInstances);
+       
     }
+
+
+ private void registertq(int numberOfSInstances)   {
+     for (int i = 0; i < numberOfSInstances; i++){ 
+         tenders[i] = new Stender(); 
+         vTender[i]= new Tender(); 
+         vTender[i].registerObject(getLRC());
+     }
+     }   
    
  private int registerlocalcontroller(int numberOfSInstances){
         superControls = new Scontroller[numberOfSInstances];
-      
+        tenders = new Stender[numberOfSInstances]; 
+
         for (int i = 0; i < numberOfSInstances; i++){
            superControls[i]=new Scontroller();
            numberOfLc= configuration.superControls[i].numberOfLcControlledbySc; 
@@ -75,10 +82,29 @@ public class supervisoryController extends supervisoryControllerBase {
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                  vsupervisoryControlSignal[i].registerObject(getLRC());
         	   } }
+
+
+
+
+private void updateInstancesqt(int numberOfSInstances)  {
+
+   for (int i = 0; i < numberOfSInstances; i++) {
+            
+            vTender[i].set_price( configuration.tenders[i].price+(float)currentTime);
+            vTender[i].set_quantity( configuration.tenders[i].quantity);
+            vTender[i].set_tenderId( configuration.tenders[i].tenderId);
+            vTender[i].set_timeReference( configuration.tenders[i].timeReference);
+            vTender[i].set_type( configuration.tenders[i].type);
+
+            vTender[i].updateAttributeValues(getLRC(), currentTime);
+            
+    } 
+ }  
+
        
 
 private void updateInstances(int numberOfSInstances) {
-        log.trace("...................................updating Resourse Physical Status Instances.............................................");
+        log.trace("...................................updating Super control signal Instances.............................................");
       int i=0;   
       {
         	for(int j=0; j<numberOfSInstances;j++){
@@ -106,6 +132,15 @@ private void updateInstances(int numberOfSInstances) {
             if (object instanceof resourcesPhysicalStatus) {
                 handleObjectClass((resourcesPhysicalStatus) object);
             }
+            if (object instanceof Quote) {
+                handleObjectClass((Quote) object);
+            }
+            if (object instanceof Transaction) {
+                handleObjectClass((Transaction) object);
+            }
+            if (object instanceof marketStatus) {
+                handleObjectClass((marketStatus) object);
+            }
             log.info("Object received and handled: " + s);
         }
     }
@@ -116,9 +151,7 @@ private void updateInstances(int numberOfSInstances) {
             super.disableTimeRegulation();
         }
 
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
+      
 
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
@@ -127,14 +160,7 @@ private void updateInstances(int numberOfSInstances) {
             readyToPopulate();
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // Call CheckReceivedSubscriptions(<message>) here to receive
-        // subscriptions published before the first time step.
-        ///////////////////////////////////////////////////////////////////////
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+        
 
         if(!super.isLateJoiner()) {
             readyToRun();
@@ -153,17 +179,13 @@ private void updateInstances(int numberOfSInstances) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
           //  createdatastructure(numberOfObjectInstances,numberOfSInstances,numberOfLc)
-             updateInstances(numberOfSInstances);
+            updateInstances(numberOfSInstances);
 
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO objects that must be sent every logical time step
-            //
-            //    vsupervisoryControlSignal.set_localControllerName(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.set_modulationSignal(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.updateAttributeValues(getLRC(), currentTime);
-            //
-            //////////////////////////////////////////////////////////////////////////////////////////
+  // divide by the integer value of second to set federate to run transaction part with that many second interval(current value is 20) 
+         if(currentTime%20 == 0.0 )                    
+            updateInstancesqt(numberOfSInstances);
 
+            
             CheckReceivedSubscriptions("Main Loop");
 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -184,10 +206,62 @@ private void updateInstances(int numberOfSInstances) {
     }
 
     private void handleObjectClass(resourcesPhysicalStatus object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
+       /*
+         log.info("loadInstance: " + object.get_loadInstanceName());
+         log.info("gridNodeId: " + object.get_gridNodeId());
+         log.info("phases: " + object.get_phases());
+         log.info("status: " + object.get_status());
+         log.info("type: " + object.get_type());
+
+         log.info("voltage_Real_A: " + object.get_voltage_Real_A());
+         log.info("voltage_Imaginary_A: " + object.get_voltage_Imaginary_A());
+         log.info("voltage_Real_B: " + object.get_voltage_Real_B());
+         log.info("voltage_Imaginary_B: " + object.get_voltage_Imaginary_B());
+         log.info("voltage_Real_C: " + object.get_voltage_Real_C());
+         log.info("voltage_Imaginary_C: " + object.get_voltage_Imaginary_C());
+
+         log.info("current_Real_A: " + object.get_current_Real_A());
+         log.info("current_Imaginary_A: " + object.get_current_Imaginary_A());
+         log.info("current_Real_B: " + object.get_current_Real_B());
+         log.info("current_Imaginary_B: " + object.get_current_Imaginary_B());
+         log.info("current_Real_C: " + object.get_current_Real_C());
+         log.info("current_Imaginary_C: " + object.get_current_Imaginary_C());
+
+         log.info("impedance_Real_A: " + object.get_impedance_Real_A());
+         log.info("impedance_Imaginary_A: " + object.get_impedance_Imaginary_A());
+         log.info("impedance_Real_B: " + object.get_impedance_Real_B());
+         log.info("impedance_Imaginary_B: " + object.get_impedance_Imaginary_B());
+         log.info("impedance_Real_C: " + object.get_impedance_Real_C());
+         log.info("impedance_Imaginary_C: " + object.get_impedance_Imaginary_C());
+
+         log.info("power_Real_A: " + object.get_power_Real_A());
+         log.info("power_Imaginary_A: " + object.get_power_Imaginary_A());
+         log.info("power_Real_B: " + object.get_power_Real_B());
+         log.info("power_Imaginary_B: " + object.get_power_Imaginary_B());
+         log.info("power_Real_C: " + object.get_power_Real_C());
+         log.info("power_Imaginary_C: " + object.get_power_Imaginary_C());     */
     }
+
+     private void handleObjectClass(Quote object) {
+        log.info("price: " + object.get_price());
+        log.info("quantity: " + object.get_quantity());
+        log.info("quoteId: " + object.get_quoteId());
+        log.info("timeReference: " + object.get_timeReference());
+        log.info("type: " + object.get_type());
+    }
+
+     private void handleObjectClass(Transaction object) {
+        log.info("accept: " + object.get_accept());
+        log.info("tenderId: " + object.get_tenderId());
+    }
+ 
+     private void handleObjectClass(marketStatus object) {
+        log.info("mprice: " + object.get_price());
+        log.info("mquantity: " + object.get_time());
+        log.info("mType: " + object.get_type());
+        
+    }
+
 
     public static void main(String[] args) {
         try {

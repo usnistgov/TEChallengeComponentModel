@@ -6,6 +6,34 @@
 	"lookAhead": 0.1,
 	"stepSize": 5.0,
       "numberofsc":3,
+	 
+     "tenders":[
+     	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "a",
+         "timeReference" : 3,
+         "tenderId": 101
+         },
+
+        	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "b",
+         "timeReference" : 3,
+         "tenderId": 201
+         },
+         	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "c",
+         "timeReference" : 3,
+         "tenderId": 301
+         }
+     ],
+
+
+
 	 "superControls": [{
 			"scontrolName": "scontrol1",
 			"numberOfLcControlledbySc":3,

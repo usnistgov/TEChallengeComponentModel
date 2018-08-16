@@ -5,6 +5,7 @@ import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,13 +15,16 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class TransactiveAgent extends TransactiveAgentBase {
-    private final static Logger log = LogManager.getLogger();
 
-    private double currentTime = 0;
+    private final static Logger log = LogManager.getLogger(TransactiveAgent.class);
+
+    double currentTime = 0;
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
+    // marketStatus vmarketStatus = new marketStatus();
+    // Quote vQuote = new Quote();
     // Transaction vTransaction = new Transaction();
     //
     ///////////////////////////////////////////////////////////////////////
@@ -31,12 +35,14 @@ public class TransactiveAgent extends TransactiveAgentBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
+        // vmarketStatus.registerObject(getLRC());
+        // vQuote.registerObject(getLRC());
         // vTransaction.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
 
-    private void checkReceivedSubscriptions() {
+    private void CheckReceivedSubscriptions(String s) {
 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
@@ -45,18 +51,12 @@ public class TransactiveAgent extends TransactiveAgentBase {
             if (object instanceof Tender) {
                 handleObjectClass((Tender) object);
             }
-            else if (object instanceof Quote) {
-                handleObjectClass((Quote) object);
-            }
-            else {
-                log.debug("unhandled object reflection: {}", object.getClassName());
-            }
+            log.info("Object received and handled: " + s);
         }
     }
 
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
-            log.info("turning off time regulation (late joiner)");
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
@@ -69,68 +69,83 @@ public class TransactiveAgent extends TransactiveAgentBase {
         putAdvanceTimeRequest(atr);
 
         if(!super.isLateJoiner()) {
-            log.info("waiting on readyToPopulate...");
             readyToPopulate();
-            log.info("...synchronized on readyToPopulate");
         }
+
+        ///////////////////////////////////////////////////////////////////////
+        // Call CheckReceivedSubscriptions(<message>) here to receive
+        // subscriptions published before the first time step.
+        ///////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////
         // TODO perform initialization that depends on other federates below //
         ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
-            log.info("waiting on readyToRun...");
             readyToRun();
-            log.info("...synchronized on readyToRun");
         }
 
         startAdvanceTimeThread();
-        log.info("started logical time progression");
 
-        while (!exitCondition) {
+        // this is the exit condition of the following while loop
+        // it is used to break the loop so that latejoiner federates can
+        // notify the federation manager that they left the federation
+        boolean exitCondition = false;
+
+        while (true) {
+            currentTime += super.getStepSize();
+
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
+            //    vmarketStatus.set_price(<YOUR VALUE HERE >);
+            //    vmarketStatus.set_time(<YOUR VALUE HERE >);
+            //    vmarketStatus.set_type(<YOUR VALUE HERE >);
+            //    vmarketStatus.updateAttributeValues(getLRC(), currentTime);
+            //
+            //    vQuote.set_price(<YOUR VALUE HERE >);
+            //    vQuote.set_quantity(<YOUR VALUE HERE >);
+            //    vQuote.set_quoteId(<YOUR VALUE HERE >);
+            //    vQuote.set_timeReference(<YOUR VALUE HERE >);
+            //    vQuote.set_type(<YOUR VALUE HERE >);
+            //    vQuote.updateAttributeValues(getLRC(), currentTime);
+            //
             //    vTransaction.set_accept(<YOUR VALUE HERE >);
             //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
-            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vTransaction.updateAttributeValues(getLRC(), currentTime);
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
-            checkReceivedSubscriptions();
+            CheckReceivedSubscriptions("Main Loop");
 
-            ////////////////////////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop
-            ////////////////////////////////////////////////////////////////////////////////////////
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // DO NOT MODIFY FILE BEYOND THIS LINE
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+            putAdvanceTimeRequest(newATR);
+            atr.requestSyncEnd();
+            atr = newATR;
 
-
-            if (!exitCondition) {
-                currentTime += super.getStepSize();
-                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
-                putAdvanceTimeRequest(newATR);
-                atr.requestSyncEnd();
-                atr = newATR;
+            if(exitCondition) {
+                break;
             }
         }
 
-        // call exitGracefully to shut down federate
-        exitGracefully();
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups needed before exiting the app
-        ////////////////////////////////////////////////////////////////////////////////////////
+        // while loop finished, notify FederationManager about resign
+        super.notifyFederationOfResign();
     }
 
     private void handleObjectClass(Tender object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
+    	    	
+    	log.info("price: " + object.get_price());
+        log.info("quantity: " + object.get_quantity());
+        log.info("tenderId: " + object.get_tenderId());
+        log.info("timeReference: " + object.get_timeReference());
+        log.info("type: " + object.get_type());
 
-    private void handleObjectClass(Quote object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
@@ -142,10 +157,12 @@ public class TransactiveAgent extends TransactiveAgentBase {
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
             TransactiveAgent federate = new TransactiveAgent(federateConfig);
             federate.execute();
-            log.info("Done.");
+
             System.exit(0);
         } catch (Exception e) {
+            log.error("There was a problem executing the TransactiveAgent federate: {}", e.getMessage());
             log.error(e);
+
             System.exit(1);
         }
     }

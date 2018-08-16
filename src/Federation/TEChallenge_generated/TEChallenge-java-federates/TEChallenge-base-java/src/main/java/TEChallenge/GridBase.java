@@ -10,10 +10,8 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
-import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
-
 
 public class GridBase extends SynchronizedFederate {
 

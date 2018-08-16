@@ -3,7 +3,6 @@
     "Grid",
     "Loads",
     "LocalController",
-    "Metronome",
     "TransactiveAgent",
     "supervisoryController"
   ],
@@ -18,10 +17,6 @@
     },
     {
       "federateType": "LocalController",
-      "count": 1
-    },
-    {
-      "federateType": "Metronome",
       "count": 1
     },
     {
@@ -44,10 +39,6 @@
     },
     {
       "federateType": "LocalController",
-      "count": 0
-    },
-    {
-      "federateType": "Metronome",
       "count": 0
     },
     {

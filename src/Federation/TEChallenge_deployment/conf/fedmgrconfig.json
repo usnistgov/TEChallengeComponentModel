@@ -12,5 +12,5 @@
   "federationEndTime": 0,
   "realTimeMode": true,
   "fedFile": "fom/TEChallenge.fed",
-  "experimentConfig": "conf/default/experimentConfig.json"
+  "experimentConfig": "conf/experimentConfig.json"
 }
