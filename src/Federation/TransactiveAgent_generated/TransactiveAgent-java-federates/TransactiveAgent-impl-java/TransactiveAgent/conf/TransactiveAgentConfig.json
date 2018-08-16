@@ -1,0 +1,52 @@
+{
+	"federateRTIInitWaitTimeMs": 200,
+	"federateType": "supervisoryController",
+	"federationId": "FedManager",
+	"isLateJoiner": false,
+	"lookAhead": 0.1,
+	"stepSize": 20.0,
+    "numberofta":3,
+	 
+     "quotes":[
+     	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "a",
+         "timeReference" : 3,
+         "quoteId": 101
+         },
+
+        	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "a",
+         "timeReference" : 3,
+         "quoteId": 201
+         },
+         	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "a",
+         "timeReference" : 3,
+         "quoteId": 301
+         }
+     ],
+   "transactions": [
+      {
+       "accept" : true,
+       "tenderId" : 11
+      },
+
+      {
+       "accept" : true,
+       "tenderId" : 11
+      },
+      {
+       "accept" : true,
+       "tenderId" : 11
+      }
+
+
+   ]
+}
+

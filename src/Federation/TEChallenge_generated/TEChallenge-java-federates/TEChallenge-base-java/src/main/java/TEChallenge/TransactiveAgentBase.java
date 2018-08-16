@@ -10,10 +10,8 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
-import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
-
 
 public class TransactiveAgentBase extends SynchronizedFederate {
 
@@ -36,18 +34,24 @@ public class TransactiveAgentBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        marketStatus.publish_price();
+        marketStatus.publish_time();
+        marketStatus.publish_type();
+        marketStatus.publish(getLRC());
+        
+        	
+        Quote.publish_price();
+        Quote.publish_quantity();
+        Quote.publish_quoteId();
+        Quote.publish_timeReference();
+        Quote.publish_type();
+        Quote.publish(getLRC());
+        
+        	
         Transaction.publish_accept();
         Transaction.publish_tenderId();
         Transaction.publish(getLRC());
                 
-        	
-        Quote.subscribe_price();
-        Quote.subscribe_quantity();
-        Quote.subscribe_quoteId();
-        Quote.subscribe_timeReference();
-        Quote.subscribe_type();
-        Quote.subscribe(getLRC());
-        
         	
         Tender.subscribe_price();
         Tender.subscribe_quantity();

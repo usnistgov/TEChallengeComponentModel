@@ -77,7 +77,7 @@ public class Loads extends LoadsBase {
             if (object instanceof gridVoltageState) {
                 handleObjectClass((gridVoltageState) object);
             }
-            else if (object instanceof resourceControl) {
+            if (object instanceof resourceControl) {
                 handleObjectClass((resourceControl) object);
             }
             log.info("---------------------------Object received and handled:------------------------------- " + s);

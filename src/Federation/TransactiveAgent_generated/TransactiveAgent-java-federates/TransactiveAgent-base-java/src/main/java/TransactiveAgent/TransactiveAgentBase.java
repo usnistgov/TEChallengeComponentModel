@@ -1,4 +1,4 @@
-package TEChallenge;
+package TransactiveAgent;
 
 import hla.rti.EventRetractionHandle;
 import hla.rti.LogicalTime;
@@ -10,17 +10,15 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
-import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
 
-
-public class MetronomeBase extends SynchronizedFederate {
+public class TransactiveAgentBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public MetronomeBase(FederateConfig config) throws Exception {
+	public TransactiveAgentBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();
@@ -32,18 +30,38 @@ public class MetronomeBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        SimTime.publish(getLRC());
         		
 		// object pubsub
-                	}
+        
+        	
+        Quote.publish_price();
+        Quote.publish_quantity();
+        Quote.publish_quoteId();
+        Quote.publish_timeReference();
+        Quote.publish_type();
+        Quote.publish(getLRC());
+        
+        	
+        marketStatus.publish_price();
+        marketStatus.publish_time();
+        marketStatus.publish_type();
+        marketStatus.publish(getLRC());
+        
+        	
+        Transaction.publish_accept();
+        Transaction.publish_tenderId();
+        Transaction.publish(getLRC());
+                
+        	
+        Tender.subscribe_price();
+        Tender.subscribe_quantity();
+        Tender.subscribe_tenderId();
+        Tender.subscribe_timeReference();
+        Tender.subscribe_type();
+        Tender.subscribe(getLRC());
+        	}
         
 	
-	public SimTime create_SimTime() {
-	   SimTime interaction = new SimTime();
-	   interaction.set_sourceFed( getFederateId() );
-	   interaction.set_originFed( getFederateId() );
-	   return interaction;
-	}
 	@Override
 	public void receiveInteraction(
 	 int interactionClass, ReceivedInteraction theInteraction, byte[] userSuppliedTag

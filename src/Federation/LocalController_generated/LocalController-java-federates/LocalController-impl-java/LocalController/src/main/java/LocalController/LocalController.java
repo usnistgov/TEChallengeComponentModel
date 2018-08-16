@@ -74,7 +74,7 @@ public class LocalController extends LocalControllerBase {
             if (object instanceof resourcesPhysicalStatus) {
                 handleObjectClass((resourcesPhysicalStatus) object);
             }
-            else if (object instanceof supervisoryControlSignal) {
+            if (object instanceof supervisoryControlSignal) {
                 handleObjectClass((supervisoryControlSignal) object);
             }
             log.info("Object received and handled: " + s);
@@ -189,15 +189,44 @@ public class LocalController extends LocalControllerBase {
     }
 
     private void handleObjectClass(resourcesPhysicalStatus object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
+
+         log.info("loadInstance: " + object.get_loadInstanceName());
+         log.info("gridNodeId: " + object.get_gridNodeId());
+         log.info("phases: " + object.get_phases());
+         log.info("status: " + object.get_status());
+         log.info("type: " + object.get_type());
+
+         log.info("voltage_Real_A: " + object.get_voltage_Real_A());
+         log.info("voltage_Imaginary_A: " + object.get_voltage_Imaginary_A());
+         log.info("voltage_Real_B: " + object.get_voltage_Real_B());
+         log.info("voltage_Imaginary_B: " + object.get_voltage_Imaginary_B());
+         log.info("voltage_Real_C: " + object.get_voltage_Real_C());
+         log.info("voltage_Imaginary_C: " + object.get_voltage_Imaginary_C());
+
+         log.info("current_Real_A: " + object.get_current_Real_A());
+         log.info("current_Imaginary_A: " + object.get_current_Imaginary_A());
+         log.info("current_Real_B: " + object.get_current_Real_B());
+         log.info("current_Imaginary_B: " + object.get_current_Imaginary_B());
+         log.info("current_Real_C: " + object.get_current_Real_C());
+         log.info("current_Imaginary_C: " + object.get_current_Imaginary_C());
+
+         log.info("impedance_Real_A: " + object.get_impedance_Real_A());
+         log.info("impedance_Imaginary_A: " + object.get_impedance_Imaginary_A());
+         log.info("impedance_Real_B: " + object.get_impedance_Real_B());
+         log.info("impedance_Imaginary_B: " + object.get_impedance_Imaginary_B());
+         log.info("impedance_Real_C: " + object.get_impedance_Real_C());
+         log.info("impedance_Imaginary_C: " + object.get_impedance_Imaginary_C());
+
+         log.info("power_Real_A: " + object.get_power_Real_A());
+         log.info("power_Imaginary_A: " + object.get_power_Imaginary_A());
+         log.info("power_Real_B: " + object.get_power_Real_B());
+         log.info("power_Imaginary_B: " + object.get_power_Imaginary_B());
+         log.info("power_Real_C: " + object.get_power_Real_C());
+         log.info("power_Imaginary_C: " + object.get_power_Imaginary_C());
     }
 
     private void handleObjectClass(supervisoryControlSignal object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
+        
          log.info("LocalControllerName: " + object.get_localControllerName());
          log.info("modulation Signal: " + object.get_modulationSignal());
         
