@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Load {
 
-
+public String gldName;
 public String gNodeId;
 public boolean state;
 public String phase;

@@ -1,0 +1,934 @@
+#set double_format=%+.12lg
+#set profiler=1
+#set randomseed=10
+#set relax_naming_rules=1
+#set savefile=test.xml
+
+clock {
+	timezone EST+5EDT;
+	starttime '2009-01-01 00:00:00';
+	stoptime '2010-01-01 02:00:00';
+}
+
+module climate;
+module powerflow {
+	solver_method FBS;
+	NR_iteration_limit 100;
+}
+module residential {
+	implicit_enduses NONE;
+}
+module tape;
+
+
+object climate {
+	name "ColumbusOH";
+	tmyfile OH-Columbus.tmy2;
+	interpolate QUADRATIC;
+}
+
+
+object transformer_configuration {
+	name substation_config;
+	connect_type WYE_WYE;
+	install_type PADMOUNT;
+	power_rating 450;
+	powerA_rating 150 kVA;
+	powerB_rating 150;
+	powerC_rating 150;
+	primary_voltage 69000;
+	secondary_voltage 7200;
+	impedance +0.0015+0.00675j;
+}
+
+object transformer_configuration {
+	name default_transformer_A;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type PADMOUNT;
+	power_rating 150;
+	powerA_rating 150 kVA;
+	primary_voltage 7200;
+	secondary_voltage 120;
+	impedance +0.015+0.0675j;
+}
+
+object transformer_configuration {
+	name default_transformer_B;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type PADMOUNT;
+	power_rating 150;
+	powerB_rating 150;
+	primary_voltage 7200;
+	secondary_voltage 120;
+	impedance +0.015+0.0675j;
+}
+
+object transformer_configuration {
+	name default_transformer_C;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type PADMOUNT;
+	power_rating 150;
+	powerC_rating 150;
+	primary_voltage 7200;
+	secondary_voltage 120;
+	impedance +0.015+0.0675j;
+}
+
+object triplex_line_conductor {
+	name Name_1_0_AA_triplex;
+	resistance 0.57;
+	geometric_mean_radius 0.011;
+}
+
+object triplex_line_configuration {
+	name TLCFG;
+	conductor_1 Name_1_0_AA_triplex;
+	conductor_2 Name_1_0_AA_triplex;
+	conductor_N Name_1_0_AA_triplex;
+	insulation_thickness 0.08;
+	diameter 0.368;
+}
+
+object meter {
+	name substation_root;
+	phases ABCN;
+	nominal_voltage 69000;
+	bustype SWING;
+}
+
+object meter {
+	name F1_transformer_meter;
+	phases ABCN;
+	nominal_voltage 7200;
+}
+
+object transformer {
+	name F1_Transformer1;
+	groupid F1_Network_Trans;
+	phases ABCN;
+	from substation_root;
+	to F1_transformer_meter;
+	configuration substation_config;
+}
+
+
+object triplex_meter {
+	name F1_triplex_node_A;
+	phases SA;
+	nominal_voltage 120;
+}
+
+object triplex_meter {
+	name F1_triplex_node_B;
+	phases SB;
+	nominal_voltage 120;
+}
+
+object triplex_meter {
+	name F1_triplex_node_C;
+	phases SC;
+	nominal_voltage 120;
+}
+
+object transformer {
+	name F1_center_tap_transformer_A;
+	phases SA;
+	from F1_transformer_meter;
+	to F1_triplex_node_A;
+	configuration default_transformer_A;
+}
+
+object transformer {
+	name F1_center_tap_transformer_B;
+	phases SB;
+	from F1_transformer_meter;
+	to F1_triplex_node_B;
+	configuration default_transformer_B;
+}
+
+object transformer {
+	name F1_center_tap_transformer_C;
+	phases SC;
+	from F1_transformer_meter;
+	to F1_triplex_node_C;
+	configuration default_transformer_C;
+}
+
+object triplex_meter {
+	name F1_tpm_flatrate_B0;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B0;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B0;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B0;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C1;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C1;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C1;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C1;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C2;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C2;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C2;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C2;
+	phases SC;
+	nominal_voltage 120;
+}
+
+object triplex_meter {
+	name F1_tpm_flatrate_B3;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B3;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B3;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B3;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B4;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B4;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B4;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B4;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A5;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A5;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A5;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A5;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B6;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B6;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B6;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B6;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B7;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;	
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B7;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B7;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B7;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A8;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A8;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A8;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A8;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A9;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A9;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A9;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A9;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C10;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C10;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C10;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C10;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A11;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A11;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A11;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A11;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A12;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A12;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A12;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A12;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A13;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A13;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A13;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A13;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C14;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C14;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C14;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C14;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A15;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A15;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A15;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A15;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A16;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A16;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A16;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A16;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C17;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C17;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C17;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C17;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C18;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C18;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C18;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C18;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B19;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B19;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B19;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B19;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B20;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B20;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B20;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B20;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C21;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C21;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C21;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C21;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B22;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B22;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B22;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B22;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B23;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B23;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B23;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B23;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_B24;
+	groupid F1_flatrate_meter;
+	phases SB;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SB;
+	from F1_triplex_node_B;
+	to F1_tpm_flatrate_B24;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_B24;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_B24;
+	phases SB;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A25;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A25;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A25;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A25;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A26;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A26;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A26;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A26;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C27;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C27;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C27;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C27;
+	phases SC;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_A28;
+	groupid F1_flatrate_meter;
+	phases SA;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SA;
+	from F1_triplex_node_A;
+	to F1_tpm_flatrate_A28;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_A28;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_A28;
+	phases SA;
+	nominal_voltage 120;
+}
+
+
+object triplex_meter {
+	name F1_tpm_flatrate_C29;
+	groupid F1_flatrate_meter;
+	phases SC;
+	nominal_voltage 120;
+	bill_mode TIERED;
+}
+
+object triplex_line {
+	groupid F1_Triplex_Line;
+	phases SC;
+	from F1_triplex_node_C;
+	to F1_tpm_flatrate_C29;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name F1_tpm_rt_C29;
+	groupid F1_rt_meter;
+	parent F1_tpm_flatrate_C29;
+	phases SC;
+	nominal_voltage 120;
+}
+
+

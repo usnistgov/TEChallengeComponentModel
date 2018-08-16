@@ -106,6 +106,7 @@ public class Loads extends LoadsBase {
             //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_gldName(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
