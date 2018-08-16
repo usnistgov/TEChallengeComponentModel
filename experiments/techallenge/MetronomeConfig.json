@@ -1,0 +1,12 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Metronome",
+  "federationId": "WorkshopExercise",
+  "isLateJoiner": false,
+  "lookAhead": 0.1,
+  "stepSize": 1.0,
+  "starttime": 1500091200.0,
+  "stoptime": 0,
+  "logicaltimesec": 900.0,
+  "ignoretil": 1.0
+}
