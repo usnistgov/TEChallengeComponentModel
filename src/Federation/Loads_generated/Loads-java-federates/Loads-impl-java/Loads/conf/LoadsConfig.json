@@ -12,6 +12,7 @@
             "phase": "AN",
             "type": "Z",
             "loadInstanceName": "load1",
+            "gldName": "nameattribute1",
 
             "currentImaginaryA": 10,
             "currentImaginaryB": 0,
@@ -48,6 +49,7 @@
             "phase": "AN",
              "type": "Y",
              "loadInstanceName": "load2",
+              "gldName": "nameattribute2",
 
             "currentImaginaryA": 20,
             "currentImaginaryB": 0,
@@ -84,6 +86,7 @@
             "phase": "AN",
              "type": "X",
              "loadInstanceName": "load3",
+              "gldName": "nameattribute3",
 
             "currentImaginaryA": 30,
             "currentImaginaryB": 0,
@@ -120,6 +123,7 @@
             "phase": "AN",
              "type": "W",
              "loadInstanceName": "load4",
+              "gldName": "nameattribute4",
 
             "currentImaginaryA": 40,
             "currentImaginaryB": 0,
@@ -156,6 +160,7 @@
             "phase": "AN",
              "type": "V",
              "loadInstanceName": "load5",
+              "gldName": "nameattribute5",
 
             "currentImaginaryA": 50,
             "currentImaginaryB": 0,
@@ -192,6 +197,7 @@
             "phase": "AN",
              "type": "U",
              "loadInstanceName": "load6",
+              "gldName": "nameattribute6",
 
             "currentImaginaryA": 60,
             "currentImaginaryB": 0,
@@ -229,6 +235,7 @@
             "phase": "AN",
              "type": "T",
              "loadInstanceName": "load7",
+              "gldName": "nameattribute7",
 
             "currentImaginaryA": 70,
             "currentImaginaryB": 0,
@@ -268,6 +275,7 @@
             "phase": "AN",
              "type": "S",
              "loadInstanceName": "load8",
+              "gldName": "nameattribute8",
 
             "currentImaginaryA": 80,
             "currentImaginaryB": 0,
@@ -303,6 +311,7 @@
             "phase": "AN",
              "type": "R",
              "loadInstanceName": "load9",
+              "gldName": "nameattribute9",
 
             "currentImaginaryA": 90,
             "currentImaginaryB": 0,
@@ -342,6 +351,7 @@
             "phase": "AN",
              "type": "Q",
              "loadInstanceName": "load10",
+              "gldName": "nameattribute10",
 
             "currentImaginaryA": 0,
             "currentImaginaryB": 0,

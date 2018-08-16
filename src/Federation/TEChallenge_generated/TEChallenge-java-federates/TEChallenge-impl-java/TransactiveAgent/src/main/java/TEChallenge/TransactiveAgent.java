@@ -139,6 +139,8 @@ public class TransactiveAgent extends TransactiveAgentBase {
     }
 
     private void handleObjectClass(Tender object) {
+<<<<<<< HEAD
+=======
     	    	
     	log.info("price: " + object.get_price());
         log.info("quantity: " + object.get_quantity());
@@ -146,6 +148,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
         log.info("timeReference: " + object.get_timeReference());
         log.info("type: " + object.get_type());
 
+>>>>>>> feature/gridfactor
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

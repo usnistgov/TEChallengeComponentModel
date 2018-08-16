@@ -108,6 +108,7 @@
   (attribute current_Real_A reliable timestamp)
   (attribute current_Real_B reliable timestamp)
   (attribute current_Real_C reliable timestamp)
+  (attribute gldName reliable timestamp)
   (attribute gridNodeId reliable timestamp)
   (attribute impedance_Imaginary_A reliable timestamp)
   (attribute impedance_Imaginary_B reliable timestamp)

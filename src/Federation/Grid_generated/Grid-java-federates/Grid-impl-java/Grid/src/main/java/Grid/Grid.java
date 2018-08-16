@@ -126,6 +126,7 @@ public class Grid extends GridBase {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
+         log.info("gldName: " + object.get_gldName());
          log.info("loadInstance: " + object.get_loadInstanceName());
          log.info("gridNodeId: " + object.get_gridNodeId());
          log.info("phases: " + object.get_phases());
