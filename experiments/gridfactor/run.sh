@@ -45,6 +45,7 @@ logtofile="-l "
 ##################################
 #paths to executables
 ##################################
+pathtofederate_gridlabd=/home/vagrant/Projects/ucef-gridlabd/GridLAB-D/target
 pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TEChallenge_deployment
 pathtofederate_grid=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
 pathtofederate_loads=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
@@ -78,13 +79,16 @@ printf "\n"
 cd $root_directory
 #xterm -fg red -bg black -l -lf $logs_directory/metronome-${timestamp}.log -T "Metronome" -geometry 140x40+160+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Metronome-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=MetronomeConfig.json" &
 #xterm -fg orange -bg black -l -lf $logs_directory/weather-${timestamp}.log -T "Weather" -geometry 140x40+160+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Weather-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=WeatherConfig.json" &
+cd $pathtofederate_gridlabd
+xterm -fg pink -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log -T "GridLAB-D" -geometry 140x40+160+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  $root_directory/GridLAB-D.json" &
+
 
 
 ##################################
 # run the other federates
 ##################################
-cd $pathtofederate_grid
-xterm -fg green  -bg black -l -lf $logs_directory/grid-${timestamp}.log -T "Grid"  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
+#cd $pathtofederate_grid
+#xterm -fg green  -bg black -l -lf $logs_directory/grid-${timestamp}.log -T "Grid"  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
 cd $pathtofederate_loads
 xterm -fg yellow -bg black -l -lf $logs_directory/loads-${timestamp}.log -T "Loads" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Loads-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LoadsConfig.json" &
 
