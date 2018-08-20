@@ -106,7 +106,6 @@ public class Loads extends LoadsBase {
             //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_gldName(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
@@ -115,6 +114,7 @@ public class Loads extends LoadsBase {
             //    vresourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_name(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
             //    vresourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);

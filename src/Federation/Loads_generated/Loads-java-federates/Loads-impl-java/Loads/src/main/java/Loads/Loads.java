@@ -90,7 +90,7 @@ public class Loads extends LoadsBase {
         for (int i = 0; i < numberOfInstances; i++) {
             
             vresourcesPhysicalStatus[i].set_loadInstanceName( configuration.loads[i].loadInstanceName);
-            vresourcesPhysicalStatus[i].set_gldName( configuration.loads[i].gldName);
+            vresourcesPhysicalStatus[i].set_name( configuration.loads[i].name);
             vresourcesPhysicalStatus[i].set_type( configuration.loads[i].type);
             vresourcesPhysicalStatus[i].set_gridNodeId( configuration.loads[i].gNodeId);
             vresourcesPhysicalStatus[i].set_phases( configuration.loads[i].phase);

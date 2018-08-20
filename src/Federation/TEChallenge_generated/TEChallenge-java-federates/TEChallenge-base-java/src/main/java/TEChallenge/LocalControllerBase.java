@@ -68,7 +68,6 @@ public class LocalControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_current_Real_A();
         resourcesPhysicalStatus.subscribe_current_Real_B();
         resourcesPhysicalStatus.subscribe_current_Real_C();
-        resourcesPhysicalStatus.subscribe_gldName();
         resourcesPhysicalStatus.subscribe_gridNodeId();
         resourcesPhysicalStatus.subscribe_impedance_Imaginary_A();
         resourcesPhysicalStatus.subscribe_impedance_Imaginary_B();
@@ -77,6 +76,7 @@ public class LocalControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_impedance_Real_B();
         resourcesPhysicalStatus.subscribe_impedance_Real_C();
         resourcesPhysicalStatus.subscribe_loadInstanceName();
+        resourcesPhysicalStatus.subscribe_name();
         resourcesPhysicalStatus.subscribe_phases();
         resourcesPhysicalStatus.subscribe_power_Imaginary_A();
         resourcesPhysicalStatus.subscribe_power_Imaginary_B();

@@ -1,10 +1,6 @@
 cd Grid_generated
 mvn clean install
 cd ..
-
-cd GridLAB-D_generated
-mvn clean install
-cd ..
 cd Loads_generated
 mvn clean install
 cd ..
