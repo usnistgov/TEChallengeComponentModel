@@ -48,8 +48,9 @@ logtofile="-l "
 pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TEChallenge_deployment
 pathtofederate_grid=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
 pathtofederate_loads=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
-pathtofederate_localcontroller=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
-pathtofederate_supervisorycontroller=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/supervisoryController_generated/supervisoryController-java-federates/supervisoryController-impl-java/supervisoryController/target
+pathtofederate_LocalController=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
+pathtofederate_supervisoryController=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/supervisoryController_generated/supervisoryController-java-federates/supervisoryController-impl-java/supervisoryController/target
+pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
 
 ##################################
 # copy configuration files
@@ -87,6 +88,16 @@ cd $pathtofederate_grid
 xterm -fg green  -bg black -l -lf $logs_directory/grid-${timestamp}.log -T "Grid"  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
 cd $pathtofederate_loads
 xterm -fg yellow -bg black -l -lf $logs_directory/loads-${timestamp}.log -T "Loads" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Loads-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LoadsConfig.json" &
+
+cd $pathtofederate_LocalController
+xterm -fg green -bg white -l -lf $logs_directory/LocalController-${timestamp}.log -T "LocalController" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar LocalController-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LocalControllerConfig.json" &
+
+cd $pathtofederate_supervisoryController
+xterm -fg blue -bg white -l -lf $logs_directory/supervisoryController-${timestamp}.log -T "supervisoryController" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar supervisoryController-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/supervisoryControllerConfig.json" &
+
+
+cd $pathtofederate_TransactiveAgent
+xterm -fg red -bg white -l -lf $logs_directory/TransactiveAgent-${timestamp}.log -T "TransactiveAgent" -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar TransactiveAgent-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/TransactiveAgentConfig.json" &
 
 
 ##################################

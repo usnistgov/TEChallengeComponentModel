@@ -40,7 +40,6 @@ public class LoadsBase extends SynchronizedFederate {
         resourcesPhysicalStatus.publish_current_Real_A();
         resourcesPhysicalStatus.publish_current_Real_B();
         resourcesPhysicalStatus.publish_current_Real_C();
-        resourcesPhysicalStatus.publish_gldName();
         resourcesPhysicalStatus.publish_gridNodeId();
         resourcesPhysicalStatus.publish_impedance_Imaginary_A();
         resourcesPhysicalStatus.publish_impedance_Imaginary_B();
@@ -49,6 +48,7 @@ public class LoadsBase extends SynchronizedFederate {
         resourcesPhysicalStatus.publish_impedance_Real_B();
         resourcesPhysicalStatus.publish_impedance_Real_C();
         resourcesPhysicalStatus.publish_loadInstanceName();
+        resourcesPhysicalStatus.publish_name();
         resourcesPhysicalStatus.publish_phases();
         resourcesPhysicalStatus.publish_power_Imaginary_A();
         resourcesPhysicalStatus.publish_power_Imaginary_B();
