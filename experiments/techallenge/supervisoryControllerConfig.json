@@ -1,0 +1,99 @@
+{
+	"federateRTIInitWaitTimeMs": 200,
+	"federateType": "supervisoryController",
+	"federationId": "FedManager",
+	"isLateJoiner": false,
+	"lookAhead": 0.1,
+	"stepSize": 5.0,
+      "numberofsc":3,
+	 
+     "tenders":[
+     	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "a",
+         "timeReference" : 3,
+         "tenderId": 101
+         },
+
+        	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "b",
+         "timeReference" : 3,
+         "tenderId": 201
+         },
+         	{
+         "quantity": 1.5,
+         "price": 2.5,
+         "type": "c",
+         "timeReference" : 3,
+         "tenderId": 301
+         }
+     ],
+
+
+
+	 "superControls": [{
+			"scontrolName": "scontrol1",
+			"numberOfLcControlledbySc":3,
+			"localControls": [{
+					"localControllerName": "lcontrol1",
+					"modulationSignal": 0.5
+				     },
+				    {
+					"localControllerName": "lcontrol2",
+					"modulationSignal": 0.3
+				    },
+				    {
+					"localControllerName": "lcontrol3",
+					"modulationSignal": 0.2
+				    }
+			     ]
+		        },
+
+		   {
+			"scontrolName": "scontrol2",
+			"numberOfLcControlledbySc":3,
+			"localControls": [{
+					"localControllerName": "lcontrol4",
+					"modulationSignal": 0.5
+				     },
+				     {
+					"localControllerName": "lcontrol5",
+					"modulationSignal": 0.3
+				     },
+				     {
+					"localControllerName": "lcontrol6",
+					"modulationSignal": 0.2
+				     }
+			       ]
+		         },
+		    {
+			"scontrolName": "scontrol3",
+			"numberOfLcControlledbySc":4,
+			"localControls": [{
+					"localControllerName": "lcontrol7",
+					"modulationSignal": 0.5
+				     },
+				     {
+					"localControllerName": "lcontrol8",
+					"modulationSignal": 0.3
+				     },
+				     {
+					"localControllerName": "lcontrol9",
+					"modulationSignal": 0.2
+				     },
+				     {
+					"localControllerName": "lcontrol10",
+					"modulationSignal": 0.2
+				     }
+			      ]
+	            }
+	]
+}
+
+
+
+
+
