@@ -67,8 +67,8 @@ cp experimentConfig.json $pathtofederate_fedmanager/conf
 cp TEChallenge.xml $pathtofederate_fedmanager/fom
 cp TEChallenge.fed $pathtofederate_fedmanager/fom
 
-cp Gateway.json $pathtofederate_Database/conf
-cp TEChallenge.xml $pathtofederate_Database/conf
+cp Gateway.json $pathtofederate_Database
+cp TEChallenge.xml $pathtofederate_Database
 cp tmy3.csv $pathtofederate_Weather
 
 cp LoadsConfig.json $pathtofederate_loads/conf
@@ -100,11 +100,14 @@ printf "\n"
 ##################################
 # run the library federates
 ##################################
-cd $root_directory
+cd $pathtofederate_GridlabD
 xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
+cd $pathtofederate_Metronome
 xterm -fg red       -bg black -l -lf $logs_directory/metronome-${timestamp}.log             -T "Metronome"             -geometry 140x40+200+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Metronome-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=MetronomeConfig.json" &
+cd $pathtofederate_Weather
 xterm -fg orange    -bg black -l -lf $logs_directory/weather-${timestamp}.log               -T "Weather"               -geometry 140x40+200+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Weather-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=WeatherConfig.json" &
-xterm -fg lightblue -bg black -l -lf $logs_directory/database-${timestamp}.log              -T "Database"              -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Gateway-0.0.1-SNAPSHOT.jar  Gateway.json" &
+cd $pathtofederate_Database
+xterm -fg lightblue -bg black -l -lf $logs_directory/database-${timestamp}.log              -T "Database"              -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Gateway-0.0.1-SNAPSHOT.jar  $pathtofederate_Database/Gateway.json" &
 
 
 ##################################
