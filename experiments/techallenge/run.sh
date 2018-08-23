@@ -64,6 +64,8 @@ pathtofederate_Database=/home/vagrant/Projects/ucef-mysql/target
 ##################################
 cp fedmgrconfig.json $pathtofederate_fedmanager/conf
 cp experimentConfig.json $pathtofederate_fedmanager/conf
+cp TEChallenge.xml $pathtofederate_fedmanager/fom
+cp TEChallenge.fed $pathtofederate_fedmanager/fom
 
 cp Gateway.json $pathtofederate_Database/conf
 cp TEChallenge.xml $pathtofederate_Database/conf

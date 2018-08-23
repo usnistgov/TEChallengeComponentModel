@@ -31,11 +31,11 @@
     },
     {
       "federateType": "Metronome",
-      "count": 0
+      "count": 1
     },
     {
       "federateType": "Weather",
-      "count": 0
+      "count": 1
     }
 ],
   "lateJoinerFederates": [
