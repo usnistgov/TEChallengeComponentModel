@@ -8,7 +8,7 @@
     "stepSize": 1.0,
     "lookAhead": 0.1,
     "username": "root",
-    "password": "vagrant",
+    "password": "c2wt",
     "ipAddress": "localhost",
     "port": "3306"
 }
