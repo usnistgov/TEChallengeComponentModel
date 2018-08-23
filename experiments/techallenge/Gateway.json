@@ -1,6 +1,6 @@
 {
-    "federateName": "Gateway",
-    "federationId": "FedManager",
+    "federateName": "Database",
+    "federationId": "TEChallenge",
     "fomFilepath": "TEChallenge.xml",
     "maxReconnectAttempts": 12,
     "waitReconnectMs": 5000,
