@@ -43,6 +43,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	private static int _impedance_Real_B_handle;
 	private static int _impedance_Real_C_handle;
 	private static int _loadInstanceName_handle;
+	private static int _name_handle;
 	private static int _phases_handle;
 	private static int _power_Imaginary_A_handle;
 	private static int _power_Imaginary_B_handle;
@@ -171,6 +172,14 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	* @return the handle (RTI assigned) of the "loadInstanceName" attribute
 	*/
 	public static int get_loadInstanceName_handle() { return _loadInstanceName_handle; }
+	
+	/**
+	* Returns the handle (RTI assigned) of the "name" attribute of
+	* its containing object class.
+	*
+	* @return the handle (RTI assigned) of the "name" attribute
+	*/
+	public static int get_name_handle() { return _name_handle; }
 	
 	/**
 	* Returns the handle (RTI assigned) of the "phases" attribute of
@@ -386,6 +395,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberNames.add("impedance_Real_B");
 		_datamemberNames.add("impedance_Real_C");
 		_datamemberNames.add("loadInstanceName");
+		_datamemberNames.add("name");
 		_datamemberNames.add("phases");
 		_datamemberNames.add("power_Imaginary_A");
 		_datamemberNames.add("power_Imaginary_B");
@@ -417,6 +427,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_allDatamemberNames.add("impedance_Real_B");
 		_allDatamemberNames.add("impedance_Real_C");
 		_allDatamemberNames.add("loadInstanceName");
+		_allDatamemberNames.add("name");
 		_allDatamemberNames.add("phases");
 		_allDatamemberNames.add("power_Imaginary_A");
 		_allDatamemberNames.add("power_Imaginary_B");
@@ -448,6 +459,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberTypeMap.put("impedance_Real_B", "float");
 		_datamemberTypeMap.put("impedance_Real_C", "float");
 		_datamemberTypeMap.put("loadInstanceName", "String");
+		_datamemberTypeMap.put("name", "String");
 		_datamemberTypeMap.put("phases", "String");
 		_datamemberTypeMap.put("power_Imaginary_A", "float");
 		_datamemberTypeMap.put("power_Imaginary_B", "float");
@@ -526,6 +538,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 				_impedance_Real_B_handle = rti.getAttributeHandle("impedance_Real_B", get_handle());			
 				_impedance_Real_C_handle = rti.getAttributeHandle("impedance_Real_C", get_handle());			
 				_loadInstanceName_handle = rti.getAttributeHandle("loadInstanceName", get_handle());			
+				_name_handle = rti.getAttributeHandle("name", get_handle());			
 				_phases_handle = rti.getAttributeHandle("phases", get_handle());			
 				_power_Imaginary_A_handle = rti.getAttributeHandle("power_Imaginary_A", get_handle());			
 				_power_Imaginary_B_handle = rti.getAttributeHandle("power_Imaginary_B", get_handle());			
@@ -575,6 +588,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,impedance_Real_B", get_impedance_Real_B_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,impedance_Real_C", get_impedance_Real_C_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,loadInstanceName", get_loadInstanceName_handle());
+		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,name", get_name_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,phases", get_phases_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,power_Imaginary_A", get_power_Imaginary_A_handle());
 		_datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus,power_Imaginary_B", get_power_Imaginary_B_handle());
@@ -606,6 +620,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		_datamemberHandleNameMap.put(get_impedance_Real_B_handle(), "impedance_Real_B");
 		_datamemberHandleNameMap.put(get_impedance_Real_C_handle(), "impedance_Real_C");
 		_datamemberHandleNameMap.put(get_loadInstanceName_handle(), "loadInstanceName");
+		_datamemberHandleNameMap.put(get_name_handle(), "name");
 		_datamemberHandleNameMap.put(get_phases_handle(), "phases");
 		_datamemberHandleNameMap.put(get_power_Imaginary_A_handle(), "power_Imaginary_A");
 		_datamemberHandleNameMap.put(get_power_Imaginary_B_handle(), "power_Imaginary_B");
@@ -903,6 +918,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 			+ "," + "impedance_Real_B:" + get_impedance_Real_B()
 			+ "," + "impedance_Real_C:" + get_impedance_Real_C()
 			+ "," + "loadInstanceName:" + get_loadInstanceName()
+			+ "," + "name:" + get_name()
 			+ "," + "phases:" + get_phases()
 			+ "," + "power_Imaginary_A:" + get_power_Imaginary_A()
 			+ "," + "power_Imaginary_B:" + get_power_Imaginary_B()
@@ -1609,6 +1625,55 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	*/
 	public static void unsubscribe_loadInstanceName() {
 		_subscribeAttributeNameSet.remove( "loadInstanceName" );
+	}
+	
+	
+	/**
+	* Publishes the "name" attribute of the attribute's containing object
+	* class for a federate.
+	* Note:  This method only marks the "name" attribute for publication.
+	* To actually publish the attribute, the federate must (re)publish its containing
+	* object class.
+	* (using <objectClassName>.publish( RTIambassador rti ) ).
+	*/
+	public static void publish_name() {
+		_publishAttributeNameSet.add( "name" );
+	}
+
+	/**
+	* Unpublishes the "name" attribute of the attribute's containing object
+	* class for a federate.
+	* Note:  This method only marks the "name" attribute for unpublication.
+	* To actually publish the attribute, the federate must (re)publish its containing
+	* object class.
+	* (using <objectClassName>.publish( RTIambassador rti ) ).
+	*/
+	public static void unpublish_name() {
+		_publishAttributeNameSet.remove( "name" );
+	}
+	
+	/**
+	* Subscribes a federate to the "name" attribute of the attribute's
+	* containing object class.
+	* Note:  This method only marks the "name" attribute for subscription.
+	* To actually subscribe to the attribute, the federate must (re)subscribe to its
+	* containing object class.
+	* (using <objectClassName>.subscribe( RTIambassador rti ) ).
+	*/
+	public static void subscribe_name() {
+		_subscribeAttributeNameSet.add( "name" );
+	}
+
+	/**
+	* Unsubscribes a federate from the "name" attribute of the attribute's
+	* containing object class.
+	* Note:  This method only marks the "name" attribute for unsubscription.
+	* To actually unsubscribe to the attribute, the federate must (re)subscribe to its
+	* containing object class.
+	* (using <objectClassName>.subscribe( RTIambassador rti ) ).
+	*/
+	public static void unsubscribe_name() {
+		_subscribeAttributeNameSet.remove( "name" );
 	}
 	
 	
@@ -2797,6 +2862,38 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 	}
 	
 	
+	private Attribute< String > _name =
+ 		new Attribute< String >(  new String( "" )  );
+	
+	/**
+	* Set the value of the "name" attribute to "value" for this object.
+	*
+	* @param value the new value for the "name" attribute
+	*/
+	public void set_name( String value ) {
+		_name.setValue( value );
+		_name.setTime( getTime() );
+	}
+	
+	/**
+	* Returns the value of the "name" attribute of this object.
+	*
+	* @return the value of the "name" attribute
+	*/
+	public String get_name() {
+		return _name.getValue();
+	}
+	
+	/**
+	* Returns the current timestamp of the "name" attribute of this object.
+	* 
+	* @return the current timestamp of the "name" attribute
+	*/
+	public double get_name_time() {
+		return _name.getTime();
+	}
+	
+	
 	private Attribute< String > _phases =
  		new Attribute< String >(  new String( "" )  );
 	
@@ -3342,6 +3439,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		set_impedance_Real_B( resourcesPhysicalStatus_var.get_impedance_Real_B() );
 		set_impedance_Real_C( resourcesPhysicalStatus_var.get_impedance_Real_C() );
 		set_loadInstanceName( resourcesPhysicalStatus_var.get_loadInstanceName() );
+		set_name( resourcesPhysicalStatus_var.get_name() );
 		set_phases( resourcesPhysicalStatus_var.get_phases() );
 		set_power_Imaginary_A( resourcesPhysicalStatus_var.get_power_Imaginary_A() );
 		set_power_Imaginary_B( resourcesPhysicalStatus_var.get_power_Imaginary_B() );
@@ -3387,6 +3485,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "impedance_Real_B".equals( datamemberName )  ) return new Float(get_impedance_Real_B());
 		else if (  "impedance_Real_C".equals( datamemberName )  ) return new Float(get_impedance_Real_C());
 		else if (  "loadInstanceName".equals( datamemberName )  ) return get_loadInstanceName();
+		else if (  "name".equals( datamemberName )  ) return get_name();
 		else if (  "phases".equals( datamemberName )  ) return get_phases();
 		else if (  "power_Imaginary_A".equals( datamemberName )  ) return new Float(get_power_Imaginary_A());
 		else if (  "power_Imaginary_B".equals( datamemberName )  ) return new Float(get_power_Imaginary_B());
@@ -3432,6 +3531,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if ( get_impedance_Real_B_handle() == datamemberHandle ) return new Float(get_impedance_Real_B());
 		else if ( get_impedance_Real_C_handle() == datamemberHandle ) return new Float(get_impedance_Real_C());
 		else if ( get_loadInstanceName_handle() == datamemberHandle ) return get_loadInstanceName();
+		else if ( get_name_handle() == datamemberHandle ) return get_name();
 		else if ( get_phases_handle() == datamemberHandle ) return get_phases();
 		else if ( get_power_Imaginary_A_handle() == datamemberHandle ) return new Float(get_power_Imaginary_A());
 		else if ( get_power_Imaginary_B_handle() == datamemberHandle ) return new Float(get_power_Imaginary_B());
@@ -3469,6 +3569,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if ( param_handle == get_impedance_Real_B_handle() ) set_impedance_Real_B( Float.parseFloat(val) );
 		else if ( param_handle == get_impedance_Real_C_handle() ) set_impedance_Real_C( Float.parseFloat(val) );
 		else if ( param_handle == get_loadInstanceName_handle() ) set_loadInstanceName( val );
+		else if ( param_handle == get_name_handle() ) set_name( val );
 		else if ( param_handle == get_phases_handle() ) set_phases( val );
 		else if ( param_handle == get_power_Imaginary_A_handle() ) set_power_Imaginary_A( Float.parseFloat(val) );
 		else if ( param_handle == get_power_Imaginary_B_handle() ) set_power_Imaginary_B( Float.parseFloat(val) );
@@ -3508,6 +3609,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "impedance_Real_B".equals( datamemberName )  ) set_impedance_Real_B( Float.parseFloat(val) );
 		else if (  "impedance_Real_C".equals( datamemberName )  ) set_impedance_Real_C( Float.parseFloat(val) );
 		else if (  "loadInstanceName".equals( datamemberName )  ) set_loadInstanceName( val );
+		else if (  "name".equals( datamemberName )  ) set_name( val );
 		else if (  "phases".equals( datamemberName )  ) set_phases( val );
 		else if (  "power_Imaginary_A".equals( datamemberName )  ) set_power_Imaginary_A( Float.parseFloat(val) );
 		else if (  "power_Imaginary_B".equals( datamemberName )  ) set_power_Imaginary_B( Float.parseFloat(val) );
@@ -3547,6 +3649,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 		else if (  "impedance_Real_B".equals( datamemberName )  ) set_impedance_Real_B( (Float)val );
 		else if (  "impedance_Real_C".equals( datamemberName )  ) set_impedance_Real_C( (Float)val );
 		else if (  "loadInstanceName".equals( datamemberName )  ) set_loadInstanceName( (String)val );
+		else if (  "name".equals( datamemberName )  ) set_name( (String)val );
 		else if (  "phases".equals( datamemberName )  ) set_phases( (String)val );
 		else if (  "power_Imaginary_A".equals( datamemberName )  ) set_power_Imaginary_A( (Float)val );
 		else if (  "power_Imaginary_B".equals( datamemberName )  ) set_power_Imaginary_B( (Float)val );
@@ -3713,6 +3816,16 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 			if (  isPublished && _loadInstanceName.shouldBeUpdated( force )  ) {
 				datamembers.add( get_loadInstanceName_handle(), get_loadInstanceName().getBytes() );
 				_loadInstanceName.setHasBeenUpdated();
+			}
+			try {
+				isPublished = _publishedAttributeHandleSet.isMember( get_name_handle() );
+			} catch ( Exception e ) {
+				logger.error("ERROR:  ObjectRoot.resourcesPhysicalStatus.createSuppliedAttributes:  could not determine if name is published.");
+				isPublished = false;
+			}
+			if (  isPublished && _name.shouldBeUpdated( force )  ) {
+				datamembers.add( get_name_handle(), get_name().getBytes() );
+				_name.setHasBeenUpdated();
 			}
 			try {
 				isPublished = _publishedAttributeHandleSet.isMember( get_phases_handle() );
@@ -3889,6 +4002,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 				_impedance_Real_B = data._impedance_Real_B;
 				_impedance_Real_C = data._impedance_Real_C;
 				_loadInstanceName = data._loadInstanceName;
+				_name = data._name;
 				_phases = data._phases;
 				_power_Imaginary_A = data._power_Imaginary_A;
 				_power_Imaginary_B = data._power_Imaginary_B;

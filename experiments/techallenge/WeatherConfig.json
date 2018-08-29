@@ -1,0 +1,8 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Weather",
+  "federationId": "TEChallenge",
+  "isLateJoiner": false,
+  "lookAhead": 0.1,
+  "stepSize": 1.0
+}

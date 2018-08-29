@@ -71,7 +71,7 @@ object auction {
 		property capacity_reference_bid_price;
 		file AEP_RT_LMP.player;
 		loop 1;
-	};
+	        };
 
 	init_price 0.043;
 	init_stdev 0.02;

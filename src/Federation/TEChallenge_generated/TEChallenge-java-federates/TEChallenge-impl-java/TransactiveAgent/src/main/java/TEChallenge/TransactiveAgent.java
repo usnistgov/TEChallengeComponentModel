@@ -139,13 +139,6 @@ public class TransactiveAgent extends TransactiveAgentBase {
     }
 
     private void handleObjectClass(Tender object) {
-    	    	
-    	log.info("price: " + object.get_price());
-        log.info("quantity: " + object.get_quantity());
-        log.info("tenderId: " + object.get_tenderId());
-        log.info("timeReference: " + object.get_timeReference());
-        log.info("type: " + object.get_type());
-
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
