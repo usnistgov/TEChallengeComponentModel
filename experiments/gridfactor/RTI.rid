@@ -278,7 +278,7 @@ portico.jgroups.udp.bindAddress = SITE_LOCAL
 #
 #       Default: false
 #       
-# portico.wan.enabled = true
+# portico.wan.enabled = false
 
 # (5.2) Router Address/Port
 #       Specifies the address and port of the WAN router to use. Note that the
@@ -286,7 +286,7 @@ portico.jgroups.udp.bindAddress = SITE_LOCAL
 #
 #       Default: 127.0.0.1:23114
 #
-# portico.wan.router = 192.168.10.220:23114
+# portico.wan.router = 127.0.0.1:23114
 
 # (5.2) Enable / Disable Bundling
 #       Bundling enables higher throughput by grouping together a number of
@@ -328,4 +328,3 @@ portico.jgroups.udp.bindAddress = SITE_LOCAL
 # portico.container.loglevel = OFF
 # portico.jgroups.loglevel = OFF
 # portico.jgroups.timeout = 1000
-

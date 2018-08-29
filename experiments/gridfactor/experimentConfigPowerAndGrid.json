@@ -4,7 +4,6 @@
     "Loads",
     "LocalController",
     "supervisoryController",
-    "TransactiveAgent",
     "Metronome"
   ],
   "expectedFederates": [
@@ -18,24 +17,19 @@
     },
     {
       "federateType": "LocalController",
-      "count": 1
+      "count": 0
     },
-
     {
       "federateType": "supervisoryController",
-      "count": 1
-    },
-    {
-      "federateType": "TransactiveAgent",
-      "count": 1
+      "count": 0
     },
     {
       "federateType": "Metronome",
-      "count": 1
+      "count": 0
     },
     {
       "federateType": "Weather",
-      "count": 1
+      "count": 0
     }
 ],
   "lateJoinerFederates": [
