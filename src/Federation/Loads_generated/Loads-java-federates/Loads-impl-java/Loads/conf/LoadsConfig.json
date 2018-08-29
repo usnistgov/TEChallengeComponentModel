@@ -8,10 +8,12 @@
 	"number": 10,
 	"loads": [{
 		"gNodeId": "1",
+		  "name": "node1",
             "state":true,
             "phase": "AN",
             "type": "Z",
             "loadInstanceName": "load1",
+            "name": "nameattribute1",
 
             "currentImaginaryA": 10,
             "currentImaginaryB": 0,
@@ -44,10 +46,12 @@
 
 		{
 			"gNodeId": "2",
+			 "name": "node2",
             "state":false,
             "phase": "AN",
              "type": "Y",
              "loadInstanceName": "load2",
+              "name": "nameattribute2",
 
             "currentImaginaryA": 20,
             "currentImaginaryB": 0,
@@ -80,10 +84,12 @@
 
 		{
 			"gNodeId": "3",
+			 "name": "node3",
             "state":true,
             "phase": "AN",
              "type": "X",
              "loadInstanceName": "load3",
+              "name": "nameattribute3",
 
             "currentImaginaryA": 30,
             "currentImaginaryB": 0,
@@ -116,10 +122,12 @@
 
 		{
 			"gNodeId": "4",
+			 "name": "node4",
             "state":false,
             "phase": "AN",
              "type": "W",
              "loadInstanceName": "load4",
+              "name": "nameattribute4",
 
             "currentImaginaryA": 40,
             "currentImaginaryB": 0,
@@ -152,10 +160,12 @@
 
 		{
 			"gNodeId": "5",
+			 "name": "node5",
             "state":true,
             "phase": "AN",
              "type": "V",
              "loadInstanceName": "load5",
+              "name": "nameattribute5",
 
             "currentImaginaryA": 50,
             "currentImaginaryB": 0,
@@ -188,10 +198,12 @@
 
 		{
 			"gNodeId": "6",
+			 "name": "node6",
             "state":false,
             "phase": "AN",
              "type": "U",
              "loadInstanceName": "load6",
+              "name": "nameattribute6",
 
             "currentImaginaryA": 60,
             "currentImaginaryB": 0,
@@ -225,10 +237,12 @@
 
        {
 			"gNodeId": "7",
+			 "name": "node7",
             "state":true,
             "phase": "AN",
              "type": "T",
              "loadInstanceName": "load7",
+              "name": "nameattribute7",
 
             "currentImaginaryA": 70,
             "currentImaginaryB": 0,
@@ -264,10 +278,12 @@
 
 		{
 			"gNodeId": "8",
+			 "name": "node8",
             "state":false,
             "phase": "AN",
              "type": "S",
              "loadInstanceName": "load8",
+              "name": "nameattribute8",
 
             "currentImaginaryA": 80,
             "currentImaginaryB": 0,
@@ -299,10 +315,12 @@
 		},
 		{
 			"gNodeId": "9",
+			 "name": "node9",
             "state":true,
             "phase": "AN",
              "type": "R",
              "loadInstanceName": "load9",
+              "name": "nameattribute9",
 
             "currentImaginaryA": 90,
             "currentImaginaryB": 0,
@@ -338,10 +356,12 @@
 
 		{
 			"gNodeId": "10",
+			 "name": "node10",
             "state":false,
             "phase": "AN",
              "type": "Q",
              "loadInstanceName": "load10",
+              "name": "nameattribute10",
 
             "currentImaginaryA": 0,
             "currentImaginaryB": 0,

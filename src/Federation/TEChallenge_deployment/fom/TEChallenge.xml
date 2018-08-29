@@ -551,6 +551,14 @@
             </attribute>
 
             <attribute>
+                <name>name</name>
+                <dataType>String</dataType>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics></semantics>
+            </attribute>
+
+            <attribute>
                 <name>phases</name>
                 <dataType>String</dataType>
                 <transportation>HLAreliable</transportation>

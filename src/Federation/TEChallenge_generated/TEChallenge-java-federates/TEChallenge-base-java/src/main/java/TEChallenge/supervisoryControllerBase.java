@@ -61,6 +61,7 @@ public class supervisoryControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_impedance_Real_B();
         resourcesPhysicalStatus.subscribe_impedance_Real_C();
         resourcesPhysicalStatus.subscribe_loadInstanceName();
+        resourcesPhysicalStatus.subscribe_name();
         resourcesPhysicalStatus.subscribe_phases();
         resourcesPhysicalStatus.subscribe_power_Imaginary_A();
         resourcesPhysicalStatus.subscribe_power_Imaginary_B();
