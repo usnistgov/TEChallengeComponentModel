@@ -4,6 +4,7 @@ import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
+import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.cpswt.utils.CpswtDefaults;
 
@@ -18,7 +19,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
 
     private final static Logger log = LogManager.getLogger(TransactiveAgent.class);
 
-    double currentTime = 0;
+    private double currentTime = 0;
 
     int numberOfInstances;   
     private TransactiveAgentConfig configuration;  
@@ -93,7 +94,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
             vQuote[i].set_type( configuration.quotes[i].type);
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vQuote[i].updateAttributeValues(getLRC(), currentTime);
+            vQuote[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     }    
@@ -108,15 +109,25 @@ private void updateInstancesT(int numberOfInstances) {
             
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vTransaction[i].updateAttributeValues(getLRC(), currentTime);
+            vTransaction[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     }    
 
 
 
-    private void CheckReceivedSubscriptions(String s) {
+    private void checkReceivedSubscriptions() {
 
+        InteractionRoot interaction = null;
+        while ((interaction = getNextInteractionNoWait()) != null) {
+            if (interaction instanceof SimTime) {
+                handleInteractionClass((SimTime) interaction);
+            }
+            else {
+                log.debug("unhandled interaction: {}", interaction.getClassName());
+            }
+        }
+ 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
@@ -124,12 +135,15 @@ private void updateInstancesT(int numberOfInstances) {
             if (object instanceof Tender) {
                 handleObjectClass((Tender) object);
             }
-            log.info("Object received and handled: " + s);
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
+            }
         }
     }
 
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
+            log.info("turning off time regulation (late joiner)");
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
@@ -142,7 +156,9 @@ private void updateInstancesT(int numberOfInstances) {
         putAdvanceTimeRequest(atr);
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToPopulate...");
             readyToPopulate();
+            log.info("...synchronized on readyToPopulate");
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -155,21 +171,19 @@ private void updateInstancesT(int numberOfInstances) {
         ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToRun...");
             readyToRun();
+            log.info("...synchronized on readyToRun");
         }
 
         startAdvanceTimeThread();
+        log.info("started logical time progression");
 
-        // this is the exit condition of the following while loop
-        // it is used to break the loop so that latejoiner federates can
-        // notify the federation manager that they left the federation
-        boolean exitCondition = false;
-
-        while (true) {
-            currentTime += super.getStepSize();
-
+        while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
+			
+			
             updateInstancesQ(numberOfInstances);
             updateInstancesT(numberOfInstances);
             ////////////////////////////////////////////////////////////////////////////////////////
@@ -185,7 +199,7 @@ private void updateInstancesT(int numberOfInstances) {
                 vmarketStatus.set_price(1);
                 vmarketStatus.set_time(2+(int)currentTime);
                 vmarketStatus.set_type("watt");
-                vmarketStatus.updateAttributeValues(getLRC(), currentTime);
+                vmarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //    vTransaction.set_accept(<YOUR VALUE HERE >);
             //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
@@ -193,23 +207,34 @@ private void updateInstancesT(int numberOfInstances) {
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
-            CheckReceivedSubscriptions("Main Loop");
+            checkReceivedSubscriptions();
 
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY FILE BEYOND THIS LINE
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
-            putAdvanceTimeRequest(newATR);
-            atr.requestSyncEnd();
-            atr = newATR;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // TODO break here if ready to resign and break out of while loop
+            ////////////////////////////////////////////////////////////////////////////////////////
 
-            if(exitCondition) {
-                break;
+
+            if (!exitCondition) {
+                currentTime += super.getStepSize();
+                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+                putAdvanceTimeRequest(newATR);
+                atr.requestSyncEnd();
+                atr = newATR;
             }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+        // call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleInteractionClass(SimTime interaction) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
     }
 
     private void handleObjectClass(Tender object) {
@@ -229,12 +254,10 @@ private void updateInstancesT(int numberOfInstances) {
             TransactiveAgentConfig federateConfig = federateConfigParser.parseArgs(args, TransactiveAgentConfig.class);
             TransactiveAgent federate = new TransactiveAgent(federateConfig);
             federate.execute();
-
+            log.info("Done.");
             System.exit(0);
         } catch (Exception e) {
-            log.error("There was a problem executing the TransactiveAgent federate: {}", e.getMessage());
             log.error(e);
-
             System.exit(1);
         }
     }

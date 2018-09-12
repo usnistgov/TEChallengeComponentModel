@@ -10,8 +10,10 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
+
 
 public class LocalControllerBase extends SynchronizedFederate {
 
@@ -62,6 +64,11 @@ public class LocalControllerBase extends SynchronizedFederate {
         resourceControl.publish(getLRC());
                 
         	
+        supervisoryControlSignal.subscribe_localControllerName();
+        supervisoryControlSignal.subscribe_modulationSignal();
+        supervisoryControlSignal.subscribe(getLRC());
+        
+        	
         resourcesPhysicalStatus.subscribe_current_Imaginary_A();
         resourcesPhysicalStatus.subscribe_current_Imaginary_B();
         resourcesPhysicalStatus.subscribe_current_Imaginary_C();
@@ -93,11 +100,6 @@ public class LocalControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe_voltage_Real_B();
         resourcesPhysicalStatus.subscribe_voltage_Real_C();
         resourcesPhysicalStatus.subscribe(getLRC());
-        
-        	
-        supervisoryControlSignal.subscribe_localControllerName();
-        supervisoryControlSignal.subscribe_modulationSignal();
-        supervisoryControlSignal.subscribe(getLRC());
         	}
         
 	

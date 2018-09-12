@@ -1,9 +1,9 @@
 {
-	"federateRTIInitWaitTimeMs": 200,
-	"federateType": "LocalController",
-	"federationId": "FedManager",
-	"isLateJoiner": false,
-	"lookAhead": 0.1,
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "LocalController",
+  "federationId": "LocalController",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
 	"stepSize": 5.0,
         "numberoflc":10,
 	"localControl": [
