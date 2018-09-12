@@ -1,5 +1,6 @@
 {
   "federateTypesAllowed": [
+    "Database",
     "Grid",
     "Loads",
     "LocalController",
@@ -9,6 +10,10 @@
     "supervisoryController"
   ],
   "expectedFederates": [
+    {
+      "federateType": "Database",
+      "count": 1
+    },
     {
       "federateType": "Grid",
       "count": 1
@@ -39,6 +44,10 @@
     }
   ],
   "lateJoinerFederates": [
+    {
+      "federateType": "Database",
+      "count": 0
+    },
     {
       "federateType": "Grid",
       "count": 0
