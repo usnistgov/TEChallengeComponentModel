@@ -18,7 +18,7 @@ public class LocalController extends LocalControllerBase {
 
     private final static Logger log = LogManager.getLogger(LocalController.class);
 
-    double currentTime = 0;
+    private double currentTime = 0;
     private int numberOfInstances;   
     private LocalControllerConfig configuration;  
     public Lcontroller[] localControl = null;                                                   
@@ -65,7 +65,7 @@ public class LocalController extends LocalControllerBase {
             }
         }
 
-    private void CheckReceivedSubscriptions(String s) {
+    private void checkReceivedSubscriptions() {
 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
@@ -77,7 +77,12 @@ public class LocalController extends LocalControllerBase {
             if (object instanceof supervisoryControlSignal) {
                 handleObjectClass((supervisoryControlSignal) object);
             }
-            log.info("Object received and handled: " + s);
+            else if (object instanceof resourcesPhysicalStatus) {
+                handleObjectClass((resourcesPhysicalStatus) object);
+            }
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
+            }
         }
     }
 
@@ -119,14 +124,14 @@ public class LocalController extends LocalControllerBase {
             
 
            // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vresourceControl[i].updateAttributeValues(getLRC(), currentTime);
+            vresourceControl[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     } 
 
-
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
+            log.info("turning off time regulation (late joiner)");
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
@@ -139,7 +144,9 @@ public class LocalController extends LocalControllerBase {
         putAdvanceTimeRequest(atr);
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToPopulate...");
             readyToPopulate();
+            log.info("...synchronized on readyToPopulate");
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -152,40 +159,43 @@ public class LocalController extends LocalControllerBase {
         ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToRun...");
             readyToRun();
+            log.info("...synchronized on readyToRun");
         }
 
         startAdvanceTimeThread();
+        log.info("started logical time progression");
 
-        // this is the exit condition of the following while loop
-        // it is used to break the loop so that latejoiner federates can
-        // notify the federation manager that they left the federation
-        boolean exitCondition = false;
-
-        while (true) {
-            currentTime += super.getStepSize();
-
+        while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
+			
+			
             updateInstances(numberOfInstances);
             
-            CheckReceivedSubscriptions("Main Loop");
+            checkReceivedSubscriptions();
 
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY FILE BEYOND THIS LINE
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
-            putAdvanceTimeRequest(newATR);
-            atr.requestSyncEnd();
-            atr = newATR;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // TODO break here if ready to resign and break out of while loop
+            ////////////////////////////////////////////////////////////////////////////////////////
 
-            if(exitCondition) {
-                break;
+
+            if (!exitCondition) {
+                currentTime += super.getStepSize();
+                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+                putAdvanceTimeRequest(newATR);
+                atr.requestSyncEnd();
+                atr = newATR;
             }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+        // call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
     }
 
     private void handleObjectClass(resourcesPhysicalStatus object) {
@@ -238,12 +248,10 @@ public class LocalController extends LocalControllerBase {
             LocalControllerConfig federateConfig = federateConfigParser.parseArgs(args, LocalControllerConfig.class);
             LocalController federate = new LocalController(federateConfig);
             federate.execute();
-
+            log.info("Done.");
             System.exit(0);
         } catch (Exception e) {
-            log.error("There was a problem executing the LocalController federate: {}", e.getMessage());
             log.error(e);
-
             System.exit(1);
         }
     }

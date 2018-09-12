@@ -20,7 +20,7 @@ public class Loads extends LoadsBase {
 
     private final static Logger log = LogManager.getLogger(Loads.class);
 
-    double currentTime = 0;
+    private double currentTime = 0;
     int numberOfInstances;   
     private LoadsConfig configuration;  
     public Load[] loads = null;                                                   
@@ -68,7 +68,7 @@ public class Loads extends LoadsBase {
         }
         
 
-    private void CheckReceivedSubscriptions(String s) {
+    private void checkReceivedSubscriptions() {
 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
@@ -77,13 +77,16 @@ public class Loads extends LoadsBase {
             if (object instanceof gridVoltageState) {
                 handleObjectClass((gridVoltageState) object);
             }
-            if (object instanceof resourceControl) {
+            else if (object instanceof resourceControl) {
                 handleObjectClass((resourceControl) object);
             }
-            log.info("---------------------------Object received and handled:------------------------------- " + s);
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
+            }
         }
     }
-    
+
+
      private void updateInstances(int numberOfInstances) {
         log.trace("...................................updating Resourse Physical Status Instances.............................................");
         
@@ -127,14 +130,14 @@ public class Loads extends LoadsBase {
 
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vresourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime);
+            vresourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     } 
 
-
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
+            log.info("turning off time regulation (late joiner)");
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
@@ -147,41 +150,51 @@ public class Loads extends LoadsBase {
         putAdvanceTimeRequest(atr);
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToPopulate...");
             readyToPopulate();
+            log.info("...synchronized on readyToPopulate");
         }
 
+        ///////////////////////////////////////////////////////////////////////
+        // TODO perform initialization that depends on other federates below //
+        ///////////////////////////////////////////////////////////////////////
+
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToRun...");
             readyToRun();
+            log.info("...synchronized on readyToRun");
         }
 
         startAdvanceTimeThread();
+        log.info("started logical time progression");
 
-
-        boolean exitCondition = false;
-
-        while (true) {
-            currentTime += super.getStepSize();
-
+        while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
             updateInstances(numberOfInstances);
-            CheckReceivedSubscriptions("Main Loop");
 
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY FILE BEYOND THIS LINE
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
-            putAdvanceTimeRequest(newATR);
-            atr.requestSyncEnd();
-            atr = newATR;
+            checkReceivedSubscriptions();
 
-            if(exitCondition) {
-                break;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // TODO break here if ready to resign and break out of while loop
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+
+            if (!exitCondition) {
+                currentTime += super.getStepSize();
+                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+                putAdvanceTimeRequest(newATR);
+                atr.requestSyncEnd();
+                atr = newATR;
             }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+        // call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
     }
 
 
@@ -243,12 +256,10 @@ public class Loads extends LoadsBase {
             LoadsConfig federateConfig = federateConfigParser.parseArgs(args, LoadsConfig.class);
             Loads federate = new Loads(federateConfig);
             federate.execute();
-
+            log.info("Done.");
             System.exit(0);
         } catch (Exception e) {
-            log.error("There was a problem executing the Loads federate: {}", e.getMessage());
             log.error(e);
-
             System.exit(1);
         }
     }

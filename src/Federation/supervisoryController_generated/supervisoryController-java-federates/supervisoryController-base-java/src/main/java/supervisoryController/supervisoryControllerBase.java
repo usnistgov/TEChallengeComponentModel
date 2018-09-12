@@ -10,8 +10,10 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
+
 
 public class supervisoryControllerBase extends SynchronizedFederate {
 
@@ -30,13 +32,20 @@ public class supervisoryControllerBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        		
-		// object pubsub
         
-        	
-        supervisoryControlSignal.publish_localControllerName();
-        supervisoryControlSignal.publish_modulationSignal();
-        supervisoryControlSignal.publish(getLRC());
+        SimTime.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			SimTime.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);
+        TMYWeather.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			TMYWeather.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);		
+		// object pubsub
         
         	
         Tender.publish_price();
@@ -45,6 +54,11 @@ public class supervisoryControllerBase extends SynchronizedFederate {
         Tender.publish_timeReference();
         Tender.publish_type();
         Tender.publish(getLRC());
+        
+        	
+        supervisoryControlSignal.publish_localControllerName();
+        supervisoryControlSignal.publish_modulationSignal();
+        supervisoryControlSignal.publish(getLRC());
                 
         	
         resourcesPhysicalStatus.subscribe_current_Imaginary_A();
@@ -80,6 +94,12 @@ public class supervisoryControllerBase extends SynchronizedFederate {
         resourcesPhysicalStatus.subscribe(getLRC());
         
         	
+        marketStatus.subscribe_price();
+        marketStatus.subscribe_time();
+        marketStatus.subscribe_type();
+        marketStatus.subscribe(getLRC());
+        
+        	
         Quote.subscribe_price();
         Quote.subscribe_quantity();
         Quote.subscribe_quoteId();
@@ -91,12 +111,6 @@ public class supervisoryControllerBase extends SynchronizedFederate {
         Transaction.subscribe_accept();
         Transaction.subscribe_tenderId();
         Transaction.subscribe(getLRC());
-        
-        	
-        marketStatus.subscribe_price();
-        marketStatus.subscribe_time();
-        marketStatus.subscribe_type();
-        marketStatus.subscribe(getLRC());
         	}
         
 	

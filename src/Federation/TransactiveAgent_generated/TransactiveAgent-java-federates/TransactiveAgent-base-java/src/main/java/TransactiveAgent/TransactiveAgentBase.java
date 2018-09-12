@@ -10,8 +10,10 @@ import org.cpswt.hla.SubscribedInteractionFilter;
 import org.cpswt.hla.SynchronizedFederate;
 
 import org.cpswt.config.FederateConfig;
+import org.cpswt.utils.CpswtDefaults;
 
 import org.cpswt.*;
+
 
 public class TransactiveAgentBase extends SynchronizedFederate {
 
@@ -30,16 +32,14 @@ public class TransactiveAgentBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        		
-		// object pubsub
         
-        	
-        Quote.publish_price();
-        Quote.publish_quantity();
-        Quote.publish_quoteId();
-        Quote.publish_timeReference();
-        Quote.publish_type();
-        Quote.publish(getLRC());
+        SimTime.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			SimTime.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);		
+		// object pubsub
         
         	
         marketStatus.publish_price();
@@ -51,6 +51,14 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         Transaction.publish_accept();
         Transaction.publish_tenderId();
         Transaction.publish(getLRC());
+        
+        	
+        Quote.publish_price();
+        Quote.publish_quantity();
+        Quote.publish_quoteId();
+        Quote.publish_timeReference();
+        Quote.publish_type();
+        Quote.publish(getLRC());
                 
         	
         Tender.subscribe_price();
