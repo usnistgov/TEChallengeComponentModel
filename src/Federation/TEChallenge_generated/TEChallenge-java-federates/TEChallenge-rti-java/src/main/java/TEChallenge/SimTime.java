@@ -21,28 +21,32 @@ import hla.rti.ReceivedInteraction;
 import org.cpswt.hla.*;
 
 /**
-* Implements InteractionRoot.C2WInteractionRoot.ActionBase
+* Implements InteractionRoot.C2WInteractionRoot.SimTime
 */
-public class ActionBase extends C2WInteractionRoot {
+public class SimTime extends C2WInteractionRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the ActionBase interaction class with default parameter values.
+    * Creates an instance of the SimTime interaction class with default parameter values.
     */
-    public ActionBase() {}
+    public SimTime() {}
 
     private static int _actualLogicalGenerationTime_handle;
     private static int _federateFilter_handle;
+    private static int _ignoreTil_handle;
     private static int _originFed_handle;
+    private static int _secondsPerLogicalTime_handle;
     private static int _sourceFed_handle;
+    private static int _startTime_handle;
+    private static int _stopTime_handle;
 
     private static boolean _isInitialized = false;
 
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the ActionBase interaction class.
+    * Returns the handle (RTI assigned) of the SimTime interaction class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -55,7 +59,7 @@ public class ActionBase extends C2WInteractionRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the ActionBase interaction class.
+    * Returns the fully-qualified (dot-delimited) name of the SimTime interaction class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -64,17 +68,17 @@ public class ActionBase extends C2WInteractionRoot {
     * @return the fully-qualified HLA class path for this interaction class
     */
     public static String get_class_name() {
-        return "InteractionRoot.C2WInteractionRoot.ActionBase";
+        return "InteractionRoot.C2WInteractionRoot.SimTime";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the ActionBase interaction class.
+    * class name) of the SimTime interaction class.
     *
     * @return the name of this interaction class
     */
     public static String get_simple_class_name() {
-        return "ActionBase";
+        return "SimTime";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -82,7 +86,7 @@ public class ActionBase extends C2WInteractionRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden parameters in the
-    * ActionBase interaction class.
+    * SimTime interaction class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -97,7 +101,7 @@ public class ActionBase extends C2WInteractionRoot {
 
     /**
     * Returns a set containing the names of all of the parameters in the
-    * ActionBase interaction class.
+    * SimTime interaction class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -111,16 +115,30 @@ public class ActionBase extends C2WInteractionRoot {
     }
 
     static {
-        _classNameSet.add("InteractionRoot.C2WInteractionRoot.ActionBase");
-        _classNameClassMap.put("InteractionRoot.C2WInteractionRoot.ActionBase", ActionBase.class);
+        _classNameSet.add("InteractionRoot.C2WInteractionRoot.SimTime");
+        _classNameClassMap.put("InteractionRoot.C2WInteractionRoot.SimTime", SimTime.class);
 
-        _datamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.ActionBase", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.ActionBase", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimTime", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimTime", _allDatamemberNames);
+
+        _datamemberNames.add("ignoreTil");
+        _datamemberNames.add("secondsPerLogicalTime");
+        _datamemberNames.add("startTime");
+        _datamemberNames.add("stopTime");
+
+        _datamemberTypeMap.put("ignoreTil", "double");
+        _datamemberTypeMap.put("secondsPerLogicalTime", "double");
+        _datamemberTypeMap.put("startTime", "double");
+        _datamemberTypeMap.put("stopTime", "double");
 
         _allDatamemberNames.add("actualLogicalGenerationTime");
         _allDatamemberNames.add("federateFilter");
+        _allDatamemberNames.add("ignoreTil");
         _allDatamemberNames.add("originFed");
+        _allDatamemberNames.add("secondsPerLogicalTime");
         _allDatamemberNames.add("sourceFed");
+        _allDatamemberNames.add("startTime");
+        _allDatamemberNames.add("stopTime");
     }
 
     protected static void init(RTIambassador rti) {
@@ -132,7 +150,7 @@ public class ActionBase extends C2WInteractionRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getInteractionClassHandle("InteractionRoot.C2WInteractionRoot.ActionBase");
+                _handle = rti.getInteractionClassHandle("InteractionRoot.C2WInteractionRoot.SimTime");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -146,17 +164,21 @@ public class ActionBase extends C2WInteractionRoot {
             }
         }
 
-        _classNameHandleMap.put("InteractionRoot.C2WInteractionRoot.ActionBase", get_handle());
-        _classHandleNameMap.put(get_handle(), "InteractionRoot.C2WInteractionRoot.ActionBase");
-        _classHandleSimpleNameMap.put(get_handle(), "ActionBase");
+        _classNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime", get_handle());
+        _classHandleNameMap.put(get_handle(), "InteractionRoot.C2WInteractionRoot.SimTime");
+        _classHandleSimpleNameMap.put(get_handle(), "SimTime");
 
         isNotInitialized = true;
         while(isNotInitialized) {
             try {
                 _actualLogicalGenerationTime_handle = rti.getParameterHandle("actualLogicalGenerationTime", get_handle());
                 _federateFilter_handle = rti.getParameterHandle("federateFilter", get_handle());
+                _ignoreTil_handle = rti.getParameterHandle("ignoreTil", get_handle());
                 _originFed_handle = rti.getParameterHandle("originFed", get_handle());
+                _secondsPerLogicalTime_handle = rti.getParameterHandle("secondsPerLogicalTime", get_handle());
                 _sourceFed_handle = rti.getParameterHandle("sourceFed", get_handle());
+                _startTime_handle = rti.getParameterHandle("startTime", get_handle());
+                _stopTime_handle = rti.getParameterHandle("stopTime", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -173,21 +195,29 @@ public class ActionBase extends C2WInteractionRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.ActionBase.actualLogicalGenerationTime", _actualLogicalGenerationTime_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.ActionBase.federateFilter", _federateFilter_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.ActionBase.originFed", _originFed_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.ActionBase.sourceFed", _sourceFed_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.actualLogicalGenerationTime", _actualLogicalGenerationTime_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.federateFilter", _federateFilter_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.ignoreTil", _ignoreTil_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.originFed", _originFed_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.secondsPerLogicalTime", _secondsPerLogicalTime_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.sourceFed", _sourceFed_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.startTime", _startTime_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.stopTime", _stopTime_handle);
 
         _datamemberHandleNameMap.put(_actualLogicalGenerationTime_handle, "actualLogicalGenerationTime");
         _datamemberHandleNameMap.put(_federateFilter_handle, "federateFilter");
+        _datamemberHandleNameMap.put(_ignoreTil_handle, "ignoreTil");
         _datamemberHandleNameMap.put(_originFed_handle, "originFed");
+        _datamemberHandleNameMap.put(_secondsPerLogicalTime_handle, "secondsPerLogicalTime");
         _datamemberHandleNameMap.put(_sourceFed_handle, "sourceFed");
+        _datamemberHandleNameMap.put(_startTime_handle, "startTime");
+        _datamemberHandleNameMap.put(_stopTime_handle, "stopTime");
     }
 
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the ActionBase interaction class for a federate.
+    * Publishes the SimTime interaction class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -220,7 +250,7 @@ public class ActionBase extends C2WInteractionRoot {
     }
 
     /**
-    * Unpublishes the ActionBase interaction class for a federate.
+    * Unpublishes the SimTime interaction class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -258,7 +288,7 @@ public class ActionBase extends C2WInteractionRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the ActionBase interaction class.
+    * Subscribes a federate to the SimTime interaction class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -291,7 +321,7 @@ public class ActionBase extends C2WInteractionRoot {
     }
 
     /**
-    * Unsubscribes a federate from the ActionBase interaction class.
+    * Unsubscribes a federate from the SimTime interaction class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -328,12 +358,12 @@ public class ActionBase extends C2WInteractionRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the ActionBase interaction class).
+    * (that is, the SimTime interaction class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the ActionBase interaction class).
+    * this class (the SimTime interaction class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the ActionBase interaction class).
+    * (that is, the SimTime interaction class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -393,8 +423,12 @@ public class ActionBase extends C2WInteractionRoot {
     public String getParameterName(int datamemberHandle) {
         if (datamemberHandle == _actualLogicalGenerationTime_handle) return "actualLogicalGenerationTime";
         else if (datamemberHandle == _federateFilter_handle) return "federateFilter";
+        else if (datamemberHandle == _ignoreTil_handle) return "ignoreTil";
         else if (datamemberHandle == _originFed_handle) return "originFed";
+        else if (datamemberHandle == _secondsPerLogicalTime_handle) return "secondsPerLogicalTime";
         else if (datamemberHandle == _sourceFed_handle) return "sourceFed";
+        else if (datamemberHandle == _startTime_handle) return "startTime";
+        else if (datamemberHandle == _stopTime_handle) return "stopTime";
         else return super.getParameterName(datamemberHandle);
     }
 
@@ -439,64 +473,190 @@ public class ActionBase extends C2WInteractionRoot {
         return getClass().getName() + "("
                 + "actualLogicalGenerationTime:" + get_actualLogicalGenerationTime()
                 + "," + "federateFilter:" + get_federateFilter()
+                + "," + "ignoreTil:" + get_ignoreTil()
                 + "," + "originFed:" + get_originFed()
+                + "," + "secondsPerLogicalTime:" + get_secondsPerLogicalTime()
                 + "," + "sourceFed:" + get_sourceFed()
+                + "," + "startTime:" + get_startTime()
+                + "," + "stopTime:" + get_stopTime()
                 + ")";
     }
 
-    protected ActionBase( ReceivedInteraction datamemberMap, boolean initFlag ) {
+    private double _ignoreTil = 0;
+    private double _secondsPerLogicalTime = 0;
+    private double _startTime = 0;
+    private double _stopTime = 0;
+
+    /**
+    * Set the value of the "ignoreTil" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "ignoreTil" parameter
+    */
+    public void set_ignoreTil( double value ) {
+        _ignoreTil = value;
+    }
+
+    /**
+    * Returns the value of the "ignoreTil" parameter of this interaction.
+    *
+    * @return the value of the "ignoreTil" parameter
+    */
+    public double get_ignoreTil() {
+        return _ignoreTil;
+    }
+    /**
+    * Set the value of the "secondsPerLogicalTime" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "secondsPerLogicalTime" parameter
+    */
+    public void set_secondsPerLogicalTime( double value ) {
+        _secondsPerLogicalTime = value;
+    }
+
+    /**
+    * Returns the value of the "secondsPerLogicalTime" parameter of this interaction.
+    *
+    * @return the value of the "secondsPerLogicalTime" parameter
+    */
+    public double get_secondsPerLogicalTime() {
+        return _secondsPerLogicalTime;
+    }
+    /**
+    * Set the value of the "startTime" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "startTime" parameter
+    */
+    public void set_startTime( double value ) {
+        _startTime = value;
+    }
+
+    /**
+    * Returns the value of the "startTime" parameter of this interaction.
+    *
+    * @return the value of the "startTime" parameter
+    */
+    public double get_startTime() {
+        return _startTime;
+    }
+    /**
+    * Set the value of the "stopTime" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "stopTime" parameter
+    */
+    public void set_stopTime( double value ) {
+        _stopTime = value;
+    }
+
+    /**
+    * Returns the value of the "stopTime" parameter of this interaction.
+    *
+    * @return the value of the "stopTime" parameter
+    */
+    public double get_stopTime() {
+        return _stopTime;
+    }
+
+    protected SimTime( ReceivedInteraction datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setParameters( datamemberMap );
     }
 
-    protected ActionBase( ReceivedInteraction datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected SimTime( ReceivedInteraction datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setParameters( datamemberMap );
     }
 
     /**
-    * Creates an instance of the ActionBase interaction class, using
+    * Creates an instance of the SimTime interaction class, using
     * "datamemberMap" to initialize its parameter values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * parameters of this new ActionBase interaction class instance
+    * parameters of this new SimTime interaction class instance
     */
-    public ActionBase( ReceivedInteraction datamemberMap ) {
+    public SimTime( ReceivedInteraction datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #ActionBase( ReceivedInteraction datamemberMap )}, except this
-    * new ActionBase interaction class instance is given a timestamp of
+    * Like {@link #SimTime( ReceivedInteraction datamemberMap )}, except this
+    * new SimTime interaction class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * parameters of this new ActionBase interaction class instance
-    * @param logicalTime timestamp for this new ActionBase interaction class
+    * parameters of this new SimTime interaction class instance
+    * @param logicalTime timestamp for this new SimTime interaction class
     * instance
     */
-    public ActionBase( ReceivedInteraction datamemberMap, LogicalTime logicalTime ) {
+    public SimTime( ReceivedInteraction datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new ActionBase interaction class instance that is a duplicate
-    * of the instance referred to by ActionBase_var.
+    * Creates a new SimTime interaction class instance that is a duplicate
+    * of the instance referred to by SimTime_var.
     *
-    * @param ActionBase_var ActionBase interaction class instance of which
-    * this newly created ActionBase interaction class instance will be a
+    * @param SimTime_var SimTime interaction class instance of which
+    * this newly created SimTime interaction class instance will be a
     * duplicate
     */
-    public ActionBase( ActionBase ActionBase_var ) {
-        super( ActionBase_var );
+    public SimTime( SimTime SimTime_var ) {
+        super( SimTime_var );
+
+        set_ignoreTil( SimTime_var.get_ignoreTil() );
+        set_secondsPerLogicalTime( SimTime_var.get_secondsPerLogicalTime() );
+        set_startTime( SimTime_var.get_startTime() );
+        set_stopTime( SimTime_var.get_stopTime() );
+    }
+
+    /**
+    * Returns the value of the parameter whose name is "datamemberName"
+    * for this interaction.
+    *
+    * @param datamemberName name of parameter whose value is to be
+    * returned
+    * @return value of the parameter whose name is "datamemberName"
+    * for this interaction
+    */
+    public Object getParameter( String datamemberName ) {
+        if ( "ignoreTil".equals(datamemberName) ) return new Double(get_ignoreTil());
+        else if ( "secondsPerLogicalTime".equals(datamemberName) ) return new Double(get_secondsPerLogicalTime());
+        else if ( "startTime".equals(datamemberName) ) return new Double(get_startTime());
+        else if ( "stopTime".equals(datamemberName) ) return new Double(get_stopTime());
+        else return super.getParameter( datamemberName );
+    }
+
+    protected boolean setParameterAux( String datamemberName, String val ) {
+        boolean retval = true;
+        if ( "ignoreTil".equals( datamemberName) ) set_ignoreTil( Double.parseDouble(val) );
+        else if ( "secondsPerLogicalTime".equals( datamemberName) ) set_secondsPerLogicalTime( Double.parseDouble(val) );
+        else if ( "startTime".equals( datamemberName) ) set_startTime( Double.parseDouble(val) );
+        else if ( "stopTime".equals( datamemberName) ) set_stopTime( Double.parseDouble(val) );
+        else retval = super.setParameterAux( datamemberName, val );
+
+        return retval;
+    }
+
+    protected boolean setParameterAux( String datamemberName, Object val ) {
+        boolean retval = true;
+        if ( "ignoreTil".equals( datamemberName) ) set_ignoreTil( (Double)val );
+        else if ( "secondsPerLogicalTime".equals( datamemberName) ) set_secondsPerLogicalTime( (Double)val );
+        else if ( "startTime".equals( datamemberName) ) set_startTime( (Double)val );
+        else if ( "stopTime".equals( datamemberName) ) set_stopTime( (Double)val );
+        else retval = super.setParameterAux( datamemberName, val );
+
+        return retval;
     }
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof ActionBase ) {
-            ActionBase data = (ActionBase)object;
+        if ( object instanceof SimTime ) {
+            SimTime data = (SimTime)object;
+            _ignoreTil = data._ignoreTil;
+            _secondsPerLogicalTime = data._secondsPerLogicalTime;
+            _startTime = data._startTime;
+            _stopTime = data._stopTime;
         }
     }
 }

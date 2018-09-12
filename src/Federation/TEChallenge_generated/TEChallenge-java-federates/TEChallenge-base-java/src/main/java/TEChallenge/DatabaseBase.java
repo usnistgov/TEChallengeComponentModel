@@ -15,12 +15,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class TransactiveAgentBase extends SynchronizedFederate {
+public class DatabaseBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public TransactiveAgentBase(FederateConfig config) throws Exception {
+	public DatabaseBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();
@@ -32,42 +32,9 @@ public class TransactiveAgentBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        
-        SimTime.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-			SimTime.get_handle(), 
-			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
-			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
-		);		
+        		
 		// object pubsub
-        
-        	
-        Quote.publish_price();
-        Quote.publish_quantity();
-        Quote.publish_quoteId();
-        Quote.publish_timeReference();
-        Quote.publish_type();
-        Quote.publish(getLRC());
-        
-        	
-        Transaction.publish_accept();
-        Transaction.publish_tenderId();
-        Transaction.publish(getLRC());
-        
-        	
-        marketStatus.publish_price();
-        marketStatus.publish_time();
-        marketStatus.publish_type();
-        marketStatus.publish(getLRC());
-                
-        	
-        Tender.subscribe_price();
-        Tender.subscribe_quantity();
-        Tender.subscribe_tenderId();
-        Tender.subscribe_timeReference();
-        Tender.subscribe_type();
-        Tender.subscribe(getLRC());
-        	}
+                	}
         
 	
 	@Override

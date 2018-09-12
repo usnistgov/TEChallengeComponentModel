@@ -11,13 +11,19 @@
     <packaging>pom</packaging>
     <modules>
         
+        <module>Database</module>
+        
         <module>Grid</module>
         
         <module>Loads</module>
         
         <module>LocalController</module>
         
+        <module>Metronome</module>
+        
         <module>TransactiveAgent</module>
+        
+        <module>Weather</module>
         
         <module>supervisoryController</module>
         

@@ -4,8 +4,8 @@ import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
+import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
-import org.cpswt.utils.CpswtDefaults;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +15,9 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class Grid extends GridBase {
+    private final static Logger log = LogManager.getLogger();
 
-    private final static Logger log = LogManager.getLogger(Grid.class);
-
-    double currentTime = 0;
+    private double currentTime = 0;
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
@@ -38,8 +37,21 @@ public class Grid extends GridBase {
         ///////////////////////////////////////////////////////////////////////
     }
 
-    private void CheckReceivedSubscriptions(String s) {
+    private void checkReceivedSubscriptions() {
 
+        InteractionRoot interaction = null;
+        while ((interaction = getNextInteractionNoWait()) != null) {
+            if (interaction instanceof TMYWeather) {
+                handleInteractionClass((TMYWeather) interaction);
+            }
+            else if (interaction instanceof SimTime) {
+                handleInteractionClass((SimTime) interaction);
+            }
+            else {
+                log.debug("unhandled interaction: {}", interaction.getClassName());
+            }
+        }
+ 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
@@ -47,12 +59,15 @@ public class Grid extends GridBase {
             if (object instanceof resourcesPhysicalStatus) {
                 handleObjectClass((resourcesPhysicalStatus) object);
             }
-            log.info("Object received and handled: " + s);
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
+            }
         }
     }
 
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
+            log.info("turning off time regulation (late joiner)");
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
@@ -65,32 +80,25 @@ public class Grid extends GridBase {
         putAdvanceTimeRequest(atr);
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToPopulate...");
             readyToPopulate();
+            log.info("...synchronized on readyToPopulate");
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        // Call CheckReceivedSubscriptions(<message>) here to receive
-        // subscriptions published before the first time step.
-        ///////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////
         // TODO perform initialization that depends on other federates below //
         ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
+            log.info("waiting on readyToRun...");
             readyToRun();
+            log.info("...synchronized on readyToRun");
         }
 
         startAdvanceTimeThread();
+        log.info("started logical time progression");
 
-        // this is the exit condition of the following while loop
-        // it is used to break the loop so that latejoiner federates can
-        // notify the federation manager that they left the federation
-        boolean exitCondition = false;
-
-        while (true) {
-            currentTime += super.getStepSize();
-
+        while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
@@ -103,27 +111,44 @@ public class Grid extends GridBase {
             //    vgridVoltageState.set_grid_Voltage_Real_A(<YOUR VALUE HERE >);
             //    vgridVoltageState.set_grid_Voltage_Real_B(<YOUR VALUE HERE >);
             //    vgridVoltageState.set_grid_Voltage_Real_C(<YOUR VALUE HERE >);
-            //    vgridVoltageState.updateAttributeValues(getLRC(), currentTime);
+            //    vgridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
-            CheckReceivedSubscriptions("Main Loop");
+            checkReceivedSubscriptions();
 
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // DO NOT MODIFY FILE BEYOND THIS LINE
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
-            putAdvanceTimeRequest(newATR);
-            atr.requestSyncEnd();
-            atr = newATR;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // TODO break here if ready to resign and break out of while loop
+            ////////////////////////////////////////////////////////////////////////////////////////
 
-            if(exitCondition) {
-                break;
+
+            if (!exitCondition) {
+                currentTime += super.getStepSize();
+                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+                putAdvanceTimeRequest(newATR);
+                atr.requestSyncEnd();
+                atr = newATR;
             }
         }
 
-        // while loop finished, notify FederationManager about resign
-        super.notifyFederationOfResign();
+        // call exitGracefully to shut down federate
+        exitGracefully();
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // TODO Perform whatever cleanups needed before exiting the app
+        ////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleInteractionClass(TMYWeather interaction) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleInteractionClass(SimTime interaction) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
     }
 
     private void handleObjectClass(resourcesPhysicalStatus object) {
@@ -138,12 +163,10 @@ public class Grid extends GridBase {
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
             Grid federate = new Grid(federateConfig);
             federate.execute();
-
+            log.info("Done.");
             System.exit(0);
         } catch (Exception e) {
-            log.error("There was a problem executing the Grid federate: {}", e.getMessage());
             log.error(e);
-
             System.exit(1);
         }
     }
