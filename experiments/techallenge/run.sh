@@ -54,10 +54,10 @@ pathtofederate_supervisoryController=/home/vagrant/Projects/TEChallengeComponent
 pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
 
 # library federates
-pathtofederate_GridlabD=/home/vagrant/Projects/ucef-gridlabd/GridLAB-D/target/
-pathtofederate_Metronome=/home/vagrant/Projects/ucef-library/Federates/metronome/source/MetronomeFederate-java-federates/MetronomeFederate-impl-java/Metronome/target/
-pathtofederate_Weather=/home/vagrant/Projects/ucef-library/Federates/tmy3weather/source/WeatherFederate-java-federates/WeatherFederate-impl-java/Weather/target
-pathtofederate_Database=/home/vagrant/Projects/ucef-mysql/target
+pathtofederate_GridlabD=/home/vagrant/ucefcodebase/ucef-gridlabd/GridLAB-D/target/
+pathtofederate_Metronome=/home/vagrant/ucefcodebase/ucef-library/Federates/metronome/source/MetronomeFederate-java-federates/MetronomeFederate-impl-java/Metronome/target/
+pathtofederate_Weather=/home/vagrant/ucefcodebase/ucef-library/Federates/tmy3weather/source/WeatherFederate-java-federates/WeatherFederate-impl-java/Weather/target
+pathtofederate_Database=/home/vagrant/ucefcodebase/ucef-database/target
 
 ##################################
 # copy configuration files
@@ -67,7 +67,7 @@ cp experimentConfig.json $pathtofederate_fedmanager/conf
 cp TEChallenge.xml $pathtofederate_fedmanager/fom
 cp TEChallenge.fed $pathtofederate_fedmanager/fom
 
-cp Gateway.json $pathtofederate_Database
+cp Database.json $pathtofederate_Database
 cp TEChallenge.xml $pathtofederate_Database
 cp tmy3.csv $pathtofederate_Weather
 
@@ -107,7 +107,7 @@ xterm -fg red       -bg black -l -lf $logs_directory/metronome-${timestamp}.log 
 cd $pathtofederate_Weather
 xterm -fg orange    -bg black -l -lf $logs_directory/weather-${timestamp}.log               -T "Weather"               -geometry 140x40+200+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Weather-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=WeatherConfig.json" &
 cd $pathtofederate_Database
-xterm -fg lightblue -bg black -l -lf $logs_directory/database-${timestamp}.log              -T "Database"              -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Gateway-0.0.1-SNAPSHOT.jar  $pathtofederate_Database/Gateway.json" &
+xterm -fg lightblue -bg black -l -lf $logs_directory/database-${timestamp}.log              -T "Database"              -geometry 140x40+200+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Database-0.0.1-SNAPSHOT.jar  $pathtofederate_Database/Database.json" &
 
 
 ##################################

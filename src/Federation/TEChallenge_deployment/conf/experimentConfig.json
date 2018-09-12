@@ -5,7 +5,8 @@
     "LocalController",
     "supervisoryController",
     "TransactiveAgent",
-    "Metronome"
+    "Metronome",
+	"Database"
   ],
   "expectedFederates": [
     {
@@ -31,11 +32,15 @@
     },
     {
       "federateType": "Metronome",
-      "count": 0
+      "count": 1
     },
     {
       "federateType": "Weather",
-      "count": 0
+      "count": 1
+    },
+    {
+      "federateType": "Database",
+      "count": 1
     }
 ],
   "lateJoinerFederates": [
@@ -61,6 +66,10 @@
     },
     {
       "federateType": "Weather",
+      "count": 0
+    },
+    {
+      "federateType": "Database",
       "count": 0
     }
   ]

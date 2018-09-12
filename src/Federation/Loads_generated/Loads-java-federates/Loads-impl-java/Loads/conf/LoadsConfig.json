@@ -1,9 +1,9 @@
 {
   "federateRTIInitWaitTimeMs": 200,
   "federateType": "Loads",
-	"federationId": "FedManager",
-	"isLateJoiner": false,
-	"lookAhead": 0.1,
+  "federationId": "Loads",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
 	"stepSize": 1.0,
 	"number": 10,
 	"loads": [{

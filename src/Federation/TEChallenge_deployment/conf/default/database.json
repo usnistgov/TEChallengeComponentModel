@@ -1,6 +1,6 @@
 {
   "federateRTIInitWaitTimeMs": 200,
-  "federateType": "supervisoryController",
+  "federateType": "Database",
   "federationId": "TEChallenge",
   "isLateJoiner": false,
   "lookAhead": "0.2",
