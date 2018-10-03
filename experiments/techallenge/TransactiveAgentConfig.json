@@ -4,7 +4,7 @@
 	"federationId": "FedManager",
 	"isLateJoiner": false,
 	"lookAhead": 0.1,
-	"stepSize": 20.0,
+	"stepSize": 1.0,
     "numberofta":3,
 	 
      "quotes":[
