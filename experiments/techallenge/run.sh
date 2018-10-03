@@ -100,8 +100,8 @@ printf "\n"
 ##################################
 # run the library federates
 ##################################
-cd $pathtofederate_GridlabD
-xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
+#cd $pathtofederate_GridlabD
+#xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
 cd $pathtofederate_Metronome
 xterm -fg red       -bg black -l -lf $logs_directory/metronome-${timestamp}.log             -T "Metronome"             -geometry 140x40+200+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Metronome-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=MetronomeConfig.json" &
 cd $pathtofederate_Weather

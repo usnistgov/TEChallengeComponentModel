@@ -6,7 +6,8 @@
     "supervisoryController",
     "TransactiveAgent",
     "Metronome",
-	"Database"
+    "Weather",
+    "Database"
   ],
   "expectedFederates": [
     {
@@ -58,6 +59,10 @@
     },
     {
       "federateType": "supervisoryController",
+      "count": 0
+    },
+    {
+      "federateType": "TransactiveAgent",
       "count": 0
     },
     {
