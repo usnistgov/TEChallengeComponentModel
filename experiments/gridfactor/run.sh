@@ -54,10 +54,10 @@ pathtofederate_supervisoryController=/home/vagrant/Projects/TEChallengeComponent
 pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
 
 # library federates
-pathtofederate_GridlabD=/home/vagrant/Projects/ucef-gridlabd/GridLAB-D/target/
-pathtofederate_Metronome=/home/vagrant/Projects/ucef-library/Federates/metronome/source/MetronomeFederate-java-federates/MetronomeFederate-impl-java/Metronome/target/
-pathtofederate_Weather=/home/vagrant/Projects/ucef-library/Federates/tmy3weather/source/WeatherFederate-java-federates/WeatherFederate-impl-java/Weather/target
-pathtofederate_Database=/home/vagrant/Projects/ucef-database/target
+pathtofederate_GridlabD=/home/vagrant/ucefcodebase/ucef-gridlabd/GridLAB-D/target/
+pathtofederate_Metronome=/home/vagrant/ucefcodebase/ucef-library/Federates/metronome/source/MetronomeFederate-java-federates/MetronomeFederate-impl-java/Metronome/target/
+pathtofederate_Weather=/home/vagrant/ucefcodebase/ucef-library/Federates/tmy3weather/source/WeatherFederate-java-federates/WeatherFederate-impl-java/Weather/target
+pathtofederate_Database=/home/vagrant/ucefcodebase/ucef-database/target
 
 ##################################
 # copy configuration files
@@ -100,8 +100,8 @@ printf "\n"
 ##################################
 # run the library federates
 ##################################
-cd $pathtofederate_GridlabD
-xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
+#cd $pathtofederate_GridlabD
+#xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
 cd $pathtofederate_Metronome
 xterm -fg red       -bg black -l -lf $logs_directory/metronome-${timestamp}.log             -T "Metronome"             -geometry 140x40+200+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Metronome-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=MetronomeConfig.json" &
 cd $pathtofederate_Weather
