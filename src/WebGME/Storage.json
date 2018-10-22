@@ -2,7 +2,7 @@
   "__OBJECTS__": {
     "8117a486-dc74-4ca1-85e8-107e2aeb0a0c": {
       "attributes": {
-        "name": "Loads",
+        "name": "Storage",
         "TimeRegulating": "true",
         "TimeConstrained": "true",
         "Step": "1.0",
@@ -384,7 +384,7 @@
   },
   "__ROOT_OBJECT__": {
     "GUID": "8117a486-dc74-4ca1-85e8-107e2aeb0a0c",
-    "name": "Loads",
+    "name": "Storage",
     "version": "0.0.1",
     "description": ""
   },
