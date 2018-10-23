@@ -1,17 +1,17 @@
 {
   "__OBJECTS__": {
-    "edfb2756-f27f-4e02-a498-5e83f222adcc": {
+    "496418f0-e94c-43f8-ad80-13b9412bcae0": {
       "attributes": {
-        "name": "Weather",
-        "TimeRegulating": "true",
-        "TimeConstrained": "true",
-        "Step": "1.0",
-        "Meld": "false",
-        "Lookahead": "0.2",
-        "InstantiationScript": "",
-        "GeneratorClass": "",
+        "EnableROAsynchronousDelivery": "true",
         "FederateType": "1",
-        "EnableROAsynchronousDelivery": "true"
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Weather"
       },
       "__FEDERATE_BASE__": "JavaFederate",
       "federates": [],
@@ -19,12 +19,12 @@
       "parameters": [],
       "inputs": [
         {
-          "GUID": "d804d536-892f-4fdd-8e58-04ff7f2a1dc9"
+          "GUID": "d218603c-de65-4907-ad08-ceb9396c7f08"
         }
       ],
       "outputs": [
         {
-          "GUID": "a3dd6775-4596-48c7-8b25-1f91e2f44765"
+          "GUID": "91eceefd-7142-4968-90ce-ea2ad725789b"
         }
       ],
       "objectinputs": [],
@@ -32,32 +32,18 @@
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "edfb2756-f27f-4e02-a498-5e83f222adcc"
+      "GUID": "496418f0-e94c-43f8-ad80-13b9412bcae0"
     },
-    "39c38167-39d8-4b04-b820-6a77b78cab34": {
+    "d218603c-de65-4907-ad08-ceb9396c7f08": {
       "attributes": {
-        "name": "InteractionRoot",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
+        "Delivery": "reliable",
         "EnableLogging": "false",
-        "Delivery": "reliable"
+        "LogLevel": "NORMAL",
+        "Order": "timestamp",
+        "name": "SimTime"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "d2ec00ed-9306-467c-8a32-c23d55ebca55"
-      },
-      "parameters": [],
-      "GUID": "39c38167-39d8-4b04-b820-6a77b78cab34"
-    },
-    "e66d3397-5493-46e7-8e25-3d6fdee4c3c9": {
-      "attributes": {
-        "name": "C2WInteractionRoot",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
-        "EnableLogging": "false",
-        "Delivery": "reliable"
-      },
-      "__INTERACTION_BASE__": {
-        "GUID": "39c38167-39d8-4b04-b820-6a77b78cab34"
+        "GUID": "a7dd5a68-eb3e-4a05-9690-176fac9dc07b"
       },
       "parameters": [
         {
@@ -79,22 +65,107 @@
           "name": "federateFilter",
           "ParameterType": "String",
           "Hidden": "false"
+        },
+        {
+          "name": "startTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "stopTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "ignoreTil",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "secondsPerLogicalTime",
+          "ParameterType": "double",
+          "Hidden": "false"
         }
       ],
-      "GUID": "e66d3397-5493-46e7-8e25-3d6fdee4c3c9"
+      "GUID": "d218603c-de65-4907-ad08-ceb9396c7f08"
     },
-    "a3dd6775-4596-48c7-8b25-1f91e2f44765": {
+    "91eceefd-7142-4968-90ce-ea2ad725789b": {
       "attributes": {
-        "name": "TMYWeather",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
+        "Delivery": "reliable",
         "EnableLogging": "false",
-        "Delivery": "reliable"
+        "LogLevel": "NORMAL",
+        "Order": "timestamp",
+        "name": "TMYWeather"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "e66d3397-5493-46e7-8e25-3d6fdee4c3c9"
+        "GUID": "a7dd5a68-eb3e-4a05-9690-176fac9dc07b"
       },
       "parameters": [
+        {
+          "name": "diffuseHorizontalIrradiance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dryBulbTemperature",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dryBulbTemperatureSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "pressureUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windSpeedUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "time",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "opaqueSkyCoverSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "longitude",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windSpeed",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
         {
           "name": "albedo",
           "ParameterType": "double",
@@ -116,33 +187,8 @@
           "Hidden": "false"
         },
         {
-          "name": "longitude",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "dryBulbTemperatureSource",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "dryBulbTemperature",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
           "name": "horizontalVisibility",
           "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "originFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "sourceFed",
-          "ParameterType": "String",
           "Hidden": "false"
         },
         {
@@ -153,11 +199,6 @@
         {
           "name": "totalSkyCoverUncertainty",
           "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "time",
-          "ParameterType": "String",
           "Hidden": "false"
         },
         {
@@ -187,11 +228,6 @@
         },
         {
           "name": "latitude",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "windSpeedUncertainty",
           "ParameterType": "double",
           "Hidden": "false"
         },
@@ -236,11 +272,6 @@
           "Hidden": "false"
         },
         {
-          "name": "windSpeed",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
           "name": "zenithLuminance",
           "ParameterType": "double",
           "Hidden": "false"
@@ -271,17 +302,7 @@
           "Hidden": "false"
         },
         {
-          "name": "pressureUncertainty",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
           "name": "albedoSource",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "opaqueSkyCoverSource",
           "ParameterType": "String",
           "Hidden": "false"
         },
@@ -357,11 +378,6 @@
         },
         {
           "name": "diffuseHorizontalIlluminanceUncertainty",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "diffuseHorizontalIrradiance",
           "ParameterType": "double",
           "Hidden": "false"
         },
@@ -494,92 +510,25 @@
           "name": "pressureSource",
           "ParameterType": "String",
           "Hidden": "false"
-        },
-        {
-          "name": "actualLogicalGenerationTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "federateFilter",
-          "ParameterType": "String",
-          "Hidden": "false"
         }
       ],
-      "GUID": "a3dd6775-4596-48c7-8b25-1f91e2f44765"
-    },
-    "d804d536-892f-4fdd-8e58-04ff7f2a1dc9": {
-      "attributes": {
-        "name": "SimTime",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
-        "EnableLogging": "false",
-        "Delivery": "reliable"
-      },
-      "__INTERACTION_BASE__": {
-        "GUID": "e66d3397-5493-46e7-8e25-3d6fdee4c3c9"
-      },
-      "parameters": [
-        {
-          "name": "startTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "originFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "sourceFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "stopTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "ignoreTil",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "secondsPerLogicalTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "actualLogicalGenerationTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "federateFilter",
-          "ParameterType": "String",
-          "Hidden": "false"
-        }
-      ],
-      "GUID": "d804d536-892f-4fdd-8e58-04ff7f2a1dc9"
+      "GUID": "91eceefd-7142-4968-90ce-ea2ad725789b"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "edfb2756-f27f-4e02-a498-5e83f222adcc",
+    "GUID": "496418f0-e94c-43f8-ad80-13b9412bcae0",
     "name": "Weather",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "edfb2756-f27f-4e02-a498-5e83f222adcc": ""
+    "496418f0-e94c-43f8-ad80-13b9412bcae0": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {
-    "39c38167-39d8-4b04-b820-6a77b78cab34": "",
-    "e66d3397-5493-46e7-8e25-3d6fdee4c3c9": "",
-    "a3dd6775-4596-48c7-8b25-1f91e2f44765": "",
-    "d804d536-892f-4fdd-8e58-04ff7f2a1dc9": ""
+    "d218603c-de65-4907-ad08-ceb9396c7f08": "",
+    "91eceefd-7142-4968-90ce-ea2ad725789b": ""
   },
   "Objects": {},
   "ObjectAttribute": {},

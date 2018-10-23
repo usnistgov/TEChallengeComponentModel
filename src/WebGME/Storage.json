@@ -1,17 +1,17 @@
 {
   "__OBJECTS__": {
-    "8117a486-dc74-4ca1-85e8-107e2aeb0a0c": {
+    "04ef678a-a108-490c-af38-c739d6722d9d": {
       "attributes": {
-        "name": "Storage",
-        "TimeRegulating": "true",
-        "TimeConstrained": "true",
-        "Step": "1.0",
-        "Meld": "false",
-        "Lookahead": "0.2",
-        "InstantiationScript": "",
-        "GeneratorClass": "",
+        "EnableROAsynchronousDelivery": "true",
         "FederateType": "1",
-        "EnableROAsynchronousDelivery": "true"
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Storage"
       },
       "__FEDERATE_BASE__": "JavaFederate",
       "federates": [],
@@ -21,30 +21,30 @@
       "outputs": [],
       "objectinputs": [
         {
-          "GUID": "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61"
+          "GUID": "a989559a-a5e1-49a9-962b-a3491f9e176b"
         },
         {
-          "GUID": "f4379eff-1089-4539-94b5-5c7a36b10da5"
+          "GUID": "c03b3627-5b63-462a-88ec-0a48989b17bb"
         }
       ],
       "objectoutputs": [
         {
-          "GUID": "f883c7d2-e15e-4ecf-b0d0-17733756e253"
+          "GUID": "b42e4f1e-ee9e-4fbb-8058-b52f477a9f47"
         }
       ],
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "8117a486-dc74-4ca1-85e8-107e2aeb0a0c"
+      "GUID": "04ef678a-a108-490c-af38-c739d6722d9d"
     },
-    "f883c7d2-e15e-4ecf-b0d0-17733756e253": {
+    "b42e4f1e-ee9e-4fbb-8058-b52f477a9f47": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourcesPhysicalStatus"
+        "name": "ResourcesPhysicalStatus"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "382c25f0-f878-4c59-bd40-922447735213"
       },
       "parameters": [
         {
@@ -198,16 +198,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "f883c7d2-e15e-4ecf-b0d0-17733756e253"
+      "GUID": "b42e4f1e-ee9e-4fbb-8058-b52f477a9f47"
     },
-    "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61": {
+    "a989559a-a5e1-49a9-962b-a3491f9e176b": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourceControl"
+        "name": "ResourceControl"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "382c25f0-f878-4c59-bd40-922447735213"
       },
       "parameters": [
         {
@@ -336,16 +336,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61"
+      "GUID": "a989559a-a5e1-49a9-962b-a3491f9e176b"
     },
-    "f4379eff-1089-4539-94b5-5c7a36b10da5": {
+    "c03b3627-5b63-462a-88ec-0a48989b17bb": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "gridVoltageState"
+        "name": "GridVoltageState"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "382c25f0-f878-4c59-bd40-922447735213"
       },
       "parameters": [
         {
@@ -379,25 +379,25 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "f4379eff-1089-4539-94b5-5c7a36b10da5"
+      "GUID": "c03b3627-5b63-462a-88ec-0a48989b17bb"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "8117a486-dc74-4ca1-85e8-107e2aeb0a0c",
+    "GUID": "04ef678a-a108-490c-af38-c739d6722d9d",
     "name": "Storage",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "8117a486-dc74-4ca1-85e8-107e2aeb0a0c": ""
+    "04ef678a-a108-490c-af38-c739d6722d9d": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {},
   "Objects": {
-    "f883c7d2-e15e-4ecf-b0d0-17733756e253": "",
-    "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61": "",
-    "f4379eff-1089-4539-94b5-5c7a36b10da5": ""
+    "b42e4f1e-ee9e-4fbb-8058-b52f477a9f47": "",
+    "a989559a-a5e1-49a9-962b-a3491f9e176b": "",
+    "c03b3627-5b63-462a-88ec-0a48989b17bb": ""
   },
   "ObjectAttribute": {},
   "Repositories": [],

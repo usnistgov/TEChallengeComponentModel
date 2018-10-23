@@ -1,17 +1,17 @@
 {
   "__OBJECTS__": {
-    "00ce433a-7e5f-4c77-b7d0-69472d92726e": {
+    "4b2f780f-d788-4388-8314-16d92495659b": {
       "attributes": {
-        "EnableROAsynchronousDelivery": "true",
-        "FederateType": "1",
-        "GeneratorClass": "",
-        "InstantiationScript": "",
-        "Lookahead": "0.2",
-        "Meld": "false",
-        "Step": "1.0",
-        "TimeConstrained": "true",
+        "name": "LocalController",
         "TimeRegulating": "true",
-        "name": "LocalController"
+        "TimeConstrained": "true",
+        "Step": "1.0",
+        "Meld": "false",
+        "Lookahead": "0.2",
+        "InstantiationScript": "",
+        "GeneratorClass": "",
+        "FederateType": "1",
+        "EnableROAsynchronousDelivery": "true"
       },
       "__FEDERATE_BASE__": "JavaFederate",
       "federates": [],
@@ -21,47 +21,65 @@
       "outputs": [],
       "objectinputs": [
         {
-          "GUID": "5c445e50-a32f-40f5-a93c-ff480b078dd5"
+          "GUID": "978d5908-2da4-415f-a879-a3c2ee40249a"
         },
         {
-          "GUID": "791c77fb-73b9-4f6d-b84c-34b4bfa6e106"
+          "GUID": "a510506e-9f7d-47e3-9721-5605983085dc"
         }
       ],
       "objectoutputs": [
         {
-          "GUID": "2fba440e-f4db-4c7a-95c2-b57b2cb31347"
+          "GUID": "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49"
         }
       ],
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "00ce433a-7e5f-4c77-b7d0-69472d92726e"
+      "GUID": "4b2f780f-d788-4388-8314-16d92495659b"
     },
-    "4bd481e4-f18c-4114-950d-6c80226043cc": {
-      "attributes": {
-        "name": "ObjectRoot",
-        "LogLevel": "NORMAL",
-        "EnableLogging": "false"
-      },
-      "__OBJECT_BASE__": {
-        "GUID": "c809e12c-5941-4022-874b-0e85fe9ef3df"
-      },
-      "parameters": [],
-      "GUID": "4bd481e4-f18c-4114-950d-6c80226043cc"
-    },
-    "5c445e50-a32f-40f5-a93c-ff480b078dd5": {
+    "978d5908-2da4-415f-a879-a3c2ee40249a": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourcesPhysicalStatus"
+        "name": "ResourcesPhysicalStatus"
       },
       "__OBJECT_BASE__": {
-        "GUID": "4bd481e4-f18c-4114-950d-6c80226043cc"
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
       },
       "parameters": [
         {
+          "name": "voltage_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
           "name": "type",
           "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "phases",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_B",
+          "ParameterType": "float",
           "Hidden": "false"
         },
         {
@@ -150,11 +168,6 @@
           "Hidden": "false"
         },
         {
-          "name": "voltage_Imaginary_A",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
           "name": "voltage_Imaginary_B",
           "ParameterType": "float",
           "Hidden": "false"
@@ -175,21 +188,6 @@
           "Hidden": "false"
         },
         {
-          "name": "power_Imaginary_C",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "power_Real_A",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "power_Real_B",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
           "name": "power_Real_C",
           "ParameterType": "float",
           "Hidden": "false"
@@ -198,30 +196,78 @@
           "name": "status",
           "ParameterType": "boolean",
           "Hidden": "false"
-        },
+        }
+      ],
+      "GUID": "978d5908-2da4-415f-a879-a3c2ee40249a"
+    },
+    "a510506e-9f7d-47e3-9721-5605983085dc": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "SupervisoryControlSignal"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
+      },
+      "parameters": [
         {
-          "name": "phases",
+          "name": "localControllerName",
           "ParameterType": "String",
           "Hidden": "false"
         },
         {
-          "name": "impedance_Real_B",
+          "name": "modulationSignal",
           "ParameterType": "float",
           "Hidden": "false"
         }
       ],
-      "GUID": "5c445e50-a32f-40f5-a93c-ff480b078dd5"
+      "GUID": "a510506e-9f7d-47e3-9721-5605983085dc"
     },
-    "2fba440e-f4db-4c7a-95c2-b57b2cb31347": {
+    "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourceControl"
+        "name": "ResourceControl"
       },
       "__OBJECT_BASE__": {
-        "GUID": "4bd481e4-f18c-4114-950d-6c80226043cc"
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
       },
       "parameters": [
+        {
+          "name": "downRampToCompletion",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "adjustedNoDRPower",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "upDuration",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "realDesiredFractionOfFullRatedOutputEnd",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "activePowerCurve",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "upBeginRamp",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "upRampToCompletion",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
         {
           "name": "reactiveDesiredFractionOfFullRatedOutputEnd",
           "ParameterType": "float",
@@ -253,11 +299,6 @@
           "Hidden": "false"
         },
         {
-          "name": "downRampToCompletion",
-          "ParameterType": "boolean",
-          "Hidden": "false"
-        },
-        {
           "name": "loadStatusType",
           "ParameterType": "String",
           "Hidden": "false"
@@ -273,17 +314,7 @@
           "Hidden": "false"
         },
         {
-          "name": "activePowerCurve",
-          "ParameterType": "int",
-          "Hidden": "false"
-        },
-        {
           "name": "adjustedFullDRPower",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "adjustedNoDRPower",
           "ParameterType": "float",
           "Hidden": "false"
         },
@@ -313,11 +344,6 @@
           "Hidden": "false"
         },
         {
-          "name": "realDesiredFractionOfFullRatedOutputEnd",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
           "name": "realRequiredFractionOfFullRatedInputPowerDrawnBegin",
           "ParameterType": "float",
           "Hidden": "false"
@@ -331,66 +357,27 @@
           "name": "locked",
           "ParameterType": "boolean",
           "Hidden": "false"
-        },
-        {
-          "name": "upBeginRamp",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "upDuration",
-          "ParameterType": "int",
-          "Hidden": "false"
-        },
-        {
-          "name": "upRampToCompletion",
-          "ParameterType": "boolean",
-          "Hidden": "false"
         }
       ],
-      "GUID": "2fba440e-f4db-4c7a-95c2-b57b2cb31347"
-    },
-    "791c77fb-73b9-4f6d-b84c-34b4bfa6e106": {
-      "attributes": {
-        "EnableLogging": "false",
-        "LogLevel": "NORMAL",
-        "name": "supervisoryControlSignal"
-      },
-      "__OBJECT_BASE__": {
-        "GUID": "4bd481e4-f18c-4114-950d-6c80226043cc"
-      },
-      "parameters": [
-        {
-          "name": "localControllerName",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "modulationSignal",
-          "ParameterType": "float",
-          "Hidden": "false"
-        }
-      ],
-      "GUID": "791c77fb-73b9-4f6d-b84c-34b4bfa6e106"
+      "GUID": "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "00ce433a-7e5f-4c77-b7d0-69472d92726e",
+    "GUID": "4b2f780f-d788-4388-8314-16d92495659b",
     "name": "LocalController",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "00ce433a-7e5f-4c77-b7d0-69472d92726e": ""
+    "4b2f780f-d788-4388-8314-16d92495659b": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {},
   "Objects": {
-    "4bd481e4-f18c-4114-950d-6c80226043cc": "",
-    "5c445e50-a32f-40f5-a93c-ff480b078dd5": "",
-    "2fba440e-f4db-4c7a-95c2-b57b2cb31347": "",
-    "791c77fb-73b9-4f6d-b84c-34b4bfa6e106": ""
+    "978d5908-2da4-415f-a879-a3c2ee40249a": "",
+    "a510506e-9f7d-47e3-9721-5605983085dc": "",
+    "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49": ""
   },
   "ObjectAttribute": {},
   "Repositories": [],
