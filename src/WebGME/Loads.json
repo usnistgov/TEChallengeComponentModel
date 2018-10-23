@@ -1,6 +1,6 @@
 {
   "__OBJECTS__": {
-    "8117a486-dc74-4ca1-85e8-107e2aeb0a0c": {
+    "c8d18d0b-c3b0-4eec-8628-c6e342099b03": {
       "attributes": {
         "name": "Loads",
         "TimeRegulating": "true",
@@ -21,30 +21,30 @@
       "outputs": [],
       "objectinputs": [
         {
-          "GUID": "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61"
+          "GUID": "23b23147-592d-4568-b1c9-f51e24a6d7aa"
         },
         {
-          "GUID": "f4379eff-1089-4539-94b5-5c7a36b10da5"
+          "GUID": "b56c338c-f6e5-4c8b-94b4-2a242cf8caaa"
         }
       ],
       "objectoutputs": [
         {
-          "GUID": "f883c7d2-e15e-4ecf-b0d0-17733756e253"
+          "GUID": "a98bdaf4-c16d-48e1-bf39-db95bee3faf9"
         }
       ],
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "8117a486-dc74-4ca1-85e8-107e2aeb0a0c"
+      "GUID": "c8d18d0b-c3b0-4eec-8628-c6e342099b03"
     },
-    "f883c7d2-e15e-4ecf-b0d0-17733756e253": {
+    "a98bdaf4-c16d-48e1-bf39-db95bee3faf9": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourcesPhysicalStatus"
+        "name": "ResourcesPhysicalStatus"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "30b5a7de-7fd4-4e6d-94fc-4a28a6f24441"
       },
       "parameters": [
         {
@@ -198,16 +198,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "f883c7d2-e15e-4ecf-b0d0-17733756e253"
+      "GUID": "a98bdaf4-c16d-48e1-bf39-db95bee3faf9"
     },
-    "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61": {
+    "23b23147-592d-4568-b1c9-f51e24a6d7aa": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "resourceControl"
+        "name": "ResourceControl"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "30b5a7de-7fd4-4e6d-94fc-4a28a6f24441"
       },
       "parameters": [
         {
@@ -336,16 +336,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61"
+      "GUID": "23b23147-592d-4568-b1c9-f51e24a6d7aa"
     },
-    "f4379eff-1089-4539-94b5-5c7a36b10da5": {
+    "b56c338c-f6e5-4c8b-94b4-2a242cf8caaa": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
-        "name": "gridVoltageState"
+        "name": "GridVoltageState"
       },
       "__OBJECT_BASE__": {
-        "GUID": "24398d0f-6088-4ed1-aec0-5eb81857c5c3"
+        "GUID": "30b5a7de-7fd4-4e6d-94fc-4a28a6f24441"
       },
       "parameters": [
         {
@@ -379,25 +379,25 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "f4379eff-1089-4539-94b5-5c7a36b10da5"
+      "GUID": "b56c338c-f6e5-4c8b-94b4-2a242cf8caaa"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "8117a486-dc74-4ca1-85e8-107e2aeb0a0c",
+    "GUID": "c8d18d0b-c3b0-4eec-8628-c6e342099b03",
     "name": "Loads",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "8117a486-dc74-4ca1-85e8-107e2aeb0a0c": ""
+    "c8d18d0b-c3b0-4eec-8628-c6e342099b03": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {},
   "Objects": {
-    "f883c7d2-e15e-4ecf-b0d0-17733756e253": "",
-    "4458e3b1-0ca3-4e6f-91e1-6f74b8fbfd61": "",
-    "f4379eff-1089-4539-94b5-5c7a36b10da5": ""
+    "a98bdaf4-c16d-48e1-bf39-db95bee3faf9": "",
+    "23b23147-592d-4568-b1c9-f51e24a6d7aa": "",
+    "b56c338c-f6e5-4c8b-94b4-2a242cf8caaa": ""
   },
   "ObjectAttribute": {},
   "Repositories": [],

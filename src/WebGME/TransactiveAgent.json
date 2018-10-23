@@ -1,6 +1,6 @@
 {
   "__OBJECTS__": {
-    "43c12e34-0854-483c-a461-a94bfa411afc": {
+    "ab9ad2ec-c847-47f9-b9dd-e435d623714a": {
       "attributes": {
         "name": "TransactiveAgent",
         "TimeRegulating": "true",
@@ -19,32 +19,44 @@
       "parameters": [],
       "inputs": [
         {
-          "GUID": "78b9079e-ef26-416a-8f45-4ebbb33e89eb"
+          "GUID": "f0fd877a-156e-468c-b699-2ac760abe292"
         }
       ],
       "outputs": [],
       "objectinputs": [
         {
-          "GUID": "8557b11c-f531-447c-aa6a-fbfe0e4891e9"
+          "GUID": "58ebc003-78c5-4a45-8d79-c2f88f99fbb5"
+        },
+        {
+          "GUID": "7bd456af-8d76-4bbe-bced-0887242a4c3f"
+        },
+        {
+          "GUID": "f946e3b6-f79b-40d0-8eaa-bded4e491a33"
+        },
+        {
+          "GUID": "c7114410-afff-44de-bb7d-8f20a6e4eb67"
         }
       ],
       "objectoutputs": [
         {
-          "GUID": "64bf4bde-b673-410e-b815-f26f46d3d14f"
+          "GUID": "7bd456af-8d76-4bbe-bced-0887242a4c3f"
         },
         {
-          "GUID": "ab356208-99de-4894-a786-63d5d2aaaf85"
+          "GUID": "f946e3b6-f79b-40d0-8eaa-bded4e491a33"
         },
         {
-          "GUID": "ce6cc67d-3736-4afd-be20-a91bc3570447"
+          "GUID": "c7114410-afff-44de-bb7d-8f20a6e4eb67"
+        },
+        {
+          "GUID": "58ebc003-78c5-4a45-8d79-c2f88f99fbb5"
         }
       ],
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "43c12e34-0854-483c-a461-a94bfa411afc"
+      "GUID": "ab9ad2ec-c847-47f9-b9dd-e435d623714a"
     },
-    "78b9079e-ef26-416a-8f45-4ebbb33e89eb": {
+    "f0fd877a-156e-468c-b699-2ac760abe292": {
       "attributes": {
         "Delivery": "reliable",
         "EnableLogging": "false",
@@ -53,7 +65,7 @@
         "name": "SimTime"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "8966c9ac-0ec2-41b2-808f-3e9f63b9e913"
+        "GUID": "abfb7557-195d-48b9-b68c-557d71febd11"
       },
       "parameters": [
         {
@@ -97,16 +109,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "78b9079e-ef26-416a-8f45-4ebbb33e89eb"
+      "GUID": "f0fd877a-156e-468c-b699-2ac760abe292"
     },
-    "8557b11c-f531-447c-aa6a-fbfe0e4891e9": {
+    "58ebc003-78c5-4a45-8d79-c2f88f99fbb5": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
         "name": "Tender"
       },
       "__OBJECT_BASE__": {
-        "GUID": "ed8978de-d10d-4d17-a383-c32f1fedd42f"
+        "GUID": "00c97165-ee32-45c5-a34e-81fe7e682c8b"
       },
       "parameters": [
         {
@@ -135,16 +147,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "8557b11c-f531-447c-aa6a-fbfe0e4891e9"
+      "GUID": "58ebc003-78c5-4a45-8d79-c2f88f99fbb5"
     },
-    "64bf4bde-b673-410e-b815-f26f46d3d14f": {
+    "7bd456af-8d76-4bbe-bced-0887242a4c3f": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
         "name": "Transaction"
       },
       "__OBJECT_BASE__": {
-        "GUID": "ed8978de-d10d-4d17-a383-c32f1fedd42f"
+        "GUID": "00c97165-ee32-45c5-a34e-81fe7e682c8b"
       },
       "parameters": [
         {
@@ -158,16 +170,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "64bf4bde-b673-410e-b815-f26f46d3d14f"
+      "GUID": "7bd456af-8d76-4bbe-bced-0887242a4c3f"
     },
-    "ab356208-99de-4894-a786-63d5d2aaaf85": {
+    "f946e3b6-f79b-40d0-8eaa-bded4e491a33": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
         "name": "Quote"
       },
       "__OBJECT_BASE__": {
-        "GUID": "ed8978de-d10d-4d17-a383-c32f1fedd42f"
+        "GUID": "00c97165-ee32-45c5-a34e-81fe7e682c8b"
       },
       "parameters": [
         {
@@ -196,16 +208,16 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "ab356208-99de-4894-a786-63d5d2aaaf85"
+      "GUID": "f946e3b6-f79b-40d0-8eaa-bded4e491a33"
     },
-    "ce6cc67d-3736-4afd-be20-a91bc3570447": {
+    "c7114410-afff-44de-bb7d-8f20a6e4eb67": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
         "name": "MarketStatus"
       },
       "__OBJECT_BASE__": {
-        "GUID": "ed8978de-d10d-4d17-a383-c32f1fedd42f"
+        "GUID": "00c97165-ee32-45c5-a34e-81fe7e682c8b"
       },
       "parameters": [
         {
@@ -224,28 +236,28 @@
           "Hidden": "false"
         }
       ],
-      "GUID": "ce6cc67d-3736-4afd-be20-a91bc3570447"
+      "GUID": "c7114410-afff-44de-bb7d-8f20a6e4eb67"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "43c12e34-0854-483c-a461-a94bfa411afc",
+    "GUID": "ab9ad2ec-c847-47f9-b9dd-e435d623714a",
     "name": "TransactiveAgent",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "43c12e34-0854-483c-a461-a94bfa411afc": ""
+    "ab9ad2ec-c847-47f9-b9dd-e435d623714a": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {
-    "78b9079e-ef26-416a-8f45-4ebbb33e89eb": ""
+    "f0fd877a-156e-468c-b699-2ac760abe292": ""
   },
   "Objects": {
-    "8557b11c-f531-447c-aa6a-fbfe0e4891e9": "",
-    "64bf4bde-b673-410e-b815-f26f46d3d14f": "",
-    "ab356208-99de-4894-a786-63d5d2aaaf85": "",
-    "ce6cc67d-3736-4afd-be20-a91bc3570447": ""
+    "58ebc003-78c5-4a45-8d79-c2f88f99fbb5": "",
+    "7bd456af-8d76-4bbe-bced-0887242a4c3f": "",
+    "f946e3b6-f79b-40d0-8eaa-bded4e491a33": "",
+    "c7114410-afff-44de-bb7d-8f20a6e4eb67": ""
   },
   "ObjectAttribute": {},
   "Repositories": [],

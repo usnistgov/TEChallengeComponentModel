@@ -1,17 +1,17 @@
 {
   "__OBJECTS__": {
-    "7ee99012-2f52-432f-aa4f-8f3e96ef6823": {
+    "f76648ea-5116-4c05-810d-659d2ce62935": {
       "attributes": {
-        "name": "Metronome",
-        "TimeRegulating": "true",
-        "TimeConstrained": "true",
-        "Step": "1.0",
-        "Meld": "false",
-        "Lookahead": "0.2",
-        "InstantiationScript": "",
-        "GeneratorClass": "",
+        "EnableROAsynchronousDelivery": "true",
         "FederateType": "1",
-        "EnableROAsynchronousDelivery": "true"
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Metronome"
       },
       "__FEDERATE_BASE__": "JavaFederate",
       "federates": [],
@@ -20,7 +20,7 @@
       "inputs": [],
       "outputs": [
         {
-          "GUID": "7f759f9a-58cc-431a-a641-868125c6ca00"
+          "GUID": "cd6c7540-0ef9-4734-b977-75977135bd09"
         }
       ],
       "objectinputs": [],
@@ -28,32 +28,18 @@
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "7ee99012-2f52-432f-aa4f-8f3e96ef6823"
+      "GUID": "f76648ea-5116-4c05-810d-659d2ce62935"
     },
-    "49318f7e-1bed-4a64-a62b-775af3475158": {
+    "cd6c7540-0ef9-4734-b977-75977135bd09": {
       "attributes": {
-        "name": "InteractionRoot",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
+        "Delivery": "reliable",
         "EnableLogging": "false",
-        "Delivery": "reliable"
+        "LogLevel": "NORMAL",
+        "Order": "timestamp",
+        "name": "SimTime"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "276a5385-fd6b-47c0-8fa0-60073ecaf3a2"
-      },
-      "parameters": [],
-      "GUID": "49318f7e-1bed-4a64-a62b-775af3475158"
-    },
-    "5bf4c1d9-302c-49f2-9128-f5f8fd89bb9d": {
-      "attributes": {
-        "name": "C2WInteractionRoot",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
-        "EnableLogging": "false",
-        "Delivery": "reliable"
-      },
-      "__INTERACTION_BASE__": {
-        "GUID": "49318f7e-1bed-4a64-a62b-775af3475158"
+        "GUID": "f71e4653-577a-4928-9477-137877ee8167"
       },
       "parameters": [
         {
@@ -75,35 +61,10 @@
           "name": "federateFilter",
           "ParameterType": "String",
           "Hidden": "false"
-        }
-      ],
-      "GUID": "5bf4c1d9-302c-49f2-9128-f5f8fd89bb9d"
-    },
-    "7f759f9a-58cc-431a-a641-868125c6ca00": {
-      "attributes": {
-        "name": "SimTime",
-        "Order": "timestamp",
-        "LogLevel": "NORMAL",
-        "EnableLogging": "false",
-        "Delivery": "reliable"
-      },
-      "__INTERACTION_BASE__": {
-        "GUID": "5bf4c1d9-302c-49f2-9128-f5f8fd89bb9d"
-      },
-      "parameters": [
+        },
         {
           "name": "startTime",
           "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "originFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "sourceFed",
-          "ParameterType": "String",
           "Hidden": "false"
         },
         {
@@ -120,36 +81,24 @@
           "name": "secondsPerLogicalTime",
           "ParameterType": "double",
           "Hidden": "false"
-        },
-        {
-          "name": "actualLogicalGenerationTime",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "federateFilter",
-          "ParameterType": "String",
-          "Hidden": "false"
         }
       ],
-      "GUID": "7f759f9a-58cc-431a-a641-868125c6ca00"
+      "GUID": "cd6c7540-0ef9-4734-b977-75977135bd09"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "7ee99012-2f52-432f-aa4f-8f3e96ef6823",
+    "GUID": "f76648ea-5116-4c05-810d-659d2ce62935",
     "name": "Metronome",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "7ee99012-2f52-432f-aa4f-8f3e96ef6823": ""
+    "f76648ea-5116-4c05-810d-659d2ce62935": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {
-    "49318f7e-1bed-4a64-a62b-775af3475158": "",
-    "5bf4c1d9-302c-49f2-9128-f5f8fd89bb9d": "",
-    "7f759f9a-58cc-431a-a641-868125c6ca00": ""
+    "cd6c7540-0ef9-4734-b977-75977135bd09": ""
   },
   "Objects": {},
   "ObjectAttribute": {},
