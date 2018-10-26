@@ -1,11 +1,11 @@
-package supervisoryController;   
+package SupervisoryController;   
 
 import java.util.*;
 import org.cpswt.config.FederateConfig;   
 import org.cpswt.config.FederateParameter;
 
 
-public class supervisoryControllerConfig extends FederateConfig {
+public class SupervisoryControllerConfig extends FederateConfig {
 
     @FederateParameter
     public int numberofsc;

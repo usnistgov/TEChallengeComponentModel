@@ -1,4 +1,4 @@
-package supervisoryController;
+package SupervisoryController;
 
 import java.util.HashMap;
 import java.util.Map;
