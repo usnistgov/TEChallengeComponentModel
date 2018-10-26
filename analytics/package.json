@@ -1,0 +1,17 @@
+{
+  "name": "metrics",
+  "version": "1.0.0",
+  "description": "Metrics Collection",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcmd"
+  },
+  "author": "Ronald J. Pasquarelli",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.17.1",
+    "marky": "^1.2.0",
+    "mathjs": "^5.1.1",
+    "sync-mysql": "^3.0.1"
+  }
+}
