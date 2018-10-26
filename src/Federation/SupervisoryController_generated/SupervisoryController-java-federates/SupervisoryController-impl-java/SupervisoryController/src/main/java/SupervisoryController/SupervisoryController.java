@@ -19,12 +19,12 @@ public class SupervisoryController extends SupervisoryControllerBase {
 
     private double currentTime = 0;
     private int numberOfSInstances,numberOfLc,numberOfObjectInstances ;   
-    private supervisoryControllerConfig configuration;  
+    private SupervisoryControllerConfig configuration;  
     public Scontroller[] superControls = null;  
     public SLcontroller[] localControls = null;  
     public Stender[] tenders = null;
    
-    public supervisoryControlSignal[] vsupervisoryControlSignal= null ;
+    public SupervisoryControlSignal[] vsupervisoryControlSignal= null ;
     public Tender[] vTender = null;
 
    
@@ -77,7 +77,7 @@ public class SupervisoryController extends SupervisoryControllerBase {
            for (int i = 0; i < numberOfObjectInstances; i++) {
         	   
                 // 1. Create the object instance using the appropriate WebGME code generated Java class.
-                 vsupervisoryControlSignal[i] = new supervisoryControlSignal();
+                 vsupervisoryControlSignal[i] = new SupervisoryControlSignal();
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                  vsupervisoryControlSignal[i].registerObject(getLRC());
         	   } }
@@ -301,7 +301,7 @@ private void updateInstances(int numberOfSInstances) {
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
-            FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
+            SupervisoryControllerConfig federateConfig = federateConfigParser.parseArgs(args, SupervisoryControllerConfig.class);
             SupervisoryController federate = new SupervisoryController(federateConfig);
             federate.execute();
             log.info("Done.");
