@@ -74,11 +74,11 @@ public class Loads extends LoadsBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof gridVoltageState) {
-                handleObjectClass((gridVoltageState) object);
+            if (object instanceof GridVoltageState) {
+                handleObjectClass((GridVoltageState) object);
             }
-            else if (object instanceof resourceControl) {
-                handleObjectClass((resourceControl) object);
+            else if (object instanceof ResourceControl) {
+                handleObjectClass((ResourceControl) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -199,7 +199,7 @@ public class Loads extends LoadsBase {
 
 
 
-    private void handleObjectClass(gridVoltageState object) {
+    private void handleObjectClass(GridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
@@ -213,7 +213,7 @@ public class Loads extends LoadsBase {
     }
 
     
-    private void handleObjectClass(resourceControl object) {
+    private void handleObjectClass(ResourceControl object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

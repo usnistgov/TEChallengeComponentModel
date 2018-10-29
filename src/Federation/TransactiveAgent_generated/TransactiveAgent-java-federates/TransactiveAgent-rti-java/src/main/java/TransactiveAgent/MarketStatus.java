@@ -23,16 +23,16 @@ import hla.rti.SuppliedAttributes;
 import org.cpswt.hla.*;
 
 /**
-* Implements ObjectRoot.marketStatus
+* Implements ObjectRoot.MarketStatus
 */
-public class marketStatus extends ObjectRoot {
+public class MarketStatus extends ObjectRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the marketStatus object class with default attribute values.
+    * Creates an instance of the MarketStatus object class with default attribute values.
     */
-    public marketStatus() {}
+    public MarketStatus() {}
 
     private static int _price_handle;
     private static int _time_handle;
@@ -43,7 +43,7 @@ public class marketStatus extends ObjectRoot {
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the marketStatus object class.
+    * Returns the handle (RTI assigned) of the MarketStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -56,7 +56,7 @@ public class marketStatus extends ObjectRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the marketStatus object class.
+    * Returns the fully-qualified (dot-delimited) name of the MarketStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -65,17 +65,17 @@ public class marketStatus extends ObjectRoot {
     * @return the fully-qualified HLA class path for this object class
     */
     public static String get_class_name() {
-        return "ObjectRoot.marketStatus";
+        return "ObjectRoot.MarketStatus";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the marketStatus object class.
+    * class name) of the MarketStatus object class.
     *
     * @return the name of this object class
     */
     public static String get_simple_class_name() {
-        return "marketStatus";
+        return "MarketStatus";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -83,7 +83,7 @@ public class marketStatus extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden attributes in the
-    * marketStatus object class.
+    * MarketStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -98,7 +98,7 @@ public class marketStatus extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the attributes in the
-    * marketStatus object class.
+    * MarketStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -115,11 +115,11 @@ public class marketStatus extends ObjectRoot {
     private static Set< String > _subscribeAttributeNameSet = new HashSet< String >();
 
     static {
-        _classNameSet.add("ObjectRoot.marketStatus");
-        _classNameClassMap.put("ObjectRoot.marketStatus", marketStatus.class);
+        _classNameSet.add("ObjectRoot.MarketStatus");
+        _classNameClassMap.put("ObjectRoot.MarketStatus", MarketStatus.class);
 
-        _datamemberClassNameSetMap.put("ObjectRoot.marketStatus", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("ObjectRoot.marketStatus", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("ObjectRoot.MarketStatus", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("ObjectRoot.MarketStatus", _allDatamemberNames);
 
         _datamemberNames.add("price");
         _datamemberNames.add("time");
@@ -133,8 +133,8 @@ public class marketStatus extends ObjectRoot {
         _allDatamemberNames.add("time");
         _allDatamemberNames.add("type");
 
-        _classNamePublishAttributeNameMap.put("ObjectRoot.marketStatus", _publishAttributeNameSet);
-        _classNameSubscribeAttributeNameMap.put("ObjectRoot.marketStatus", _subscribeAttributeNameSet);
+        _classNamePublishAttributeNameMap.put("ObjectRoot.MarketStatus", _publishAttributeNameSet);
+        _classNameSubscribeAttributeNameMap.put("ObjectRoot.MarketStatus", _subscribeAttributeNameSet);
     }
 
     protected static void init(RTIambassador rti) {
@@ -146,7 +146,7 @@ public class marketStatus extends ObjectRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getObjectClassHandle("ObjectRoot.marketStatus");
+                _handle = rti.getObjectClassHandle("ObjectRoot.MarketStatus");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -160,9 +160,9 @@ public class marketStatus extends ObjectRoot {
             }
         }
 
-        _classNameHandleMap.put("ObjectRoot.marketStatus", get_handle());
-        _classHandleNameMap.put(get_handle(), "ObjectRoot.marketStatus");
-        _classHandleSimpleNameMap.put(get_handle(), "marketStatus");
+        _classNameHandleMap.put("ObjectRoot.MarketStatus", get_handle());
+        _classHandleNameMap.put(get_handle(), "ObjectRoot.MarketStatus");
+        _classHandleSimpleNameMap.put(get_handle(), "MarketStatus");
 
         isNotInitialized = true;
         while(isNotInitialized) {
@@ -186,9 +186,9 @@ public class marketStatus extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.marketStatus.price", _price_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.marketStatus.time", _time_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.marketStatus.type", _type_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.MarketStatus.price", _price_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.MarketStatus.time", _time_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.MarketStatus.type", _type_handle);
 
         _datamemberHandleNameMap.put(_price_handle, "price");
         _datamemberHandleNameMap.put(_time_handle, "time");
@@ -198,7 +198,7 @@ public class marketStatus extends ObjectRoot {
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the marketStatus object class for a federate.
+    * Publishes the MarketStatus object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -210,7 +210,7 @@ public class marketStatus extends ObjectRoot {
         AttributeHandleSet publishedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _publishAttributeNameSet) {
             try {
-                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.marketStatus." + attributeName));
+                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.MarketStatus." + attributeName));
                 logger.trace("publish {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not publish \"" + attributeName + "\" attribute.", e);
@@ -241,7 +241,7 @@ public class marketStatus extends ObjectRoot {
     }
 
     /**
-    * Unpublishes the marketStatus object class for a federate.
+    * Unpublishes the MarketStatus object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -279,7 +279,7 @@ public class marketStatus extends ObjectRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the marketStatus object class.
+    * Subscribes a federate to the MarketStatus object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -291,7 +291,7 @@ public class marketStatus extends ObjectRoot {
         AttributeHandleSet subscribedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _subscribeAttributeNameSet) {
             try {
-                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.marketStatus." + attributeName));
+                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.MarketStatus." + attributeName));
                 logger.trace("subscribe {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not subscribe to \"" + attributeName + "\" attribute.", e);
@@ -322,7 +322,7 @@ public class marketStatus extends ObjectRoot {
     }
 
     /**
-    * Unsubscribes a federate from the marketStatus object class.
+    * Unsubscribes a federate from the MarketStatus object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -359,12 +359,12 @@ public class marketStatus extends ObjectRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the marketStatus object class).
+    * (that is, the MarketStatus object class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the marketStatus object class).
+    * this class (the MarketStatus object class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the marketStatus object class).
+    * (that is, the MarketStatus object class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -711,57 +711,57 @@ public class marketStatus extends ObjectRoot {
         return _type.getTime();
     }
 
-    protected marketStatus( ReflectedAttributes datamemberMap, boolean initFlag ) {
+    protected MarketStatus( ReflectedAttributes datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
-    protected marketStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected MarketStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
     /**
-    * Creates an instance of the marketStatus object class, using
+    * Creates an instance of the MarketStatus object class, using
     * "datamemberMap" to initialize its attribute values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new marketStatus object class instance
+    * attributes of this new MarketStatus object class instance
     */
-    public marketStatus( ReflectedAttributes datamemberMap ) {
+    public MarketStatus( ReflectedAttributes datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #marketStatus( ReflectedAttributes datamemberMap )}, except this
-    * new marketStatus object class instance is given a timestamp of
+    * Like {@link #MarketStatus( ReflectedAttributes datamemberMap )}, except this
+    * new MarketStatus object class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new marketStatus object class instance
-    * @param logicalTime timestamp for this new marketStatus object class
+    * attributes of this new MarketStatus object class instance
+    * @param logicalTime timestamp for this new MarketStatus object class
     * instance
     */
-    public marketStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
+    public MarketStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new marketStatus object class instance that is a duplicate
-    * of the instance referred to by marketStatus_var.
+    * Creates a new MarketStatus object class instance that is a duplicate
+    * of the instance referred to by MarketStatus_var.
     *
-    * @param marketStatus_var marketStatus object class instance of which
-    * this newly created marketStatus object class instance will be a
+    * @param MarketStatus_var MarketStatus object class instance of which
+    * this newly created MarketStatus object class instance will be a
     * duplicate
     */
-    public marketStatus( marketStatus marketStatus_var ) {
-        super( marketStatus_var );
+    public MarketStatus( MarketStatus MarketStatus_var ) {
+        super( MarketStatus_var );
 
-        set_price( marketStatus_var.get_price() );
-        set_time( marketStatus_var.get_time() );
-        set_type( marketStatus_var.get_type() );
+        set_price( MarketStatus_var.get_price() );
+        set_time( MarketStatus_var.get_time() );
+        set_type( MarketStatus_var.get_type() );
     }
 
     /**
@@ -824,8 +824,8 @@ public class marketStatus extends ObjectRoot {
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof marketStatus ) {
-            marketStatus data = (marketStatus)object;
+        if ( object instanceof MarketStatus ) {
+            MarketStatus data = (MarketStatus)object;
             _price = data._price;
             _time = data._time;
             _type = data._type;

@@ -23,16 +23,16 @@ import hla.rti.SuppliedAttributes;
 import org.cpswt.hla.*;
 
 /**
-* Implements ObjectRoot.resourcesPhysicalStatus
+* Implements ObjectRoot.ResourcesPhysicalStatus
 */
-public class resourcesPhysicalStatus extends ObjectRoot {
+public class ResourcesPhysicalStatus extends ObjectRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the resourcesPhysicalStatus object class with default attribute values.
+    * Creates an instance of the ResourcesPhysicalStatus object class with default attribute values.
     */
-    public resourcesPhysicalStatus() {}
+    public ResourcesPhysicalStatus() {}
 
     private static int _current_Imaginary_A_handle;
     private static int _current_Imaginary_B_handle;
@@ -70,7 +70,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the resourcesPhysicalStatus object class.
+    * Returns the handle (RTI assigned) of the ResourcesPhysicalStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -83,7 +83,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the resourcesPhysicalStatus object class.
+    * Returns the fully-qualified (dot-delimited) name of the ResourcesPhysicalStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -92,17 +92,17 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     * @return the fully-qualified HLA class path for this object class
     */
     public static String get_class_name() {
-        return "ObjectRoot.resourcesPhysicalStatus";
+        return "ObjectRoot.ResourcesPhysicalStatus";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the resourcesPhysicalStatus object class.
+    * class name) of the ResourcesPhysicalStatus object class.
     *
     * @return the name of this object class
     */
     public static String get_simple_class_name() {
-        return "resourcesPhysicalStatus";
+        return "ResourcesPhysicalStatus";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -110,7 +110,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden attributes in the
-    * resourcesPhysicalStatus object class.
+    * ResourcesPhysicalStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -125,7 +125,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the attributes in the
-    * resourcesPhysicalStatus object class.
+    * ResourcesPhysicalStatus object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -142,11 +142,11 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     private static Set< String > _subscribeAttributeNameSet = new HashSet< String >();
 
     static {
-        _classNameSet.add("ObjectRoot.resourcesPhysicalStatus");
-        _classNameClassMap.put("ObjectRoot.resourcesPhysicalStatus", resourcesPhysicalStatus.class);
+        _classNameSet.add("ObjectRoot.ResourcesPhysicalStatus");
+        _classNameClassMap.put("ObjectRoot.ResourcesPhysicalStatus", ResourcesPhysicalStatus.class);
 
-        _datamemberClassNameSetMap.put("ObjectRoot.resourcesPhysicalStatus", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("ObjectRoot.resourcesPhysicalStatus", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("ObjectRoot.ResourcesPhysicalStatus", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("ObjectRoot.ResourcesPhysicalStatus", _allDatamemberNames);
 
         _datamemberNames.add("current_Imaginary_A");
         _datamemberNames.add("current_Imaginary_B");
@@ -241,8 +241,8 @@ public class resourcesPhysicalStatus extends ObjectRoot {
         _allDatamemberNames.add("voltage_Real_B");
         _allDatamemberNames.add("voltage_Real_C");
 
-        _classNamePublishAttributeNameMap.put("ObjectRoot.resourcesPhysicalStatus", _publishAttributeNameSet);
-        _classNameSubscribeAttributeNameMap.put("ObjectRoot.resourcesPhysicalStatus", _subscribeAttributeNameSet);
+        _classNamePublishAttributeNameMap.put("ObjectRoot.ResourcesPhysicalStatus", _publishAttributeNameSet);
+        _classNameSubscribeAttributeNameMap.put("ObjectRoot.ResourcesPhysicalStatus", _subscribeAttributeNameSet);
     }
 
     protected static void init(RTIambassador rti) {
@@ -254,7 +254,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getObjectClassHandle("ObjectRoot.resourcesPhysicalStatus");
+                _handle = rti.getObjectClassHandle("ObjectRoot.ResourcesPhysicalStatus");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -268,9 +268,9 @@ public class resourcesPhysicalStatus extends ObjectRoot {
             }
         }
 
-        _classNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus", get_handle());
-        _classHandleNameMap.put(get_handle(), "ObjectRoot.resourcesPhysicalStatus");
-        _classHandleSimpleNameMap.put(get_handle(), "resourcesPhysicalStatus");
+        _classNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus", get_handle());
+        _classHandleNameMap.put(get_handle(), "ObjectRoot.ResourcesPhysicalStatus");
+        _classHandleSimpleNameMap.put(get_handle(), "ResourcesPhysicalStatus");
 
         isNotInitialized = true;
         while(isNotInitialized) {
@@ -321,36 +321,36 @@ public class resourcesPhysicalStatus extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Imaginary_A", _current_Imaginary_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Imaginary_B", _current_Imaginary_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Imaginary_C", _current_Imaginary_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Real_A", _current_Real_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Real_B", _current_Real_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.current_Real_C", _current_Real_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.gridNodeId", _gridNodeId_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Imaginary_A", _impedance_Imaginary_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Imaginary_B", _impedance_Imaginary_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Imaginary_C", _impedance_Imaginary_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Real_A", _impedance_Real_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Real_B", _impedance_Real_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.impedance_Real_C", _impedance_Real_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.loadInstanceName", _loadInstanceName_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.name", _name_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.phases", _phases_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Imaginary_A", _power_Imaginary_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Imaginary_B", _power_Imaginary_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Imaginary_C", _power_Imaginary_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Real_A", _power_Real_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Real_B", _power_Real_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.power_Real_C", _power_Real_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.status", _status_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.type", _type_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Imaginary_A", _voltage_Imaginary_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Imaginary_B", _voltage_Imaginary_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Imaginary_C", _voltage_Imaginary_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Real_A", _voltage_Real_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Real_B", _voltage_Real_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.resourcesPhysicalStatus.voltage_Real_C", _voltage_Real_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Imaginary_A", _current_Imaginary_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Imaginary_B", _current_Imaginary_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Imaginary_C", _current_Imaginary_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Real_A", _current_Real_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Real_B", _current_Real_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.current_Real_C", _current_Real_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.gridNodeId", _gridNodeId_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Imaginary_A", _impedance_Imaginary_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Imaginary_B", _impedance_Imaginary_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Imaginary_C", _impedance_Imaginary_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Real_A", _impedance_Real_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Real_B", _impedance_Real_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.impedance_Real_C", _impedance_Real_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.loadInstanceName", _loadInstanceName_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.name", _name_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.phases", _phases_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Imaginary_A", _power_Imaginary_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Imaginary_B", _power_Imaginary_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Imaginary_C", _power_Imaginary_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Real_A", _power_Real_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Real_B", _power_Real_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.power_Real_C", _power_Real_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.status", _status_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.type", _type_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Imaginary_A", _voltage_Imaginary_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Imaginary_B", _voltage_Imaginary_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Imaginary_C", _voltage_Imaginary_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Real_A", _voltage_Real_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Real_B", _voltage_Real_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.ResourcesPhysicalStatus.voltage_Real_C", _voltage_Real_C_handle);
 
         _datamemberHandleNameMap.put(_current_Imaginary_A_handle, "current_Imaginary_A");
         _datamemberHandleNameMap.put(_current_Imaginary_B_handle, "current_Imaginary_B");
@@ -387,7 +387,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the resourcesPhysicalStatus object class for a federate.
+    * Publishes the ResourcesPhysicalStatus object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -399,7 +399,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
         AttributeHandleSet publishedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _publishAttributeNameSet) {
             try {
-                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.resourcesPhysicalStatus." + attributeName));
+                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.ResourcesPhysicalStatus." + attributeName));
                 logger.trace("publish {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not publish \"" + attributeName + "\" attribute.", e);
@@ -430,7 +430,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     }
 
     /**
-    * Unpublishes the resourcesPhysicalStatus object class for a federate.
+    * Unpublishes the ResourcesPhysicalStatus object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -468,7 +468,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the resourcesPhysicalStatus object class.
+    * Subscribes a federate to the ResourcesPhysicalStatus object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -480,7 +480,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
         AttributeHandleSet subscribedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _subscribeAttributeNameSet) {
             try {
-                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.resourcesPhysicalStatus." + attributeName));
+                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.ResourcesPhysicalStatus." + attributeName));
                 logger.trace("subscribe {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not subscribe to \"" + attributeName + "\" attribute.", e);
@@ -511,7 +511,7 @@ public class resourcesPhysicalStatus extends ObjectRoot {
     }
 
     /**
-    * Unsubscribes a federate from the resourcesPhysicalStatus object class.
+    * Unsubscribes a federate from the ResourcesPhysicalStatus object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -548,12 +548,12 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the resourcesPhysicalStatus object class).
+    * (that is, the ResourcesPhysicalStatus object class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the resourcesPhysicalStatus object class).
+    * this class (the ResourcesPhysicalStatus object class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the resourcesPhysicalStatus object class).
+    * (that is, the ResourcesPhysicalStatus object class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -3087,84 +3087,84 @@ public class resourcesPhysicalStatus extends ObjectRoot {
         return _voltage_Real_C.getTime();
     }
 
-    protected resourcesPhysicalStatus( ReflectedAttributes datamemberMap, boolean initFlag ) {
+    protected ResourcesPhysicalStatus( ReflectedAttributes datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
-    protected resourcesPhysicalStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected ResourcesPhysicalStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
     /**
-    * Creates an instance of the resourcesPhysicalStatus object class, using
+    * Creates an instance of the ResourcesPhysicalStatus object class, using
     * "datamemberMap" to initialize its attribute values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new resourcesPhysicalStatus object class instance
+    * attributes of this new ResourcesPhysicalStatus object class instance
     */
-    public resourcesPhysicalStatus( ReflectedAttributes datamemberMap ) {
+    public ResourcesPhysicalStatus( ReflectedAttributes datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #resourcesPhysicalStatus( ReflectedAttributes datamemberMap )}, except this
-    * new resourcesPhysicalStatus object class instance is given a timestamp of
+    * Like {@link #ResourcesPhysicalStatus( ReflectedAttributes datamemberMap )}, except this
+    * new ResourcesPhysicalStatus object class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new resourcesPhysicalStatus object class instance
-    * @param logicalTime timestamp for this new resourcesPhysicalStatus object class
+    * attributes of this new ResourcesPhysicalStatus object class instance
+    * @param logicalTime timestamp for this new ResourcesPhysicalStatus object class
     * instance
     */
-    public resourcesPhysicalStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
+    public ResourcesPhysicalStatus( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new resourcesPhysicalStatus object class instance that is a duplicate
-    * of the instance referred to by resourcesPhysicalStatus_var.
+    * Creates a new ResourcesPhysicalStatus object class instance that is a duplicate
+    * of the instance referred to by ResourcesPhysicalStatus_var.
     *
-    * @param resourcesPhysicalStatus_var resourcesPhysicalStatus object class instance of which
-    * this newly created resourcesPhysicalStatus object class instance will be a
+    * @param ResourcesPhysicalStatus_var ResourcesPhysicalStatus object class instance of which
+    * this newly created ResourcesPhysicalStatus object class instance will be a
     * duplicate
     */
-    public resourcesPhysicalStatus( resourcesPhysicalStatus resourcesPhysicalStatus_var ) {
-        super( resourcesPhysicalStatus_var );
+    public ResourcesPhysicalStatus( ResourcesPhysicalStatus ResourcesPhysicalStatus_var ) {
+        super( ResourcesPhysicalStatus_var );
 
-        set_current_Imaginary_A( resourcesPhysicalStatus_var.get_current_Imaginary_A() );
-        set_current_Imaginary_B( resourcesPhysicalStatus_var.get_current_Imaginary_B() );
-        set_current_Imaginary_C( resourcesPhysicalStatus_var.get_current_Imaginary_C() );
-        set_current_Real_A( resourcesPhysicalStatus_var.get_current_Real_A() );
-        set_current_Real_B( resourcesPhysicalStatus_var.get_current_Real_B() );
-        set_current_Real_C( resourcesPhysicalStatus_var.get_current_Real_C() );
-        set_gridNodeId( resourcesPhysicalStatus_var.get_gridNodeId() );
-        set_impedance_Imaginary_A( resourcesPhysicalStatus_var.get_impedance_Imaginary_A() );
-        set_impedance_Imaginary_B( resourcesPhysicalStatus_var.get_impedance_Imaginary_B() );
-        set_impedance_Imaginary_C( resourcesPhysicalStatus_var.get_impedance_Imaginary_C() );
-        set_impedance_Real_A( resourcesPhysicalStatus_var.get_impedance_Real_A() );
-        set_impedance_Real_B( resourcesPhysicalStatus_var.get_impedance_Real_B() );
-        set_impedance_Real_C( resourcesPhysicalStatus_var.get_impedance_Real_C() );
-        set_loadInstanceName( resourcesPhysicalStatus_var.get_loadInstanceName() );
-        set_name( resourcesPhysicalStatus_var.get_name() );
-        set_phases( resourcesPhysicalStatus_var.get_phases() );
-        set_power_Imaginary_A( resourcesPhysicalStatus_var.get_power_Imaginary_A() );
-        set_power_Imaginary_B( resourcesPhysicalStatus_var.get_power_Imaginary_B() );
-        set_power_Imaginary_C( resourcesPhysicalStatus_var.get_power_Imaginary_C() );
-        set_power_Real_A( resourcesPhysicalStatus_var.get_power_Real_A() );
-        set_power_Real_B( resourcesPhysicalStatus_var.get_power_Real_B() );
-        set_power_Real_C( resourcesPhysicalStatus_var.get_power_Real_C() );
-        set_status( resourcesPhysicalStatus_var.get_status() );
-        set_type( resourcesPhysicalStatus_var.get_type() );
-        set_voltage_Imaginary_A( resourcesPhysicalStatus_var.get_voltage_Imaginary_A() );
-        set_voltage_Imaginary_B( resourcesPhysicalStatus_var.get_voltage_Imaginary_B() );
-        set_voltage_Imaginary_C( resourcesPhysicalStatus_var.get_voltage_Imaginary_C() );
-        set_voltage_Real_A( resourcesPhysicalStatus_var.get_voltage_Real_A() );
-        set_voltage_Real_B( resourcesPhysicalStatus_var.get_voltage_Real_B() );
-        set_voltage_Real_C( resourcesPhysicalStatus_var.get_voltage_Real_C() );
+        set_current_Imaginary_A( ResourcesPhysicalStatus_var.get_current_Imaginary_A() );
+        set_current_Imaginary_B( ResourcesPhysicalStatus_var.get_current_Imaginary_B() );
+        set_current_Imaginary_C( ResourcesPhysicalStatus_var.get_current_Imaginary_C() );
+        set_current_Real_A( ResourcesPhysicalStatus_var.get_current_Real_A() );
+        set_current_Real_B( ResourcesPhysicalStatus_var.get_current_Real_B() );
+        set_current_Real_C( ResourcesPhysicalStatus_var.get_current_Real_C() );
+        set_gridNodeId( ResourcesPhysicalStatus_var.get_gridNodeId() );
+        set_impedance_Imaginary_A( ResourcesPhysicalStatus_var.get_impedance_Imaginary_A() );
+        set_impedance_Imaginary_B( ResourcesPhysicalStatus_var.get_impedance_Imaginary_B() );
+        set_impedance_Imaginary_C( ResourcesPhysicalStatus_var.get_impedance_Imaginary_C() );
+        set_impedance_Real_A( ResourcesPhysicalStatus_var.get_impedance_Real_A() );
+        set_impedance_Real_B( ResourcesPhysicalStatus_var.get_impedance_Real_B() );
+        set_impedance_Real_C( ResourcesPhysicalStatus_var.get_impedance_Real_C() );
+        set_loadInstanceName( ResourcesPhysicalStatus_var.get_loadInstanceName() );
+        set_name( ResourcesPhysicalStatus_var.get_name() );
+        set_phases( ResourcesPhysicalStatus_var.get_phases() );
+        set_power_Imaginary_A( ResourcesPhysicalStatus_var.get_power_Imaginary_A() );
+        set_power_Imaginary_B( ResourcesPhysicalStatus_var.get_power_Imaginary_B() );
+        set_power_Imaginary_C( ResourcesPhysicalStatus_var.get_power_Imaginary_C() );
+        set_power_Real_A( ResourcesPhysicalStatus_var.get_power_Real_A() );
+        set_power_Real_B( ResourcesPhysicalStatus_var.get_power_Real_B() );
+        set_power_Real_C( ResourcesPhysicalStatus_var.get_power_Real_C() );
+        set_status( ResourcesPhysicalStatus_var.get_status() );
+        set_type( ResourcesPhysicalStatus_var.get_type() );
+        set_voltage_Imaginary_A( ResourcesPhysicalStatus_var.get_voltage_Imaginary_A() );
+        set_voltage_Imaginary_B( ResourcesPhysicalStatus_var.get_voltage_Imaginary_B() );
+        set_voltage_Imaginary_C( ResourcesPhysicalStatus_var.get_voltage_Imaginary_C() );
+        set_voltage_Real_A( ResourcesPhysicalStatus_var.get_voltage_Real_A() );
+        set_voltage_Real_B( ResourcesPhysicalStatus_var.get_voltage_Real_B() );
+        set_voltage_Real_C( ResourcesPhysicalStatus_var.get_voltage_Real_C() );
     }
 
     /**
@@ -3443,8 +3443,8 @@ public class resourcesPhysicalStatus extends ObjectRoot {
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof resourcesPhysicalStatus ) {
-            resourcesPhysicalStatus data = (resourcesPhysicalStatus)object;
+        if ( object instanceof ResourcesPhysicalStatus ) {
+            ResourcesPhysicalStatus data = (ResourcesPhysicalStatus)object;
             _current_Imaginary_A = data._current_Imaginary_A;
             _current_Imaginary_B = data._current_Imaginary_B;
             _current_Imaginary_C = data._current_Imaginary_C;

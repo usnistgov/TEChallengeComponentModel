@@ -24,7 +24,7 @@ public class Grid extends GridBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-     gridVoltageState vgridVoltageState = new gridVoltageState();
+    // GridVoltageState vGridVoltageState = new GridVoltageState();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ public class Grid extends GridBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-         vgridVoltageState.registerObject(getLRC());
+        // vGridVoltageState.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -58,8 +58,8 @@ public class Grid extends GridBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -149,7 +149,7 @@ public class Grid extends GridBase {
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(ResourcesPhysicalStatus object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

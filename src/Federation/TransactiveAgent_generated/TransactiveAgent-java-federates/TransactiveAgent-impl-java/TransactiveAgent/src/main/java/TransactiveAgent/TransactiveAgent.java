@@ -33,7 +33,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Quote vQuote = new Quote();
-     marketStatus vmarketStatus = new marketStatus();
+     marketStatus vmarketStatus = new MarketStatus();
     // Transaction vTransaction = new Transaction();
     //
     ///////////////////////////////////////////////////////////////////////
