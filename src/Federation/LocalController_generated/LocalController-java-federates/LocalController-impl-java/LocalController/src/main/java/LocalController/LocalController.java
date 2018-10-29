@@ -74,11 +74,11 @@ public class LocalController extends LocalControllerBase {
             if (object instanceof resourcesPhysicalStatus) {
                 handleObjectClass((resourcesPhysicalStatus) object);
             }
-            if (object instanceof supervisoryControlSignal) {
-                handleObjectClass((supervisoryControlSignal) object);
+            if (object instanceof SupervisoryControlSignal) {
+                handleObjectClass((SupervisoryControlSignal) object);
             }
-            else if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            else if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -198,7 +198,7 @@ public class LocalController extends LocalControllerBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(ResourcesPhysicalStatus object) {
 
          log.info("loadInstance: " + object.get_loadInstanceName());
          log.info("gridNodeId: " + object.get_gridNodeId());
@@ -235,7 +235,7 @@ public class LocalController extends LocalControllerBase {
          log.info("power_Imaginary_C: " + object.get_power_Imaginary_C());
     }
 
-    private void handleObjectClass(supervisoryControlSignal object) {
+    private void handleObjectClass(SupervisoryControlSignal object) {
         
          log.info("LocalControllerName: " + object.get_localControllerName());
          log.info("modulation Signal: " + object.get_modulationSignal());

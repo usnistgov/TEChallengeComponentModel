@@ -23,16 +23,16 @@ import hla.rti.SuppliedAttributes;
 import org.cpswt.hla.*;
 
 /**
-* Implements ObjectRoot.gridVoltageState
+* Implements ObjectRoot.GridVoltageState
 */
-public class gridVoltageState extends ObjectRoot {
+public class GridVoltageState extends ObjectRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the gridVoltageState object class with default attribute values.
+    * Creates an instance of the GridVoltageState object class with default attribute values.
     */
-    public gridVoltageState() {}
+    public GridVoltageState() {}
 
     private static int _grid_Voltage_Imaginary_A_handle;
     private static int _grid_Voltage_Imaginary_B_handle;
@@ -46,7 +46,7 @@ public class gridVoltageState extends ObjectRoot {
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the gridVoltageState object class.
+    * Returns the handle (RTI assigned) of the GridVoltageState object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -59,7 +59,7 @@ public class gridVoltageState extends ObjectRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the gridVoltageState object class.
+    * Returns the fully-qualified (dot-delimited) name of the GridVoltageState object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -68,17 +68,17 @@ public class gridVoltageState extends ObjectRoot {
     * @return the fully-qualified HLA class path for this object class
     */
     public static String get_class_name() {
-        return "ObjectRoot.gridVoltageState";
+        return "ObjectRoot.GridVoltageState";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the gridVoltageState object class.
+    * class name) of the GridVoltageState object class.
     *
     * @return the name of this object class
     */
     public static String get_simple_class_name() {
-        return "gridVoltageState";
+        return "GridVoltageState";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -86,7 +86,7 @@ public class gridVoltageState extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden attributes in the
-    * gridVoltageState object class.
+    * GridVoltageState object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -101,7 +101,7 @@ public class gridVoltageState extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the attributes in the
-    * gridVoltageState object class.
+    * GridVoltageState object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -118,11 +118,11 @@ public class gridVoltageState extends ObjectRoot {
     private static Set< String > _subscribeAttributeNameSet = new HashSet< String >();
 
     static {
-        _classNameSet.add("ObjectRoot.gridVoltageState");
-        _classNameClassMap.put("ObjectRoot.gridVoltageState", gridVoltageState.class);
+        _classNameSet.add("ObjectRoot.GridVoltageState");
+        _classNameClassMap.put("ObjectRoot.GridVoltageState", GridVoltageState.class);
 
-        _datamemberClassNameSetMap.put("ObjectRoot.gridVoltageState", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("ObjectRoot.gridVoltageState", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("ObjectRoot.GridVoltageState", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("ObjectRoot.GridVoltageState", _allDatamemberNames);
 
         _datamemberNames.add("grid_Voltage_Imaginary_A");
         _datamemberNames.add("grid_Voltage_Imaginary_B");
@@ -145,8 +145,8 @@ public class gridVoltageState extends ObjectRoot {
         _allDatamemberNames.add("grid_Voltage_Real_B");
         _allDatamemberNames.add("grid_Voltage_Real_C");
 
-        _classNamePublishAttributeNameMap.put("ObjectRoot.gridVoltageState", _publishAttributeNameSet);
-        _classNameSubscribeAttributeNameMap.put("ObjectRoot.gridVoltageState", _subscribeAttributeNameSet);
+        _classNamePublishAttributeNameMap.put("ObjectRoot.GridVoltageState", _publishAttributeNameSet);
+        _classNameSubscribeAttributeNameMap.put("ObjectRoot.GridVoltageState", _subscribeAttributeNameSet);
     }
 
     protected static void init(RTIambassador rti) {
@@ -158,7 +158,7 @@ public class gridVoltageState extends ObjectRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getObjectClassHandle("ObjectRoot.gridVoltageState");
+                _handle = rti.getObjectClassHandle("ObjectRoot.GridVoltageState");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -172,9 +172,9 @@ public class gridVoltageState extends ObjectRoot {
             }
         }
 
-        _classNameHandleMap.put("ObjectRoot.gridVoltageState", get_handle());
-        _classHandleNameMap.put(get_handle(), "ObjectRoot.gridVoltageState");
-        _classHandleSimpleNameMap.put(get_handle(), "gridVoltageState");
+        _classNameHandleMap.put("ObjectRoot.GridVoltageState", get_handle());
+        _classHandleNameMap.put(get_handle(), "ObjectRoot.GridVoltageState");
+        _classHandleSimpleNameMap.put(get_handle(), "GridVoltageState");
 
         isNotInitialized = true;
         while(isNotInitialized) {
@@ -201,12 +201,12 @@ public class gridVoltageState extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Imaginary_A", _grid_Voltage_Imaginary_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Imaginary_B", _grid_Voltage_Imaginary_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Imaginary_C", _grid_Voltage_Imaginary_C_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Real_A", _grid_Voltage_Real_A_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Real_B", _grid_Voltage_Real_B_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.gridVoltageState.grid_Voltage_Real_C", _grid_Voltage_Real_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Imaginary_A", _grid_Voltage_Imaginary_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Imaginary_B", _grid_Voltage_Imaginary_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Imaginary_C", _grid_Voltage_Imaginary_C_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Real_A", _grid_Voltage_Real_A_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Real_B", _grid_Voltage_Real_B_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.GridVoltageState.grid_Voltage_Real_C", _grid_Voltage_Real_C_handle);
 
         _datamemberHandleNameMap.put(_grid_Voltage_Imaginary_A_handle, "grid_Voltage_Imaginary_A");
         _datamemberHandleNameMap.put(_grid_Voltage_Imaginary_B_handle, "grid_Voltage_Imaginary_B");
@@ -219,7 +219,7 @@ public class gridVoltageState extends ObjectRoot {
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the gridVoltageState object class for a federate.
+    * Publishes the GridVoltageState object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -231,7 +231,7 @@ public class gridVoltageState extends ObjectRoot {
         AttributeHandleSet publishedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _publishAttributeNameSet) {
             try {
-                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.gridVoltageState." + attributeName));
+                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.GridVoltageState." + attributeName));
                 logger.trace("publish {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not publish \"" + attributeName + "\" attribute.", e);
@@ -262,7 +262,7 @@ public class gridVoltageState extends ObjectRoot {
     }
 
     /**
-    * Unpublishes the gridVoltageState object class for a federate.
+    * Unpublishes the GridVoltageState object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -300,7 +300,7 @@ public class gridVoltageState extends ObjectRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the gridVoltageState object class.
+    * Subscribes a federate to the GridVoltageState object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -312,7 +312,7 @@ public class gridVoltageState extends ObjectRoot {
         AttributeHandleSet subscribedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _subscribeAttributeNameSet) {
             try {
-                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.gridVoltageState." + attributeName));
+                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.GridVoltageState." + attributeName));
                 logger.trace("subscribe {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not subscribe to \"" + attributeName + "\" attribute.", e);
@@ -343,7 +343,7 @@ public class gridVoltageState extends ObjectRoot {
     }
 
     /**
-    * Unsubscribes a federate from the gridVoltageState object class.
+    * Unsubscribes a federate from the GridVoltageState object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -380,12 +380,12 @@ public class gridVoltageState extends ObjectRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the gridVoltageState object class).
+    * (that is, the GridVoltageState object class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the gridVoltageState object class).
+    * this class (the GridVoltageState object class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the gridVoltageState object class).
+    * (that is, the GridVoltageState object class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -975,60 +975,60 @@ public class gridVoltageState extends ObjectRoot {
         return _grid_Voltage_Real_C.getTime();
     }
 
-    protected gridVoltageState( ReflectedAttributes datamemberMap, boolean initFlag ) {
+    protected GridVoltageState( ReflectedAttributes datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
-    protected gridVoltageState( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected GridVoltageState( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
     /**
-    * Creates an instance of the gridVoltageState object class, using
+    * Creates an instance of the GridVoltageState object class, using
     * "datamemberMap" to initialize its attribute values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new gridVoltageState object class instance
+    * attributes of this new GridVoltageState object class instance
     */
-    public gridVoltageState( ReflectedAttributes datamemberMap ) {
+    public GridVoltageState( ReflectedAttributes datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #gridVoltageState( ReflectedAttributes datamemberMap )}, except this
-    * new gridVoltageState object class instance is given a timestamp of
+    * Like {@link #GridVoltageState( ReflectedAttributes datamemberMap )}, except this
+    * new GridVoltageState object class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new gridVoltageState object class instance
-    * @param logicalTime timestamp for this new gridVoltageState object class
+    * attributes of this new GridVoltageState object class instance
+    * @param logicalTime timestamp for this new GridVoltageState object class
     * instance
     */
-    public gridVoltageState( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
+    public GridVoltageState( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new gridVoltageState object class instance that is a duplicate
-    * of the instance referred to by gridVoltageState_var.
+    * Creates a new GridVoltageState object class instance that is a duplicate
+    * of the instance referred to by GridVoltageState_var.
     *
-    * @param gridVoltageState_var gridVoltageState object class instance of which
-    * this newly created gridVoltageState object class instance will be a
+    * @param GridVoltageState_var GridVoltageState object class instance of which
+    * this newly created GridVoltageState object class instance will be a
     * duplicate
     */
-    public gridVoltageState( gridVoltageState gridVoltageState_var ) {
-        super( gridVoltageState_var );
+    public GridVoltageState( GridVoltageState GridVoltageState_var ) {
+        super( GridVoltageState_var );
 
-        set_grid_Voltage_Imaginary_A( gridVoltageState_var.get_grid_Voltage_Imaginary_A() );
-        set_grid_Voltage_Imaginary_B( gridVoltageState_var.get_grid_Voltage_Imaginary_B() );
-        set_grid_Voltage_Imaginary_C( gridVoltageState_var.get_grid_Voltage_Imaginary_C() );
-        set_grid_Voltage_Real_A( gridVoltageState_var.get_grid_Voltage_Real_A() );
-        set_grid_Voltage_Real_B( gridVoltageState_var.get_grid_Voltage_Real_B() );
-        set_grid_Voltage_Real_C( gridVoltageState_var.get_grid_Voltage_Real_C() );
+        set_grid_Voltage_Imaginary_A( GridVoltageState_var.get_grid_Voltage_Imaginary_A() );
+        set_grid_Voltage_Imaginary_B( GridVoltageState_var.get_grid_Voltage_Imaginary_B() );
+        set_grid_Voltage_Imaginary_C( GridVoltageState_var.get_grid_Voltage_Imaginary_C() );
+        set_grid_Voltage_Real_A( GridVoltageState_var.get_grid_Voltage_Real_A() );
+        set_grid_Voltage_Real_B( GridVoltageState_var.get_grid_Voltage_Real_B() );
+        set_grid_Voltage_Real_C( GridVoltageState_var.get_grid_Voltage_Real_C() );
     }
 
     /**
@@ -1115,8 +1115,8 @@ public class gridVoltageState extends ObjectRoot {
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof gridVoltageState ) {
-            gridVoltageState data = (gridVoltageState)object;
+        if ( object instanceof GridVoltageState ) {
+            GridVoltageState data = (GridVoltageState)object;
             _grid_Voltage_Imaginary_A = data._grid_Voltage_Imaginary_A;
             _grid_Voltage_Imaginary_B = data._grid_Voltage_Imaginary_B;
             _grid_Voltage_Imaginary_C = data._grid_Voltage_Imaginary_C;

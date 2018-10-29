@@ -8,7 +8,7 @@
         <name>Loads</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2018-08-12</modificationDate>
+        <modificationDate>2018-09-23</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the Loads
@@ -24,7 +24,7 @@
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
             <objectClass>
-                <name>gridVoltageState</name>
+                <name>GridVoltageState</name>
                 <sharing>Subscribe</sharing>
                 <attribute>
                     <name>grid_Voltage_Imaginary_A</name>
@@ -82,7 +82,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>resourceControl</name>
+                <name>ResourceControl</name>
                 <sharing>Subscribe</sharing>
                 <attribute>
                     <name>Resources</name>
@@ -311,7 +311,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>resourcesPhysicalStatus</name>
+                <name>ResourcesPhysicalStatus</name>
                 <sharing>Publish</sharing>
                 <attribute>
                     <name>current_Imaginary_A</name>

@@ -42,24 +42,51 @@ public class TransactiveAgentBase extends SynchronizedFederate {
 		// object pubsub
         
         	
-        marketStatus.publish_price();
-        marketStatus.publish_time();
-        marketStatus.publish_type();
-        marketStatus.publish(getLRC());
-        
-        	
-        Transaction.publish_accept();
-        Transaction.publish_tenderId();
-        Transaction.publish(getLRC());
-        
-        	
         Quote.publish_price();
         Quote.publish_quantity();
         Quote.publish_quoteId();
         Quote.publish_timeReference();
         Quote.publish_type();
         Quote.publish(getLRC());
+        
+        	
+        Tender.publish_price();
+        Tender.publish_quantity();
+        Tender.publish_tenderId();
+        Tender.publish_timeReference();
+        Tender.publish_type();
+        Tender.publish(getLRC());
+        
+        	
+        MarketStatus.publish_price();
+        MarketStatus.publish_time();
+        MarketStatus.publish_type();
+        MarketStatus.publish(getLRC());
+        
+        	
+        Transaction.publish_accept();
+        Transaction.publish_tenderId();
+        Transaction.publish(getLRC());
                 
+        	
+        MarketStatus.subscribe_price();
+        MarketStatus.subscribe_time();
+        MarketStatus.subscribe_type();
+        MarketStatus.subscribe(getLRC());
+        
+        	
+        Quote.subscribe_price();
+        Quote.subscribe_quantity();
+        Quote.subscribe_quoteId();
+        Quote.subscribe_timeReference();
+        Quote.subscribe_type();
+        Quote.subscribe(getLRC());
+        
+        	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
+        
         	
         Tender.subscribe_price();
         Tender.subscribe_quantity();

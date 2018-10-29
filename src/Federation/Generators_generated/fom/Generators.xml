@@ -24,7 +24,7 @@
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
             <objectClass>
-                <name>gridVoltageState</name>
+                <name>GridVoltageState</name>
                 <sharing>Subscribe</sharing>
                 <attribute>
                     <name>grid_Voltage_Imaginary_A</name>
@@ -82,7 +82,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>resourceControl</name>
+                <name>ResourceControl</name>
                 <sharing>Subscribe</sharing>
                 <attribute>
                     <name>Resources</name>
@@ -311,7 +311,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>resourcesPhysicalStatus</name>
+                <name>ResourcesPhysicalStatus</name>
                 <sharing>Publish</sharing>
                 <attribute>
                     <name>current_Imaginary_A</name>

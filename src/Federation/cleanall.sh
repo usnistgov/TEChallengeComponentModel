@@ -19,4 +19,14 @@ cd ..
 cd TEChallenge_deployment
 mvn clean 
 cd ..
+cd Generators_generated
+mvn clean 
+cd ..
+cd Storage_generated
+mvn clean 
+cd ..
+cd Markets_generated
+mvn clean 
+cd ..
+
 

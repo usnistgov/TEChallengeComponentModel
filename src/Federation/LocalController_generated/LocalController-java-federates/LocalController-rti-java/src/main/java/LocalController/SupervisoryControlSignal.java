@@ -23,16 +23,16 @@ import hla.rti.SuppliedAttributes;
 import org.cpswt.hla.*;
 
 /**
-* Implements ObjectRoot.supervisoryControlSignal
+* Implements ObjectRoot.SupervisoryControlSignal
 */
-public class supervisoryControlSignal extends ObjectRoot {
+public class SupervisoryControlSignal extends ObjectRoot {
 
     private static final Logger logger = LogManager.getLogger();
 
     /**
-    * Creates an instance of the supervisoryControlSignal object class with default attribute values.
+    * Creates an instance of the SupervisoryControlSignal object class with default attribute values.
     */
-    public supervisoryControlSignal() {}
+    public SupervisoryControlSignal() {}
 
     private static int _localControllerName_handle;
     private static int _modulationSignal_handle;
@@ -42,7 +42,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static int _handle;
 
     /**
-    * Returns the handle (RTI assigned) of the supervisoryControlSignal object class.
+    * Returns the handle (RTI assigned) of the SupervisoryControlSignal object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the handle of the class pertaining to the reference,
     * rather than the handle of the class for the instance referred to by the reference.
@@ -55,7 +55,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Returns the fully-qualified (dot-delimited) name of the supervisoryControlSignal object class.
+    * Returns the fully-qualified (dot-delimited) name of the SupervisoryControlSignal object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return the name of the class pertaining to the reference,
     * rather than the name of the class for the instance referred to by the reference.
@@ -64,17 +64,17 @@ public class supervisoryControlSignal extends ObjectRoot {
     * @return the fully-qualified HLA class path for this object class
     */
     public static String get_class_name() {
-        return "ObjectRoot.supervisoryControlSignal";
+        return "ObjectRoot.SupervisoryControlSignal";
     }
 
     /**
     * Returns the simple name (the last name in the dot-delimited fully-qualified
-    * class name) of the supervisoryControlSignal object class.
+    * class name) of the SupervisoryControlSignal object class.
     *
     * @return the name of this object class
     */
     public static String get_simple_class_name() {
-        return "supervisoryControlSignal";
+        return "SupervisoryControlSignal";
     }
 
     private static Set< String > _datamemberNames = new HashSet< String >();
@@ -82,7 +82,7 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the non-hidden attributes in the
-    * supervisoryControlSignal object class.
+    * SupervisoryControlSignal object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -97,7 +97,7 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Returns a set containing the names of all of the attributes in the
-    * supervisoryControlSignal object class.
+    * SupervisoryControlSignal object class.
     * Note: As this is a static method, it is NOT polymorphic, and so, if called on
     * a reference will return a set of parameter names pertaining to the reference,
     * rather than the parameter names of the class for the instance referred to by
@@ -114,11 +114,11 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static Set< String > _subscribeAttributeNameSet = new HashSet< String >();
 
     static {
-        _classNameSet.add("ObjectRoot.supervisoryControlSignal");
-        _classNameClassMap.put("ObjectRoot.supervisoryControlSignal", supervisoryControlSignal.class);
+        _classNameSet.add("ObjectRoot.SupervisoryControlSignal");
+        _classNameClassMap.put("ObjectRoot.SupervisoryControlSignal", SupervisoryControlSignal.class);
 
-        _datamemberClassNameSetMap.put("ObjectRoot.supervisoryControlSignal", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("ObjectRoot.supervisoryControlSignal", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("ObjectRoot.SupervisoryControlSignal", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("ObjectRoot.SupervisoryControlSignal", _allDatamemberNames);
 
         _datamemberNames.add("localControllerName");
         _datamemberNames.add("modulationSignal");
@@ -129,8 +129,8 @@ public class supervisoryControlSignal extends ObjectRoot {
         _allDatamemberNames.add("localControllerName");
         _allDatamemberNames.add("modulationSignal");
 
-        _classNamePublishAttributeNameMap.put("ObjectRoot.supervisoryControlSignal", _publishAttributeNameSet);
-        _classNameSubscribeAttributeNameMap.put("ObjectRoot.supervisoryControlSignal", _subscribeAttributeNameSet);
+        _classNamePublishAttributeNameMap.put("ObjectRoot.SupervisoryControlSignal", _publishAttributeNameSet);
+        _classNameSubscribeAttributeNameMap.put("ObjectRoot.SupervisoryControlSignal", _subscribeAttributeNameSet);
     }
 
     protected static void init(RTIambassador rti) {
@@ -142,7 +142,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getObjectClassHandle("ObjectRoot.supervisoryControlSignal");
+                _handle = rti.getObjectClassHandle("ObjectRoot.SupervisoryControlSignal");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -156,9 +156,9 @@ public class supervisoryControlSignal extends ObjectRoot {
             }
         }
 
-        _classNameHandleMap.put("ObjectRoot.supervisoryControlSignal", get_handle());
-        _classHandleNameMap.put(get_handle(), "ObjectRoot.supervisoryControlSignal");
-        _classHandleSimpleNameMap.put(get_handle(), "supervisoryControlSignal");
+        _classNameHandleMap.put("ObjectRoot.SupervisoryControlSignal", get_handle());
+        _classHandleNameMap.put(get_handle(), "ObjectRoot.SupervisoryControlSignal");
+        _classHandleSimpleNameMap.put(get_handle(), "SupervisoryControlSignal");
 
         isNotInitialized = true;
         while(isNotInitialized) {
@@ -181,8 +181,8 @@ public class supervisoryControlSignal extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.supervisoryControlSignal.localControllerName", _localControllerName_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.supervisoryControlSignal.modulationSignal", _modulationSignal_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.SupervisoryControlSignal.localControllerName", _localControllerName_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.SupervisoryControlSignal.modulationSignal", _modulationSignal_handle);
 
         _datamemberHandleNameMap.put(_localControllerName_handle, "localControllerName");
         _datamemberHandleNameMap.put(_modulationSignal_handle, "modulationSignal");
@@ -191,7 +191,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static boolean _isPublished = false;
 
     /**
-    * Publishes the supervisoryControlSignal object class for a federate.
+    * Publishes the SupervisoryControlSignal object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -203,7 +203,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         AttributeHandleSet publishedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _publishAttributeNameSet) {
             try {
-                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.supervisoryControlSignal." + attributeName));
+                publishedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.SupervisoryControlSignal." + attributeName));
                 logger.trace("publish {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not publish \"" + attributeName + "\" attribute.", e);
@@ -234,7 +234,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Unpublishes the supervisoryControlSignal object class for a federate.
+    * Unpublishes the SupervisoryControlSignal object class for a federate.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -272,7 +272,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     private static boolean _isSubscribed = false;
 
     /**
-    * Subscribes a federate to the supervisoryControlSignal object class.
+    * Subscribes a federate to the SupervisoryControlSignal object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -284,7 +284,7 @@ public class supervisoryControlSignal extends ObjectRoot {
         AttributeHandleSet subscribedAttributeHandleSet = _factory.createAttributeHandleSet();
         for(String attributeName : _subscribeAttributeNameSet) {
             try {
-                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.supervisoryControlSignal." + attributeName));
+                subscribedAttributeHandleSet.add(_datamemberNameHandleMap.get("ObjectRoot.SupervisoryControlSignal." + attributeName));
                 logger.trace("subscribe {}:{}", get_class_name(), attributeName);
             } catch (Exception e) {
                 logger.error("could not subscribe to \"" + attributeName + "\" attribute.", e);
@@ -315,7 +315,7 @@ public class supervisoryControlSignal extends ObjectRoot {
     }
 
     /**
-    * Unsubscribes a federate from the supervisoryControlSignal object class.
+    * Unsubscribes a federate from the SupervisoryControlSignal object class.
     *
     * @param rti handle to the Local RTI Component
     */
@@ -352,12 +352,12 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     /**
     * Return true if "handle" is equal to the handle (RTI assigned) of this class
-    * (that is, the supervisoryControlSignal object class).
+    * (that is, the SupervisoryControlSignal object class).
     *
     * @param handle handle to compare to the value of the handle (RTI assigned) of
-    * this class (the supervisoryControlSignal object class).
+    * this class (the SupervisoryControlSignal object class).
     * @return "true" if "handle" matches the value of the handle of this class
-    * (that is, the supervisoryControlSignal object class).
+    * (that is, the SupervisoryControlSignal object class).
     */
     public static boolean match(int handle) {
         return handle == get_handle();
@@ -623,56 +623,56 @@ public class supervisoryControlSignal extends ObjectRoot {
         return _modulationSignal.getTime();
     }
 
-    protected supervisoryControlSignal( ReflectedAttributes datamemberMap, boolean initFlag ) {
+    protected SupervisoryControlSignal( ReflectedAttributes datamemberMap, boolean initFlag ) {
         super( datamemberMap, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
-    protected supervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
+    protected SupervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime, boolean initFlag ) {
         super( datamemberMap, logicalTime, false );
         if ( initFlag ) setAttributes( datamemberMap );
     }
 
     /**
-    * Creates an instance of the supervisoryControlSignal object class, using
+    * Creates an instance of the SupervisoryControlSignal object class, using
     * "datamemberMap" to initialize its attribute values.
     * "datamemberMap" is usually acquired as an argument to an RTI federate
     * callback method, such as "receiveInteraction".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new supervisoryControlSignal object class instance
+    * attributes of this new SupervisoryControlSignal object class instance
     */
-    public supervisoryControlSignal( ReflectedAttributes datamemberMap ) {
+    public SupervisoryControlSignal( ReflectedAttributes datamemberMap ) {
         this( datamemberMap, true );
     }
 
     /**
-    * Like {@link #supervisoryControlSignal( ReflectedAttributes datamemberMap )}, except this
-    * new supervisoryControlSignal object class instance is given a timestamp of
+    * Like {@link #SupervisoryControlSignal( ReflectedAttributes datamemberMap )}, except this
+    * new SupervisoryControlSignal object class instance is given a timestamp of
     * "logicalTime".
     *
     * @param datamemberMap data structure containing initial values for the
-    * attributes of this new supervisoryControlSignal object class instance
-    * @param logicalTime timestamp for this new supervisoryControlSignal object class
+    * attributes of this new SupervisoryControlSignal object class instance
+    * @param logicalTime timestamp for this new SupervisoryControlSignal object class
     * instance
     */
-    public supervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
+    public SupervisoryControlSignal( ReflectedAttributes datamemberMap, LogicalTime logicalTime ) {
         this( datamemberMap, logicalTime, true );
     }
 
     /**
-    * Creates a new supervisoryControlSignal object class instance that is a duplicate
-    * of the instance referred to by supervisoryControlSignal_var.
+    * Creates a new SupervisoryControlSignal object class instance that is a duplicate
+    * of the instance referred to by SupervisoryControlSignal_var.
     *
-    * @param supervisoryControlSignal_var supervisoryControlSignal object class instance of which
-    * this newly created supervisoryControlSignal object class instance will be a
+    * @param SupervisoryControlSignal_var SupervisoryControlSignal object class instance of which
+    * this newly created SupervisoryControlSignal object class instance will be a
     * duplicate
     */
-    public supervisoryControlSignal( supervisoryControlSignal supervisoryControlSignal_var ) {
-        super( supervisoryControlSignal_var );
+    public SupervisoryControlSignal( SupervisoryControlSignal SupervisoryControlSignal_var ) {
+        super( SupervisoryControlSignal_var );
 
-        set_localControllerName( supervisoryControlSignal_var.get_localControllerName() );
-        set_modulationSignal( supervisoryControlSignal_var.get_modulationSignal() );
+        set_localControllerName( SupervisoryControlSignal_var.get_localControllerName() );
+        set_modulationSignal( SupervisoryControlSignal_var.get_modulationSignal() );
     }
 
     /**
@@ -727,8 +727,8 @@ public class supervisoryControlSignal extends ObjectRoot {
 
     public void copyFrom( Object object ) {
         super.copyFrom( object );
-        if ( object instanceof supervisoryControlSignal ) {
-            supervisoryControlSignal data = (supervisoryControlSignal)object;
+        if ( object instanceof SupervisoryControlSignal ) {
+            SupervisoryControlSignal data = (SupervisoryControlSignal)object;
             _localControllerName = data._localControllerName;
             _modulationSignal = data._modulationSignal;
         }
