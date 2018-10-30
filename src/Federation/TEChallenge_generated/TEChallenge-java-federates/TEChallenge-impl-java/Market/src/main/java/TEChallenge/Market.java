@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The TransactiveAgent type of federate for the federation designed in WebGME.
+ * The Market type of federate for the federation designed in WebGME.
  *
  */
-public class TransactiveAgent extends TransactiveAgentBase {
+public class Market extends MarketBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -23,22 +23,22 @@ public class TransactiveAgent extends TransactiveAgentBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Tender vTender = new Tender();
-    // MarketStatus vMarketStatus = new MarketStatus();
-    // Quote vQuote = new Quote();
     // Transaction vTransaction = new Transaction();
+    // Quote vQuote = new Quote();
+    // MarketStatus vMarketStatus = new MarketStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public TransactiveAgent(FederateConfig params) throws Exception {
+    public Market(FederateConfig params) throws Exception {
         super(params);
 
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
         // vTender.registerObject(getLRC());
-        // vMarketStatus.registerObject(getLRC());
-        // vQuote.registerObject(getLRC());
         // vTransaction.registerObject(getLRC());
+        // vQuote.registerObject(getLRC());
+        // vMarketStatus.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -59,10 +59,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof MarketStatus) {
-                handleObjectClass((MarketStatus) object);
-            }
-            else if (object instanceof Transaction) {
+            if (object instanceof Transaction) {
                 handleObjectClass((Transaction) object);
             }
             else if (object instanceof Tender) {
@@ -124,10 +121,9 @@ public class TransactiveAgent extends TransactiveAgentBase {
             //    vTender.set_type(<YOUR VALUE HERE >);
             //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vMarketStatus.set_price(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_time(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_type(<YOUR VALUE HERE >);
-            //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vTransaction.set_accept(<YOUR VALUE HERE >);
+            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
+            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //    vQuote.set_price(<YOUR VALUE HERE >);
             //    vQuote.set_quantity(<YOUR VALUE HERE >);
@@ -136,9 +132,10 @@ public class TransactiveAgent extends TransactiveAgentBase {
             //    vQuote.set_type(<YOUR VALUE HERE >);
             //    vQuote.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vTransaction.set_accept(<YOUR VALUE HERE >);
-            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
-            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vMarketStatus.set_price(<YOUR VALUE HERE >);
+            //    vMarketStatus.set_time(<YOUR VALUE HERE >);
+            //    vMarketStatus.set_type(<YOUR VALUE HERE >);
+            //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -172,12 +169,6 @@ public class TransactiveAgent extends TransactiveAgentBase {
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(MarketStatus object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
     private void handleObjectClass(Transaction object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
@@ -200,7 +191,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            TransactiveAgent federate = new TransactiveAgent(federateConfig);
+            Market federate = new Market(federateConfig);
             federate.execute();
             log.info("Done.");
             System.exit(0);

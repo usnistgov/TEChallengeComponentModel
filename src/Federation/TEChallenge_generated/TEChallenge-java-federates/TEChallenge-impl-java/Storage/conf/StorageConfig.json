@@ -1,8 +1,8 @@
 {
   "federateRTIInitWaitTimeMs": 200,
-  "federateType": "SupervisoryController",
+  "federateType": "Storage",
   "federationId": "TEChallenge",
   "isLateJoiner": false,
-  "lookAhead": "0.2",
-  "stepSize": "1.0"
+  "lookAhead": 0.2,
+  "stepSize": 1.0
 }

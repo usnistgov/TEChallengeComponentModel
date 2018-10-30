@@ -7,17 +7,17 @@
         <artifactId>TEChallenge-impl-java</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>supervisoryController</artifactId>
+    <artifactId>SupervisoryController</artifactId>
     <packaging>jar</packaging>
 
     <properties>
         <federation.name>TEChallenge</federation.name>
         <package.name>TEChallenge</package.name>
-        <federate.name>supervisoryController</federate.name>
+        <federate.name>SupervisoryController</federate.name>
         <federation.version>0.1.0-SNAPSHOT</federation.version>
         <cpswt.version>0.6.0-SNAPSHOT</cpswt.version>
         <nar.version>3.3.0</nar.version>
-        <configFile>supervisoryControllerConfig.json</configFile>
+        <configFile>SupervisoryControllerConfig.json</configFile>
     </properties>
 
     <dependencies>

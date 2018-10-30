@@ -33,15 +33,15 @@ public class GridBase extends SynchronizedFederate {
         // interaction pubsub
         
         
-        SimTime.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-			SimTime.get_handle(), 
-			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
-			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
-		);
         TMYWeather.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
 			TMYWeather.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);
+        SimTime.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			SimTime.get_handle(), 
 			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
 			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
 		);		

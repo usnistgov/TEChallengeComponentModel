@@ -15,12 +15,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class LoadsBase extends SynchronizedFederate {
+public class StorageBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public LoadsBase(FederateConfig config) throws Exception {
+	public StorageBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();

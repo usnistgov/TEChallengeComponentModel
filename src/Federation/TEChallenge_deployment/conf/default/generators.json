@@ -1,6 +1,6 @@
 {
   "federateRTIInitWaitTimeMs": 200,
-  "federateType": "SupervisoryController",
+  "federateType": "Generators",
   "federationId": "TEChallenge",
   "isLateJoiner": false,
   "lookAhead": "0.2",
