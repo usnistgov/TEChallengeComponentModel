@@ -4,17 +4,16 @@ import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
-import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The supervisoryController type of federate for the federation designed in WebGME.
+ * The Storage type of federate for the federation designed in WebGME.
  *
  */
-public class supervisoryController extends supervisoryControllerBase {
+public class Storage extends StorageBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -22,53 +21,32 @@ public class supervisoryController extends supervisoryControllerBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // Tender vTender = new Tender();
-    // supervisoryControlSignal vsupervisoryControlSignal = new supervisoryControlSignal();
+    // resourcesPhysicalStatus vresourcesPhysicalStatus = new resourcesPhysicalStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public supervisoryController(FederateConfig params) throws Exception {
+    public Storage(FederateConfig params) throws Exception {
         super(params);
 
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vTender.registerObject(getLRC());
-        // vsupervisoryControlSignal.registerObject(getLRC());
+        // vresourcesPhysicalStatus.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
 
     private void checkReceivedSubscriptions() {
 
-        InteractionRoot interaction = null;
-        while ((interaction = getNextInteractionNoWait()) != null) {
-            if (interaction instanceof TMYWeather) {
-                handleInteractionClass((TMYWeather) interaction);
-            }
-            else if (interaction instanceof SimTime) {
-                handleInteractionClass((SimTime) interaction);
-            }
-            else {
-                log.debug("unhandled interaction: {}", interaction.getClassName());
-            }
-        }
- 
         ObjectReflector reflector = null;
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof gridVoltageState) {
+                handleObjectClass((gridVoltageState) object);
             }
-            else if (object instanceof marketStatus) {
-                handleObjectClass((marketStatus) object);
-            }
-            else if (object instanceof Transaction) {
-                handleObjectClass((Transaction) object);
-            }
-            else if (object instanceof Quote) {
-                handleObjectClass((Quote) object);
+            else if (object instanceof resourceControl) {
+                handleObjectClass((resourceControl) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -116,16 +94,37 @@ public class supervisoryController extends supervisoryControllerBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vTender.set_price(<YOUR VALUE HERE >);
-            //    vTender.set_quantity(<YOUR VALUE HERE >);
-            //    vTender.set_tenderId(<YOUR VALUE HERE >);
-            //    vTender.set_timeReference(<YOUR VALUE HERE >);
-            //    vTender.set_type(<YOUR VALUE HERE >);
-            //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            //
-            //    vsupervisoryControlSignal.set_localControllerName(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.set_modulationSignal(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vresourcesPhysicalStatus.set_current_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_name(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_power_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_status(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_type(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Imaginary_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_A(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_B(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.set_voltage_Real_C(<YOUR VALUE HERE >);
+            //    vresourcesPhysicalStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -153,37 +152,13 @@ public class supervisoryController extends supervisoryControllerBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleInteractionClass(TMYWeather interaction) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction            //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
-    private void handleInteractionClass(SimTime interaction) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction            //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(gridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(marketStatus object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
-    private void handleObjectClass(Transaction object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
-    private void handleObjectClass(Quote object) {
+    private void handleObjectClass(resourceControl object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
@@ -193,7 +168,7 @@ public class supervisoryController extends supervisoryControllerBase {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            supervisoryController federate = new supervisoryController(federateConfig);
+            Storage federate = new Storage(federateConfig);
             federate.execute();
             log.info("Done.");
             System.exit(0);

@@ -8,7 +8,7 @@
         <name>TEChallenge</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2018-09-17</modificationDate>
+        <modificationDate>2018-09-30</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the TEChallenge
@@ -23,6 +23,37 @@
         <objectClass>
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
+            <objectClass>
+                <name>MarketStatus</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>price</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>time</name>
+                    <dataType>int</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>type</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
             <objectClass>
                 <name>Quote</name>
                 <sharing>PublishSubscribe</sharing>
@@ -194,37 +225,6 @@
                 <attribute>
                     <name>grid_Voltage_Real_C</name>
                     <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>marketStatus</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>price</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>time</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>type</name>
-                    <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>PublishSubscribe</sharing>

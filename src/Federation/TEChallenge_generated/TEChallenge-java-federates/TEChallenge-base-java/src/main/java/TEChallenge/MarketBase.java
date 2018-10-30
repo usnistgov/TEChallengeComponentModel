@@ -15,12 +15,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class TransactiveAgentBase extends SynchronizedFederate {
+public class MarketBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public TransactiveAgentBase(FederateConfig config) throws Exception {
+	public MarketBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();
@@ -50,10 +50,9 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         Tender.publish(getLRC());
         
         	
-        MarketStatus.publish_price();
-        MarketStatus.publish_time();
-        MarketStatus.publish_type();
-        MarketStatus.publish(getLRC());
+        Transaction.publish_accept();
+        Transaction.publish_tenderId();
+        Transaction.publish(getLRC());
         
         	
         Quote.publish_price();
@@ -64,15 +63,23 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         Quote.publish(getLRC());
         
         	
-        Transaction.publish_accept();
-        Transaction.publish_tenderId();
-        Transaction.publish(getLRC());
+        MarketStatus.publish_price();
+        MarketStatus.publish_time();
+        MarketStatus.publish_type();
+        MarketStatus.publish(getLRC());
                 
         	
-        MarketStatus.subscribe_price();
-        MarketStatus.subscribe_time();
-        MarketStatus.subscribe_type();
-        MarketStatus.subscribe(getLRC());
+        Tender.subscribe_price();
+        Tender.subscribe_quantity();
+        Tender.subscribe_tenderId();
+        Tender.subscribe_timeReference();
+        Tender.subscribe_type();
+        Tender.subscribe(getLRC());
+        
+        	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
         
         	
         Quote.subscribe_price();
@@ -81,19 +88,6 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         Quote.subscribe_timeReference();
         Quote.subscribe_type();
         Quote.subscribe(getLRC());
-        
-        	
-        Transaction.subscribe_accept();
-        Transaction.subscribe_tenderId();
-        Transaction.subscribe(getLRC());
-        
-        	
-        Tender.subscribe_price();
-        Tender.subscribe_quantity();
-        Tender.subscribe_tenderId();
-        Tender.subscribe_timeReference();
-        Tender.subscribe_type();
-        Tender.subscribe(getLRC());
         	}
         
 	

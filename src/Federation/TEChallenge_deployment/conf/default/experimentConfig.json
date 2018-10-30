@@ -1,17 +1,24 @@
 {
   "federateTypesAllowed": [
     "Database",
+    "Generators",
     "Grid",
     "Loads",
     "LocalController",
+    "Market",
     "Metronome",
+    "Storage",
+    "SupervisoryController",
     "TransactiveAgent",
-    "Weather",
-    "supervisoryController"
+    "Weather"
   ],
   "expectedFederates": [
     {
       "federateType": "Database",
+      "count": 1
+    },
+    {
+      "federateType": "Generators",
       "count": 1
     },
     {
@@ -27,7 +34,19 @@
       "count": 1
     },
     {
+      "federateType": "Market",
+      "count": 1
+    },
+    {
       "federateType": "Metronome",
+      "count": 1
+    },
+    {
+      "federateType": "Storage",
+      "count": 1
+    },
+    {
+      "federateType": "SupervisoryController",
       "count": 1
     },
     {
@@ -36,10 +55,6 @@
     },
     {
       "federateType": "Weather",
-      "count": 1
-    },
-    {
-      "federateType": "supervisoryController",
       "count": 1
     }
   ],
@@ -49,6 +64,10 @@
       "count": 0
     },
     {
+      "federateType": "Generators",
+      "count": 0
+    },
+    {
       "federateType": "Grid",
       "count": 0
     },
@@ -61,7 +80,19 @@
       "count": 0
     },
     {
+      "federateType": "Market",
+      "count": 0
+    },
+    {
       "federateType": "Metronome",
+      "count": 0
+    },
+    {
+      "federateType": "Storage",
+      "count": 0
+    },
+    {
+      "federateType": "SupervisoryController",
       "count": 0
     },
     {
@@ -70,10 +101,6 @@
     },
     {
       "federateType": "Weather",
-      "count": 0
-    },
-    {
-      "federateType": "supervisoryController",
       "count": 0
     }
   ]

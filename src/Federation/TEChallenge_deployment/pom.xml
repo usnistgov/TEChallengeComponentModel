@@ -30,6 +30,12 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>org.webgme.guest</groupId>
+			<artifactId>Generators</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>org.webgme.guest</groupId>
 			<artifactId>Grid</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
@@ -48,7 +54,25 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>org.webgme.guest</groupId>
+			<artifactId>Market</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>org.webgme.guest</groupId>
 			<artifactId>Metronome</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>org.webgme.guest</groupId>
+			<artifactId>Storage</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>org.webgme.guest</groupId>
+			<artifactId>SupervisoryController</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -61,12 +85,6 @@
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>org.webgme.guest</groupId>
 			<artifactId>Weather</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency><!-- The depenency for the user written code-->
-			<groupId>org.webgme.guest</groupId>
-			<artifactId>supervisoryController</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -205,13 +223,16 @@
 		                            <echo message="Creating folder for the execution..." />
 		                            
 		                            <mkdir dir="${project.basedir}/target/Database" />
+		                            <mkdir dir="${project.basedir}/target/Generators" />
 		                            <mkdir dir="${project.basedir}/target/Grid" />
 		                            <mkdir dir="${project.basedir}/target/Loads" />
 		                            <mkdir dir="${project.basedir}/target/LocalController" />
+		                            <mkdir dir="${project.basedir}/target/Market" />
 		                            <mkdir dir="${project.basedir}/target/Metronome" />
+		                            <mkdir dir="${project.basedir}/target/Storage" />
+		                            <mkdir dir="${project.basedir}/target/SupervisoryController" />
 		                            <mkdir dir="${project.basedir}/target/TransactiveAgent" />
 		                            <mkdir dir="${project.basedir}/target/Weather" />
-		                            <mkdir dir="${project.basedir}/target/supervisoryController" />
 		                    	</tasks>
 		                	</configuration>
 			                <goals>
@@ -273,6 +294,13 @@
             </properties>
         </profile>
         <profile>
+            <id>Generators</id>
+            <properties>
+                <federate.name>Generators</federate.name>
+                <federate.configFile>generators.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
             <id>Grid</id>
             <properties>
                 <federate.name>Grid</federate.name>
@@ -294,10 +322,31 @@
             </properties>
         </profile>
         <profile>
+            <id>Market</id>
+            <properties>
+                <federate.name>Market</federate.name>
+                <federate.configFile>market.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
             <id>Metronome</id>
             <properties>
                 <federate.name>Metronome</federate.name>
                 <federate.configFile>metronome.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>Storage</id>
+            <properties>
+                <federate.name>Storage</federate.name>
+                <federate.configFile>storage.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>SupervisoryController</id>
+            <properties>
+                <federate.name>SupervisoryController</federate.name>
+                <federate.configFile>supervisorycontroller.json</federate.configFile>
             </properties>
         </profile>
         <profile>
@@ -312,13 +361,6 @@
             <properties>
                 <federate.name>Weather</federate.name>
                 <federate.configFile>weather.json</federate.configFile>
-            </properties>
-        </profile>
-        <profile>
-            <id>supervisoryController</id>
-            <properties>
-                <federate.name>supervisoryController</federate.name>
-                <federate.configFile>supervisorycontroller.json</federate.configFile>
             </properties>
         </profile>
 		<profile>

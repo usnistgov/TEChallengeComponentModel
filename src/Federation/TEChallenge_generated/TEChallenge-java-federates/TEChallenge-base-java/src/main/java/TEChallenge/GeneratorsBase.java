@@ -15,12 +15,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class LoadsBase extends SynchronizedFederate {
+public class GeneratorsBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public LoadsBase(FederateConfig config) throws Exception {
+	public GeneratorsBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();
@@ -69,15 +69,6 @@ public class LoadsBase extends SynchronizedFederate {
         resourcesPhysicalStatus.publish(getLRC());
                 
         	
-        gridVoltageState.subscribe_grid_Voltage_Imaginary_A();
-        gridVoltageState.subscribe_grid_Voltage_Imaginary_B();
-        gridVoltageState.subscribe_grid_Voltage_Imaginary_C();
-        gridVoltageState.subscribe_grid_Voltage_Real_A();
-        gridVoltageState.subscribe_grid_Voltage_Real_B();
-        gridVoltageState.subscribe_grid_Voltage_Real_C();
-        gridVoltageState.subscribe(getLRC());
-        
-        	
         resourceControl.subscribe_Resources();
         resourceControl.subscribe_activePowerCurve();
         resourceControl.subscribe_actualDemand();
@@ -104,6 +95,15 @@ public class LoadsBase extends SynchronizedFederate {
         resourceControl.subscribe_upRampToCompletion();
         resourceControl.subscribe_upRate();
         resourceControl.subscribe(getLRC());
+        
+        	
+        gridVoltageState.subscribe_grid_Voltage_Imaginary_A();
+        gridVoltageState.subscribe_grid_Voltage_Imaginary_B();
+        gridVoltageState.subscribe_grid_Voltage_Imaginary_C();
+        gridVoltageState.subscribe_grid_Voltage_Real_A();
+        gridVoltageState.subscribe_grid_Voltage_Real_B();
+        gridVoltageState.subscribe_grid_Voltage_Real_C();
+        gridVoltageState.subscribe(getLRC());
         	}
         
 	

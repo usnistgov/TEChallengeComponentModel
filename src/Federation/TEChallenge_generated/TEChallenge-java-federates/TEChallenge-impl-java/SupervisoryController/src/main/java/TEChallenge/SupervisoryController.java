@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * The TransactiveAgent type of federate for the federation designed in WebGME.
+ * The SupervisoryController type of federate for the federation designed in WebGME.
  *
  */
-public class TransactiveAgent extends TransactiveAgentBase {
+public class SupervisoryController extends SupervisoryControllerBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -23,22 +23,18 @@ public class TransactiveAgent extends TransactiveAgentBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Tender vTender = new Tender();
-    // MarketStatus vMarketStatus = new MarketStatus();
-    // Quote vQuote = new Quote();
-    // Transaction vTransaction = new Transaction();
+    // supervisoryControlSignal vsupervisoryControlSignal = new supervisoryControlSignal();
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public TransactiveAgent(FederateConfig params) throws Exception {
+    public SupervisoryController(FederateConfig params) throws Exception {
         super(params);
 
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
         // vTender.registerObject(getLRC());
-        // vMarketStatus.registerObject(getLRC());
-        // vQuote.registerObject(getLRC());
-        // vTransaction.registerObject(getLRC());
+        // vsupervisoryControlSignal.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -47,7 +43,10 @@ public class TransactiveAgent extends TransactiveAgentBase {
 
         InteractionRoot interaction = null;
         while ((interaction = getNextInteractionNoWait()) != null) {
-            if (interaction instanceof SimTime) {
+            if (interaction instanceof TMYWeather) {
+                handleInteractionClass((TMYWeather) interaction);
+            }
+            else if (interaction instanceof SimTime) {
                 handleInteractionClass((SimTime) interaction);
             }
             else {
@@ -59,14 +58,14 @@ public class TransactiveAgent extends TransactiveAgentBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof MarketStatus) {
+            if (object instanceof resourcesPhysicalStatus) {
+                handleObjectClass((resourcesPhysicalStatus) object);
+            }
+            else if (object instanceof MarketStatus) {
                 handleObjectClass((MarketStatus) object);
             }
             else if (object instanceof Transaction) {
                 handleObjectClass((Transaction) object);
-            }
-            else if (object instanceof Tender) {
-                handleObjectClass((Tender) object);
             }
             else if (object instanceof Quote) {
                 handleObjectClass((Quote) object);
@@ -124,21 +123,9 @@ public class TransactiveAgent extends TransactiveAgentBase {
             //    vTender.set_type(<YOUR VALUE HERE >);
             //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vMarketStatus.set_price(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_time(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_type(<YOUR VALUE HERE >);
-            //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            //
-            //    vQuote.set_price(<YOUR VALUE HERE >);
-            //    vQuote.set_quantity(<YOUR VALUE HERE >);
-            //    vQuote.set_quoteId(<YOUR VALUE HERE >);
-            //    vQuote.set_timeReference(<YOUR VALUE HERE >);
-            //    vQuote.set_type(<YOUR VALUE HERE >);
-            //    vQuote.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            //
-            //    vTransaction.set_accept(<YOUR VALUE HERE >);
-            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
-            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vsupervisoryControlSignal.set_localControllerName(<YOUR VALUE HERE >);
+            //    vsupervisoryControlSignal.set_modulationSignal(<YOUR VALUE HERE >);
+            //    vsupervisoryControlSignal.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -166,9 +153,21 @@ public class TransactiveAgent extends TransactiveAgentBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
+    private void handleInteractionClass(TMYWeather interaction) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
+    }
+
     private void handleInteractionClass(SimTime interaction) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleObjectClass(resourcesPhysicalStatus object) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
@@ -184,12 +183,6 @@ public class TransactiveAgent extends TransactiveAgentBase {
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(Tender object) {
-        //////////////////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object                 //
-        //////////////////////////////////////////////////////////////////////////
-    }
-
     private void handleObjectClass(Quote object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
@@ -200,7 +193,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
             FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
-            TransactiveAgent federate = new TransactiveAgent(federateConfig);
+            SupervisoryController federate = new SupervisoryController(federateConfig);
             federate.execute();
             log.info("Done.");
             System.exit(0);

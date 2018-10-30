@@ -48,6 +48,11 @@
         (attribute FederateHost reliable timestamp)
         (attribute FederateType reliable timestamp)
       )
+      (class MarketStatus
+        (attribute price reliable timestamp)
+        (attribute time reliable timestamp)
+        (attribute type reliable timestamp)
+      )
       (class Quote
         (attribute price reliable timestamp)
         (attribute quantity reliable timestamp)
@@ -73,11 +78,6 @@
         (attribute grid_Voltage_Real_A reliable timestamp)
         (attribute grid_Voltage_Real_B reliable timestamp)
         (attribute grid_Voltage_Real_C reliable timestamp)
-      )
-      (class marketStatus
-        (attribute price reliable timestamp)
-        (attribute time reliable timestamp)
-        (attribute type reliable timestamp)
       )
       (class resourceControl
         (attribute Resources reliable timestamp)
