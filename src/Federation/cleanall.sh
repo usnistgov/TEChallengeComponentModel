@@ -13,19 +13,19 @@ cd ..
 cd TransactiveAgent_generated
 mvn clean 
 cd ..
-cd TEChallenge_generated
-mvn clean 
-cd ..
-cd TEChallenge_deployment
-mvn clean 
-cd ..
 cd Generators_generated
 mvn clean 
 cd ..
 cd Storage_generated
 mvn clean 
 cd ..
-cd Markets_generated
+cd Market_generated
+mvn clean 
+cd ..
+cd TEChallenge_generated
+mvn clean 
+cd ..
+cd TEChallenge_deployment
 mvn clean 
 cd ..
 

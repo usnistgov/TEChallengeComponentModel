@@ -24,7 +24,7 @@ public class Grid extends GridBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // GridVoltageState vGridVoltageState = new GridVoltageState();
+    GridVoltageState vGridVoltageState = new GridVoltageState();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -104,13 +104,13 @@ public class Grid extends GridBase {
             atr.requestSyncStart();
             enteredTimeGrantedState();
             
-                vgridVoltageState.set_grid_Voltage_Imaginary_A(00+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Imaginary_B(11+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Imaginary_C(22+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_A(33+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_B(44+(float)currentTime);
-                vgridVoltageState.set_grid_Voltage_Real_C(55+(float)currentTime);
-                vgridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                vGridVoltageState.set_grid_Voltage_Imaginary_A(00+(float)currentTime);
+                vGridVoltageState.set_grid_Voltage_Imaginary_B(11+(float)currentTime);
+                vGridVoltageState.set_grid_Voltage_Imaginary_C(22+(float)currentTime);
+                vGridVoltageState.set_grid_Voltage_Real_A(33+(float)currentTime);
+                vGridVoltageState.set_grid_Voltage_Real_B(44+(float)currentTime);
+                vGridVoltageState.set_grid_Voltage_Real_C(55+(float)currentTime);
+                vGridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
 
             checkReceivedSubscriptions();

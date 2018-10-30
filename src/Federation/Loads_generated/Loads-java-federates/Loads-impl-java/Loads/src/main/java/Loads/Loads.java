@@ -24,13 +24,13 @@ public class Loads extends LoadsBase {
     int numberOfInstances;   
     private LoadsConfig configuration;  
     public Load[] loads = null;                                                   
-    resourcesPhysicalStatus[] vresourcesPhysicalStatus= null ;
+    ResourcesPhysicalStatus[] vResourcesPhysicalStatus= null ;
 
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // resourcesPhysicalStatus vresourcesPhysicalStatus = new resourcesPhysicalStatus();
+    // resourcesPhysicalStatus vResourcesPhysicalStatus = new resourcesPhysicalStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ public class Loads extends LoadsBase {
         
         numberOfInstances = configuration.number;
         loads = new Load[numberOfInstances];  
-        vresourcesPhysicalStatus= new resourcesPhysicalStatus[numberOfInstances];  
+        vResourcesPhysicalStatus= new ResourcesPhysicalStatus[numberOfInstances];  
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
     }
@@ -53,11 +53,11 @@ public class Loads extends LoadsBase {
            
             for (int i = 0; i < numberOfInstances; i++) {
                 // 1. Create the object instance using the appropriate WebGME code generated Java class.
-                 vresourcesPhysicalStatus[i] = new resourcesPhysicalStatus();
+                 vResourcesPhysicalStatus[i] = new ResourcesPhysicalStatus();
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                   loads[i] = new Load();
                       try {
-						vresourcesPhysicalStatus[i].registerObject(getLRC(), configuration.loads[i].loadInstanceName);
+						vResourcesPhysicalStatus[i].registerObject(getLRC(), configuration.loads[i].loadInstanceName);
 					} catch (ObjectAlreadyRegistered e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -92,45 +92,45 @@ public class Loads extends LoadsBase {
         
         for (int i = 0; i < numberOfInstances; i++) {
             
-            vresourcesPhysicalStatus[i].set_loadInstanceName( configuration.loads[i].loadInstanceName);
-            vresourcesPhysicalStatus[i].set_name( configuration.loads[i].name);
-            vresourcesPhysicalStatus[i].set_type( configuration.loads[i].type);
-            vresourcesPhysicalStatus[i].set_gridNodeId( configuration.loads[i].gNodeId);
-            vresourcesPhysicalStatus[i].set_phases( configuration.loads[i].phase);
-            vresourcesPhysicalStatus[i].set_status( configuration.loads[i].state);
+            vResourcesPhysicalStatus[i].set_loadInstanceName( configuration.loads[i].loadInstanceName);
+            vResourcesPhysicalStatus[i].set_name( configuration.loads[i].name);
+            vResourcesPhysicalStatus[i].set_type( configuration.loads[i].type);
+            vResourcesPhysicalStatus[i].set_gridNodeId( configuration.loads[i].gNodeId);
+            vResourcesPhysicalStatus[i].set_phases( configuration.loads[i].phase);
+            vResourcesPhysicalStatus[i].set_status( configuration.loads[i].state);
 
-            vresourcesPhysicalStatus[i].set_voltage_Real_A( configuration.loads[i].voltageRealA+(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_A(configuration.loads[i].voltageImaginaryA+(float)currentTime);
-            vresourcesPhysicalStatus[i].set_voltage_Real_B( configuration.loads[i].voltageRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_B(configuration.loads[i].voltageImaginaryB);
-            vresourcesPhysicalStatus[i].set_voltage_Real_C( configuration.loads[i].voltageRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_C(configuration.loads[i].voltageImaginaryC);
+            vResourcesPhysicalStatus[i].set_voltage_Real_A( configuration.loads[i].voltageRealA+(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_A(configuration.loads[i].voltageImaginaryA+(float)currentTime);
+            vResourcesPhysicalStatus[i].set_voltage_Real_B( configuration.loads[i].voltageRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_B(configuration.loads[i].voltageImaginaryB);
+            vResourcesPhysicalStatus[i].set_voltage_Real_C( configuration.loads[i].voltageRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_C(configuration.loads[i].voltageImaginaryC);
            
-            vresourcesPhysicalStatus[i].set_current_Real_A( configuration.loads[i].currentRealA+(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_A(configuration.loads[i].currentImaginaryA+(float)currentTime);
-            vresourcesPhysicalStatus[i].set_current_Real_B( configuration.loads[i].currentRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_B(configuration.loads[i].currentImaginaryB);
-            vresourcesPhysicalStatus[i].set_current_Real_C( configuration.loads[i].currentRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_C(configuration.loads[i].currentImaginaryC);
+            vResourcesPhysicalStatus[i].set_current_Real_A( configuration.loads[i].currentRealA+(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_A(configuration.loads[i].currentImaginaryA+(float)currentTime);
+            vResourcesPhysicalStatus[i].set_current_Real_B( configuration.loads[i].currentRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_B(configuration.loads[i].currentImaginaryB);
+            vResourcesPhysicalStatus[i].set_current_Real_C( configuration.loads[i].currentRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_C(configuration.loads[i].currentImaginaryC);
            
-            vresourcesPhysicalStatus[i].set_impedance_Real_A( configuration.loads[i].impedanceRealA); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_A(configuration.loads[i].impedanceImaginaryA);
-            vresourcesPhysicalStatus[i].set_impedance_Real_B( configuration.loads[i].impedanceRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_B(configuration.loads[i].impedanceImaginaryB);
-            vresourcesPhysicalStatus[i].set_impedance_Real_C( configuration.loads[i].impedanceRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_C(configuration.loads[i].impedanceImaginaryC);
+            vResourcesPhysicalStatus[i].set_impedance_Real_A( configuration.loads[i].impedanceRealA); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_A(configuration.loads[i].impedanceImaginaryA);
+            vResourcesPhysicalStatus[i].set_impedance_Real_B( configuration.loads[i].impedanceRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_B(configuration.loads[i].impedanceImaginaryB);
+            vResourcesPhysicalStatus[i].set_impedance_Real_C( configuration.loads[i].impedanceRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_C(configuration.loads[i].impedanceImaginaryC);
 
-            vresourcesPhysicalStatus[i].set_power_Real_A( configuration.loads[i].powerRealA+(float)currentTime*(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_A(configuration.loads[i].powerImaginaryA+(float)currentTime*(float)currentTime);
-            vresourcesPhysicalStatus[i].set_power_Real_B( configuration.loads[i].powerRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_B(configuration.loads[i].powerImaginaryB);
-            vresourcesPhysicalStatus[i].set_power_Real_C( configuration.loads[i].powerRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.loads[i].powerImaginaryC);
+            vResourcesPhysicalStatus[i].set_power_Real_A( configuration.loads[i].powerRealA+(float)currentTime*(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_A(configuration.loads[i].powerImaginaryA+(float)currentTime*(float)currentTime);
+            vResourcesPhysicalStatus[i].set_power_Real_B( configuration.loads[i].powerRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_B(configuration.loads[i].powerImaginaryB);
+            vResourcesPhysicalStatus[i].set_power_Real_C( configuration.loads[i].powerRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.loads[i].powerImaginaryC);
 
 
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vresourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            vResourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     } 

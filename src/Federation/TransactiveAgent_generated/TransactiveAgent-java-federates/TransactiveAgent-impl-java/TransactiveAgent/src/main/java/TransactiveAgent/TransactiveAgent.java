@@ -33,7 +33,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Quote vQuote = new Quote();
-     marketStatus vmarketStatus = new MarketStatus();
+     MarketStatus vMarketStatus = new MarketStatus();
     // Transaction vTransaction = new Transaction();
     //
     ///////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ public class TransactiveAgent extends TransactiveAgentBase {
         // TODO Must register object instances after super(args)
         //
         // vQuote.registerObject(getLRC());
-         vmarketStatus.registerObject(getLRC());
+         vMarketStatus.registerObject(getLRC());
         // vTransaction.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
@@ -196,10 +196,10 @@ private void updateInstancesT(int numberOfInstances) {
             //    vQuote.set_type(<YOUR VALUE HERE >);
             //    vQuote.updateAttributeValues(getLRC(), currentTime);
             //
-                vmarketStatus.set_price(1);
-                vmarketStatus.set_time(2+(int)currentTime);
-                vmarketStatus.set_type("watt");
-                vmarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                vMarketStatus.set_price(1);
+                vMarketStatus.set_time(2+(int)currentTime);
+                vMarketStatus.set_type("watt");
+                vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //    vTransaction.set_accept(<YOUR VALUE HERE >);
             //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
