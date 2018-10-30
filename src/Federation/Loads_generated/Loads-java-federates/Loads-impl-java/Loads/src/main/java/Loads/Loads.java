@@ -24,49 +24,43 @@ public class Loads extends LoadsBase {
     int numberOfInstances;   
     private LoadsConfig configuration;  
     public Load[] loads = null;                                                   
-    ResourcesPhysicalStatus[] vResourcesPhysicalStatus= null ;
-
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
-    //
-    // resourcesPhysicalStatus vResourcesPhysicalStatus = new resourcesPhysicalStatus();
-    //
     ///////////////////////////////////////////////////////////////////////
+    ResourcesPhysicalStatus[] vResourcesPhysicalStatus= null ;
 
     public Loads(LoadsConfig params) throws Exception {
         super(params);
-
         
         this.configuration = params; 
         
         numberOfInstances = configuration.number;
         loads = new Load[numberOfInstances];  
         vResourcesPhysicalStatus= new ResourcesPhysicalStatus[numberOfInstances];  
-     //method to register the number of Instances with RTI
-       registerInstances(numberOfInstances);
+        
+        //method to register the number of Instances with RTI
+        registerInstances(numberOfInstances);
     }
 
-    private void registerInstances(int numberOfInstances ) {
-           // log.trace("registerInstances {}", numberOfInstances);
-            
-           
-            for (int i = 0; i < numberOfInstances; i++) {
-                // 1. Create the object instance using the appropriate WebGME code generated Java class.
-                 vResourcesPhysicalStatus[i] = new ResourcesPhysicalStatus();
-                // 2. Register the object instance with the HLA local runtime component (LRC).
-                  loads[i] = new Load();
-                      try {
-						vResourcesPhysicalStatus[i].registerObject(getLRC(), configuration.loads[i].loadInstanceName);
-					} catch (ObjectAlreadyRegistered e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                      
-                              
-            }
-        }
-        
+	private void registerInstances(int numberOfInstances) {
+		// log.trace("registerInstances {}", numberOfInstances);
+
+		for (int i = 0; i < numberOfInstances; i++) {
+			// 1. Create the object instance using the appropriate WebGME code
+			// generated Java class.
+			vResourcesPhysicalStatus[i] = new ResourcesPhysicalStatus();
+			// 2. Register the object instance with the HLA local runtime
+			// component (LRC).
+			loads[i] = new Load();
+			try {
+				vResourcesPhysicalStatus[i].registerObject(getLRC(), configuration.loads[i].loadInstanceName);
+			} catch (ObjectAlreadyRegistered e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}        
 
     private void checkReceivedSubscriptions() {
 
@@ -126,7 +120,6 @@ public class Loads extends LoadsBase {
             vResourcesPhysicalStatus[i].set_power_Imaginary_B(configuration.loads[i].powerImaginaryB);
             vResourcesPhysicalStatus[i].set_power_Real_C( configuration.loads[i].powerRealC); // this method will be generated as set_<attributeName>
             vResourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.loads[i].powerImaginaryC);
-
 
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
@@ -198,7 +191,6 @@ public class Loads extends LoadsBase {
     }
 
 
-
     private void handleObjectClass(GridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
@@ -209,7 +201,6 @@ public class Loads extends LoadsBase {
          log.info("grid_Voltage_Real_A: " + object.get_grid_Voltage_Real_A());
          log.info("grid_Voltage_Real_B: " + object.get_grid_Voltage_Real_B());
          log.info("grid_Voltage_Real_C: " + object.get_grid_Voltage_Real_C());
-
     }
 
     
