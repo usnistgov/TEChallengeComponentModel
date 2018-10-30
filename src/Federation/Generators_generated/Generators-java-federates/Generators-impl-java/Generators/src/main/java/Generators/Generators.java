@@ -23,7 +23,7 @@ public class Generators extends GeneratorsBase {
     int numberOfInstances;   
     private GeneratorsConfig configuration;  
     public Generator[] generators = null;                                                   
-    resourcesPhysicalStatus[] vresourcesPhysicalStatus= null ;
+    ResourcesPhysicalStatus[] vResourcesPhysicalStatus= null ;
 
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
@@ -40,7 +40,7 @@ public class Generators extends GeneratorsBase {
         
         numberOfInstances = configuration.number;
         generators = new Generator[numberOfInstances];  
-        vresourcesPhysicalStatus= new resourcesPhysicalStatus[numberOfInstances];  
+        vResourcesPhysicalStatus= new ResourcesPhysicalStatus[numberOfInstances];  
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
     }
@@ -51,11 +51,11 @@ public class Generators extends GeneratorsBase {
            
             for (int i = 0; i < numberOfInstances; i++) {
                 // 1. Create the object instance using the appropriate WebGME code generated Java class.
-                 vresourcesPhysicalStatus[i] = new resourcesPhysicalStatus();
+                 vResourcesPhysicalStatus[i] = new ResourcesPhysicalStatus();
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                   generators[i] = new Generator();
                       try {
-						vresourcesPhysicalStatus[i].registerObject(getLRC(), configuration.generators[i].loadInstanceName);
+						vResourcesPhysicalStatus[i].registerObject(getLRC(), configuration.generators[i].loadInstanceName);
 					} catch (ObjectAlreadyRegistered e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -72,11 +72,11 @@ public class Generators extends GeneratorsBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof gridVoltageState) {
-                handleObjectClass((gridVoltageState) object);
+            if (object instanceof GridVoltageState) {
+                handleObjectClass((GridVoltageState) object);
             }
-            else if (object instanceof resourceControl) {
-                handleObjectClass((resourceControl) object);
+            else if (object instanceof ResourceControl) {
+                handleObjectClass((ResourceControl) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -90,45 +90,45 @@ public class Generators extends GeneratorsBase {
         
         for (int i = 0; i < numberOfInstances; i++) {
             
-            vresourcesPhysicalStatus[i].set_loadInstanceName( configuration.generators[i].loadInstanceName);
-            vresourcesPhysicalStatus[i].set_name( configuration.generators[i].name);
-            vresourcesPhysicalStatus[i].set_type( configuration.generators[i].type);
-            vresourcesPhysicalStatus[i].set_gridNodeId( configuration.generators[i].gNodeId);
-            vresourcesPhysicalStatus[i].set_phases( configuration.generators[i].phase);
-            vresourcesPhysicalStatus[i].set_status( configuration.generators[i].state);
+            vResourcesPhysicalStatus[i].set_loadInstanceName( configuration.generators[i].loadInstanceName);
+            vResourcesPhysicalStatus[i].set_name( configuration.generators[i].name);
+            vResourcesPhysicalStatus[i].set_type( configuration.generators[i].type);
+            vResourcesPhysicalStatus[i].set_gridNodeId( configuration.generators[i].gNodeId);
+            vResourcesPhysicalStatus[i].set_phases( configuration.generators[i].phase);
+            vResourcesPhysicalStatus[i].set_status( configuration.generators[i].state);
 
-            vresourcesPhysicalStatus[i].set_voltage_Real_A( configuration.generators[i].voltageRealA+(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_A(configuration.generators[i].voltageImaginaryA+(float)currentTime);
-            vresourcesPhysicalStatus[i].set_voltage_Real_B( configuration.generators[i].voltageRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_B(configuration.generators[i].voltageImaginaryB);
-            vresourcesPhysicalStatus[i].set_voltage_Real_C( configuration.generators[i].voltageRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_voltage_Imaginary_C(configuration.generators[i].voltageImaginaryC);
+            vResourcesPhysicalStatus[i].set_voltage_Real_A( configuration.generators[i].voltageRealA+(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_A(configuration.generators[i].voltageImaginaryA+(float)currentTime);
+            vResourcesPhysicalStatus[i].set_voltage_Real_B( configuration.generators[i].voltageRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_B(configuration.generators[i].voltageImaginaryB);
+            vResourcesPhysicalStatus[i].set_voltage_Real_C( configuration.generators[i].voltageRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_voltage_Imaginary_C(configuration.generators[i].voltageImaginaryC);
            
-            vresourcesPhysicalStatus[i].set_current_Real_A( configuration.generators[i].currentRealA+(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_A(configuration.generators[i].currentImaginaryA+(float)currentTime);
-            vresourcesPhysicalStatus[i].set_current_Real_B( configuration.generators[i].currentRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_B(configuration.generators[i].currentImaginaryB);
-            vresourcesPhysicalStatus[i].set_current_Real_C( configuration.generators[i].currentRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_current_Imaginary_C(configuration.generators[i].currentImaginaryC);
+            vResourcesPhysicalStatus[i].set_current_Real_A( configuration.generators[i].currentRealA+(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_A(configuration.generators[i].currentImaginaryA+(float)currentTime);
+            vResourcesPhysicalStatus[i].set_current_Real_B( configuration.generators[i].currentRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_B(configuration.generators[i].currentImaginaryB);
+            vResourcesPhysicalStatus[i].set_current_Real_C( configuration.generators[i].currentRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_current_Imaginary_C(configuration.generators[i].currentImaginaryC);
            
-            vresourcesPhysicalStatus[i].set_impedance_Real_A( configuration.generators[i].impedanceRealA); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_A(configuration.generators[i].impedanceImaginaryA);
-            vresourcesPhysicalStatus[i].set_impedance_Real_B( configuration.generators[i].impedanceRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_B(configuration.generators[i].impedanceImaginaryB);
-            vresourcesPhysicalStatus[i].set_impedance_Real_C( configuration.generators[i].impedanceRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_impedance_Imaginary_C(configuration.generators[i].impedanceImaginaryC);
+            vResourcesPhysicalStatus[i].set_impedance_Real_A( configuration.generators[i].impedanceRealA); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_A(configuration.generators[i].impedanceImaginaryA);
+            vResourcesPhysicalStatus[i].set_impedance_Real_B( configuration.generators[i].impedanceRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_B(configuration.generators[i].impedanceImaginaryB);
+            vResourcesPhysicalStatus[i].set_impedance_Real_C( configuration.generators[i].impedanceRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_impedance_Imaginary_C(configuration.generators[i].impedanceImaginaryC);
 
-            vresourcesPhysicalStatus[i].set_power_Real_A( configuration.generators[i].powerRealA+(float)currentTime*(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_A(configuration.generators[i].powerImaginaryA+(float)currentTime*(float)currentTime);
-            vresourcesPhysicalStatus[i].set_power_Real_B( configuration.generators[i].powerRealB); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_B(configuration.generators[i].powerImaginaryB);
-            vresourcesPhysicalStatus[i].set_power_Real_C( configuration.generators[i].powerRealC); // this method will be generated as set_<attributeName>
-            vresourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.generators[i].powerImaginaryC);
+            vResourcesPhysicalStatus[i].set_power_Real_A( configuration.generators[i].powerRealA+(float)currentTime*(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_A(configuration.generators[i].powerImaginaryA+(float)currentTime*(float)currentTime);
+            vResourcesPhysicalStatus[i].set_power_Real_B( configuration.generators[i].powerRealB); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_B(configuration.generators[i].powerImaginaryB);
+            vResourcesPhysicalStatus[i].set_power_Real_C( configuration.generators[i].powerRealC); // this method will be generated as set_<attributeName>
+            vResourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.generators[i].powerImaginaryC);
 
 
 
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vresourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            vResourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     }
@@ -195,7 +195,7 @@ public class Generators extends GeneratorsBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(gridVoltageState object) {
+    private void handleObjectClass(GridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ public class Generators extends GeneratorsBase {
 
     }
 
-    private void handleObjectClass(resourceControl object) {
+    private void handleObjectClass(ResourceControl object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

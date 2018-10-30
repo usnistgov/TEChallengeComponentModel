@@ -22,11 +22,11 @@ public class LocalController extends LocalControllerBase {
     private int numberOfInstances;   
     private LocalControllerConfig configuration;  
     public Lcontroller[] localControl = null;                                                   
-    resourceControl[] vresourceControl= null ;
+    ResourceControl[] vResourceControl= null ;
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // resourceControl vresourceControl = new resourceControl();
+    // resourceControl vResourceControl = new resourceControl();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -36,13 +36,13 @@ public class LocalController extends LocalControllerBase {
         
         numberOfInstances = configuration.numberoflc;
         localControl = new Lcontroller[numberOfInstances];  
-        vresourceControl= new resourceControl[numberOfInstances];  
+        vResourceControl= new ResourceControl[numberOfInstances];  
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vresourceControl.registerObject(getLRC());
+        // vResourceControl.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -54,11 +54,11 @@ public class LocalController extends LocalControllerBase {
            
             for (int i = 0; i < numberOfInstances; i++) {
                 // 1. Create the object instance using the appropriate WebGME code generated Java class.
-                 vresourceControl[i] = new resourceControl();
+                 vResourceControl[i] = new ResourceControl();
                 // 2. Register the object instance with the HLA local runtime component (LRC).
                   localControl[i] = new Lcontroller();
                       
-                  vresourceControl[i].registerObject(getLRC());
+                  vResourceControl[i].registerObject(getLRC());
                     
                       
                               
@@ -71,8 +71,8 @@ public class LocalController extends LocalControllerBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             if (object instanceof SupervisoryControlSignal) {
                 handleObjectClass((SupervisoryControlSignal) object);
@@ -90,41 +90,41 @@ public class LocalController extends LocalControllerBase {
         log.trace("......................updating Local Controller Instances................................................");
              
         for (int i = 0; i < numberOfInstances; i++) {
-            vresourceControl[i].set_actualDemand( configuration.localControl[i].actualDemand);
-            vresourceControl[i].set_locked(configuration.localControl[i].locked);
-            vresourceControl[i].set_loadStatusType( configuration.localControl[i].loadStatusType); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_Resources( configuration.localControl[i].Resources);
+            vResourceControl[i].set_actualDemand( configuration.localControl[i].actualDemand);
+            vResourceControl[i].set_locked(configuration.localControl[i].locked);
+            vResourceControl[i].set_loadStatusType( configuration.localControl[i].loadStatusType); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_Resources( configuration.localControl[i].Resources);
             
-            vresourceControl[i].set_activePowerCurve( configuration.localControl[i].activePowerCurve);
-            vresourceControl[i].set_adjustedFullDRPower( configuration.localControl[i].adjustedFullDRPower);
-            vresourceControl[i].set_adjustedNoDRPower( configuration.localControl[i].adjustedNoDRPower);
+            vResourceControl[i].set_activePowerCurve( configuration.localControl[i].activePowerCurve);
+            vResourceControl[i].set_adjustedFullDRPower( configuration.localControl[i].adjustedFullDRPower);
+            vResourceControl[i].set_adjustedNoDRPower( configuration.localControl[i].adjustedNoDRPower);
 
-            vresourceControl[i].set_maximumReactivePower( configuration.localControl[i].maximumReactivePower+(float)currentTime); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_maximumRealPower(configuration.localControl[i].maximumRealPower);
+            vResourceControl[i].set_maximumReactivePower( configuration.localControl[i].maximumReactivePower+(float)currentTime); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_maximumRealPower(configuration.localControl[i].maximumRealPower);
 
-            vresourceControl[i].set_downBeginRamp( configuration.localControl[i].downBeginRamp); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_downDuration(configuration.localControl[i].downDuration);
-            vresourceControl[i].set_downRampToCompletion( configuration.localControl[i].downRampToCompletion); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_downRate(configuration.localControl[i].downRate);
+            vResourceControl[i].set_downBeginRamp( configuration.localControl[i].downBeginRamp); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_downDuration(configuration.localControl[i].downDuration);
+            vResourceControl[i].set_downRampToCompletion( configuration.localControl[i].downRampToCompletion); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_downRate(configuration.localControl[i].downRate);
                                  
-            vresourceControl[i].set_reactiveDesiredFractionOfFullRatedOutputBegin( configuration.localControl[i].reactiveDesiredFractionOfFullRatedOutputBegin); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_reactiveDesiredFractionOfFullRatedOutputEnd(configuration.localControl[i].reactiveDesiredFractionOfFullRatedOutputEnd);
-            vresourceControl[i].set_reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin( configuration.localControl[i].reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd(configuration.localControl[i].reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd);
+            vResourceControl[i].set_reactiveDesiredFractionOfFullRatedOutputBegin( configuration.localControl[i].reactiveDesiredFractionOfFullRatedOutputBegin); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_reactiveDesiredFractionOfFullRatedOutputEnd(configuration.localControl[i].reactiveDesiredFractionOfFullRatedOutputEnd);
+            vResourceControl[i].set_reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin( configuration.localControl[i].reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd(configuration.localControl[i].reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd);
            
-            vresourceControl[i].set_realDesiredFractionOfFullRatedOutputBegin( configuration.localControl[i].realDesiredFractionOfFullRatedOutputBegin); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_realDesiredFractionOfFullRatedOutputEnd(configuration.localControl[i].realDesiredFractionOfFullRatedOutputEnd);
-            vresourceControl[i].set_realRequiredFractionOfFullRatedInputPowerDrawnBegin( configuration.localControl[i].realRequiredFractionOfFullRatedInputPowerDrawnBegin); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_realRequiredFractionOfFullRatedInputPowerDrawnEnd(configuration.localControl[i].realRequiredFractionOfFullRatedInputPowerDrawnEnd);
+            vResourceControl[i].set_realDesiredFractionOfFullRatedOutputBegin( configuration.localControl[i].realDesiredFractionOfFullRatedOutputBegin); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_realDesiredFractionOfFullRatedOutputEnd(configuration.localControl[i].realDesiredFractionOfFullRatedOutputEnd);
+            vResourceControl[i].set_realRequiredFractionOfFullRatedInputPowerDrawnBegin( configuration.localControl[i].realRequiredFractionOfFullRatedInputPowerDrawnBegin); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_realRequiredFractionOfFullRatedInputPowerDrawnEnd(configuration.localControl[i].realRequiredFractionOfFullRatedInputPowerDrawnEnd);
             
-            vresourceControl[i].set_upBeginRamp( configuration.localControl[i].upBeginRamp); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_upDuration(configuration.localControl[i].upDuration);
-            vresourceControl[i].set_upRampToCompletion( configuration.localControl[i].upRampToCompletion); // this method will be generated as set_<attributeName>
-            vresourceControl[i].set_upRate(configuration.localControl[i].upRate);
+            vResourceControl[i].set_upBeginRamp( configuration.localControl[i].upBeginRamp); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_upDuration(configuration.localControl[i].upDuration);
+            vResourceControl[i].set_upRampToCompletion( configuration.localControl[i].upRampToCompletion); // this method will be generated as set_<attributeName>
+            vResourceControl[i].set_upRate(configuration.localControl[i].upRate);
             
 
            // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
-            vresourceControl[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            vResourceControl[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
             
         }
     } 
