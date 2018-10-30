@@ -1,16 +1,27 @@
 {
   "federateTypesAllowed": [
+    "Database",
+    "Generators",
     "Grid",
     "Loads",
     "LocalController",
-    "supervisoryController",
-    "TransactiveAgent",
+    "Market",
     "Metronome",
-    "Weather",
-    "Database"
+    "Storage",
+    "SupervisoryController",
+    "TransactiveAgent",
+    "Weather"
   ],
   "expectedFederates": [
     {
+      "federateType": "Database",
+      "count": 1
+    },
+    {
+      "federateType": "Generators",
+      "count": 1
+    },
+    {
       "federateType": "Grid",
       "count": 1
     },
@@ -22,13 +33,8 @@
       "federateType": "LocalController",
       "count": 1
     },
-
     {
-      "federateType": "supervisoryController",
-      "count": 1
-    },
-    {
-      "federateType": "TransactiveAgent",
+      "federateType": "Market",
       "count": 1
     },
     {
@@ -36,15 +42,31 @@
       "count": 1
     },
     {
-      "federateType": "Weather",
+      "federateType": "Storage",
       "count": 1
     },
     {
-      "federateType": "Database",
+      "federateType": "SupervisoryController",
+      "count": 1
+    },
+    {
+      "federateType": "TransactiveAgent",
+      "count": 1
+    },
+    {
+      "federateType": "Weather",
       "count": 1
     }
-],
+  ],
   "lateJoinerFederates": [
+    {
+      "federateType": "Database",
+      "count": 0
+    },
+    {
+      "federateType": "Generators",
+      "count": 0
+    },
     {
       "federateType": "Grid",
       "count": 0
@@ -58,11 +80,7 @@
       "count": 0
     },
     {
-      "federateType": "supervisoryController",
-      "count": 0
-    },
-    {
-      "federateType": "TransactiveAgent",
+      "federateType": "Market",
       "count": 0
     },
     {
@@ -70,11 +88,19 @@
       "count": 0
     },
     {
-      "federateType": "Weather",
+      "federateType": "Storage",
       "count": 0
     },
     {
-      "federateType": "Database",
+      "federateType": "SupervisoryController",
+      "count": 0
+    },
+    {
+      "federateType": "TransactiveAgent",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
       "count": 0
     }
   ]
