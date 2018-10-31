@@ -4,5 +4,5 @@
   "federationId": "TEChallenge",
   "isLateJoiner": false,
   "lookAhead": 0.1,
-  "stepSize": 1.0
+  "stepSize": 5.0
 }
