@@ -1,14 +1,26 @@
 {
   "federateTypesAllowed": [
+    "Database",
+    "Generators",
     "Grid",
     "Loads",
     "LocalController",
-    "supervisoryController",
-    "TransactiveAgent",
+    "Market",
     "Metronome",
-	"Database"
+    "Storage",
+    "SupervisoryController",
+    "TransactiveAgent",
+    "Weather"
   ],
   "expectedFederates": [
+    {
+      "federateType": "Database",
+      "count": 1
+    },
+    {
+      "federateType": "Generators",
+      "count": 1
+    },
     {
       "federateType": "Grid",
       "count": 1
@@ -21,9 +33,20 @@
       "federateType": "LocalController",
       "count": 1
     },
-
     {
-      "federateType": "supervisoryController",
+      "federateType": "Market",
+      "count": 1
+    },
+    {
+      "federateType": "Metronome",
+      "count": 1
+    },
+    {
+      "federateType": "Storage",
+      "count": 1
+    },
+    {
+      "federateType": "SupervisoryController",
       "count": 1
     },
     {
@@ -31,19 +54,19 @@
       "count": 1
     },
     {
-      "federateType": "Metronome",
-      "count": 1
-    },
-    {
       "federateType": "Weather",
       "count": 1
-    },
+    }
+  ],
+  "lateJoinerFederates": [
     {
       "federateType": "Database",
-      "count": 1
-    }
-],
-  "lateJoinerFederates": [
+      "count": 0
+    },
+    {
+      "federateType": "Generators",
+      "count": 0
+    },
     {
       "federateType": "Grid",
       "count": 0
@@ -57,7 +80,7 @@
       "count": 0
     },
     {
-      "federateType": "supervisoryController",
+      "federateType": "Market",
       "count": 0
     },
     {
@@ -65,11 +88,19 @@
       "count": 0
     },
     {
-      "federateType": "Weather",
+      "federateType": "Storage",
       "count": 0
     },
     {
-      "federateType": "Database",
+      "federateType": "SupervisoryController",
+      "count": 0
+    },
+    {
+      "federateType": "TransactiveAgent",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
       "count": 0
     }
   ]

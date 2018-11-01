@@ -1,10 +1,10 @@
 {
 	"federateRTIInitWaitTimeMs": 200,
-	"federateType": "supervisoryController",
+	"federateType": "TransactiveAgent",
 	"federationId": "FedManager",
 	"isLateJoiner": false,
 	"lookAhead": 0.1,
-	"stepSize": 20.0,
+	"stepSize": 25.0,
     "numberofta":3,
 	 
      "quotes":[
