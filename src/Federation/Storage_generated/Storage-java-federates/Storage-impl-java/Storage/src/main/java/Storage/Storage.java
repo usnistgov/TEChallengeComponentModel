@@ -32,14 +32,15 @@ public class Storage extends StorageBase {
     //
     ///////////////////////////////////////////////////////////////////////
 
-    public Storage(FederateConfig params) throws Exception {
+    public Storage(StorageConfig params) throws Exception {
         super(params);
 
-        this.configuration = (StorageConfig) params; 
+        this.configuration =  params; 
         
         numberOfInstances = configuration.number;
         stores = new Store[numberOfInstances];  
         vResourcesPhysicalStatus= new ResourcesPhysicalStatus[numberOfInstances];  
+        
      //method to register the number of Instances with RTI
        registerInstances(numberOfInstances);
     }
@@ -246,7 +247,7 @@ public class Storage extends StorageBase {
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
-            FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
+            StorageConfig federateConfig = federateConfigParser.parseArgs(args, StorageConfig.class);
             Storage federate = new Storage(federateConfig);
             federate.execute();
             log.info("Done.");

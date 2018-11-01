@@ -4,5 +4,394 @@
   "federationId": "TEChallenge",
   "isLateJoiner": false,
   "lookAhead": "0.2",
-  "stepSize": "1.0"
+  "stepSize": "1.0",
+  "number": 10,
+
+	"generators": [{
+		"gNodeId": "1",
+		  "name": "node1",
+            "state":true,
+            "phase": "AN",
+            "type": "Z",
+            "loadInstanceName": "generator1",
+            "name": "nameattribute1",
+
+            "currentImaginaryA": 10,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 11,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 100,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":101,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":1000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":1001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":10000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":10001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+		{
+			"gNodeId": "2",
+			 "name": "node2",
+            "state":false,
+            "phase": "AN",
+             "type": "Y",
+             "loadInstanceName": "generator2",
+              "name": "nameattribute2",
+
+            "currentImaginaryA": 20,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 21,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 200,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":201,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":2000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":2001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":20000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":20001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+		{
+			"gNodeId": "3",
+			 "name": "node3",
+            "state":true,
+            "phase": "AN",
+             "type": "X",
+             "loadInstanceName": "generator3",
+              "name": "nameattribute3",
+
+            "currentImaginaryA": 30,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 31,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 300,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":301,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":3000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":3001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":30000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":30001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+		{
+			"gNodeId": "4",
+			 "name": "node4",
+            "state":false,
+            "phase": "AN",
+             "type": "W",
+             "loadInstanceName": "generator4",
+              "name": "nameattribute4",
+
+            "currentImaginaryA": 40,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 41,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 400,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":401,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":4000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":4001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":40000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":40001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+		{
+			"gNodeId": "5",
+			 "name": "node5",
+            "state":true,
+            "phase": "AN",
+             "type": "V",
+             "loadInstanceName": "generator5",
+              "name": "nameattribute5",
+
+            "currentImaginaryA": 50,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 51,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 500,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":501,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":5000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":5001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":50000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":50001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+		{
+			"gNodeId": "6",
+			 "name": "node6",
+            "state":false,
+            "phase": "AN",
+             "type": "U",
+             "loadInstanceName": "generator6",
+              "name": "nameattribute6",
+
+            "currentImaginaryA": 60,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 61,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 600,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":601,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":6000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":6001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":60000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":60001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+
+       {
+			"gNodeId": "7",
+			 "name": "node7",
+            "state":true,
+            "phase": "AN",
+             "type": "T",
+             "loadInstanceName": "generator7",
+              "name": "nameattribute7",
+
+            "currentImaginaryA": 70,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 71,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 700,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":701,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":7000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":7001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":70000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":70001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+
+
+
+		{
+			"gNodeId": "8",
+			 "name": "node8",
+            "state":false,
+            "phase": "AN",
+             "type": "S",
+             "loadInstanceName": "generator8",
+              "name": "nameattribute8",
+
+            "currentImaginaryA": 80,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 81,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 800,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":801,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":8000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":8001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":80000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":80001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+		{
+			"gNodeId": "9",
+			 "name": "node9",
+            "state":true,
+            "phase": "AN",
+             "type": "R",
+             "loadInstanceName": "generator9",
+              "name": "nameattribute9",
+
+            "currentImaginaryA": 90,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 91,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 900,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":901,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":9000,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":9001,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":90000,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":90001,
+            "voltageRealB":0,
+            "voltageRealC":0
+		},
+
+
+
+
+		{
+			"gNodeId": "10",
+			 "name": "node10",
+            "state":false,
+            "phase": "AN",
+             "type": "Q",
+             "loadInstanceName": "generator10",
+              "name": "nameattribute10",
+
+            "currentImaginaryA": 0,
+            "currentImaginaryB": 0,
+            "currentImaginaryC":0,
+            "currentRealA": 1,
+            "currentRealB": 0,
+            "currentRealC":0,
+   
+            "impedanceImaginaryA": 0,
+            "impedanceImaginaryB": 0,
+            "impedanceImaginaryC":0,
+            "impedanceRealA":1,
+            "impedanceRealB":0,
+            "impedanceRealC":0,
+           
+            "powerImaginaryA":0,
+            "powerImaginaryB":0,
+            "powerImaginaryC":0,
+            "powerRealA":1,
+            "powerRealB":0,
+            "powerRealC":0,
+            
+            "voltageImaginaryA":0,
+            "voltageImaginaryB":0,
+            "voltageImaginaryC":0,
+            "voltageRealA":1,
+            "voltageRealB":0,
+            "voltageRealC":0
+		}
+		
+	]
 }
