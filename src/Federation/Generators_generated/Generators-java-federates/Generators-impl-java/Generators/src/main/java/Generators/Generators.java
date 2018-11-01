@@ -125,11 +125,8 @@ public class Generators extends GeneratorsBase {
             vResourcesPhysicalStatus[i].set_power_Real_C( configuration.generators[i].powerRealC); // this method will be generated as set_<attributeName>
             vResourcesPhysicalStatus[i].set_power_Imaginary_C(configuration.generators[i].powerImaginaryC);
 
-
-
             // 2. Publish the updates to HLA for the next logical time step (currentTime has already been incremented)
             vResourcesPhysicalStatus[i].updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            
         }
     }
 
@@ -169,6 +166,7 @@ public class Generators extends GeneratorsBase {
         while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
+            
             updateInstances(numberOfInstances);
 
             checkReceivedSubscriptions();
