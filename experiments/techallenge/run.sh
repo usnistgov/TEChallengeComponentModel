@@ -46,17 +46,17 @@ logtofile="-l "
 #paths to executables
 ##################################
 #project federates
-pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TEChallenge_deployment
-pathtofederate_Grid=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
-pathtofederate_Loads=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
-pathtofederate_LocalController=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
-pathtofederate_SupervisoryController=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/SupervisoryController_generated/SupervisoryController-java-federates/SupervisoryController-impl-java/SupervisoryController/target
-pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
+pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/TEChallenge_deployment
+pathtofederate_Grid=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
+pathtofederate_Loads=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
+pathtofederate_LocalController=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
+pathtofederate_SupervisoryController=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/SupervisoryController_generated/SupervisoryController-java-federates/SupervisoryController-impl-java/SupervisoryController/target
+pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
 
 
-pathtofederate_Market=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Market_generated/Market-java-federates/Market-impl-java/Market/target
-pathtofederate_Storage=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Storage_generated/Storage-java-federates/Storage-impl-java/Storage/target
-pathtofederate_Generators=/home/vagrant/Projects/TEChallengeComponentModel/src/Federation/Generators_generated/Generators-java-federates/Generators-impl-java/Generators/target
+pathtofederate_Market=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Market_generated/Market-java-federates/Market-impl-java/Market/target
+pathtofederate_Storage=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Storage_generated/Storage-java-federates/Storage-impl-java/Storage/target
+pathtofederate_Generators=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Generators_generated/Generators-java-federates/Generators-impl-java/Generators/target
 
 
 

@@ -46,17 +46,17 @@ logtofile="-l "
 #paths to executables
 ##################################
 #project federates
-pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/TEChallenge_deployment
-pathtofederate_Grid=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
-pathtofederate_Loads=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
-pathtofederate_LocalController=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
-pathtofederate_SupervisoryController=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/SupervisoryController_generated/SupervisoryController-java-federates/SupervisoryController-impl-java/SupervisoryController/target
-pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
+pathtofederate_fedmanager=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/TEChallenge_deployment
+pathtofederate_Grid=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/Grid_generated/Grid-java-federates/Grid-impl-java/Grid/target
+pathtofederate_Loads=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/Loads_generated/Loads-java-federates/Loads-impl-java/Loads/target
+pathtofederate_LocalController=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/LocalController_generated/LocalController-java-federates/LocalController-impl-java/LocalController/target
+pathtofederate_SupervisoryController=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/SupervisoryController_generated/SupervisoryController-java-federates/SupervisoryController-impl-java/SupervisoryController/target
+pathtofederate_TransactiveAgent=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/TransactiveAgent_generated/TransactiveAgent-java-federates/TransactiveAgent-impl-java/TransactiveAgent/target
 
 
-pathtofederate_Market=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Market_generated/Market-java-federates/Market-impl-java/Market/target
-pathtofederate_Storage=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Storage_generated/Storage-java-federates/Storage-impl-java/Storage/target
-pathtofederate_Generators=/home/vagrant/Projects/TEChallengeComponentModel/src/canonical/Generators_generated/Generators-java-federates/Generators-impl-java/Generators/target
+pathtofederate_Market=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/Market_generated/Market-java-federates/Market-impl-java/Market/target
+pathtofederate_Storage=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/Storage_generated/Storage-java-federates/Storage-impl-java/Storage/target
+pathtofederate_Generators=/home/vagrant/Projects/TEChallengeComponentModel/src/uceftesp/Generators_generated/Generators-java-federates/Generators-impl-java/Generators/target
 
 
 
@@ -112,8 +112,8 @@ printf "\n"
 ##################################
 # run the library federates
 ##################################
-cd $pathtofederate_GridlabD
-xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
+#cd $pathtofederate_GridlabD
+#xterm -fg red       -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log              -T "Gridlabd"              -geometry 140x40+200+20 -e "java  -Dlog4j.configurationFile=$LOG4J -jar gridlabd-federate-0.1.0-SNAPSHOT.jar  GridlabD.json" &
 cd $pathtofederate_Metronome
 xterm -fg red       -bg black -l -lf $logs_directory/metronome-${timestamp}.log             -T "Metronome"             -geometry 140x40+200+40 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Metronome-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=MetronomeConfig.json" &
 cd $pathtofederate_Weather
@@ -125,8 +125,8 @@ xterm -fg lightblue -bg black -l -lf $logs_directory/database-${timestamp}.log  
 ##################################
 # run the other federates
 ##################################
-#cd $pathtofederate_Grid
-#xterm -fg green     -bg black -l -lf $logs_directory/Grid-${timestamp}.log                  -T "Grid"                  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
+cd $pathtofederate_Grid
+xterm -fg green     -bg black -l -lf $logs_directory/Grid-${timestamp}.log                  -T "Grid"                  -geometry 140x40+180+60 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Grid-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/GridConfig.json" &
 cd $pathtofederate_Loads
 xterm -fg yellow    -bg black -l -lf $logs_directory/Loads-${timestamp}.log                 -T "Loads"                 -geometry 140x40+180+80 -e "java  -Dlog4j.configurationFile=$LOG4J -jar Loads-0.1.0-SNAPSHOT.jar  -federationId=TEChallenge -configFile=conf/LoadsConfig.json" &
 cd $pathtofederate_LocalController
