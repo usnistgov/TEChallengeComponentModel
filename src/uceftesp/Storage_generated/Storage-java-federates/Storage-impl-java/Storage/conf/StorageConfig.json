@@ -1,0 +1,8 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Storage",
+  "federationId": "Storage",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0
+}
