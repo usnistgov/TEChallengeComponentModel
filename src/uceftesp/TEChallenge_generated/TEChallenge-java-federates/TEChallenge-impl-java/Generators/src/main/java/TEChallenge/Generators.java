@@ -21,7 +21,7 @@ public class Generators extends GeneratorsBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // resourcesPhysicalStatus vresourcesPhysicalStatus = new resourcesPhysicalStatus();
+    // ResourcesPhysicalStatus vResourcesPhysicalStatus = new ResourcesPhysicalStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ public class Generators extends GeneratorsBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vresourcesPhysicalStatus.registerObject(getLRC());
+        // vResourcesPhysicalStatus.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -42,11 +42,11 @@ public class Generators extends GeneratorsBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof gridVoltageState) {
-                handleObjectClass((gridVoltageState) object);
+            if (object instanceof GridVoltageState) {
+                handleObjectClass((GridVoltageState) object);
             }
-            else if (object instanceof resourceControl) {
-                handleObjectClass((resourceControl) object);
+            else if (object instanceof ResourceControl) {
+                handleObjectClass((ResourceControl) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -94,37 +94,37 @@ public class Generators extends GeneratorsBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vresourcesPhysicalStatus.set_current_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_name(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_power_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_status(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_type(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Imaginary_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_A(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_B(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.set_voltage_Real_C(<YOUR VALUE HERE >);
-            //    vresourcesPhysicalStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vResourcesPhysicalStatus.set_current_Imaginary_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_current_Imaginary_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_current_Imaginary_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_current_Real_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_current_Real_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_current_Real_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_gridNodeId(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Imaginary_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Imaginary_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Imaginary_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Real_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Real_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_impedance_Real_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_loadInstanceName(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_name(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_phases(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Imaginary_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Imaginary_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Imaginary_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Real_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Real_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_power_Real_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_status(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_type(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Imaginary_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Imaginary_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Imaginary_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Real_A(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Real_B(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.set_voltage_Real_C(<YOUR VALUE HERE >);
+            //    vResourcesPhysicalStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,13 +152,13 @@ public class Generators extends GeneratorsBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(gridVoltageState object) {
+    private void handleObjectClass(GridVoltageState object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourceControl object) {
+    private void handleObjectClass(ResourceControl object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

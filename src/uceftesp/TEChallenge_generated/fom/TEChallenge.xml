@@ -8,7 +8,7 @@
         <name>TEChallenge</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2018-09-30</modificationDate>
+        <modificationDate>2018-10-02</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the TEChallenge
@@ -23,6 +23,64 @@
         <objectClass>
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
+            <objectClass>
+                <name>GridVoltageState</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>grid_Voltage_Imaginary_A</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>grid_Voltage_Imaginary_B</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>grid_Voltage_Imaginary_C</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>grid_Voltage_Real_A</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>grid_Voltage_Real_B</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>grid_Voltage_Real_C</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
             <objectClass>
                 <name>MarketStatus</name>
                 <sharing>PublishSubscribe</sharing>
@@ -104,136 +162,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>Tender</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>price</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>quantity</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tenderId</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>timeReference</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>type</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Transaction</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>accept</name>
-                    <dataType>boolean</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tenderId</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>gridVoltageState</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_A</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_B</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_C</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_A</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_B</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_C</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>resourceControl</name>
+                <name>ResourceControl</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
                     <name>Resources</name>
@@ -462,7 +391,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>resourcesPhysicalStatus</name>
+                <name>ResourcesPhysicalStatus</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
                     <name>current_Imaginary_A</name>
@@ -736,7 +665,7 @@
                 </attribute>
             </objectClass>
             <objectClass>
-                <name>supervisoryControlSignal</name>
+                <name>SupervisoryControlSignal</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
                     <name>localControllerName</name>
@@ -750,6 +679,77 @@
                 <attribute>
                     <name>modulationSignal</name>
                     <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
+                <name>Tender</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>price</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>quantity</name>
+                    <dataType>float</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>tenderId</name>
+                    <dataType>int</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>timeReference</name>
+                    <dataType>int</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>type</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
+                <name>Transaction</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>accept</name>
+                    <dataType>boolean</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>tenderId</name>
+                    <dataType>int</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>PublishSubscribe</sharing>
