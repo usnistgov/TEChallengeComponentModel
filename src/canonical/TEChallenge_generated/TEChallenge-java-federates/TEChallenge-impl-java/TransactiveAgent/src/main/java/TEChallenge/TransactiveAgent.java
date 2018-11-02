@@ -23,9 +23,9 @@ public class TransactiveAgent extends TransactiveAgentBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Tender vTender = new Tender();
-    // MarketStatus vMarketStatus = new MarketStatus();
-    // Quote vQuote = new Quote();
     // Transaction vTransaction = new Transaction();
+    // Quote vQuote = new Quote();
+    // MarketStatus vMarketStatus = new MarketStatus();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -36,9 +36,9 @@ public class TransactiveAgent extends TransactiveAgentBase {
         // TODO Must register object instances after super(args)
         //
         // vTender.registerObject(getLRC());
-        // vMarketStatus.registerObject(getLRC());
-        // vQuote.registerObject(getLRC());
         // vTransaction.registerObject(getLRC());
+        // vQuote.registerObject(getLRC());
+        // vMarketStatus.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -124,10 +124,9 @@ public class TransactiveAgent extends TransactiveAgentBase {
             //    vTender.set_type(<YOUR VALUE HERE >);
             //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vMarketStatus.set_price(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_time(<YOUR VALUE HERE >);
-            //    vMarketStatus.set_type(<YOUR VALUE HERE >);
-            //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vTransaction.set_accept(<YOUR VALUE HERE >);
+            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
+            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //    vQuote.set_price(<YOUR VALUE HERE >);
             //    vQuote.set_quantity(<YOUR VALUE HERE >);
@@ -136,9 +135,10 @@ public class TransactiveAgent extends TransactiveAgentBase {
             //    vQuote.set_type(<YOUR VALUE HERE >);
             //    vQuote.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vTransaction.set_accept(<YOUR VALUE HERE >);
-            //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
-            //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vMarketStatus.set_price(<YOUR VALUE HERE >);
+            //    vMarketStatus.set_time(<YOUR VALUE HERE >);
+            //    vMarketStatus.set_type(<YOUR VALUE HERE >);
+            //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 

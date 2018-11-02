@@ -22,10 +22,10 @@ public class Market extends MarketBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // Tender vTender = new Tender();
     // Transaction vTransaction = new Transaction();
     // Quote vQuote = new Quote();
     // MarketStatus vMarketStatus = new MarketStatus();
+    // Tender vTender = new Tender();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -35,10 +35,10 @@ public class Market extends MarketBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vTender.registerObject(getLRC());
         // vTransaction.registerObject(getLRC());
         // vQuote.registerObject(getLRC());
         // vMarketStatus.registerObject(getLRC());
+        // vTender.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -59,7 +59,10 @@ public class Market extends MarketBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof Transaction) {
+            if (object instanceof MarketStatus) {
+                handleObjectClass((MarketStatus) object);
+            }
+            else if (object instanceof Transaction) {
                 handleObjectClass((Transaction) object);
             }
             else if (object instanceof Tender) {
@@ -114,13 +117,6 @@ public class Market extends MarketBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vTender.set_price(<YOUR VALUE HERE >);
-            //    vTender.set_quantity(<YOUR VALUE HERE >);
-            //    vTender.set_tenderId(<YOUR VALUE HERE >);
-            //    vTender.set_timeReference(<YOUR VALUE HERE >);
-            //    vTender.set_type(<YOUR VALUE HERE >);
-            //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            //
             //    vTransaction.set_accept(<YOUR VALUE HERE >);
             //    vTransaction.set_tenderId(<YOUR VALUE HERE >);
             //    vTransaction.updateAttributeValues(getLRC(), currentTime + getLookAhead());
@@ -136,6 +132,13 @@ public class Market extends MarketBase {
             //    vMarketStatus.set_time(<YOUR VALUE HERE >);
             //    vMarketStatus.set_type(<YOUR VALUE HERE >);
             //    vMarketStatus.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //
+            //    vTender.set_price(<YOUR VALUE HERE >);
+            //    vTender.set_quantity(<YOUR VALUE HERE >);
+            //    vTender.set_tenderId(<YOUR VALUE HERE >);
+            //    vTender.set_timeReference(<YOUR VALUE HERE >);
+            //    vTender.set_type(<YOUR VALUE HERE >);
+            //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -166,6 +169,12 @@ public class Market extends MarketBase {
     private void handleInteractionClass(SimTime interaction) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the interaction            //
+        //////////////////////////////////////////////////////////////////////////
+    }
+
+    private void handleObjectClass(MarketStatus object) {
+        //////////////////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
