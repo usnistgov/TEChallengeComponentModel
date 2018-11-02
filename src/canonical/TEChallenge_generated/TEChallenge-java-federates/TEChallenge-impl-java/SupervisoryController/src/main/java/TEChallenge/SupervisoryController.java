@@ -23,7 +23,7 @@ public class SupervisoryController extends SupervisoryControllerBase {
     // TODO Instantiate objects that must be sent every logical time step
     //
     // Tender vTender = new Tender();
-    // supervisoryControlSignal vsupervisoryControlSignal = new supervisoryControlSignal();
+    // SupervisoryControlSignal vSupervisoryControlSignal = new SupervisoryControlSignal();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ public class SupervisoryController extends SupervisoryControllerBase {
         // TODO Must register object instances after super(args)
         //
         // vTender.registerObject(getLRC());
-        // vsupervisoryControlSignal.registerObject(getLRC());
+        // vSupervisoryControlSignal.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -58,8 +58,8 @@ public class SupervisoryController extends SupervisoryControllerBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             else if (object instanceof MarketStatus) {
                 handleObjectClass((MarketStatus) object);
@@ -123,9 +123,9 @@ public class SupervisoryController extends SupervisoryControllerBase {
             //    vTender.set_type(<YOUR VALUE HERE >);
             //    vTender.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
-            //    vsupervisoryControlSignal.set_localControllerName(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.set_modulationSignal(<YOUR VALUE HERE >);
-            //    vsupervisoryControlSignal.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vSupervisoryControlSignal.set_localControllerName(<YOUR VALUE HERE >);
+            //    vSupervisoryControlSignal.set_modulationSignal(<YOUR VALUE HERE >);
+            //    vSupervisoryControlSignal.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -165,7 +165,7 @@ public class SupervisoryController extends SupervisoryControllerBase {
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(ResourcesPhysicalStatus object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

@@ -22,7 +22,7 @@ public class Grid extends GridBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // gridVoltageState vgridVoltageState = new gridVoltageState();
+    // GridVoltageState vGridVoltageState = new GridVoltageState();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ public class Grid extends GridBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vgridVoltageState.registerObject(getLRC());
+        // vGridVoltageState.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -56,8 +56,8 @@ public class Grid extends GridBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -105,13 +105,13 @@ public class Grid extends GridBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_A(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_B(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Imaginary_C(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_A(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_B(<YOUR VALUE HERE >);
-            //    vgridVoltageState.set_grid_Voltage_Real_C(<YOUR VALUE HERE >);
-            //    vgridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vGridVoltageState.set_grid_Voltage_Imaginary_A(<YOUR VALUE HERE >);
+            //    vGridVoltageState.set_grid_Voltage_Imaginary_B(<YOUR VALUE HERE >);
+            //    vGridVoltageState.set_grid_Voltage_Imaginary_C(<YOUR VALUE HERE >);
+            //    vGridVoltageState.set_grid_Voltage_Real_A(<YOUR VALUE HERE >);
+            //    vGridVoltageState.set_grid_Voltage_Real_B(<YOUR VALUE HERE >);
+            //    vGridVoltageState.set_grid_Voltage_Real_C(<YOUR VALUE HERE >);
+            //    vGridVoltageState.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -151,7 +151,7 @@ public class Grid extends GridBase {
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(ResourcesPhysicalStatus object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

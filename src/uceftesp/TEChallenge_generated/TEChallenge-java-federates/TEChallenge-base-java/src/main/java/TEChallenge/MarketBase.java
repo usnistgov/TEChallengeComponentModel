@@ -42,14 +42,6 @@ public class MarketBase extends SynchronizedFederate {
 		// object pubsub
         
         	
-        Tender.publish_price();
-        Tender.publish_quantity();
-        Tender.publish_tenderId();
-        Tender.publish_timeReference();
-        Tender.publish_type();
-        Tender.publish(getLRC());
-        
-        	
         Transaction.publish_accept();
         Transaction.publish_tenderId();
         Transaction.publish(getLRC());
@@ -67,15 +59,15 @@ public class MarketBase extends SynchronizedFederate {
         MarketStatus.publish_time();
         MarketStatus.publish_type();
         MarketStatus.publish(getLRC());
-                
-        	
-        Tender.subscribe_price();
-        Tender.subscribe_quantity();
-        Tender.subscribe_tenderId();
-        Tender.subscribe_timeReference();
-        Tender.subscribe_type();
-        Tender.subscribe(getLRC());
         
+        	
+        Tender.publish_price();
+        Tender.publish_quantity();
+        Tender.publish_tenderId();
+        Tender.publish_timeReference();
+        Tender.publish_type();
+        Tender.publish(getLRC());
+                
         	
         Transaction.subscribe_accept();
         Transaction.subscribe_tenderId();
@@ -88,6 +80,20 @@ public class MarketBase extends SynchronizedFederate {
         Quote.subscribe_timeReference();
         Quote.subscribe_type();
         Quote.subscribe(getLRC());
+        
+        	
+        MarketStatus.subscribe_price();
+        MarketStatus.subscribe_time();
+        MarketStatus.subscribe_type();
+        MarketStatus.subscribe(getLRC());
+        
+        	
+        Tender.subscribe_price();
+        Tender.subscribe_quantity();
+        Tender.subscribe_tenderId();
+        Tender.subscribe_timeReference();
+        Tender.subscribe_type();
+        Tender.subscribe(getLRC());
         	}
         
 	
