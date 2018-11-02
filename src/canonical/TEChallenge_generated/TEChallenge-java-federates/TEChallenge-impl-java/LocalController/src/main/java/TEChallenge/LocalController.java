@@ -21,7 +21,7 @@ public class LocalController extends LocalControllerBase {
     ///////////////////////////////////////////////////////////////////////
     // TODO Instantiate objects that must be sent every logical time step
     //
-    // resourceControl vresourceControl = new resourceControl();
+    // ResourceControl vResourceControl = new ResourceControl();
     //
     ///////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ public class LocalController extends LocalControllerBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vresourceControl.registerObject(getLRC());
+        // vResourceControl.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
@@ -42,11 +42,11 @@ public class LocalController extends LocalControllerBase {
         while ((reflector = getNextObjectReflectorNoWait()) != null) {
             reflector.reflect();
             ObjectRoot object = reflector.getObjectRoot();
-            if (object instanceof supervisoryControlSignal) {
-                handleObjectClass((supervisoryControlSignal) object);
+            if (object instanceof SupervisoryControlSignal) {
+                handleObjectClass((SupervisoryControlSignal) object);
             }
-            else if (object instanceof resourcesPhysicalStatus) {
-                handleObjectClass((resourcesPhysicalStatus) object);
+            else if (object instanceof ResourcesPhysicalStatus) {
+                handleObjectClass((ResourcesPhysicalStatus) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -94,32 +94,32 @@ public class LocalController extends LocalControllerBase {
             ////////////////////////////////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step
             //
-            //    vresourceControl.set_Resources(<YOUR VALUE HERE >);
-            //    vresourceControl.set_activePowerCurve(<YOUR VALUE HERE >);
-            //    vresourceControl.set_actualDemand(<YOUR VALUE HERE >);
-            //    vresourceControl.set_adjustedFullDRPower(<YOUR VALUE HERE >);
-            //    vresourceControl.set_adjustedNoDRPower(<YOUR VALUE HERE >);
-            //    vresourceControl.set_downBeginRamp(<YOUR VALUE HERE >);
-            //    vresourceControl.set_downDuration(<YOUR VALUE HERE >);
-            //    vresourceControl.set_downRampToCompletion(<YOUR VALUE HERE >);
-            //    vresourceControl.set_downRate(<YOUR VALUE HERE >);
-            //    vresourceControl.set_loadStatusType(<YOUR VALUE HERE >);
-            //    vresourceControl.set_locked(<YOUR VALUE HERE >);
-            //    vresourceControl.set_maximumReactivePower(<YOUR VALUE HERE >);
-            //    vresourceControl.set_maximumRealPower(<YOUR VALUE HERE >);
-            //    vresourceControl.set_reactiveDesiredFractionOfFullRatedOutputBegin(<YOUR VALUE HERE >);
-            //    vresourceControl.set_reactiveDesiredFractionOfFullRatedOutputEnd(<YOUR VALUE HERE >);
-            //    vresourceControl.set_reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin(<YOUR VALUE HERE >);
-            //    vresourceControl.set_reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd(<YOUR VALUE HERE >);
-            //    vresourceControl.set_realDesiredFractionOfFullRatedOutputBegin(<YOUR VALUE HERE >);
-            //    vresourceControl.set_realDesiredFractionOfFullRatedOutputEnd(<YOUR VALUE HERE >);
-            //    vresourceControl.set_realRequiredFractionOfFullRatedInputPowerDrawnBegin(<YOUR VALUE HERE >);
-            //    vresourceControl.set_realRequiredFractionOfFullRatedInputPowerDrawnEnd(<YOUR VALUE HERE >);
-            //    vresourceControl.set_upBeginRamp(<YOUR VALUE HERE >);
-            //    vresourceControl.set_upDuration(<YOUR VALUE HERE >);
-            //    vresourceControl.set_upRampToCompletion(<YOUR VALUE HERE >);
-            //    vresourceControl.set_upRate(<YOUR VALUE HERE >);
-            //    vresourceControl.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            //    vResourceControl.set_Resources(<YOUR VALUE HERE >);
+            //    vResourceControl.set_activePowerCurve(<YOUR VALUE HERE >);
+            //    vResourceControl.set_actualDemand(<YOUR VALUE HERE >);
+            //    vResourceControl.set_adjustedFullDRPower(<YOUR VALUE HERE >);
+            //    vResourceControl.set_adjustedNoDRPower(<YOUR VALUE HERE >);
+            //    vResourceControl.set_downBeginRamp(<YOUR VALUE HERE >);
+            //    vResourceControl.set_downDuration(<YOUR VALUE HERE >);
+            //    vResourceControl.set_downRampToCompletion(<YOUR VALUE HERE >);
+            //    vResourceControl.set_downRate(<YOUR VALUE HERE >);
+            //    vResourceControl.set_loadStatusType(<YOUR VALUE HERE >);
+            //    vResourceControl.set_locked(<YOUR VALUE HERE >);
+            //    vResourceControl.set_maximumReactivePower(<YOUR VALUE HERE >);
+            //    vResourceControl.set_maximumRealPower(<YOUR VALUE HERE >);
+            //    vResourceControl.set_reactiveDesiredFractionOfFullRatedOutputBegin(<YOUR VALUE HERE >);
+            //    vResourceControl.set_reactiveDesiredFractionOfFullRatedOutputEnd(<YOUR VALUE HERE >);
+            //    vResourceControl.set_reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin(<YOUR VALUE HERE >);
+            //    vResourceControl.set_reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd(<YOUR VALUE HERE >);
+            //    vResourceControl.set_realDesiredFractionOfFullRatedOutputBegin(<YOUR VALUE HERE >);
+            //    vResourceControl.set_realDesiredFractionOfFullRatedOutputEnd(<YOUR VALUE HERE >);
+            //    vResourceControl.set_realRequiredFractionOfFullRatedInputPowerDrawnBegin(<YOUR VALUE HERE >);
+            //    vResourceControl.set_realRequiredFractionOfFullRatedInputPowerDrawnEnd(<YOUR VALUE HERE >);
+            //    vResourceControl.set_upBeginRamp(<YOUR VALUE HERE >);
+            //    vResourceControl.set_upDuration(<YOUR VALUE HERE >);
+            //    vResourceControl.set_upRampToCompletion(<YOUR VALUE HERE >);
+            //    vResourceControl.set_upRate(<YOUR VALUE HERE >);
+            //    vResourceControl.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //
             //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -147,13 +147,13 @@ public class LocalController extends LocalControllerBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(supervisoryControlSignal object) {
+    private void handleObjectClass(SupervisoryControlSignal object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(resourcesPhysicalStatus object) {
+    private void handleObjectClass(ResourcesPhysicalStatus object) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object                 //
         //////////////////////////////////////////////////////////////////////////

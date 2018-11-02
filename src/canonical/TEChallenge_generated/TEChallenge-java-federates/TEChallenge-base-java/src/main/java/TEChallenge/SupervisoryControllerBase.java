@@ -33,15 +33,15 @@ public class SupervisoryControllerBase extends SynchronizedFederate {
         // interaction pubsub
         
         
-        TMYWeather.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-			TMYWeather.get_handle(), 
-			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
-			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
-		);
         SimTime.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
 			SimTime.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);
+        TMYWeather.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			TMYWeather.get_handle(), 
 			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
 			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
 		);		
@@ -56,43 +56,10 @@ public class SupervisoryControllerBase extends SynchronizedFederate {
         Tender.publish(getLRC());
         
         	
-        supervisoryControlSignal.publish_localControllerName();
-        supervisoryControlSignal.publish_modulationSignal();
-        supervisoryControlSignal.publish(getLRC());
+        SupervisoryControlSignal.publish_localControllerName();
+        SupervisoryControlSignal.publish_modulationSignal();
+        SupervisoryControlSignal.publish(getLRC());
                 
-        	
-        resourcesPhysicalStatus.subscribe_current_Imaginary_A();
-        resourcesPhysicalStatus.subscribe_current_Imaginary_B();
-        resourcesPhysicalStatus.subscribe_current_Imaginary_C();
-        resourcesPhysicalStatus.subscribe_current_Real_A();
-        resourcesPhysicalStatus.subscribe_current_Real_B();
-        resourcesPhysicalStatus.subscribe_current_Real_C();
-        resourcesPhysicalStatus.subscribe_gridNodeId();
-        resourcesPhysicalStatus.subscribe_impedance_Imaginary_A();
-        resourcesPhysicalStatus.subscribe_impedance_Imaginary_B();
-        resourcesPhysicalStatus.subscribe_impedance_Imaginary_C();
-        resourcesPhysicalStatus.subscribe_impedance_Real_A();
-        resourcesPhysicalStatus.subscribe_impedance_Real_B();
-        resourcesPhysicalStatus.subscribe_impedance_Real_C();
-        resourcesPhysicalStatus.subscribe_loadInstanceName();
-        resourcesPhysicalStatus.subscribe_name();
-        resourcesPhysicalStatus.subscribe_phases();
-        resourcesPhysicalStatus.subscribe_power_Imaginary_A();
-        resourcesPhysicalStatus.subscribe_power_Imaginary_B();
-        resourcesPhysicalStatus.subscribe_power_Imaginary_C();
-        resourcesPhysicalStatus.subscribe_power_Real_A();
-        resourcesPhysicalStatus.subscribe_power_Real_B();
-        resourcesPhysicalStatus.subscribe_power_Real_C();
-        resourcesPhysicalStatus.subscribe_status();
-        resourcesPhysicalStatus.subscribe_type();
-        resourcesPhysicalStatus.subscribe_voltage_Imaginary_A();
-        resourcesPhysicalStatus.subscribe_voltage_Imaginary_B();
-        resourcesPhysicalStatus.subscribe_voltage_Imaginary_C();
-        resourcesPhysicalStatus.subscribe_voltage_Real_A();
-        resourcesPhysicalStatus.subscribe_voltage_Real_B();
-        resourcesPhysicalStatus.subscribe_voltage_Real_C();
-        resourcesPhysicalStatus.subscribe(getLRC());
-        
         	
         MarketStatus.subscribe_price();
         MarketStatus.subscribe_time();
@@ -111,6 +78,39 @@ public class SupervisoryControllerBase extends SynchronizedFederate {
         Quote.subscribe_timeReference();
         Quote.subscribe_type();
         Quote.subscribe(getLRC());
+        
+        	
+        ResourcesPhysicalStatus.subscribe_current_Imaginary_A();
+        ResourcesPhysicalStatus.subscribe_current_Imaginary_B();
+        ResourcesPhysicalStatus.subscribe_current_Imaginary_C();
+        ResourcesPhysicalStatus.subscribe_current_Real_A();
+        ResourcesPhysicalStatus.subscribe_current_Real_B();
+        ResourcesPhysicalStatus.subscribe_current_Real_C();
+        ResourcesPhysicalStatus.subscribe_gridNodeId();
+        ResourcesPhysicalStatus.subscribe_impedance_Imaginary_A();
+        ResourcesPhysicalStatus.subscribe_impedance_Imaginary_B();
+        ResourcesPhysicalStatus.subscribe_impedance_Imaginary_C();
+        ResourcesPhysicalStatus.subscribe_impedance_Real_A();
+        ResourcesPhysicalStatus.subscribe_impedance_Real_B();
+        ResourcesPhysicalStatus.subscribe_impedance_Real_C();
+        ResourcesPhysicalStatus.subscribe_loadInstanceName();
+        ResourcesPhysicalStatus.subscribe_name();
+        ResourcesPhysicalStatus.subscribe_phases();
+        ResourcesPhysicalStatus.subscribe_power_Imaginary_A();
+        ResourcesPhysicalStatus.subscribe_power_Imaginary_B();
+        ResourcesPhysicalStatus.subscribe_power_Imaginary_C();
+        ResourcesPhysicalStatus.subscribe_power_Real_A();
+        ResourcesPhysicalStatus.subscribe_power_Real_B();
+        ResourcesPhysicalStatus.subscribe_power_Real_C();
+        ResourcesPhysicalStatus.subscribe_status();
+        ResourcesPhysicalStatus.subscribe_type();
+        ResourcesPhysicalStatus.subscribe_voltage_Imaginary_A();
+        ResourcesPhysicalStatus.subscribe_voltage_Imaginary_B();
+        ResourcesPhysicalStatus.subscribe_voltage_Imaginary_C();
+        ResourcesPhysicalStatus.subscribe_voltage_Real_A();
+        ResourcesPhysicalStatus.subscribe_voltage_Real_B();
+        ResourcesPhysicalStatus.subscribe_voltage_Real_C();
+        ResourcesPhysicalStatus.subscribe(getLRC());
         	}
         
 	
