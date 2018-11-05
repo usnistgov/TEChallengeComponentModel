@@ -34,7 +34,7 @@ public class Grid extends GridBase {
         ///////////////////////////////////////////////////////////////////////
         // TODO Must register object instances after super(args)
         //
-        // vGridVoltageState.registerObject(getLRC());
+        vGridVoltageState.registerObject(getLRC());
         //
         ///////////////////////////////////////////////////////////////////////
     }
