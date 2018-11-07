@@ -1,12 +1,12 @@
 {
     "federateName": "GLDFederate",
-    "federationId": "TestFederation",
-    "fomFilepath": "conf/GridLAB-D.xml",
+    "federationId": "TEChallenge",
+    "fomFilepath": "/home/vagrant/Projects/TEChallengeComponentModel/experiments/gridfactor/Grid.xml",
     "maxReconnectAttempts": 12,
     "waitReconnectMs": 5000,
     "isLateJoiner": false,
     "stepSize": 1.0,
     "lookAhead": 0.1,
-    "modelFilePath": "hla_federate_example.glm",
-    "workingDirectory": "/home/vagrant/ucef-gridlabd/GridLAB-D/model"
+    "modelFilePath": "GridBeta.glm",
+    "workingDirectory": "/home/vagrant/Projects/TEChallengeComponentModel/experiments/gridfactor"
 }
