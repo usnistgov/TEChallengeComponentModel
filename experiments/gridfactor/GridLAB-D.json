@@ -1,5 +1,5 @@
 {
-    "federateName": "GLDFederate",
+    "federateName": "Grid",
     "federationId": "TEChallenge",
     "fomFilepath": "/home/vagrant/Projects/TEChallengeComponentModel/experiments/gridfactor/Grid.xml",
     "maxReconnectAttempts": 12,
