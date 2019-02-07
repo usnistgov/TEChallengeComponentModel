@@ -1,0 +1,12 @@
+{
+    "federateName": "Grid",
+    "federationId": "TE30",
+    "fomFilepath": "conf/Grid.xml",
+    "maxReconnectAttempts": 12,
+    "waitReconnectMs": 5000,
+    "isLateJoiner": false,
+    "stepSize": 1.0,
+    "lookAhead": 0.2,
+    "workingDirectory": "model",
+    "modelFilePath": "TE_Challenge.glm"
+}
