@@ -29,7 +29,7 @@ public class Pypower_loop {
 		int tmax = (Integer) ppc.get("Tmax");
 		int period = (Integer) ppc.get("Period");
 		int dt = (Integer) ppc.get("dt");
-		//make_dictionary(ppc, rootname);
+		////make_dictionary(ppc, rootname);
 		
 		/////////////////////////////////
 		//TODO - create json output files (fncsPYPOWER_isolated.py, line 154):
