@@ -117,8 +117,8 @@ public class SimpleAuction{
 		}else{
 			//System.out.println("## unresp < 0" + " " + this.unresp + " " + this.curve_buyer.count +
 			//		" " + this.curve_buyer.total + " " + this.curve_buyer.total_on + " " + this.curve_buyer.total_off);
-			bw.write("## unresp < 0 " + this.unresp + " " + this.curve_buyer.count +
-					" " + this.curve_buyer.total + " " + this.curve_buyer.total_on + " " + this.curve_buyer.total_off);
+			bw.write("## unresp < 0	" + this.unresp + "	" + this.curve_buyer.count +
+					"	" + this.curve_buyer.total + "	" + this.curve_buyer.total_on + "	" + this.curve_buyer.total_off);
 			bw.newLine();
 			bw.flush();
 		}
@@ -256,9 +256,9 @@ public class SimpleAuction{
 			int j = 0;
 			this.clearing_type = ClearingType.NULL;
 			this.clearing_quantity = this.clearing_price = 0.0;
-			while(i < this.curve_buyer.count && j < this.curve_seller.count && this.curve_buyer.price.get(i) >= this.curve_seller.price.get(i)){
+			while(i < this.curve_buyer.count && j < this.curve_seller.count && this.curve_buyer.price.get(i) >= this.curve_seller.price.get(j)){
 				double buy_quantity = demand_quantity +this.curve_buyer.quantity.get(i);
-				double sell_quantity = supply_quantity + this.curve_seller.quantity.get(i);
+				double sell_quantity = supply_quantity + this.curve_seller.quantity.get(j);
 				// If marginal buyer currently:
 				if(buy_quantity > sell_quantity){
 					this.clearing_quantity = supply_quantity = sell_quantity;
@@ -268,14 +268,14 @@ public class SimpleAuction{
 					this.clearing_type = ClearingType.BUYER;
 				}else if(buy_quantity < sell_quantity){// If marginal seller currently:
 					this.clearing_quantity = demand_quantity = buy_quantity;
-					a = b = this.curve_seller.price.get(i);
-					j += 1;
+					a = b = this.curve_seller.price.get(j);
+					i += 1;
 					check = 0;
 					this.clearing_type = ClearingType.SELLER;
 				}else{// Buy quantity equal sell quantity but price split
 					this.clearing_quantity = demand_quantity = supply_quantity = buy_quantity;
 		            a = this.curve_buyer.price.get(i);
-		            b = this.curve_seller.price.get(i);
+		            b = this.curve_seller.price.get(j);
 		            i += 1;
 		            j += 1;
 		            check = 1;
@@ -430,8 +430,8 @@ public class SimpleAuction{
 		    }else if(this.curve_buyer.count == 0){
 		    	missingBidder = "buyer";
 		    }
-			System.out.println("Market " + this.name + " fails to clear due to missing " + missingBidder);
-			bw.write("Market " + this.name + " fails to clear due to missing " + missingBidder);
+			//System.out.println("Market	" + this.name + "	fails to clear due to missing	" + missingBidder);
+			bw.write("Market	" + this.name + "	fails to clear due to missing	" + missingBidder);
 			bw.newLine();
 			bw.flush();
 		}
@@ -490,9 +490,10 @@ public class SimpleAuction{
 		//		"\nunresponsive sell " + this.unresponsive_sell + "\nresponsive sell " + this.responsive_sell +
 		//		"\nmarginal quantity " + this.marginal_quantity + "\nmarginal frac " + this.marginal_frac +
 		//		"\nlmp " + this.lmp + "\nrefload " + this.refload);
-		bw.write("##" + this.clearing_type + this.clearing_quantity + this.clearing_price + this.curve_buyer.count 
-				+  this.unresponsive_buy + this.responsive_buy + this.curve_seller.count + this.unresponsive_sell 
-				+ this.responsive_sell + this.marginal_quantity + this.marginal_frac + this.lmp + this.refload);
+		bw.write("##	" + this.clearing_type + "	" + this.clearing_quantity + "	" + this.clearing_price + "	" 
+				+ this.curve_buyer.count + "	" +  this.unresponsive_buy + "	" + this.responsive_buy + "	" 
+				+ this.curve_seller.count + "	" + this.unresponsive_sell + "	" + this.responsive_sell + "	" 
+				+ this.marginal_quantity + "	" + this.marginal_frac + "	" + this.lmp + "	" + this.refload);
 		bw.newLine();
 		bw.flush();
 		bw.close();
