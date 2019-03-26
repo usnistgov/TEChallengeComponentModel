@@ -15,15 +15,28 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.opencsv.CSVWriter;
+//PYPOWER solutions under control of FNCS for te30 and sgip1 examples
 
 public class Pypower_loop {
+	//Public function to start PYPOWER solutions under control of FNCS
+
+	//  The time step, maximum time, and other data must be set up in a JSON file.
+	//  This function will run the case under FNCS, manage the FNCS message traffic,
+	//  and shutdown FNCS upon completion. One file is written:
+
+	//  - *rootname.csv*; intermediate solution results during simulation
+
+	//  Args:
+	//    casefile (str): the configuring JSON file name, without extension
+	//    rootname (str): the root filename for metrics output, without extension
+	//	  subscriptions (str): values pypower federate is subscribed to
 	
 	public static void main(String[] args)  throws Exception
 	{
 		//String path = "src/main/resources/";
 		String casefile = "/te30_pp.json";
 		String rootname = "TE_Challenge";
-		String subscriptions = "/pypower_subscriptions1.txt";
+		String subscriptions = "/pypower_subscriptions3.txt";
 		Map<String, Object> ppc = load_json_case(casefile);
 		//String StartTime = (String) ppc.get("StartTime");
 		int tmax = (Integer) ppc.get("Tmax");
@@ -417,6 +430,14 @@ public class Pypower_loop {
 	
 	public static Map<String, Object> load_json_case(String fname) throws Exception
 	{
+		//Helper function to load PYPOWER case from a JSON file
+
+		//  Args:
+		//    fname (str): the JSON file to open
+
+		//  Returns:
+		//    ppc (Map): the loaded PYPOWER case structure
+		    
 		File file = new File(Pypower_loop.class.getResource(fname).toURI());
 		String json = new String(Files.readAllBytes(file.toPath()));
 	    ObjectMapper mapper = new ObjectMapper();
@@ -645,6 +666,14 @@ public class Pypower_loop {
 	}
 	public static List<Float> parse_mva(String arg) throws Exception
 	{
+		//Helper function to parse P+jQ from a FNCS value
+
+		//  Args:
+		//    arg (str): FNCS value in rectangular format
+
+		//  Returns:
+		//    float, float: P [MW] and Q [MVAR]
+		    		
 		float p = 0f;
 		float q = 0f;
 		

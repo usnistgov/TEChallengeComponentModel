@@ -4,8 +4,55 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+//Class that controls the responsive thermostat for one house.
 
+//Implements the ramp bidding method, with HVAC power as the
+//bid quantity, and thermostat setting changes as the response
+//mechanism.
 public class hvac{
+	//This agent manages thermostat setpoint and bidding for a house
+
+    //Args:
+    //    dict: dictionary row for this agent from the JSON configuration file
+    //    key: name of this agent, also key for its dictionary row
+    //    aucObj (simple_auction): the auction this agent bids into
+
+    //Attributes:
+    //    name: name of this agent
+    //    control_mode: control mode from dict (not implemented)
+    //    houseName: name of the corresponding house in GridLAB-D, from dict
+    //    meterName: name of the corresponding triplex_meter in GridLAB-D, from dict
+    //    period: market clearing period, in seconds, from dict
+    //    wakeup_start: hour of the day (0..24) for scheduled weekday wakeup period thermostat setpoint, from dict
+    //    daylight_start: hour of the day (0..24) for scheduled weekday daytime period thermostat setpoint, from dict
+    //    evening_start: hour of the day (0..24) for scheduled weekday evening (return home) period thermostat setpoint, from dict
+    //    night_start: hour of the day (0..24) for scheduled weekday nighttime period thermostat setpoint, from dict
+    //    wakeup_set: preferred thermostat setpoint for the weekday wakeup period, in deg F, from dict
+    //    daylight_set: preferred thermostat setpoint for the weekday daytime period, in deg F, from dict
+    //    evening_set: preferred thermostat setpoint for the weekday evening (return home) period, in deg F, from dict
+    //    night_set: preferred thermostat setpoint for the weekday nighttime period, in deg F, from dict
+    //    weekend_day_start: hour of the day (0..24) for scheduled weekend daytime period thermostat setpoint, from dict
+    //    weekend_day_set: preferred thermostat setpoint for the weekend daytime period, in deg F, from dict
+    //    weekend_night_start: hour of the day (0..24) for scheduled weekend nighttime period thermostat setpoint, from dict
+    //    weekend_night_set: preferred thermostat setpoint for the weekend nighttime period, in deg F, from dict
+    //    deadband: thermostat deadband in deg F, invariant, from dict
+    //    offset_limit: maximum allowed change from the time-scheduled setpoint, in deg F, from dict
+    //    ramp: bidding ramp denominator in multiples of the price standard deviation, from dict
+    //    price_cap: the highest allowed bid price in $/kwh, from dict
+    //    bid_delay: from dict, not implemented
+    //    use_predictive_bidding: from dict, not implemented
+    //    std_dev: standard deviation of expected price, determines the bidding ramp slope, initialized from aucObj
+    //    mean: mean of the expected price, determines the bidding ramp origin, initialized from aucObj
+    //    Trange: the allowed range of setpoint variation, bracketing the preferred time-scheduled setpoint
+    //    air_temp: current air temperature of the house in deg F
+    //    hvac_kw: most recent non-zero HVAC power in kW, this will be the bid quantity
+    //    mtr_v: current line-neutral voltage at the triplex meter
+    //    hvac_on: True if the house HVAC is currently running
+    //    basepoint: the preferred time-scheduled thermostat setpoint in deg F
+    //    setpoint: the thermostat setpoint, including price response, in deg F
+    //    bid_price: the current bid price in $/kwh
+    //    cleared_price: the cleared market price in $/kwh
+        
 	public String name;
 	private String control_mode;
 	private String houseName;
@@ -84,10 +131,23 @@ public class hvac{
 	}
 	
 	public void inform_bid(double price){
+		//Set the cleared_price attribute
+
+        //Args:
+        //    price (float): cleared price in $/kwh
+            
 		this.cleared_price = price;
 	}
 	
 	public boolean bid_accepted(){
+		//Update the thermostat setting if the last bid was accepted
+
+        //The last bid is always "accepted". If it wasn't high enough,
+        //then the thermostat could be turned up.p
+
+        //Returns:
+        //    Boolean: True if the thermostat setting changes, False if not.
+            
 		if(this.std_dev > 0.0){
 			double offset = (this.cleared_price - this.mean) * this.Trange / this.ramp / this.std_dev;
 			if(offset < -this.offset_limit){
@@ -102,6 +162,11 @@ public class hvac{
 	}
 	
 	public List formulate_bid(){
+		//Bid to run the air conditioner through the next period
+        
+        //Returns:
+        //    [double, double, Boolean]: bid price in $/kwh, bid quantity in kW and current HVAC on state
+            
 		double p = this.mean + (this.air_temp - this.basepoint) * this.ramp * this.std_dev / this.Trange;
 		if(p >= this.price_cap){
 			this.bid_price = this.price_cap;
@@ -114,6 +179,15 @@ public class hvac{
 	}
 	
 	public boolean change_basepoint(int hod, int dow){
+		//Updates the time-scheduled thermostat setting
+
+        //Args:
+        //    hod: the hour of the day, from 0 to 24
+        //    dow: the day of the week, zero being Monday
+
+        //Returns:
+        //    Boolean: True if the setting changed, Falso if not
+            
 		double val;
 		if(dow > 4){//a weekend
 			val = this.weekend_night_set;
@@ -138,6 +212,11 @@ public class hvac{
 	}
 	
 	public void set_hvac_load(String str){
+		//Sets the hvac_load attribute, if greater than zero
+
+        //Args:
+        //    str: FNCS message with load in kW
+            
 		double val = parse_fncs_number(str);
 		if(val > 0.0){
 			this.hvac_kw = val;
@@ -145,6 +224,11 @@ public class hvac{
 	}
 	
 	public void set_hvac_state(String str){
+		//Sets the hvac_on attribute
+
+        //Args:
+        //    str: FNCS message with state, ON or OFF
+            
 		if(str.equals("OFF")){
 			this.hvac_on = false;
 		}else{
@@ -153,14 +237,32 @@ public class hvac{
 	}
 	
 	public void set_air_temp(String str){
+		//Sets the air_temp attribute
+
+        //Args:
+        //    str: FNCS message with temperature in degrees Fahrenheit
+            
 		this.air_temp = parse_fncs_number(str);
 	}
 	
 	public void set_voltage(String str){
+		//Sets the mtr_v attribute
+
+        //Args:
+        //    str: FNCS message with meter line-neutral voltage
+            
 		this.mtr_v = parse_fncs_magnitude(str);
 	}
 	
 	public double parse_fncs_number(String arg){
+		//Parse floating-point number from a FNCS message; must not have leading sign or exponential notation
+
+	    //Args:
+	    //    arg: the FNCS string value
+
+	    //Returns:
+	    //    double: the parsed number
+	        
 		String str = "";
 		for(int i=0; i<arg.length(); i++){
 			if(Character.isDigit(arg.charAt(i)) || Character.toString(arg.charAt(i)).equals(".")){
@@ -171,6 +273,14 @@ public class hvac{
 	}
 	
 	public double parse_fncs_magnitude(String arg){
+		//Parse the magnitude of a possibly complex number from FNCS
+
+	    //Args:
+	    //    arg: the FNCS string value
+
+	    //Returns:
+	    //    double: the parsed number, or 0 if parsing fails
+	        
 		String tok = arg.replaceFirst("[+-]", "");
 		tok = tok.replaceAll("[^\\d.+-]", "");
 		ArrayList vals = new ArrayList(Arrays.asList(tok.split("[+-]+")));
