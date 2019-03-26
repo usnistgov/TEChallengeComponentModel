@@ -3,6 +3,18 @@ package com.AuctionMaven;
 import java.util.ArrayList;
 
 public class Curve {
+	//Accumulates a set of price, quantity bids for later aggregation
+
+    //The default order is descending by price.
+
+    //Attributes:
+    //    price: array of prices, in $/kWh
+    //    quantity: array of quantities, in kW
+    //    count: the number of collected bids
+    //    total: the total kW bidding
+    //    total_on: the total kW bidding that are currently on
+    //    total_off: the total kW bidding that are currently off
+	
 	public ArrayList<Double> price;
 	public ArrayList<Double> quantity;
 	public int count;
@@ -19,6 +31,11 @@ public class Curve {
 		this.total_off = 0.0;
 	}
 	public void set_curve_order(String flag){
+		//Set the curve order (by price) to ascending or descending
+
+        //Args:
+        //    flag: 'ascending' or 'descending'
+		
 		if(flag.equals("ascending")){
 			ArrayList<Double> revPrice = new ArrayList<Double>();
 			ArrayList<Double> revQuantity = new ArrayList<Double>();
@@ -33,6 +50,13 @@ public class Curve {
 		}
 	}
 	public void add_to_curve(double price, double quantity, boolean is_on){
+		//Add one point to the curve
+
+        //Args:
+        //    price: the bid price, should be $/kWhr
+        //    quantity: the bid quantity, should be kW
+        //    is_on: True if the load is currently on, False if not
+            
 		int value_insert_flag;
 		if(quantity == 0.0){
 			return;

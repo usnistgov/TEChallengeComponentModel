@@ -12,8 +12,54 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
+//Double-auction mechanism for the 5-minute markets in te30 and sgip1 examples
 
+//The substation_loop module manages one instance of this class per GridLAB-D substation.
+
+//Todo:
+//    * Initialize and update price history statistics
+//    * Allow for adjustment of clearing_scalar
+//    * Handle negative price bids from HVAC agents, currently they are discarded
+//    * Distribute marginal quantities and fractions; these are not currently applied to HVACs
 public class SimpleAuction{
+	//This class implements a simplified version of the double-auction market embedded in GridLAB-D.
+
+    //References:
+    //    `Market Module Overview - Auction <http://gridlab-d.shoutwiki.com/wiki/Market_Auction>`_
+
+    //Args:
+    //    dict: a row from the agent configuration JSON file
+    //    key: the name of this agent, which is the market key from the agent configuration JSON file
+
+    //Attributes:
+    //    name: the name of this auction, also the market key from the configuration JSON file
+    //    std_dev: the historical standard deviation of the price, in $/kwh, from dict
+    //    mean: the historical mean price in $/kwh, from dict
+    //    period: the market clearing period in seconds, from dict
+    //    pricecap: the maximum allowed market clearing price, in $/kwh, from dict
+    //    max_capacity_reference_bid_quantity:
+    //    statistic_mode: always 1, not used, from dict
+    //    stat_mode: always ST_CURR, not used, from dict
+    //    stat_interval: always 86400 seconds, for one day, not used, from dict
+    //    stat_type: always mean and standard deviation, not used, from dict
+    //    stat_value: always zero, not used, from dict
+    //    curve_buyer: data structure to accumulate buyer bids
+    //    curve_seller: data structure to accumulate seller bids
+    //    refload: the latest substation load from GridLAB-D
+    //    lmp: the latest locational marginal price from the bulk system market
+    //    unresp: unresponsive load, i.e., total substation load less the bidding, running HVACs
+    //    agg_unresp: aggregated unresponsive load, i.e., total substation load less the bidding, running HVACs
+    //    agg_resp_max: total load of the bidding HVACs
+    //    agg_deg: degree of the aggregate bid curve polynomial, should be 0 (zero or one bids), 1 (2 bids) or 2 (more bids)
+    //    agg_c2: second-order coefficient of the aggregate bid curve
+    //    agg_c1: first-order coefficient of the aggregate bid curve
+    //    clearing_type (ClearingType): describes the solution type or boundary case for the latest market clearing
+    //    clearing_quantity: quantity at the last market clearing
+    //    clearing_price: price at the last market clearing
+    //    marginal_quantity: quantity of a partially accepted bid
+    //    marginal_frac: fraction of the bid quantity accepted from a marginal buyer or seller 
+    //    clearing_scalar: used for interpolation at boundary cases, always 0.5
+        
 	private String name;
 	public double std_dev;
 	public double mean;
@@ -81,23 +127,47 @@ public class SimpleAuction{
 
 	}
 	public void set_refload(double kw){
+		//Sets the refload attribute
+
+        //Args:
+        //    kw: GridLAB-D substation load in kw
+            
 		this.refload = kw;
 	}
 	public void set_lmp(double lmp){
+		//Sets the lmp attribute
+
+        //Args:
+        //    lmp: locational marginal price from the bulk system market
+            
 		this.lmp = lmp;
 	}
 	public void initAuction(){
+		//Sets the clearing_price and lmp to the mean price
+		
 		this.clearing_price = this.lmp = this.mean;
 	}
 	public void update_statistics(){
+		//Update price history statistics - not implemented
+		
 		int sample_need = 0;
 	}
 	public void clear_bids(){
+		//Re-initializes curve_buyer and curve_seller, sets the unresponsive load estimate to the total substation load.
+		
 		this.curve_buyer = new Curve();
 		this.curve_seller = new Curve();
 		this.unresp = this.refload;
 	}
 	public void collect_bid(List<Object> bid){
+		//Gather HVAC bids into curve_buyer
+
+        //Also adjusts the unresponsive load estimate, by subtracting the HVAC power
+        //if the HVAC is on.
+
+        //Args:
+        //    bid: price in $/kwh, quantity in kW and the HVAC on state
+            
 		double price = (double) bid.get(0);
 		double quantity = (double) bid.get(1);
 		boolean is_on = (boolean) bid.get(2);
@@ -110,6 +180,8 @@ public class SimpleAuction{
 	}
 	public void aggregate_bids() throws Exception
 	{
+		//Aggregates the unresponsive load and responsive load bids for submission to the bulk system market
+		
 		File txtfile = new File(SimpleAuction.class.getResource("/").toURI());
 		BufferedWriter bw = new BufferedWriter(new FileWriter(txtfile + "/" + "simple_auction.txt", true));
 		if(this.unresp > 0){
@@ -133,10 +205,16 @@ public class SimpleAuction{
 		this.agg_c1 = (double) bid.get(4);
 		bw.close();
 	}
-	// aggregates the buyer curve into a quadratic or straight-line fit with zero intercept, returned as
-	// [Qunresp, Qmaxresp, degree, c2, c1]
-	// scaled to MW instead of kW for the opf
+
 	public ArrayList aggregate_bid(Curve crv){
+		//aggregates the buyer curve into a quadratic or straight-line fit with zero intercept
+
+	    //Args:
+	    //    crv: the accumulated buyer bids
+
+	    //Returns:
+	    //    [double, double, int, double, double]: Qunresp, Qmaxresp, degree, c2 and c1 scaled to MW instead of kW. c0 is always zero.
+	        
 		double unresp = 0.0;
 		int idx = 0;
 		List<Double> p = new ArrayList<Double>();
@@ -220,8 +298,18 @@ public class SimpleAuction{
 		return bid;
 	}
 	
-	public void clear_market() throws Exception
+	public void clear_market(int tnext_clear, int time_granted) throws Exception
 	{
+		//Solves for the market clearing price and quantity
+
+        //Uses the current contents of curve_seller and curve_buyer.
+        //Updates clearing_price, clearing_quantity, clearing_type,
+        //marginal_quantity and marginal_frac.
+
+        //Args:
+        //    tnext_clear (int): next clearing time in FNCS seconds, should be <= time_granted, for the log file only
+        //    time_granted (int): the current time in FNCS seconds, for the log file only
+            
 		File txtfile = new File(SimpleAuction.class.getResource("/").toURI());
 		BufferedWriter bw = new BufferedWriter(new FileWriter(txtfile + "/" + "simple_auction.txt", true));
 		double bid_offset = 0.0;//variable is undefined in Python. Set to 0 for testing
@@ -307,7 +395,7 @@ public class SimpleAuction{
 							this.clearing_type = ClearingType.PRICE;
 						}
 					}    
-				}else{// No side exausted
+				}else{// No side exhausted
 					// Price changed in both directions
 					if(a != this.curve_buyer.price.get(i) && b != this.curve_seller.price.get(j) && a == b){
 						this.clearing_type = ClearingType.EXACT;
@@ -490,7 +578,7 @@ public class SimpleAuction{
 		//		"\nunresponsive sell " + this.unresponsive_sell + "\nresponsive sell " + this.responsive_sell +
 		//		"\nmarginal quantity " + this.marginal_quantity + "\nmarginal frac " + this.marginal_frac +
 		//		"\nlmp " + this.lmp + "\nrefload " + this.refload);
-		bw.write("##	" + this.clearing_type + "	" + this.clearing_quantity + "	" + this.clearing_price + "	" 
+		bw.write("##	" + time_granted + "	" + tnext_clear + "	" + this.clearing_type + "	" + this.clearing_quantity + "	" + this.clearing_price + "	" 
 				+ this.curve_buyer.count + "	" +  this.unresponsive_buy + "	" + this.responsive_buy + "	" 
 				+ this.curve_seller.count + "	" + this.unresponsive_sell + "	" + this.responsive_sell + "	" 
 				+ this.marginal_quantity + "	" + this.marginal_frac + "	" + this.lmp + "	" + this.refload);
