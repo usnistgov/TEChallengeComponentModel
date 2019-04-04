@@ -1,17 +1,17 @@
 {
   "__OBJECTS__": {
-    "7f470dc3-0ccd-4adc-ba09-f89b66f50a81": {
+    "b7af77a3-8e0b-4752-a59c-198efc3feca2": {
       "attributes": {
-        "name": "Grid",
-        "TimeRegulating": "true",
-        "TimeConstrained": "true",
-        "Step": "1.0",
-        "Meld": "false",
-        "Lookahead": "0.2",
-        "InstantiationScript": "",
-        "GeneratorClass": "",
+        "EnableROAsynchronousDelivery": "true",
         "FederateType": "1",
-        "EnableROAsynchronousDelivery": "true"
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Grid"
       },
       "__FEDERATE_BASE__": "JavaFederate",
       "federates": [],
@@ -19,38 +19,38 @@
       "parameters": [],
       "inputs": [
         {
-          "GUID": "8e38e47d-aa02-4276-9e11-8a9f2c4b0025"
+          "GUID": "f99e32d3-88c0-436b-81f5-88143d15905a"
         },
         {
-          "GUID": "b95964ad-80d9-423b-96f9-b48a38bb2f12"
+          "GUID": "2a0c7bdd-800e-4a00-b9eb-12129e71a5fe"
         }
       ],
       "outputs": [],
       "objectinputs": [
         {
-          "GUID": "9df16988-9a31-4e38-b2e8-80c8d3246038"
+          "GUID": "3316281a-63b6-4add-845b-fa743ce44d0f"
         }
       ],
       "objectoutputs": [
         {
-          "GUID": "c0c9fcef-b2a3-4de6-8282-f08805b114ea"
+          "GUID": "567d7482-0bd4-42d7-993d-429d6972c006"
         }
       ],
       "RegistryInfo": "",
       "documentation": "No documentation exists yet.",
       "repository": "No repository exists yet.",
-      "GUID": "7f470dc3-0ccd-4adc-ba09-f89b66f50a81"
+      "GUID": "b7af77a3-8e0b-4752-a59c-198efc3feca2"
     },
-    "8e38e47d-aa02-4276-9e11-8a9f2c4b0025": {
+    "4c32c67e-d520-456d-aaeb-8a286370c171": {
       "attributes": {
-        "Delivery": "reliable",
-        "EnableLogging": "false",
-        "LogLevel": "NORMAL",
+        "name": "SimulationControl",
         "Order": "timestamp",
-        "name": "SimTime"
+        "LogLevel": "NORMAL",
+        "EnableLogging": "false",
+        "Delivery": "reliable"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "b39143be-36cf-4590-b0a7-8e23c11fce4a"
+        "GUID": "f01c0b67-cd9b-4a20-bf51-1136a4db65be"
       },
       "parameters": [
         {
@@ -72,52 +72,122 @@
           "name": "federateFilter",
           "ParameterType": "String",
           "Hidden": "false"
+        }
+      ],
+      "GUID": "4c32c67e-d520-456d-aaeb-8a286370c171"
+    },
+    "f99e32d3-88c0-436b-81f5-88143d15905a": {
+      "attributes": {
+        "Delivery": "reliable",
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "Order": "receive",
+        "name": "SimTime"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "4c32c67e-d520-456d-aaeb-8a286370c171"
+      },
+      "parameters": [
+        {
+          "name": "unixTimeStart",
+          "ParameterType": "long",
+          "Hidden": "false"
         },
         {
-          "name": "startTime",
+          "name": "ignoreUntil",
           "ParameterType": "double",
           "Hidden": "false"
         },
         {
-          "name": "stopTime",
+          "name": "timeZone",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeScale",
           "ParameterType": "double",
           "Hidden": "false"
         },
         {
-          "name": "ignoreTil",
+          "name": "actualLogicalGenerationTime",
           "ParameterType": "double",
           "Hidden": "false"
         },
         {
-          "name": "secondsPerLogicalTime",
-          "ParameterType": "double",
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStop",
+          "ParameterType": "long",
           "Hidden": "false"
         }
       ],
-      "GUID": "8e38e47d-aa02-4276-9e11-8a9f2c4b0025"
+      "GUID": "f99e32d3-88c0-436b-81f5-88143d15905a"
     },
-    "9df16988-9a31-4e38-b2e8-80c8d3246038": {
+    "3316281a-63b6-4add-845b-fa743ce44d0f": {
       "attributes": {
         "EnableLogging": "false",
         "LogLevel": "NORMAL",
         "name": "ResourcesPhysicalStatus"
       },
       "__OBJECT_BASE__": {
-        "GUID": "300421aa-b072-464c-9a3f-1ccd6e6ac58d"
+        "GUID": "b01a6290-96b6-4c3b-8618-84ff9cc7698b"
       },
       "parameters": [
+        {
+          "name": "impedance_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
         {
           "name": "voltage_Imaginary_A",
           "ParameterType": "float",
           "Hidden": "false"
         },
         {
-          "name": "power_Real_A",
+          "name": "status",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_B",
           "ParameterType": "float",
           "Hidden": "false"
         },
         {
-          "name": "power_Imaginary_C",
+          "name": "power_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_A",
           "ParameterType": "float",
           "Hidden": "false"
         },
@@ -182,11 +252,6 @@
           "Hidden": "false"
         },
         {
-          "name": "impedance_Imaginary_B",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
           "name": "impedance_Imaginary_C",
           "ParameterType": "float",
           "Hidden": "false"
@@ -194,11 +259,6 @@
         {
           "name": "loadInstanceName",
           "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "voltage_Real_B",
-          "ParameterType": "float",
           "Hidden": "false"
         },
         {
@@ -213,11 +273,6 @@
         },
         {
           "name": "current_Real_C",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "current_Imaginary_B",
           "ParameterType": "float",
           "Hidden": "false"
         },
@@ -240,26 +295,54 @@
           "name": "power_Imaginary_A",
           "ParameterType": "float",
           "Hidden": "false"
-        },
+        }
+      ],
+      "GUID": "3316281a-63b6-4add-845b-fa743ce44d0f"
+    },
+    "567d7482-0bd4-42d7-993d-429d6972c006": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "GridVoltageState"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "b01a6290-96b6-4c3b-8618-84ff9cc7698b"
+      },
+      "parameters": [
         {
-          "name": "power_Imaginary_B",
+          "name": "grid_Voltage_Imaginary_A",
           "ParameterType": "float",
           "Hidden": "false"
         },
         {
-          "name": "power_Real_C",
+          "name": "grid_Voltage_Real_A",
           "ParameterType": "float",
           "Hidden": "false"
         },
         {
-          "name": "status",
-          "ParameterType": "boolean",
+          "name": "grid_Voltage_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "grid_Voltage_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "grid_Voltage_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "grid_Voltage_Imaginary_B",
+          "ParameterType": "float",
           "Hidden": "false"
         }
       ],
-      "GUID": "9df16988-9a31-4e38-b2e8-80c8d3246038"
+      "GUID": "567d7482-0bd4-42d7-993d-429d6972c006"
     },
-    "b95964ad-80d9-423b-96f9-b48a38bb2f12": {
+    "2a0c7bdd-800e-4a00-b9eb-12129e71a5fe": {
       "attributes": {
         "Delivery": "reliable",
         "EnableLogging": "false",
@@ -268,12 +351,77 @@
         "name": "TMYWeather"
       },
       "__INTERACTION_BASE__": {
-        "GUID": "b39143be-36cf-4590-b0a7-8e23c11fce4a"
+        "GUID": "f01c0b67-cd9b-4a20-bf51-1136a4db65be"
       },
       "parameters": [
         {
+          "name": "precipitableWater",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "time",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "date",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
           "name": "diffuseHorizontalIrradiance",
           "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "horizontalVisibilitySource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ceilingHeight",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "totalSkyCoverSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "albedo",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windDirectionUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "presentWeather",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "pressure",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "pressureSource",
+          "ParameterType": "String",
           "Hidden": "false"
         },
         {
@@ -297,11 +445,6 @@
           "Hidden": "false"
         },
         {
-          "name": "time",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
           "name": "opaqueSkyCoverSource",
           "ParameterType": "String",
           "Hidden": "false"
@@ -317,16 +460,6 @@
           "Hidden": "false"
         },
         {
-          "name": "originFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "sourceFed",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
           "name": "actualLogicalGenerationTime",
           "ParameterType": "double",
           "Hidden": "false"
@@ -334,11 +467,6 @@
         {
           "name": "federateFilter",
           "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
-          "name": "albedo",
-          "ParameterType": "double",
           "Hidden": "false"
         },
         {
@@ -362,11 +490,6 @@
           "Hidden": "false"
         },
         {
-          "name": "totalSkyCoverSource",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
           "name": "totalSkyCoverUncertainty",
           "ParameterType": "double",
           "Hidden": "false"
@@ -377,17 +500,7 @@
           "Hidden": "false"
         },
         {
-          "name": "ceilingHeight",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
           "name": "globalHorizontalIrradiance",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "windDirectionUncertainty",
           "ParameterType": "double",
           "Hidden": "false"
         },
@@ -482,11 +595,6 @@
           "Hidden": "false"
         },
         {
-          "name": "horizontalVisibilitySource",
-          "ParameterType": "String",
-          "Hidden": "false"
-        },
-        {
           "name": "globalHorizontalIlluminanceUncertainty",
           "ParameterType": "double",
           "Hidden": "false"
@@ -519,11 +627,6 @@
         {
           "name": "stationIDCode",
           "ParameterType": "int",
-          "Hidden": "false"
-        },
-        {
-          "name": "date",
-          "ParameterType": "String",
           "Hidden": "false"
         },
         {
@@ -627,22 +730,12 @@
           "Hidden": "false"
         },
         {
-          "name": "precipitableWater",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
           "name": "precipitableWaterSource",
           "ParameterType": "String",
           "Hidden": "false"
         },
         {
           "name": "precipitableWaterUncertainty",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "presentWeather",
           "ParameterType": "double",
           "Hidden": "false"
         },
@@ -670,82 +763,30 @@
           "name": "relativeHumiditySource",
           "ParameterType": "String",
           "Hidden": "false"
-        },
-        {
-          "name": "pressure",
-          "ParameterType": "double",
-          "Hidden": "false"
-        },
-        {
-          "name": "pressureSource",
-          "ParameterType": "String",
-          "Hidden": "false"
         }
       ],
-      "GUID": "b95964ad-80d9-423b-96f9-b48a38bb2f12"
-    },
-    "c0c9fcef-b2a3-4de6-8282-f08805b114ea": {
-      "attributes": {
-        "EnableLogging": "false",
-        "LogLevel": "NORMAL",
-        "name": "GridVoltageState"
-      },
-      "__OBJECT_BASE__": {
-        "GUID": "300421aa-b072-464c-9a3f-1ccd6e6ac58d"
-      },
-      "parameters": [
-        {
-          "name": "grid_Voltage_Real_B",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "grid_Voltage_Real_C",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "grid_Voltage_Imaginary_B",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "grid_Voltage_Real_A",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "grid_Voltage_Imaginary_A",
-          "ParameterType": "float",
-          "Hidden": "false"
-        },
-        {
-          "name": "grid_Voltage_Imaginary_C",
-          "ParameterType": "float",
-          "Hidden": "false"
-        }
-      ],
-      "GUID": "c0c9fcef-b2a3-4de6-8282-f08805b114ea"
+      "GUID": "2a0c7bdd-800e-4a00-b9eb-12129e71a5fe"
     }
   },
   "__ROOT_OBJECT__": {
-    "GUID": "7f470dc3-0ccd-4adc-ba09-f89b66f50a81",
+    "GUID": "b7af77a3-8e0b-4752-a59c-198efc3feca2",
     "name": "Grid",
     "version": "0.0.1",
     "description": ""
   },
   "Federates": {
-    "7f470dc3-0ccd-4adc-ba09-f89b66f50a81": ""
+    "b7af77a3-8e0b-4752-a59c-198efc3feca2": ""
   },
   "COAs": {},
   "Experiments": {},
   "Interactions": {
-    "8e38e47d-aa02-4276-9e11-8a9f2c4b0025": "",
-    "b95964ad-80d9-423b-96f9-b48a38bb2f12": ""
+    "4c32c67e-d520-456d-aaeb-8a286370c171": "",
+    "f99e32d3-88c0-436b-81f5-88143d15905a": "",
+    "2a0c7bdd-800e-4a00-b9eb-12129e71a5fe": ""
   },
   "Objects": {
-    "9df16988-9a31-4e38-b2e8-80c8d3246038": "",
-    "c0c9fcef-b2a3-4de6-8282-f08805b114ea": ""
+    "3316281a-63b6-4add-845b-fa743ce44d0f": "",
+    "567d7482-0bd4-42d7-993d-429d6972c006": ""
   },
   "ObjectAttribute": {},
   "Repositories": [],

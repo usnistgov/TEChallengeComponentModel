@@ -21,9 +21,9 @@ import hla.rti.ReceivedInteraction;
 import org.cpswt.hla.*;
 
 /**
-* Implements InteractionRoot.C2WInteractionRoot.SimTime
+* Implements InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime
 */
-public class SimTime extends C2WInteractionRoot {
+public class SimTime extends SimulationControl {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -34,12 +34,13 @@ public class SimTime extends C2WInteractionRoot {
 
     private static int _actualLogicalGenerationTime_handle;
     private static int _federateFilter_handle;
-    private static int _ignoreTil_handle;
+    private static int _ignoreUntil_handle;
     private static int _originFed_handle;
-    private static int _secondsPerLogicalTime_handle;
     private static int _sourceFed_handle;
-    private static int _startTime_handle;
-    private static int _stopTime_handle;
+    private static int _timeScale_handle;
+    private static int _timeZone_handle;
+    private static int _unixTimeStart_handle;
+    private static int _unixTimeStop_handle;
 
     private static boolean _isInitialized = false;
 
@@ -68,7 +69,7 @@ public class SimTime extends C2WInteractionRoot {
     * @return the fully-qualified HLA class path for this interaction class
     */
     public static String get_class_name() {
-        return "InteractionRoot.C2WInteractionRoot.SimTime";
+        return "InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime";
     }
 
     /**
@@ -115,42 +116,45 @@ public class SimTime extends C2WInteractionRoot {
     }
 
     static {
-        _classNameSet.add("InteractionRoot.C2WInteractionRoot.SimTime");
-        _classNameClassMap.put("InteractionRoot.C2WInteractionRoot.SimTime", SimTime.class);
+        _classNameSet.add("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime");
+        _classNameClassMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime", SimTime.class);
 
-        _datamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimTime", _datamemberNames);
-        _allDatamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimTime", _allDatamemberNames);
+        _datamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime", _datamemberNames);
+        _allDatamemberClassNameSetMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime", _allDatamemberNames);
 
-        _datamemberNames.add("ignoreTil");
-        _datamemberNames.add("secondsPerLogicalTime");
-        _datamemberNames.add("startTime");
-        _datamemberNames.add("stopTime");
+        _datamemberNames.add("ignoreUntil");
+        _datamemberNames.add("timeScale");
+        _datamemberNames.add("timeZone");
+        _datamemberNames.add("unixTimeStart");
+        _datamemberNames.add("unixTimeStop");
 
-        _datamemberTypeMap.put("ignoreTil", "double");
-        _datamemberTypeMap.put("secondsPerLogicalTime", "double");
-        _datamemberTypeMap.put("startTime", "double");
-        _datamemberTypeMap.put("stopTime", "double");
+        _datamemberTypeMap.put("ignoreUntil", "double");
+        _datamemberTypeMap.put("timeScale", "double");
+        _datamemberTypeMap.put("timeZone", "String");
+        _datamemberTypeMap.put("unixTimeStart", "long");
+        _datamemberTypeMap.put("unixTimeStop", "long");
 
         _allDatamemberNames.add("actualLogicalGenerationTime");
         _allDatamemberNames.add("federateFilter");
-        _allDatamemberNames.add("ignoreTil");
+        _allDatamemberNames.add("ignoreUntil");
         _allDatamemberNames.add("originFed");
-        _allDatamemberNames.add("secondsPerLogicalTime");
         _allDatamemberNames.add("sourceFed");
-        _allDatamemberNames.add("startTime");
-        _allDatamemberNames.add("stopTime");
+        _allDatamemberNames.add("timeScale");
+        _allDatamemberNames.add("timeZone");
+        _allDatamemberNames.add("unixTimeStart");
+        _allDatamemberNames.add("unixTimeStop");
     }
 
     protected static void init(RTIambassador rti) {
         if (_isInitialized) return;
         _isInitialized = true;
 
-        C2WInteractionRoot.init(rti);
+        SimulationControl.init(rti);
 
         boolean isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _handle = rti.getInteractionClassHandle("InteractionRoot.C2WInteractionRoot.SimTime");
+                _handle = rti.getInteractionClassHandle("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime");
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -164,8 +168,8 @@ public class SimTime extends C2WInteractionRoot {
             }
         }
 
-        _classNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime", get_handle());
-        _classHandleNameMap.put(get_handle(), "InteractionRoot.C2WInteractionRoot.SimTime");
+        _classNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime", get_handle());
+        _classHandleNameMap.put(get_handle(), "InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime");
         _classHandleSimpleNameMap.put(get_handle(), "SimTime");
 
         isNotInitialized = true;
@@ -173,12 +177,13 @@ public class SimTime extends C2WInteractionRoot {
             try {
                 _actualLogicalGenerationTime_handle = rti.getParameterHandle("actualLogicalGenerationTime", get_handle());
                 _federateFilter_handle = rti.getParameterHandle("federateFilter", get_handle());
-                _ignoreTil_handle = rti.getParameterHandle("ignoreTil", get_handle());
+                _ignoreUntil_handle = rti.getParameterHandle("ignoreUntil", get_handle());
                 _originFed_handle = rti.getParameterHandle("originFed", get_handle());
-                _secondsPerLogicalTime_handle = rti.getParameterHandle("secondsPerLogicalTime", get_handle());
                 _sourceFed_handle = rti.getParameterHandle("sourceFed", get_handle());
-                _startTime_handle = rti.getParameterHandle("startTime", get_handle());
-                _stopTime_handle = rti.getParameterHandle("stopTime", get_handle());
+                _timeScale_handle = rti.getParameterHandle("timeScale", get_handle());
+                _timeZone_handle = rti.getParameterHandle("timeZone", get_handle());
+                _unixTimeStart_handle = rti.getParameterHandle("unixTimeStart", get_handle());
+                _unixTimeStop_handle = rti.getParameterHandle("unixTimeStop", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -195,23 +200,25 @@ public class SimTime extends C2WInteractionRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.actualLogicalGenerationTime", _actualLogicalGenerationTime_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.federateFilter", _federateFilter_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.ignoreTil", _ignoreTil_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.originFed", _originFed_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.secondsPerLogicalTime", _secondsPerLogicalTime_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.sourceFed", _sourceFed_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.startTime", _startTime_handle);
-        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimTime.stopTime", _stopTime_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.actualLogicalGenerationTime", _actualLogicalGenerationTime_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.federateFilter", _federateFilter_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.ignoreUntil", _ignoreUntil_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.originFed", _originFed_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.sourceFed", _sourceFed_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.timeScale", _timeScale_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.timeZone", _timeZone_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.unixTimeStart", _unixTimeStart_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.unixTimeStop", _unixTimeStop_handle);
 
         _datamemberHandleNameMap.put(_actualLogicalGenerationTime_handle, "actualLogicalGenerationTime");
         _datamemberHandleNameMap.put(_federateFilter_handle, "federateFilter");
-        _datamemberHandleNameMap.put(_ignoreTil_handle, "ignoreTil");
+        _datamemberHandleNameMap.put(_ignoreUntil_handle, "ignoreUntil");
         _datamemberHandleNameMap.put(_originFed_handle, "originFed");
-        _datamemberHandleNameMap.put(_secondsPerLogicalTime_handle, "secondsPerLogicalTime");
         _datamemberHandleNameMap.put(_sourceFed_handle, "sourceFed");
-        _datamemberHandleNameMap.put(_startTime_handle, "startTime");
-        _datamemberHandleNameMap.put(_stopTime_handle, "stopTime");
+        _datamemberHandleNameMap.put(_timeScale_handle, "timeScale");
+        _datamemberHandleNameMap.put(_timeZone_handle, "timeZone");
+        _datamemberHandleNameMap.put(_unixTimeStart_handle, "unixTimeStart");
+        _datamemberHandleNameMap.put(_unixTimeStop_handle, "unixTimeStop");
     }
 
     private static boolean _isPublished = false;
@@ -423,12 +430,13 @@ public class SimTime extends C2WInteractionRoot {
     public String getParameterName(int datamemberHandle) {
         if (datamemberHandle == _actualLogicalGenerationTime_handle) return "actualLogicalGenerationTime";
         else if (datamemberHandle == _federateFilter_handle) return "federateFilter";
-        else if (datamemberHandle == _ignoreTil_handle) return "ignoreTil";
+        else if (datamemberHandle == _ignoreUntil_handle) return "ignoreUntil";
         else if (datamemberHandle == _originFed_handle) return "originFed";
-        else if (datamemberHandle == _secondsPerLogicalTime_handle) return "secondsPerLogicalTime";
         else if (datamemberHandle == _sourceFed_handle) return "sourceFed";
-        else if (datamemberHandle == _startTime_handle) return "startTime";
-        else if (datamemberHandle == _stopTime_handle) return "stopTime";
+        else if (datamemberHandle == _timeScale_handle) return "timeScale";
+        else if (datamemberHandle == _timeZone_handle) return "timeZone";
+        else if (datamemberHandle == _unixTimeStart_handle) return "unixTimeStart";
+        else if (datamemberHandle == _unixTimeStop_handle) return "unixTimeStop";
         else return super.getParameterName(datamemberHandle);
     }
 
@@ -473,87 +481,106 @@ public class SimTime extends C2WInteractionRoot {
         return getClass().getName() + "("
                 + "actualLogicalGenerationTime:" + get_actualLogicalGenerationTime()
                 + "," + "federateFilter:" + get_federateFilter()
-                + "," + "ignoreTil:" + get_ignoreTil()
+                + "," + "ignoreUntil:" + get_ignoreUntil()
                 + "," + "originFed:" + get_originFed()
-                + "," + "secondsPerLogicalTime:" + get_secondsPerLogicalTime()
                 + "," + "sourceFed:" + get_sourceFed()
-                + "," + "startTime:" + get_startTime()
-                + "," + "stopTime:" + get_stopTime()
+                + "," + "timeScale:" + get_timeScale()
+                + "," + "timeZone:" + get_timeZone()
+                + "," + "unixTimeStart:" + get_unixTimeStart()
+                + "," + "unixTimeStop:" + get_unixTimeStop()
                 + ")";
     }
 
-    private double _ignoreTil = 0;
-    private double _secondsPerLogicalTime = 0;
-    private double _startTime = 0;
-    private double _stopTime = 0;
+    private double _ignoreUntil = 0;
+    private double _timeScale = 0;
+    private String _timeZone = "";
+    private long _unixTimeStart = 0;
+    private long _unixTimeStop = 0;
 
     /**
-    * Set the value of the "ignoreTil" parameter to "value" for this parameter.
+    * Set the value of the "ignoreUntil" parameter to "value" for this parameter.
     *
-    * @param value the new value for the "ignoreTil" parameter
+    * @param value the new value for the "ignoreUntil" parameter
     */
-    public void set_ignoreTil( double value ) {
-        _ignoreTil = value;
-    }
-
-    /**
-    * Returns the value of the "ignoreTil" parameter of this interaction.
-    *
-    * @return the value of the "ignoreTil" parameter
-    */
-    public double get_ignoreTil() {
-        return _ignoreTil;
-    }
-    /**
-    * Set the value of the "secondsPerLogicalTime" parameter to "value" for this parameter.
-    *
-    * @param value the new value for the "secondsPerLogicalTime" parameter
-    */
-    public void set_secondsPerLogicalTime( double value ) {
-        _secondsPerLogicalTime = value;
+    public void set_ignoreUntil( double value ) {
+        _ignoreUntil = value;
     }
 
     /**
-    * Returns the value of the "secondsPerLogicalTime" parameter of this interaction.
+    * Returns the value of the "ignoreUntil" parameter of this interaction.
     *
-    * @return the value of the "secondsPerLogicalTime" parameter
+    * @return the value of the "ignoreUntil" parameter
     */
-    public double get_secondsPerLogicalTime() {
-        return _secondsPerLogicalTime;
+    public double get_ignoreUntil() {
+        return _ignoreUntil;
     }
     /**
-    * Set the value of the "startTime" parameter to "value" for this parameter.
+    * Set the value of the "timeScale" parameter to "value" for this parameter.
     *
-    * @param value the new value for the "startTime" parameter
+    * @param value the new value for the "timeScale" parameter
     */
-    public void set_startTime( double value ) {
-        _startTime = value;
-    }
-
-    /**
-    * Returns the value of the "startTime" parameter of this interaction.
-    *
-    * @return the value of the "startTime" parameter
-    */
-    public double get_startTime() {
-        return _startTime;
-    }
-    /**
-    * Set the value of the "stopTime" parameter to "value" for this parameter.
-    *
-    * @param value the new value for the "stopTime" parameter
-    */
-    public void set_stopTime( double value ) {
-        _stopTime = value;
+    public void set_timeScale( double value ) {
+        _timeScale = value;
     }
 
     /**
-    * Returns the value of the "stopTime" parameter of this interaction.
+    * Returns the value of the "timeScale" parameter of this interaction.
     *
-    * @return the value of the "stopTime" parameter
+    * @return the value of the "timeScale" parameter
     */
-    public double get_stopTime() {
-        return _stopTime;
+    public double get_timeScale() {
+        return _timeScale;
+    }
+    /**
+    * Set the value of the "timeZone" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "timeZone" parameter
+    */
+    public void set_timeZone( String value ) {
+        _timeZone = value;
+    }
+
+    /**
+    * Returns the value of the "timeZone" parameter of this interaction.
+    *
+    * @return the value of the "timeZone" parameter
+    */
+    public String get_timeZone() {
+        return _timeZone;
+    }
+    /**
+    * Set the value of the "unixTimeStart" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "unixTimeStart" parameter
+    */
+    public void set_unixTimeStart( long value ) {
+        _unixTimeStart = value;
+    }
+
+    /**
+    * Returns the value of the "unixTimeStart" parameter of this interaction.
+    *
+    * @return the value of the "unixTimeStart" parameter
+    */
+    public long get_unixTimeStart() {
+        return _unixTimeStart;
+    }
+    /**
+    * Set the value of the "unixTimeStop" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "unixTimeStop" parameter
+    */
+    public void set_unixTimeStop( long value ) {
+        _unixTimeStop = value;
+    }
+
+    /**
+    * Returns the value of the "unixTimeStop" parameter of this interaction.
+    *
+    * @return the value of the "unixTimeStop" parameter
+    */
+    public long get_unixTimeStop() {
+        return _unixTimeStop;
     }
 
     protected SimTime( ReceivedInteraction datamemberMap, boolean initFlag ) {
@@ -604,10 +631,11 @@ public class SimTime extends C2WInteractionRoot {
     public SimTime( SimTime SimTime_var ) {
         super( SimTime_var );
 
-        set_ignoreTil( SimTime_var.get_ignoreTil() );
-        set_secondsPerLogicalTime( SimTime_var.get_secondsPerLogicalTime() );
-        set_startTime( SimTime_var.get_startTime() );
-        set_stopTime( SimTime_var.get_stopTime() );
+        set_ignoreUntil( SimTime_var.get_ignoreUntil() );
+        set_timeScale( SimTime_var.get_timeScale() );
+        set_timeZone( SimTime_var.get_timeZone() );
+        set_unixTimeStart( SimTime_var.get_unixTimeStart() );
+        set_unixTimeStop( SimTime_var.get_unixTimeStop() );
     }
 
     /**
@@ -620,19 +648,21 @@ public class SimTime extends C2WInteractionRoot {
     * for this interaction
     */
     public Object getParameter( String datamemberName ) {
-        if ( "ignoreTil".equals(datamemberName) ) return new Double(get_ignoreTil());
-        else if ( "secondsPerLogicalTime".equals(datamemberName) ) return new Double(get_secondsPerLogicalTime());
-        else if ( "startTime".equals(datamemberName) ) return new Double(get_startTime());
-        else if ( "stopTime".equals(datamemberName) ) return new Double(get_stopTime());
+        if ( "ignoreUntil".equals(datamemberName) ) return new Double(get_ignoreUntil());
+        else if ( "timeScale".equals(datamemberName) ) return new Double(get_timeScale());
+        else if ( "timeZone".equals(datamemberName) ) return get_timeZone();
+        else if ( "unixTimeStart".equals(datamemberName) ) return new Long(get_unixTimeStart());
+        else if ( "unixTimeStop".equals(datamemberName) ) return new Long(get_unixTimeStop());
         else return super.getParameter( datamemberName );
     }
 
     protected boolean setParameterAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "ignoreTil".equals( datamemberName) ) set_ignoreTil( Double.parseDouble(val) );
-        else if ( "secondsPerLogicalTime".equals( datamemberName) ) set_secondsPerLogicalTime( Double.parseDouble(val) );
-        else if ( "startTime".equals( datamemberName) ) set_startTime( Double.parseDouble(val) );
-        else if ( "stopTime".equals( datamemberName) ) set_stopTime( Double.parseDouble(val) );
+        if ( "ignoreUntil".equals( datamemberName) ) set_ignoreUntil( Double.parseDouble(val) );
+        else if ( "timeScale".equals( datamemberName) ) set_timeScale( Double.parseDouble(val) );
+        else if ( "timeZone".equals( datamemberName) ) set_timeZone( val );
+        else if ( "unixTimeStart".equals( datamemberName) ) set_unixTimeStart( Long.parseLong(val) );
+        else if ( "unixTimeStop".equals( datamemberName) ) set_unixTimeStop( Long.parseLong(val) );
         else retval = super.setParameterAux( datamemberName, val );
 
         return retval;
@@ -640,10 +670,11 @@ public class SimTime extends C2WInteractionRoot {
 
     protected boolean setParameterAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "ignoreTil".equals( datamemberName) ) set_ignoreTil( (Double)val );
-        else if ( "secondsPerLogicalTime".equals( datamemberName) ) set_secondsPerLogicalTime( (Double)val );
-        else if ( "startTime".equals( datamemberName) ) set_startTime( (Double)val );
-        else if ( "stopTime".equals( datamemberName) ) set_stopTime( (Double)val );
+        if ( "ignoreUntil".equals( datamemberName) ) set_ignoreUntil( (Double)val );
+        else if ( "timeScale".equals( datamemberName) ) set_timeScale( (Double)val );
+        else if ( "timeZone".equals( datamemberName) ) set_timeZone( (String)val );
+        else if ( "unixTimeStart".equals( datamemberName) ) set_unixTimeStart( (Long)val );
+        else if ( "unixTimeStop".equals( datamemberName) ) set_unixTimeStop( (Long)val );
         else retval = super.setParameterAux( datamemberName, val );
 
         return retval;
@@ -653,10 +684,11 @@ public class SimTime extends C2WInteractionRoot {
         super.copyFrom( object );
         if ( object instanceof SimTime ) {
             SimTime data = (SimTime)object;
-            _ignoreTil = data._ignoreTil;
-            _secondsPerLogicalTime = data._secondsPerLogicalTime;
-            _startTime = data._startTime;
-            _stopTime = data._stopTime;
+            _ignoreUntil = data._ignoreUntil;
+            _timeScale = data._timeScale;
+            _timeZone = data._timeZone;
+            _unixTimeStart = data._unixTimeStart;
+            _unixTimeStop = data._unixTimeStop;
         }
     }
 }
