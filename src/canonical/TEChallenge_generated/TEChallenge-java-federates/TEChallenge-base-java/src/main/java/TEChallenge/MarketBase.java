@@ -69,17 +69,17 @@ public class MarketBase extends SynchronizedFederate {
         Tender.publish(getLRC());
                 
         	
-        Transaction.subscribe_accept();
-        Transaction.subscribe_tenderId();
-        Transaction.subscribe(getLRC());
-        
-        	
         Quote.subscribe_price();
         Quote.subscribe_quantity();
         Quote.subscribe_quoteId();
         Quote.subscribe_timeReference();
         Quote.subscribe_type();
         Quote.subscribe(getLRC());
+        
+        	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
         
         	
         MarketStatus.subscribe_price();

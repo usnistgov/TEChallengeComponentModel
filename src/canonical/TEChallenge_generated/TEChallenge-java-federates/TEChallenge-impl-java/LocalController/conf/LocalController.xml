@@ -5,13 +5,14 @@
     xmlns="http://standards.ieee.org/IEEE1516-2010" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelIdentification>
-        <name>TEChallenge</name>
+        <name>LocalController</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2018-10-02</modificationDate>
+        <modificationDate>2018-10-07</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
-            This file was generated from WebGME based on the TEChallenge
+            This file was generated from WebGME based on the federate
+            LocalController in the TEChallenge
             project.
         </description>
         <poc>
@@ -24,152 +25,14 @@
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
             <objectClass>
-                <name>GridVoltageState</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_A</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_B</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Imaginary_C</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_A</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_B</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>grid_Voltage_Real_C</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>MarketStatus</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>price</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>time</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>type</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Quote</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>price</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>quantity</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>quoteId</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>timeReference</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>type</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
                 <name>ResourceControl</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Publish</sharing>
                 <attribute>
                     <name>Resources</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -178,7 +41,7 @@
                     <dataType>int</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -187,7 +50,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -196,7 +59,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -205,7 +68,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -214,7 +77,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -223,7 +86,7 @@
                     <dataType>int</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -232,7 +95,7 @@
                     <dataType>boolean</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -241,7 +104,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -250,7 +113,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -259,7 +122,7 @@
                     <dataType>boolean</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -268,7 +131,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -277,7 +140,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -286,7 +149,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -295,7 +158,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -304,7 +167,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -313,7 +176,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -322,7 +185,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -331,7 +194,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -340,7 +203,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -349,7 +212,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -358,7 +221,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -367,7 +230,7 @@
                     <dataType>int</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -376,7 +239,7 @@
                     <dataType>boolean</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -385,20 +248,20 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
             </objectClass>
             <objectClass>
                 <name>ResourcesPhysicalStatus</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Subscribe</sharing>
                 <attribute>
                     <name>current_Imaginary_A</name>
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -407,7 +270,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -416,7 +279,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -425,7 +288,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -434,7 +297,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -443,7 +306,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -452,7 +315,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -461,7 +324,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -470,7 +333,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -479,7 +342,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -488,7 +351,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -497,7 +360,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -506,7 +369,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -515,7 +378,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -524,7 +387,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -533,7 +396,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -542,7 +405,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -551,7 +414,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -560,7 +423,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -569,7 +432,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -578,7 +441,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -587,7 +450,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -596,7 +459,7 @@
                     <dataType>boolean</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -605,7 +468,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -614,7 +477,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -623,7 +486,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -632,7 +495,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -641,7 +504,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -650,7 +513,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -659,20 +522,20 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
             </objectClass>
             <objectClass>
                 <name>SupervisoryControlSignal</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Subscribe</sharing>
                 <attribute>
                     <name>localControllerName</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -681,78 +544,7 @@
                     <dataType>float</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Tender</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>price</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>quantity</name>
-                    <dataType>float</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tenderId</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>timeReference</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>type</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Transaction</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>accept</name>
-                    <dataType>boolean</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tenderId</name>
-                    <dataType>int</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -833,346 +625,6 @@
                         <transportation>HLAreliable</transportation>
                         <order>TimeStamp</order>
                     </interactionClass>
-                </interactionClass>
-                <interactionClass>
-                    <name>SimTime</name>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                    <parameter> 
-                        <name>ignoreTil</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>secondsPerLogicalTime</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>startTime</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>stopTime</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                </interactionClass>
-                <interactionClass>
-                    <name>TMYWeather</name>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                    <parameter> 
-                        <name>aerosolOpticalDepth</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>aerosolOpticalDepthSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>aerosolOpticalDepthUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>albedo</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>albedoSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>albedoUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>ceilingHeight</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>ceilingHeightSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>ceilingHeightUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>date</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dewPointTemperature</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dewPointTemperatureSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dewPointTemperatureUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIlluminance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIlluminanceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIlluminanceUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIrradiancSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIrradiancUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>diffuseHorizontalIrradiance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIlluminance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIlluminanceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIlluminanceUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIrradiance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIrradianceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>directNormalIrradianceUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dryBulbTemperature</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dryBulbTemperatureSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>dryBulbTemperatureUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>elevation</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>extraTerrestrialRadiation</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>extraTerrestrialRadiationNormal</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIlluminance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIlluminanceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIlluminanceUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIrradiance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIrradianceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>globalHorizontalIrradianceUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>horizontalVisibility</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>horizontalVisibilitySource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>horizontalVisibilityUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>latitude</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>liquidPrecipitationDepth</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>liquidPrecipitationDepthSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>liquidPrecipitationDepthUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>liquidPrecipitationQuantity</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>longitude</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>opaqueSkyCover</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>opaqueSkyCoverSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>opaqueSkyCoverUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>precipitableWater</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>precipitableWaterSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>precipitableWaterUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>presentWeather</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>presentWeatherSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>presentWeatherUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>pressure</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>pressureSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>pressureUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>relativeHumidity</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>relativeHumiditySource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>relativeHumidityUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>stationIDCode</name>
-                        <dataType>int</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>stationName</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>stationState</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>time</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>timeZone</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>totalSkyCover</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>totalSkyCoverSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>totalSkyCoverUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windDirection</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windDirectionSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windDirectionUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windSpeed</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windSpeedSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>windSpeedUncertainty</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>zenithLuminance</name>
-                        <dataType>double</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>zenithLuminanceSource</name>
-                        <dataType>String</dataType>
-                    </parameter>
-                    <parameter> 
-                        <name>zenithLuminanceUncertianty</name>
-                        <dataType>double</dataType>
-                    </parameter>
                 </interactionClass>
             </interactionClass>
         </interactionClass>

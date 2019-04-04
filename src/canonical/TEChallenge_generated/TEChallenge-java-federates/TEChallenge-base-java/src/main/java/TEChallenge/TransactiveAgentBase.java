@@ -75,6 +75,11 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         MarketStatus.subscribe(getLRC());
         
         	
+        Transaction.subscribe_accept();
+        Transaction.subscribe_tenderId();
+        Transaction.subscribe(getLRC());
+        
+        	
         Tender.subscribe_price();
         Tender.subscribe_quantity();
         Tender.subscribe_tenderId();
@@ -89,11 +94,6 @@ public class TransactiveAgentBase extends SynchronizedFederate {
         Quote.subscribe_timeReference();
         Quote.subscribe_type();
         Quote.subscribe(getLRC());
-        
-        	
-        Transaction.subscribe_accept();
-        Transaction.subscribe_tenderId();
-        Transaction.subscribe(getLRC());
         	}
         
 	

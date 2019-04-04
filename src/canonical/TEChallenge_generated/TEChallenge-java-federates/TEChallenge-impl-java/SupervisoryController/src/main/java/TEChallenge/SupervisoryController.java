@@ -43,11 +43,11 @@ public class SupervisoryController extends SupervisoryControllerBase {
 
         InteractionRoot interaction = null;
         while ((interaction = getNextInteractionNoWait()) != null) {
-            if (interaction instanceof TMYWeather) {
-                handleInteractionClass((TMYWeather) interaction);
-            }
-            else if (interaction instanceof SimTime) {
+            if (interaction instanceof SimTime) {
                 handleInteractionClass((SimTime) interaction);
+            }
+            else if (interaction instanceof TMYWeather) {
+                handleInteractionClass((TMYWeather) interaction);
             }
             else {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
@@ -153,13 +153,13 @@ public class SupervisoryController extends SupervisoryControllerBase {
         ////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleInteractionClass(TMYWeather interaction) {
+    private void handleInteractionClass(SimTime interaction) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the interaction            //
         //////////////////////////////////////////////////////////////////////////
     }
 
-    private void handleInteractionClass(SimTime interaction) {
+    private void handleInteractionClass(TMYWeather interaction) {
         //////////////////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the interaction            //
         //////////////////////////////////////////////////////////////////////////

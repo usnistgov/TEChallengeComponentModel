@@ -64,12 +64,13 @@ public class Metronome extends MetronomeBase {
             //    SimTime vSimTime = create_SimTime();
             //    vSimTime.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
             //    vSimTime.set_federateFilter( < YOUR VALUE HERE > );
-            //    vSimTime.set_ignoreTil( < YOUR VALUE HERE > );
+            //    vSimTime.set_ignoreUntil( < YOUR VALUE HERE > );
             //    vSimTime.set_originFed( < YOUR VALUE HERE > );
-            //    vSimTime.set_secondsPerLogicalTime( < YOUR VALUE HERE > );
             //    vSimTime.set_sourceFed( < YOUR VALUE HERE > );
-            //    vSimTime.set_startTime( < YOUR VALUE HERE > );
-            //    vSimTime.set_stopTime( < YOUR VALUE HERE > );
+            //    vSimTime.set_timeScale( < YOUR VALUE HERE > );
+            //    vSimTime.set_timeZone( < YOUR VALUE HERE > );
+            //    vSimTime.set_unixTimeStart( < YOUR VALUE HERE > );
+            //    vSimTime.set_unixTimeStop( < YOUR VALUE HERE > );
             //    vSimTime.sendInteraction(getLRC(), currentTime + getLookAhead());
             //
             ////////////////////////////////////////////////////////////////////////////////////////
