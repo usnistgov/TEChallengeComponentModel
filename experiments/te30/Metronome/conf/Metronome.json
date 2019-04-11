@@ -1,0 +1,13 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Metronome",
+  "federationId": "TE30",
+  "isLateJoiner": false,
+  "lookAhead": 0.1,
+  "stepSize": 1.0,
+  "starttime": 1372662000,
+  "stoptime": 1372834800,
+  "logicaltimesec": 900.0,
+  "ignoretil": 0,
+  "timezone": "US/MD/Baltimore"
+}

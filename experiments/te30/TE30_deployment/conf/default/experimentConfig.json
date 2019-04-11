@@ -1,0 +1,22 @@
+{
+  "federateTypesAllowed": [
+    "Grid",
+    "Metronome"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Grid",
+      "count": 1
+    },
+    {
+      "federateType": "Metronome",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Grid",
+      "count": 0
+    }
+  ]
+}
