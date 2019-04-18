@@ -34,11 +34,17 @@ public class Pypower_loop {
 	public static void main(String[] args)  throws Exception
 	{
 		//String path = "src/main/resources/";
+<<<<<<< HEAD
 		//String casefile = "/te30_pp.json"; //TE30 metadata
 		String casefile = "/te30_pp_8500.json"; //IEEE8500 metadata (load multiplier is lower than in TE30 case)
 		String rootname = "TE_Challenge";
 		//String subscriptions = "/pypower_subscriptions3.txt"; //TE30 subscriptions
 		String subscriptions = "/pypower_subscriptions_8500.txt"; //IEEE8500 subscriptions
+=======
+		String casefile = "/te30_pp.json";
+		String rootname = "TE_Challenge";
+		String subscriptions = "/pypower_subscriptions3.txt";
+>>>>>>> f2d951a6968524cfa38b51ecde9da79b561e9bdd
 		Map<String, Object> ppc = load_json_case(casefile);
 		//String StartTime = (String) ppc.get("StartTime");
 		int tmax = (Integer) ppc.get("Tmax");
