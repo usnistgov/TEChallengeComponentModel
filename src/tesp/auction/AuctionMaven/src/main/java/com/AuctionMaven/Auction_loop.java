@@ -23,30 +23,19 @@ public class Auction_loop {
 	//Manages the simple_auction and hvac agents for the te30 and sgip1 examples
 	public static void main(String[] args)  throws Exception
 	{//Helper function that initializes and runs the agents
-<<<<<<< HEAD
 		//String configfile = "/TE_Challenge_agent_dict.json";//JSON agent configuration file for TE30
 		String configfile = "/IEEE_8500_agent_dict.json";//JSON agent configuration file for TE30
-=======
-		String configfile = "/TE_Challenge_agent_dict.json";//JSON agent configuration file
->>>>>>> f2d951a6968524cfa38b51ecde9da79b561e9bdd
 		//String metrics_root = "TE_Challenge";
 		
 		//use "auction_subscriptions.txt" if original version is desired
 		//String subscriptions = "/auction_subscriptions.txt";
 		//use "auction_subscriptions2.txt" if original version is desired
-<<<<<<< HEAD
 		//String subscriptions = "/auction_subscriptions2.txt"; //TE30 subscriptions
 		String subscriptions = "/auction_subscriptions_8500.txt"; //IEEE8500 subscriptions
 		
 		boolean bWantMarket = true; // set to false if no market is desired
 		//int time_stop = 48 * 3600; //TE30 simulation
 		int time_stop = 24 * 3600; //IEEE8500 simulation
-=======
-		String subscriptions = "/auction_subscriptions2.txt";
-		
-		boolean bWantMarket = true; // set to false if no market is desired
-		int time_stop = 48 * 3600;
->>>>>>> f2d951a6968524cfa38b51ecde9da79b561e9bdd
 		
 		String StartTime = "2013-07-01 00:00:00";
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -136,7 +125,6 @@ public class Auction_loop {
 			//////adjusting some of the simulation parameters based on the input data point array size.
 			//////To reduce simulation time for the original version the sub list is split into 
 		    //////smaller sub lists for simulations with large input files
-<<<<<<< HEAD
 			time_granted = (int) Collections.min(Arrays.asList(tnext_bid, tnext_agg, tnext_clear, tnext_adjust, time_stop));
 			if(subs.size() < 140000){	
 				subs_part = subs;
@@ -170,41 +158,6 @@ public class Auction_loop {
 					subs_part = subs.subList(3713927,4024067);
 				}else{
 					subs_part = subs.subList(4024067,subs.size()-1);
-=======
-			if(subs.size() < 140000){
-				time_granted = (int) Collections.min(Arrays.asList(tnext_bid, tnext_agg, tnext_clear, tnext_adjust, time_stop));
-				subs_part = subs;
-			}else{
-				time_granted += dt;
-				if(time_granted < 12500){
-					subs_part = subs.subList(0, 174627);
-				}else if(time_granted >= 12500 && time_granted < 25000){
-					subs_part = subs.subList(174627,323944);
-				}else if(time_granted >= 25000 && time_granted < 37500){
-					subs_part = subs.subList(323944,440436);
-				}else if(time_granted >= 37500 && time_granted < 50000){
-					subs_part = subs.subList(440436,606823);
-				}else if(time_granted >= 50000 && time_granted < 62500){
-					subs_part = subs.subList(606823,802716);
-				}else if(time_granted >= 62500 && time_granted < 75000){
-					subs_part = subs.subList(802716,991166);
-				}else if(time_granted >= 75000 && time_granted < 87500){
-					subs_part = subs.subList(991166,1184490);
-				}else if(time_granted >= 87500 && time_granted < 100000){
-					subs_part = subs.subList(1184490,1374010);
-				}else if(time_granted >= 100000 && time_granted < 112500){
-					subs_part = subs.subList(1374010,1508983);
-				}else if(time_granted >= 112500 && time_granted < 125000){
-					subs_part = subs.subList(1508983,1627406);
-				}else if(time_granted >= 125000 && time_granted < 137500){
-					subs_part = subs.subList(1627406,1799737);
-				}else if(time_granted >= 137500 && time_granted < 150000){
-					subs_part = subs.subList(1799737,1997671);
-				}else if(time_granted >= 150000 && time_granted < 162500){
-					subs_part = subs.subList(1997671,2186598);
-				}else{
-					subs_part = subs.subList(2186598,subs.size()-1);
->>>>>>> f2d951a6968524cfa38b51ecde9da79b561e9bdd
 				}
 			}
 			
