@@ -12,11 +12,13 @@ import com.opencsv.CSVWriter;
 public class EPlusJson_loop {
 	public static void main(String[] args)  throws Exception
 	{
-		String subscriptions = "/eplusjson_subscriptions.txt";
+		//String subscriptions = "/eplusjson_subscriptions.txt"; //TE30 subscriptions
+		String subscriptions = "/eplusjson_subscriptions_8500.txt"; //IEEE8500 subsciptions
 		String rootname = "EPlusJson";
 		
 		int time_granted = 0;
-		int time_stop = 2*24*60*60;
+		//int time_stop = 2*24*60*60;
+		int time_stop = 1*24*60*60;
 		int time_agg = 5*60;
 				    
 		//for real-time pricing response - can redefine on the command line
