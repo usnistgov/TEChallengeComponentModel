@@ -1,0 +1,35 @@
+{
+  "federateTypesAllowed": [
+    "ExternalLoad",
+    "Grid30",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "ExternalLoad",
+      "count": 1
+    },
+    {
+      "federateType": "Grid30",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "ExternalLoad",
+      "count": 0
+    },
+    {
+      "federateType": "Grid30",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
