@@ -23,16 +23,19 @@ public class Auction_loop {
 	//Manages the simple_auction and hvac agents for the te30 and sgip1 examples
 	public static void main(String[] args)  throws Exception
 	{//Helper function that initializes and runs the agents
-		String configfile = "/TE_Challenge_agent_dict.json";//JSON agent configuration file
+		//String configfile = "/TE_Challenge_agent_dict.json";//JSON agent configuration file for TE30
+		String configfile = "/IEEE_8500_agent_dict.json";//JSON agent configuration file for TE30
 		//String metrics_root = "TE_Challenge";
 		
 		//use "auction_subscriptions.txt" if original version is desired
 		//String subscriptions = "/auction_subscriptions.txt";
 		//use "auction_subscriptions2.txt" if original version is desired
-		String subscriptions = "/auction_subscriptions2.txt";
+		//String subscriptions = "/auction_subscriptions2.txt"; //TE30 subscriptions
+		String subscriptions = "/auction_subscriptions_8500.txt"; //IEEE8500 subscriptions
 		
 		boolean bWantMarket = true; // set to false if no market is desired
-		int time_stop = 48 * 3600;
+		//int time_stop = 48 * 3600; //TE30 simulation
+		int time_stop = 24 * 3600; //IEEE8500 simulation
 		
 		String StartTime = "2013-07-01 00:00:00";
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -122,39 +125,39 @@ public class Auction_loop {
 			//////adjusting some of the simulation parameters based on the input data point array size.
 			//////To reduce simulation time for the original version the sub list is split into 
 		    //////smaller sub lists for simulations with large input files
-			if(subs.size() < 140000){
-				time_granted = (int) Collections.min(Arrays.asList(tnext_bid, tnext_agg, tnext_clear, tnext_adjust, time_stop));
+			time_granted = (int) Collections.min(Arrays.asList(tnext_bid, tnext_agg, tnext_clear, tnext_adjust, time_stop));
+			if(subs.size() < 140000){	
 				subs_part = subs;
 			}else{
-				time_granted += dt;
-				if(time_granted < 12500){
-					subs_part = subs.subList(0, 174627);
-				}else if(time_granted >= 12500 && time_granted < 25000){
-					subs_part = subs.subList(174627,323944);
-				}else if(time_granted >= 25000 && time_granted < 37500){
-					subs_part = subs.subList(323944,440436);
-				}else if(time_granted >= 37500 && time_granted < 50000){
-					subs_part = subs.subList(440436,606823);
-				}else if(time_granted >= 50000 && time_granted < 62500){
-					subs_part = subs.subList(606823,802716);
-				}else if(time_granted >= 62500 && time_granted < 75000){
-					subs_part = subs.subList(802716,991166);
-				}else if(time_granted >= 75000 && time_granted < 87500){
-					subs_part = subs.subList(991166,1184490);
-				}else if(time_granted >= 87500 && time_granted < 100000){
-					subs_part = subs.subList(1184490,1374010);
-				}else if(time_granted >= 100000 && time_granted < 112500){
-					subs_part = subs.subList(1374010,1508983);
-				}else if(time_granted >= 112500 && time_granted < 125000){
-					subs_part = subs.subList(1508983,1627406);
-				}else if(time_granted >= 125000 && time_granted < 137500){
-					subs_part = subs.subList(1627406,1799737);
-				}else if(time_granted >= 137500 && time_granted < 150000){
-					subs_part = subs.subList(1799737,1997671);
-				}else if(time_granted >= 150000 && time_granted < 162500){
-					subs_part = subs.subList(1997671,2186598);
+				//time_granted += dt;
+				if(time_granted < 6000){
+					subs_part = subs.subList(0, 302387);
+				}else if(time_granted >= 6000 && time_granted < 12000){
+					subs_part = subs.subList(302387,612527);
+				}else if(time_granted >= 12000 && time_granted < 18000){
+					subs_part = subs.subList(612527,922667);
+				}else if(time_granted >= 18000 && time_granted < 24000){
+					subs_part = subs.subList(922667,1232807);
+				}else if(time_granted >= 24000 && time_granted < 30000){
+					subs_part = subs.subList(1232807,1542947);
+				}else if(time_granted >= 30000 && time_granted < 36000){
+					subs_part = subs.subList(1542947,1853087);
+				}else if(time_granted >= 36000 && time_granted < 42000){
+					subs_part = subs.subList(1853087,2163227);
+				}else if(time_granted >= 42000 && time_granted < 48000){
+					subs_part = subs.subList(2163227,2473367);
+				}else if(time_granted >= 48000 && time_granted < 54000){
+					subs_part = subs.subList(2473367,2783507);
+				}else if(time_granted >= 54000 && time_granted < 60000){
+					subs_part = subs.subList(2783507,3093647);
+				}else if(time_granted >= 60000 && time_granted < 66000){
+					subs_part = subs.subList(3093647,3403787);
+				}else if(time_granted >= 66000 && time_granted < 72000){
+					subs_part = subs.subList(3403787,3713927);
+				}else if(time_granted >= 72000 && time_granted < 78000){
+					subs_part = subs.subList(3713927,4024067);
 				}else{
-					subs_part = subs.subList(2186598,subs.size()-1);
+					subs_part = subs.subList(4024067,subs.size()-1);
 				}
 			}
 			
