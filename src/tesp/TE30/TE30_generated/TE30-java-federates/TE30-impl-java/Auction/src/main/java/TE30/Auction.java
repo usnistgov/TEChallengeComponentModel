@@ -115,11 +115,13 @@ public class Auction extends AuctionBase {
         //TODO - create metas and metrics for the json output files (auction_isolated.py, lines 33-36)
         /////////////////////////////////
         
+        log.trace("creating auction object");
         aucObj = new SimpleAuction(market_row, market_key);
         
         int dt = (int) dict.get("dt");
         int period = aucObj.period;
         
+        log.trace("creating hvac objects");
         Object[] hvac_keys = ((Map<String, Object>)dict.get("controllers")).keySet().toArray();
         for(int i=0; i<hvac_keys.length; i++){
             String key = (String) hvac_keys[i];
@@ -137,6 +139,7 @@ public class Auction extends AuctionBase {
             meters.put(newHvac.get_meter_name(), newMeter);
         }
         
+        log.trace("starting initialization");
         // register the market HLA object
         market.registerObject(getLRC());
         
@@ -192,6 +195,9 @@ public class Auction extends AuctionBase {
 
         while (!receivedSimTime) {
             log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
             checkReceivedSubscriptions();
             if (!receivedSimTime) {
                 CpswtUtils.sleep(1000);
@@ -375,10 +381,10 @@ public class Auction extends AuctionBase {
 
     private void handleObjectClass(Substation object) {
         try {
-            double refload = parse_kw(object.get_positive_sequence_voltage());
+            double refload = parse_kw(object.get_distribution_load());
             aucObj.set_refload(refload);
         } catch (Exception e) {
-            log.error("error when receiving positive sequence voltage", e);
+            log.error("error when receiving distribution load", e);
         }
     }
 
@@ -390,8 +396,12 @@ public class Auction extends AuctionBase {
         String id = name.substring(name.lastIndexOf("_")+1); // ID
         String key = "F1_house_" + id + "_hvac";
         
-        log.trace("received {} as V1={}", key, object.get_measured_voltage_1());
-        hvacObjs.get(key).set_voltage(object.get_measured_voltage_1());
+        if(object.get_measured_voltage_1() == null || object.get_measured_voltage_1().isEmpty()) {
+            log.trace("skipped {} - voltage not set", key);
+        } else {
+            log.trace("received {} as V1={}", key, object.get_measured_voltage_1());
+            hvacObjs.get(key).set_voltage(object.get_measured_voltage_1());
+        }
     }
 
     private void handleObjectClass(House object) {

@@ -118,6 +118,9 @@ public class ExternalLoad extends ExternalLoadBase {
         
         while (!receivedSimTime) {
             log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
             checkReceivedSubscriptions();
             if (!receivedSimTime) {
                 CpswtUtils.sleep(1000);

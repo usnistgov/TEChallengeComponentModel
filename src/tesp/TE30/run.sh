@@ -72,16 +72,16 @@ curl -o /dev/null -s -X POST http://$fedmgr_host:$fedmgr_port/fedmgr --data '{"a
 
 # run the other federates
 cd $root_directory/TE30_deployment
-xterm -fg red -bg black -l -lf $logs_directory/simulation-time-${timestamp}.log -T "Simulation Time" -geometry 140x40+180+60 -e "mvn exec:java -P ExecJava,SimulationTime" &
-waitUntilJoined SimulationTime 1
-
-cd $root_directory/TE30_deployment
-xterm -fg yellow -bg black -l -lf $logs_directory/external-load-${timestamp}.log -T "External Load" -geometry 140x40+360+120 -e "mvn exec:java -P ExecJava,ExternalLoad" &
+xterm -fg yellow -bg black -l -lf $logs_directory/external-load-${timestamp}.log -T "External Load" -geometry 140x40+180+60 -e "mvn exec:java -P ExecJava,ExternalLoad" &
 waitUntilJoined ExternalLoad 1
 
 cd $root_directory/TE30_deployment
-xterm -fg green -bg black -l -lf $logs_directory/auction-${timestamp}.log -T "Auction" -geometry 140x40+540+180 -e "mvn exec:java -P ExecJava,Auction" &
+xterm -fg green -bg black -l -lf $logs_directory/auction-${timestamp}.log -T "Auction" -geometry 140x40+360+120 -e "mvn exec:java -P ExecJava,Auction" &
 waitUntilJoined Auction 1
+
+cd $root_directory/TE30_deployment
+xterm -fg red -bg black -l -lf $logs_directory/simulation-time-${timestamp}.log -T "Simulation Time" -geometry 140x40+540+180 -e "mvn exec:java -P ExecJava,SimulationTime" &
+waitUntilJoined SimulationTime 1
 
 cd $root_directory/TE30_generated/Grid30
 xterm -fg cyan -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log -T "GridLAB-D" -geometry 140x40+720+240 -e "sh run.sh" &
