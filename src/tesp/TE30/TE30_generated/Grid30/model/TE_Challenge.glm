@@ -57,328 +57,8 @@ object player {
     loop 1;
 }
 object player {
-    name BILL_MODE;
-    file "players/bill_mode.player";
-    loop 1;
-}
-object player {
-    name heating_setpoint;
-    file "players/heating_setpoint.player";
-    loop 1;
-}
-object player {
-    name monthly_fee;
-    file "players/monthly_fee.player";
-    loop 1;
-}
-object player {
     name positive_sequence_voltage;
     file "players/positive_sequence_voltage.player";
-    loop 1;
-}
-object player {
-    name price;
-    file "players/price.player";
-    loop 1;
-}
-object player {
-    name F1_house_A11_cooling_setpoint;
-    file "players/F1_house_A11_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A12_cooling_setpoint;
-    file "players/F1_house_A12_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A13_cooling_setpoint;
-    file "players/F1_house_A13_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A15_cooling_setpoint;
-    file "players/F1_house_A15_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A16_cooling_setpoint;
-    file "players/F1_house_A16_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A25_cooling_setpoint;
-    file "players/F1_house_A25_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A26_cooling_setpoint;
-    file "players/F1_house_A26_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A28_cooling_setpoint;
-    file "players/F1_house_A28_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A5_cooling_setpoint;
-    file "players/F1_house_A5_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A8_cooling_setpoint;
-    file "players/F1_house_A8_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A9_cooling_setpoint;
-    file "players/F1_house_A9_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B0_cooling_setpoint;
-    file "players/F1_house_B0_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B19_cooling_setpoint;
-    file "players/F1_house_B19_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B20_cooling_setpoint;
-    file "players/F1_house_B20_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B22_cooling_setpoint;
-    file "players/F1_house_B22_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B23_cooling_setpoint;
-    file "players/F1_house_B23_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B24_cooling_setpoint;
-    file "players/F1_house_B24_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B3_cooling_setpoint;
-    file "players/F1_house_B3_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B4_cooling_setpoint;
-    file "players/F1_house_B4_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B6_cooling_setpoint;
-    file "players/F1_house_B6_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_B7_cooling_setpoint;
-    file "players/F1_house_B7_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C1_cooling_setpoint;
-    file "players/F1_house_C1_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C10_cooling_setpoint;
-    file "players/F1_house_C10_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C14_cooling_setpoint;
-    file "players/F1_house_C14_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C17_cooling_setpoint;
-    file "players/F1_house_C17_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C18_cooling_setpoint;
-    file "players/F1_house_C18_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C2_cooling_setpoint;
-    file "players/F1_house_C2_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C21_cooling_setpoint;
-    file "players/F1_house_C21_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C27_cooling_setpoint;
-    file "players/F1_house_C27_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_C29_cooling_setpoint;
-    file "players/F1_house_C29_cooling_setpoint.player";
-    loop 1;
-}
-object player {
-    name F1_house_A11_thermostat_deadband;
-    file "players/F1_house_A11_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A12_thermostat_deadband;
-    file "players/F1_house_A12_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A13_thermostat_deadband;
-    file "players/F1_house_A13_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A15_thermostat_deadband;
-    file "players/F1_house_A15_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A16_thermostat_deadband;
-    file "players/F1_house_A16_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A25_thermostat_deadband;
-    file "players/F1_house_A25_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A26_thermostat_deadband;
-    file "players/F1_house_A26_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A28_thermostat_deadband;
-    file "players/F1_house_A28_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A5_thermostat_deadband;
-    file "players/F1_house_A5_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A8_thermostat_deadband;
-    file "players/F1_house_A8_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_A9_thermostat_deadband;
-    file "players/F1_house_A9_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B0_thermostat_deadband;
-    file "players/F1_house_B0_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B19_thermostat_deadband;
-    file "players/F1_house_B19_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B20_thermostat_deadband;
-    file "players/F1_house_B20_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B22_thermostat_deadband;
-    file "players/F1_house_B22_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B23_thermostat_deadband;
-    file "players/F1_house_B23_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B24_thermostat_deadband;
-    file "players/F1_house_B24_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B3_thermostat_deadband;
-    file "players/F1_house_B3_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B4_thermostat_deadband;
-    file "players/F1_house_B4_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B6_thermostat_deadband;
-    file "players/F1_house_B6_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_B7_thermostat_deadband;
-    file "players/F1_house_B7_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C1_thermostat_deadband;
-    file "players/F1_house_C1_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C10_thermostat_deadband;
-    file "players/F1_house_C10_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C14_thermostat_deadband;
-    file "players/F1_house_C14_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C17_thermostat_deadband;
-    file "players/F1_house_C17_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C18_thermostat_deadband;
-    file "players/F1_house_C18_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C2_thermostat_deadband;
-    file "players/F1_house_C2_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C21_thermostat_deadband;
-    file "players/F1_house_C21_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C27_thermostat_deadband;
-    file "players/F1_house_C27_thermostat_deadband.player";
-    loop 1;
-}
-object player {
-    name F1_house_C29_thermostat_deadband;
-    file "players/F1_house_C29_thermostat_deadband.player";
     loop 1;
 }
 
@@ -568,11 +248,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -601,9 +279,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 68.886;
 	mass_temperature 68.886;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B0_cooling_setpoint.value;
-	thermostat_deadband F1_house_B0_thermostat_deadband.value;
+	heating_setpoint heating5*1.043+1.41;
 object ZIPload {
 	schedule_skew 577;
 	heat_fraction 0.889;
@@ -702,11 +378,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -735,9 +409,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 71.924;
 	mass_temperature 71.924;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C1_cooling_setpoint.value;
-	thermostat_deadband F1_house_C1_thermostat_deadband.value;
+	heating_setpoint heating2*0.964+0.50;
 object ZIPload {
 	schedule_skew -745;
 	heat_fraction 0.929;
@@ -847,11 +519,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -880,9 +550,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 68.511;
 	mass_temperature 68.511;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C2_cooling_setpoint.value;
-	thermostat_deadband F1_house_C2_thermostat_deadband.value;
+	heating_setpoint heating3*1.019+1.33;
 object ZIPload {
 	schedule_skew -1065;
 	heat_fraction 0.943;
@@ -981,11 +649,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1014,9 +680,7 @@ object house {
 	number_of_doors 3;
 	air_temperature 69.055;
 	mass_temperature 69.055;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B3_cooling_setpoint.value;
-	thermostat_deadband F1_house_B3_thermostat_deadband.value;
+	heating_setpoint heating4*0.958+1.61;
 object ZIPload {
 	schedule_skew -655;
 	heat_fraction 0.916;
@@ -1137,11 +801,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1170,9 +832,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 70.019;
 	mass_temperature 70.019;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B4_cooling_setpoint.value;
-	thermostat_deadband F1_house_B4_thermostat_deadband.value;
+	heating_setpoint heating7*0.978+1.33;
 object ZIPload {
 	schedule_skew -888;
 	heat_fraction 0.918;
@@ -1271,11 +931,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1304,9 +962,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.735;
 	mass_temperature 68.735;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A5_cooling_setpoint.value;
-	thermostat_deadband F1_house_A5_thermostat_deadband.value;
+	heating_setpoint heating7*0.978+1.33;
 object ZIPload {
 	schedule_skew 350;
 	heat_fraction 0.899;
@@ -1405,11 +1061,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1438,9 +1092,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 70.269;
 	mass_temperature 70.269;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B6_cooling_setpoint.value;
-	thermostat_deadband F1_house_B6_thermostat_deadband.value;
+	heating_setpoint heating2*1.026+0.16;
 object ZIPload {
 	schedule_skew 100;
 	heat_fraction 0.874;
@@ -1550,11 +1202,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1583,9 +1233,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 69.696;
 	mass_temperature 69.696;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B7_cooling_setpoint.value;
-	thermostat_deadband F1_house_B7_thermostat_deadband.value;
+	heating_setpoint heating8*1.036+2.91;
 object ZIPload {
 	schedule_skew -473;
 	heat_fraction 0.727;
@@ -1684,11 +1332,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1717,9 +1363,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.582;
 	mass_temperature 70.582;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A8_cooling_setpoint.value;
-	thermostat_deadband F1_house_A8_thermostat_deadband.value;
+	heating_setpoint heating5*0.960+1.18;
 object ZIPload {
 	schedule_skew -496;
 	heat_fraction 0.86;
@@ -1829,11 +1473,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1862,9 +1504,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 68.251;
 	mass_temperature 68.251;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A9_cooling_setpoint.value;
-	thermostat_deadband F1_house_A9_thermostat_deadband.value;
+	heating_setpoint heating3*0.992+0.90;
 object ZIPload {
 	schedule_skew -1409;
 	heat_fraction 0.868;
@@ -1963,11 +1603,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -1996,9 +1634,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 71.015;
 	mass_temperature 71.015;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C10_cooling_setpoint.value;
-	thermostat_deadband F1_house_C10_thermostat_deadband.value;
+	heating_setpoint heating5*0.977+1.10;
 object ZIPload {
 	schedule_skew 1007;
 	heat_fraction 0.722;
@@ -2097,11 +1733,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2130,9 +1764,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.59;
 	mass_temperature 70.59;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A11_cooling_setpoint.value;
-	thermostat_deadband F1_house_A11_thermostat_deadband.value;
+	heating_setpoint heating2*0.985+2.33;
 object ZIPload {
 	schedule_skew -422;
 	heat_fraction 0.689;
@@ -2242,11 +1874,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2275,9 +1905,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.865;
 	mass_temperature 70.865;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A12_cooling_setpoint.value;
-	thermostat_deadband F1_house_A12_thermostat_deadband.value;
+	heating_setpoint heating7*1.049+1.05;
 object ZIPload {
 	schedule_skew 352;
 	heat_fraction 0.71;
@@ -2376,11 +2004,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2409,9 +2035,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.919;
 	mass_temperature 70.919;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A13_cooling_setpoint.value;
-	thermostat_deadband F1_house_A13_thermostat_deadband.value;
+	heating_setpoint heating5*0.991+2.22;
 object ZIPload {
 	schedule_skew -4;
 	heat_fraction 0.945;
@@ -2521,11 +2145,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2554,9 +2176,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 69.709;
 	mass_temperature 69.709;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C14_cooling_setpoint.value;
-	thermostat_deadband F1_house_C14_thermostat_deadband.value;
+	heating_setpoint heating3*0.982+2.48;
 object ZIPload {
 	schedule_skew -226;
 	heat_fraction 0.896;
@@ -2655,11 +2275,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2688,9 +2306,7 @@ object house {
 	number_of_doors 4;
 	air_temperature 69.563;
 	mass_temperature 69.563;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A15_cooling_setpoint.value;
-	thermostat_deadband F1_house_A15_thermostat_deadband.value;
+	heating_setpoint heating6*1.033+2.39;
 object ZIPload {
 	schedule_skew -2314;
 	heat_fraction 0.72;
@@ -2811,11 +2427,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2844,9 +2458,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.171;
 	mass_temperature 68.171;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A16_cooling_setpoint.value;
-	thermostat_deadband F1_house_A16_thermostat_deadband.value;
+	heating_setpoint heating4*1.005+1.83;
 object ZIPload {
 	schedule_skew -1182;
 	heat_fraction 0.928;
@@ -2956,11 +2568,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -2989,9 +2599,7 @@ object house {
 	number_of_doors 3;
 	air_temperature 71.855;
 	mass_temperature 71.855;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C17_cooling_setpoint.value;
-	thermostat_deadband F1_house_C17_thermostat_deadband.value;
+	heating_setpoint heating3*0.961+0.81;
 object ZIPload {
 	schedule_skew -351;
 	heat_fraction 0.702;
@@ -3101,11 +2709,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3134,9 +2740,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.927;
 	mass_temperature 70.927;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C18_cooling_setpoint.value;
-	thermostat_deadband F1_house_C18_thermostat_deadband.value;
+	heating_setpoint heating6*1.032+0.12;
 object ZIPload {
 	schedule_skew -7;
 	heat_fraction 0.952;
@@ -3235,11 +2839,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3268,9 +2870,7 @@ object house {
 	number_of_doors 3;
 	air_temperature 69.462;
 	mass_temperature 69.462;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B19_cooling_setpoint.value;
-	thermostat_deadband F1_house_B19_thermostat_deadband.value;
+	heating_setpoint heating7*0.977+2.45;
 object ZIPload {
 	schedule_skew 555;
 	heat_fraction 0.731;
@@ -3391,11 +2991,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3424,9 +3022,7 @@ object house {
 	number_of_doors 3;
 	air_temperature 71.091;
 	mass_temperature 71.091;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B20_cooling_setpoint.value;
-	thermostat_deadband F1_house_B20_thermostat_deadband.value;
+	heating_setpoint heating3*0.967+0.25;
 object ZIPload {
 	schedule_skew -476;
 	heat_fraction 0.899;
@@ -3536,11 +3132,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3569,9 +3163,7 @@ object house {
 	number_of_doors 3;
 	air_temperature 71.628;
 	mass_temperature 71.628;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C21_cooling_setpoint.value;
-	thermostat_deadband F1_house_C21_thermostat_deadband.value;
+	heating_setpoint heating8*0.988+2.47;
 object ZIPload {
 	schedule_skew -877;
 	heat_fraction 0.655;
@@ -3692,11 +3284,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3725,9 +3315,7 @@ object house {
 	number_of_doors 4;
 	air_temperature 69.406;
 	mass_temperature 69.406;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B22_cooling_setpoint.value;
-	thermostat_deadband F1_house_B22_thermostat_deadband.value;
+	heating_setpoint heating6*0.978+2.10;
 object ZIPload {
 	schedule_skew 828;
 	heat_fraction 0.644;
@@ -3848,11 +3436,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -3881,9 +3467,7 @@ object house {
 	number_of_doors 4;
 	air_temperature 71.681;
 	mass_temperature 71.681;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B23_cooling_setpoint.value;
-	thermostat_deadband F1_house_B23_thermostat_deadband.value;
+	heating_setpoint heating8*1.011+0.71;
 object ZIPload {
 	schedule_skew -631;
 	heat_fraction 0.788;
@@ -4004,11 +3588,9 @@ object triplex_meter {
 	phases SB;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4037,9 +3619,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.868;
 	mass_temperature 70.868;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_B24_cooling_setpoint.value;
-	thermostat_deadband F1_house_B24_thermostat_deadband.value;
+	heating_setpoint heating3*1.000+2.30;
 object ZIPload {
 	schedule_skew -576;
 	heat_fraction 0.797;
@@ -4149,11 +3729,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4182,9 +3760,7 @@ object house {
 	number_of_doors 1;
 	air_temperature 70.71;
 	mass_temperature 70.71;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A25_cooling_setpoint.value;
-	thermostat_deadband F1_house_A25_thermostat_deadband.value;
+	heating_setpoint heating2*1.023+2.71;
 object ZIPload {
 	schedule_skew -724;
 	heat_fraction 0.738;
@@ -4283,11 +3859,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4316,9 +3890,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.211;
 	mass_temperature 68.211;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A26_cooling_setpoint.value;
-	thermostat_deadband F1_house_A26_thermostat_deadband.value;
+	heating_setpoint heating3*1.038+0.44;
 object ZIPload {
 	schedule_skew 541;
 	heat_fraction 0.847;
@@ -4417,11 +3989,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4450,9 +4020,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.696;
 	mass_temperature 68.696;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C27_cooling_setpoint.value;
-	thermostat_deadband F1_house_C27_thermostat_deadband.value;
+	heating_setpoint heating8*0.955+2.38;
 object ZIPload {
 	schedule_skew 2928;
 	heat_fraction 0.73;
@@ -4562,11 +4130,9 @@ object triplex_meter {
 	phases SA;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4595,9 +4161,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 71.874;
 	mass_temperature 71.874;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_A28_cooling_setpoint.value;
-	thermostat_deadband F1_house_A28_thermostat_deadband.value;
+	heating_setpoint heating8*0.977+1.57;
 object ZIPload {
 	schedule_skew -885;
 	heat_fraction 0.851;
@@ -4696,11 +4260,9 @@ object triplex_meter {
 	phases SC;
 	nominal_voltage 120;
 	bill_mode UNIFORM;
-	//bill_mode bill_mode.value;
-	//bill_mode HOURLY;
   bill_day 1;
-  monthly_fee monthly_fee.value;
-  price price.value;
+  monthly_fee 6;
+  price ${FIXED_PRICE};
   object metrics_collector {
     interval 300;
   };
@@ -4729,9 +4291,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.611;
 	mass_temperature 68.611;
-	heating_setpoint heating_setpoint.value;
-	cooling_setpoint F1_house_C29_cooling_setpoint.value;
-	thermostat_deadband F1_house_C29_thermostat_deadband.value;
+	heating_setpoint heating8*1.013+0.25;
 object ZIPload {
 	schedule_skew -2742;
 	heat_fraction 0.709;

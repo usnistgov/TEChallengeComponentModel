@@ -248,6 +248,42 @@
                     </ucef:publishedObjects>
                 </ucef:objectDetails>
             </objectClass>
+            <objectClass>
+                <name>Substation</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>distribution_load</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Publish</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>positive_sequence_voltage</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <ucef:objectDetails>
+                    <ucef:publishedObjects>
+                        <ucef:objectName>network_node</ucef:objectName>
+                    </ucef:publishedObjects>
+                </ucef:objectDetails>
+            </objectClass>
         </objectClass>
     </objects>
     <interactions>

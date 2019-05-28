@@ -42,19 +42,19 @@ public class ExternalLoadBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        Load.publish_constant_power_A();
+        Load.publish_constant_power_B();
+        Load.publish_constant_power_C();
+        Load.publish_name();
+        Load.publish(getLRC());
+        
+        	
         Meter.publish_bill_mode();
         Meter.publish_measured_voltage_1();
         Meter.publish_monthly_fee();
         Meter.publish_name();
         Meter.publish_price();
         Meter.publish(getLRC());
-        
-        	
-        Load.publish_constant_power_A();
-        Load.publish_constant_power_B();
-        Load.publish_constant_power_C();
-        Load.publish_name();
-        Load.publish(getLRC());
                 
         	
         Market.subscribe_clearing_price();
