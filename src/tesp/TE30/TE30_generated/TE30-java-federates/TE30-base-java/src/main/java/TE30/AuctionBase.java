@@ -15,12 +15,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class ExternalLoadBase extends SynchronizedFederate {
+public class AuctionBase extends SynchronizedFederate {
 
 	private SubscribedInteractionFilter _subscribedInteractionFilter = new SubscribedInteractionFilter();
 	
 	// constructor
-	public ExternalLoadBase(FederateConfig config) throws Exception {
+	public AuctionBase(FederateConfig config) throws Exception {
 		super(config);
 
 		super.createLRC();
@@ -32,13 +32,7 @@ public class ExternalLoadBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        
-        SimTime.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-			SimTime.get_handle(), 
-			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
-			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
-		);		
+        		
 		// object pubsub
         
         	
@@ -50,15 +44,36 @@ public class ExternalLoadBase extends SynchronizedFederate {
         Meter.publish(getLRC());
         
         	
-        Load.publish_constant_power_A();
-        Load.publish_constant_power_B();
-        Load.publish_constant_power_C();
-        Load.publish_name();
-        Load.publish(getLRC());
+        Market.publish_clearing_price();
+        Market.publish(getLRC());
+        
+        	
+        House.publish_air_temperature();
+        House.publish_cooling_setpoint();
+        House.publish_heating_setpoint();
+        House.publish_hvac_load();
+        House.publish_name();
+        House.publish_power_state();
+        House.publish_thermostat_deadband();
+        House.publish(getLRC());
                 
         	
-        Market.subscribe_clearing_price();
-        Market.subscribe(getLRC());
+        House.subscribe_air_temperature();
+        House.subscribe_cooling_setpoint();
+        House.subscribe_heating_setpoint();
+        House.subscribe_hvac_load();
+        House.subscribe_name();
+        House.subscribe_power_state();
+        House.subscribe_thermostat_deadband();
+        House.subscribe(getLRC());
+        
+        	
+        Meter.subscribe_bill_mode();
+        Meter.subscribe_measured_voltage_1();
+        Meter.subscribe_monthly_fee();
+        Meter.subscribe_name();
+        Meter.subscribe_price();
+        Meter.subscribe(getLRC());
         	}
         
 	

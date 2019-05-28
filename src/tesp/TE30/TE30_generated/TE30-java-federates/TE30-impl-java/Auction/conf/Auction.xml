@@ -5,14 +5,14 @@
     xmlns="http://standards.ieee.org/IEEE1516-2010" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelIdentification>
-        <name>Grid30</name>
+        <name>Auction</name>
         <type>SOM</type>
         <version>0.1.0</version>
         <modificationDate>2019-04-28</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
-            Grid30 in the TE30
+            Auction in the TE30
             project.
         </description>
         <poc>
@@ -32,7 +32,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Publish</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -41,7 +41,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -50,7 +50,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -59,7 +59,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Publish</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -77,7 +77,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Publish</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -86,81 +86,20 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
-                <ucef:objectDetails>
-                    <ucef:publishedObjects>
-                        <ucef:objectName>F1_house_B0</ucef:objectName>
-                        <ucef:objectName>F1_house_C1</ucef:objectName>
-                        <ucef:objectName>F1_house_C2</ucef:objectName>
-                        <ucef:objectName>F1_house_B3</ucef:objectName>
-                        <ucef:objectName>F1_house_B4</ucef:objectName>
-                        <ucef:objectName>F1_house_A5</ucef:objectName>
-                        <ucef:objectName>F1_house_B6</ucef:objectName>
-                        <ucef:objectName>F1_house_B7</ucef:objectName>
-                        <ucef:objectName>F1_house_A8</ucef:objectName>
-                        <ucef:objectName>F1_house_A9</ucef:objectName>
-                        <ucef:objectName>F1_house_C10</ucef:objectName>
-                        <ucef:objectName>F1_house_A11</ucef:objectName>
-                        <ucef:objectName>F1_house_A12</ucef:objectName>
-                        <ucef:objectName>F1_house_A13</ucef:objectName>
-                        <ucef:objectName>F1_house_C14</ucef:objectName>
-                        <ucef:objectName>F1_house_A15</ucef:objectName>
-                        <ucef:objectName>F1_house_A16</ucef:objectName>
-                        <ucef:objectName>F1_house_C17</ucef:objectName>
-                        <ucef:objectName>F1_house_C18</ucef:objectName>
-                        <ucef:objectName>F1_house_B19</ucef:objectName>
-                        <ucef:objectName>F1_house_B20</ucef:objectName>
-                        <ucef:objectName>F1_house_C21</ucef:objectName>
-                        <ucef:objectName>F1_house_B22</ucef:objectName>
-                        <ucef:objectName>F1_house_B23</ucef:objectName>
-                        <ucef:objectName>F1_house_B24</ucef:objectName>
-                        <ucef:objectName>F1_house_A25</ucef:objectName>
-                        <ucef:objectName>F1_house_A26</ucef:objectName>
-                        <ucef:objectName>F1_house_C27</ucef:objectName>
-                        <ucef:objectName>F1_house_A28</ucef:objectName>
-                        <ucef:objectName>F1_house_C29</ucef:objectName>
-                    </ucef:publishedObjects>
-                </ucef:objectDetails>
             </objectClass>
             <objectClass>
-                <name>Load</name>
-                <sharing>Subscribe</sharing>
+                <name>Market</name>
+                <sharing>Publish</sharing>
                 <attribute>
-                    <name>constant_power_A</name>
+                    <name>clearing_price</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_B</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_C</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -173,7 +112,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -182,7 +121,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Publish</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -191,7 +130,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -209,44 +148,10 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>PublishSubscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
-                <ucef:objectDetails>
-                    <ucef:publishedObjects>
-                        <ucef:objectName>F1_house_B0</ucef:objectName>
-                        <ucef:objectName>F1_house_C1</ucef:objectName>
-                        <ucef:objectName>F1_house_C2</ucef:objectName>
-                        <ucef:objectName>F1_house_B3</ucef:objectName>
-                        <ucef:objectName>F1_house_B4</ucef:objectName>
-                        <ucef:objectName>F1_house_A5</ucef:objectName>
-                        <ucef:objectName>F1_house_B6</ucef:objectName>
-                        <ucef:objectName>F1_house_B7</ucef:objectName>
-                        <ucef:objectName>F1_house_A8</ucef:objectName>
-                        <ucef:objectName>F1_house_A9</ucef:objectName>
-                        <ucef:objectName>F1_house_C10</ucef:objectName>
-                        <ucef:objectName>F1_house_A11</ucef:objectName>
-                        <ucef:objectName>F1_house_A12</ucef:objectName>
-                        <ucef:objectName>F1_house_A13</ucef:objectName>
-                        <ucef:objectName>F1_house_C14</ucef:objectName>
-                        <ucef:objectName>F1_house_A15</ucef:objectName>
-                        <ucef:objectName>F1_house_A16</ucef:objectName>
-                        <ucef:objectName>F1_house_C17</ucef:objectName>
-                        <ucef:objectName>F1_house_C18</ucef:objectName>
-                        <ucef:objectName>F1_house_B19</ucef:objectName>
-                        <ucef:objectName>F1_house_B20</ucef:objectName>
-                        <ucef:objectName>F1_house_C21</ucef:objectName>
-                        <ucef:objectName>F1_house_B22</ucef:objectName>
-                        <ucef:objectName>F1_house_B23</ucef:objectName>
-                        <ucef:objectName>F1_house_B24</ucef:objectName>
-                        <ucef:objectName>F1_house_A25</ucef:objectName>
-                        <ucef:objectName>F1_house_A26</ucef:objectName>
-                        <ucef:objectName>F1_house_C27</ucef:objectName>
-                        <ucef:objectName>F1_house_A28</ucef:objectName>
-                        <ucef:objectName>F1_house_C29</ucef:objectName>
-                    </ucef:publishedObjects>
-                </ucef:objectDetails>
             </objectClass>
         </objectClass>
     </objects>
@@ -323,28 +228,6 @@
                         <sharing>Subscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>TimeStamp</order>
-                    </interactionClass>
-                    <interactionClass>
-                        <name>SimTime</name>
-                        <sharing>Subscribe</sharing>
-                        <transportation>HLAreliable</transportation>
-                        <order>Receive</order>
-                        <parameter> 
-                            <name>timeScale</name>
-                            <dataType>double</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>timeZone</name>
-                            <dataType>String</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>unixTimeStart</name>
-                            <dataType>long</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>unixTimeStop</name>
-                            <dataType>long</dataType>
-                        </parameter>
                     </interactionClass>
                 </interactionClass>
             </interactionClass>

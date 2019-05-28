@@ -11,6 +11,8 @@
     <packaging>pom</packaging>
     <modules>
         
+        <module>Auction</module>
+        
         <module>ExternalLoad</module>
         
         <module>SimulationTime</module>

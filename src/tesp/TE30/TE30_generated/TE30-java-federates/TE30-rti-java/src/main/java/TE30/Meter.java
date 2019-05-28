@@ -35,6 +35,7 @@ public class Meter extends ObjectRoot {
     public Meter() {}
 
     private static int _bill_mode_handle;
+    private static int _measured_voltage_1_handle;
     private static int _monthly_fee_handle;
     private static int _name_handle;
     private static int _price_handle;
@@ -123,16 +124,19 @@ public class Meter extends ObjectRoot {
         _allDatamemberClassNameSetMap.put("ObjectRoot.Meter", _allDatamemberNames);
 
         _datamemberNames.add("bill_mode");
+        _datamemberNames.add("measured_voltage_1");
         _datamemberNames.add("monthly_fee");
         _datamemberNames.add("name");
         _datamemberNames.add("price");
 
         _datamemberTypeMap.put("bill_mode", "String");
+        _datamemberTypeMap.put("measured_voltage_1", "double");
         _datamemberTypeMap.put("monthly_fee", "double");
         _datamemberTypeMap.put("name", "String");
         _datamemberTypeMap.put("price", "double");
 
         _allDatamemberNames.add("bill_mode");
+        _allDatamemberNames.add("measured_voltage_1");
         _allDatamemberNames.add("monthly_fee");
         _allDatamemberNames.add("name");
         _allDatamemberNames.add("price");
@@ -172,6 +176,7 @@ public class Meter extends ObjectRoot {
         while(isNotInitialized) {
             try {
                 _bill_mode_handle = rti.getAttributeHandle("bill_mode", get_handle());
+                _measured_voltage_1_handle = rti.getAttributeHandle("measured_voltage_1", get_handle());
                 _monthly_fee_handle = rti.getAttributeHandle("monthly_fee", get_handle());
                 _name_handle = rti.getAttributeHandle("name", get_handle());
                 _price_handle = rti.getAttributeHandle("price", get_handle());
@@ -192,11 +197,13 @@ public class Meter extends ObjectRoot {
         }
 
         _datamemberNameHandleMap.put("ObjectRoot.Meter.bill_mode", _bill_mode_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Meter.measured_voltage_1", _measured_voltage_1_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Meter.monthly_fee", _monthly_fee_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Meter.name", _name_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Meter.price", _price_handle);
 
         _datamemberHandleNameMap.put(_bill_mode_handle, "bill_mode");
+        _datamemberHandleNameMap.put(_measured_voltage_1_handle, "measured_voltage_1");
         _datamemberHandleNameMap.put(_monthly_fee_handle, "monthly_fee");
         _datamemberHandleNameMap.put(_name_handle, "name");
         _datamemberHandleNameMap.put(_price_handle, "price");
@@ -430,6 +437,7 @@ public class Meter extends ObjectRoot {
     @Override
     public String getAttributeName(int datamemberHandle) {
         if (datamemberHandle == _bill_mode_handle) return "bill_mode";
+        else if (datamemberHandle == _measured_voltage_1_handle) return "measured_voltage_1";
         else if (datamemberHandle == _monthly_fee_handle) return "monthly_fee";
         else if (datamemberHandle == _name_handle) return "name";
         else if (datamemberHandle == _price_handle) return "price";
@@ -476,6 +484,7 @@ public class Meter extends ObjectRoot {
     public String toString() {
         return getClass().getName() + "("
                 + "bill_mode:" + get_bill_mode()
+                + "," + "measured_voltage_1:" + get_measured_voltage_1()
                 + "," + "monthly_fee:" + get_monthly_fee()
                 + "," + "name:" + get_name()
                 + "," + "price:" + get_price()
@@ -529,6 +538,54 @@ public class Meter extends ObjectRoot {
     */
     public static void unsubscribe_bill_mode() {
         _subscribeAttributeNameSet.remove( "bill_mode" );
+    }
+
+    /**
+    * Publishes the "measured_voltage_1" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "measured_voltage_1" attribute for publication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void publish_measured_voltage_1() {
+        _publishAttributeNameSet.add( "measured_voltage_1" );
+    }
+
+    /**
+    * Unpublishes the "measured_voltage_1" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "measured_voltage_1" attribute for unpublication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void unpublish_measured_voltage_1() {
+        _publishAttributeNameSet.remove( "measured_voltage_1" );
+    }
+
+    /**
+    * Subscribes a federate to the "measured_voltage_1" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "measured_voltage_1" attribute for subscription.
+    * To actually subscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void subscribe_measured_voltage_1() {
+        _subscribeAttributeNameSet.add( "measured_voltage_1" );
+    }
+
+    /**
+    * Unsubscribes a federate from the "measured_voltage_1" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "measured_voltage_1" attribute for unsubscription.
+    * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void unsubscribe_measured_voltage_1() {
+        _subscribeAttributeNameSet.remove( "measured_voltage_1" );
     }
 
     /**
@@ -706,6 +763,37 @@ public class Meter extends ObjectRoot {
         return _bill_mode.getTime();
     }
 
+    protected Attribute< Double > _measured_voltage_1 =
+            new Attribute< Double >(  new Double( 0 )  );
+
+    /**
+    * Set the value of the "measured_voltage_1" attribute to "value" for this object.
+    *
+    * @param value the new value for the "measured_voltage_1" attribute
+    */
+    public void set_measured_voltage_1( double value ) {
+        _measured_voltage_1.setValue( value );
+        _measured_voltage_1.setTime( getTime() );
+    }
+
+    /**
+    * Returns the value of the "measured_voltage_1" attribute of this object.
+    *
+    * @return the value of the "measured_voltage_1" attribute
+    */
+    public double get_measured_voltage_1() {
+        return _measured_voltage_1.getValue();
+    }
+
+    /**
+    * Returns the current timestamp of the "measured_voltage_1" attribute of this object.
+    *
+    * @return the current timestamp of the "measured_voltage_1" attribute
+    */
+    public double get_measured_voltage_1_time() {
+        return _measured_voltage_1.getTime();
+    }
+
     protected Attribute< Double > _monthly_fee =
             new Attribute< Double >(  new Double( 0 )  );
 
@@ -848,6 +936,7 @@ public class Meter extends ObjectRoot {
         super( Meter_var );
 
         set_bill_mode( Meter_var.get_bill_mode() );
+        set_measured_voltage_1( Meter_var.get_measured_voltage_1() );
         set_monthly_fee( Meter_var.get_monthly_fee() );
         set_name( Meter_var.get_name() );
         set_price( Meter_var.get_price() );
@@ -864,6 +953,7 @@ public class Meter extends ObjectRoot {
     */
     public Object getAttribute( String datamemberName ) {
         if ( "bill_mode".equals(datamemberName) ) return get_bill_mode();
+        else if ( "measured_voltage_1".equals(datamemberName) ) return new Double(get_measured_voltage_1());
         else if ( "monthly_fee".equals(datamemberName) ) return new Double(get_monthly_fee());
         else if ( "name".equals(datamemberName) ) return get_name();
         else if ( "price".equals(datamemberName) ) return new Double(get_price());
@@ -873,6 +963,7 @@ public class Meter extends ObjectRoot {
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
         if ( "bill_mode".equals( datamemberName) ) set_bill_mode( val );
+        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( Double.parseDouble(val) );
         else if ( "monthly_fee".equals( datamemberName) ) set_monthly_fee( Double.parseDouble(val) );
         else if ( "name".equals( datamemberName) ) set_name( val );
         else if ( "price".equals( datamemberName) ) set_price( Double.parseDouble(val) );
@@ -884,6 +975,7 @@ public class Meter extends ObjectRoot {
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
         if ( "bill_mode".equals( datamemberName) ) set_bill_mode( (String)val );
+        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( (Double)val );
         else if ( "monthly_fee".equals( datamemberName) ) set_monthly_fee( (Double)val );
         else if ( "name".equals( datamemberName) ) set_name( (String)val );
         else if ( "price".equals( datamemberName) ) set_price( (Double)val );
@@ -899,6 +991,11 @@ public class Meter extends ObjectRoot {
         if (_publishAttributeNameSet.contains("bill_mode") && _bill_mode.shouldBeUpdated(force)) {
             datamembers.add( getAttributeHandle("bill_mode"), getAttribute("bill_mode").toString().getBytes() );
             _bill_mode.setHasBeenUpdated();
+        }
+
+        if (_publishAttributeNameSet.contains("measured_voltage_1") && _measured_voltage_1.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("measured_voltage_1"), getAttribute("measured_voltage_1").toString().getBytes() );
+            _measured_voltage_1.setHasBeenUpdated();
         }
 
         if (_publishAttributeNameSet.contains("monthly_fee") && _monthly_fee.shouldBeUpdated(force)) {
@@ -924,6 +1021,7 @@ public class Meter extends ObjectRoot {
         if ( object instanceof Meter ) {
             Meter data = (Meter)object;
             _bill_mode = data._bill_mode;
+            _measured_voltage_1 = data._measured_voltage_1;
             _monthly_fee = data._monthly_fee;
             _name = data._name;
             _price = data._price;
