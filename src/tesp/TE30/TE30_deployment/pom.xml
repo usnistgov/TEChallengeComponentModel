@@ -24,6 +24,12 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>gov.nist.hla.te</groupId>
+			<artifactId>Auction</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>gov.nist.hla.te</groupId>
 			<artifactId>ExternalLoad</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
@@ -168,6 +174,7 @@
 		                        <tasks>
 		                            <echo message="Creating folder for the execution..." />
 		                            
+		                            <mkdir dir="${project.basedir}/target/Auction" />
 		                            <mkdir dir="${project.basedir}/target/ExternalLoad" />
 		                            <mkdir dir="${project.basedir}/target/Grid30" />
 		                            <mkdir dir="${project.basedir}/target/SimulationTime" />
@@ -224,6 +231,13 @@
 	</distributionManagement>
 	
 	<profiles>
+        <profile>
+            <id>Auction</id>
+            <properties>
+                <federate.name>Auction</federate.name>
+                <federate.configFile>auction.json</federate.configFile>
+            </properties>
+        </profile>
         <profile>
             <id>ExternalLoad</id>
             <properties>

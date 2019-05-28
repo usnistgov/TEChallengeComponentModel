@@ -46,7 +46,6 @@
 600	occupants_22	0
 600	occupants_23	0
 600	occupants_24	0
-600	kwhr_price	0.016988797
 900	electric_demand_power	48782.93555
 900	occupants_1	0
 900	occupants_2	0
@@ -71,7 +70,6 @@
 900	occupants_22	0
 900	occupants_23	0
 900	occupants_24	0
-900	kwhr_price	0.016742688
 1200	electric_demand_power	48782.41465
 1200	occupants_1	0
 1200	occupants_2	0
@@ -96,7 +94,6 @@
 1200	occupants_22	0
 1200	occupants_23	0
 1200	occupants_24	0
-1200	kwhr_price	0.016951343
 1500	electric_demand_power	48781.82695
 1500	occupants_1	0
 1500	occupants_2	0
@@ -121,7 +118,6 @@
 1500	occupants_22	0
 1500	occupants_23	0
 1500	occupants_24	0
-1500	kwhr_price	0.016794978
 1800	electric_demand_power	48780.80095
 1800	occupants_1	0
 1800	occupants_2	0
@@ -139,7 +135,6 @@
 1800	occupants_14	0
 1800	occupants_15	0
 1800	occupants_17	0
-1800	kwhr_price	0.017937154
 1800	occupants_18	0
 1800	occupants_19	0
 1800	occupants_20	0
@@ -147,7 +142,6 @@
 1800	occupants_22	0
 1800	occupants_23	0
 1800	occupants_24	0
-2100	kwhr_price	0.017079293
 2100	electric_demand_power	48779.69629
 2100	occupants_1	0
 2100	occupants_2	0
@@ -172,7 +166,6 @@
 2100	occupants_22	0
 2100	occupants_23	0
 2100	occupants_24	0
-2400	kwhr_price	0.017650626
 2400	electric_demand_power	48778.54037
 2400	occupants_1	0
 2400	occupants_2	0
@@ -221,8 +214,6 @@
 2700	occupants_22	0
 2700	occupants_23	0
 2700	occupants_24	0
-2700	kwhr_price	0.01760408
-3000	kwhr_price	0.017493149
 3000	electric_demand_power	48776.08476
 3000	occupants_1	0
 3000	occupants_2	0
@@ -268,7 +259,6 @@
 3300	occupants_19	0
 3300	occupants_20	0
 3300	occupants_21	0
-3300	kwhr_price	0.017571458
 3300	occupants_22	0
 3300	occupants_23	0
 3300	occupants_24	0
@@ -296,7 +286,6 @@
 3600	occupants_22	0
 3600	occupants_23	0
 3600	occupants_24	0
-3600	kwhr_price	0.017467273
 3900	electric_demand_power	48772.07976
 3900	occupants_1	0
 3900	occupants_2	0
@@ -321,7 +310,6 @@
 3900	occupants_22	0
 3900	occupants_23	0
 3900	occupants_24	0
-3900	kwhr_price	0.01733772
 4200	electric_demand_power	48770.11984
 4200	occupants_1	0
 4200	occupants_2	0
@@ -346,8 +334,6 @@
 4200	occupants_22	0
 4200	occupants_23	0
 4200	occupants_24	0
-4200	kwhr_price	0.018196271
-4500	kwhr_price	0.018071731
 4500	electric_demand_power	48768.04844
 4500	occupants_1	0
 4500	occupants_2	0
@@ -396,13 +382,11 @@
 4800	occupants_22	0
 4800	occupants_23	0
 4800	occupants_24	0
-4800	kwhr_price	0.017504573
 5100	electric_demand_power	48763.9003
 5100	occupants_1	0
 5100	occupants_2	0
 5100	occupants_3	0
 5100	occupants_4	0
-5100	kwhr_price	0.017247959
 5100	occupants_5	0
 5100	occupants_6	0
 5100	occupants_7	0
@@ -446,8 +430,6 @@
 5400	occupants_22	0
 5400	occupants_23	0
 5400	occupants_24	0
-5400	kwhr_price	0.017267351
-5700	kwhr_price	0.01772997
 5700	electric_demand_power	48759.74393
 5700	occupants_1	0
 5700	occupants_2	0
@@ -476,7 +458,6 @@
 6000	occupants_1	0
 6000	occupants_2	0
 6000	occupants_3	0
-6000	kwhr_price	0.018069678
 6000	occupants_4	0
 6000	occupants_5	0
 6000	occupants_6	0
@@ -497,7 +478,6 @@
 6000	occupants_22	0
 6000	occupants_23	0
 6000	occupants_24	0
-6300	kwhr_price	0.018194576
 6300	electric_demand_power	48755.57834
 6300	occupants_1	0
 6300	occupants_2	0
@@ -546,7 +526,6 @@
 6600	occupants_22	0
 6600	occupants_23	0
 6600	occupants_24	0
-6600	kwhr_price	0.018449028
 6900	electric_demand_power	48751.40313
 6900	occupants_1	0
 6900	occupants_2	0
@@ -571,8 +550,6 @@
 6900	occupants_22	0
 6900	occupants_23	0
 6900	occupants_24	0
-6900	kwhr_price	0.018444201
-7200	kwhr_price	0.018451702
 7200	electric_demand_power	48749.31193
 7200	occupants_1	0
 7200	occupants_2	0
@@ -601,7 +578,6 @@
 7500	occupants_1	0
 7500	occupants_2	0
 7500	occupants_3	0
-7500	kwhr_price	0.018238829
 7500	occupants_4	0
 7500	occupants_5	0
 7500	occupants_6	0
@@ -646,7 +622,6 @@
 7800	occupants_22	0
 7800	occupants_23	0
 7800	occupants_24	0
-7800	kwhr_price	0.018188356
 8100	electric_demand_power	48743.26447
 8100	occupants_1	0
 8100	occupants_2	0
@@ -671,7 +646,6 @@
 8100	occupants_22	0
 8100	occupants_23	0
 8100	occupants_24	0
-8100	kwhr_price	0.01797609
 8400	electric_demand_power	48741.28618
 8400	occupants_1	0
 8400	occupants_2	0
@@ -696,7 +670,6 @@
 8400	occupants_22	0
 8400	occupants_23	0
 8400	occupants_24	0
-8400	kwhr_price	0.017426486
 8700	electric_demand_power	48739.30657
 8700	occupants_1	0
 8700	occupants_2	0
@@ -721,7 +694,6 @@
 8700	occupants_22	0
 8700	occupants_23	0
 8700	occupants_24	0
-8700	kwhr_price	0.017948258
 9000	electric_demand_power	48737.32577
 9000	occupants_1	0
 9000	occupants_2	0
@@ -738,7 +710,6 @@
 9000	occupants_13	0
 9000	occupants_14	0
 9000	occupants_15	0
-9000	kwhr_price	0.018427098
 9000	occupants_17	0
 9000	occupants_18	0
 9000	occupants_19	0
@@ -771,7 +742,6 @@
 9300	occupants_22	0
 9300	occupants_23	0
 9300	occupants_24	0
-9300	kwhr_price	0.018299678
 9600	electric_demand_power	48733.34666
 9600	occupants_1	0
 9600	occupants_2	0
@@ -796,7 +766,6 @@
 9600	occupants_22	0
 9600	occupants_23	0
 9600	occupants_24	0
-9600	kwhr_price	0.018217212
 9900	electric_demand_power	48731.36095
 9900	occupants_1	0
 9900	occupants_2	0
@@ -821,7 +790,6 @@
 9900	occupants_22	0
 9900	occupants_23	0
 9900	occupants_24	0
-9900	kwhr_price	0.01822118
 10200	electric_demand_power	48729.37426
 10200	occupants_1	0
 10200	occupants_2	0
@@ -846,7 +814,6 @@
 10200	occupants_22	0
 10200	occupants_23	0
 10200	occupants_24	0
-10200	kwhr_price	0.018383505
 10500	electric_demand_power	48727.38626
 10500	occupants_1	0
 10500	occupants_2	0
@@ -863,7 +830,6 @@
 10500	occupants_13	0
 10500	occupants_14	0
 10500	occupants_15	0
-10500	kwhr_price	0.018505066
 10500	occupants_17	0
 10500	occupants_18	0
 10500	occupants_19	0
@@ -872,7 +838,6 @@
 10500	occupants_22	0
 10500	occupants_23	0
 10500	occupants_24	0
-10800	kwhr_price	0.018025905
 10800	electric_demand_power	48725.39705
 10800	occupants_1	0
 10800	occupants_2	0
@@ -897,7 +862,6 @@
 10800	occupants_22	0
 10800	occupants_23	0
 10800	occupants_24	0
-11100	kwhr_price	0.01758828
 11100	electric_demand_power	48723.40646
 11100	occupants_1	0
 11100	occupants_2	0
@@ -946,7 +910,6 @@
 11400	occupants_22	0
 11400	occupants_23	0
 11400	occupants_24	0
-11400	kwhr_price	0.017762743
 11700	electric_demand_power	49012.69303
 11700	occupants_1	0
 11700	occupants_2	0
@@ -971,7 +934,6 @@
 11700	occupants_22	0
 11700	occupants_23	0
 11700	occupants_24	0
-11700	kwhr_price	0.018303051
 12000	electric_demand_power	49010.07623
 12000	occupants_1	0
 12000	occupants_2	0
@@ -996,7 +958,6 @@
 12000	occupants_22	0
 12000	occupants_23	0
 12000	occupants_24	0
-12000	kwhr_price	0.018081224
 12300	electric_demand_power	49007.4532
 12300	occupants_1	0
 12300	occupants_2	0
@@ -1021,8 +982,6 @@
 12300	occupants_22	0
 12300	occupants_23	0
 12300	occupants_24	0
-12300	kwhr_price	0.017913926
-12600	kwhr_price	0.018192139
 12600	electric_demand_power	49004.83098
 12600	occupants_1	0
 12600	occupants_2	0
@@ -1047,7 +1006,6 @@
 12600	occupants_22	0
 12600	occupants_23	0
 12600	occupants_24	0
-12900	kwhr_price	0.018427206
 12900	electric_demand_power	49002.20397
 12900	occupants_1	0
 12900	occupants_2	0
@@ -1096,8 +1054,6 @@
 13200	occupants_22	0
 13200	occupants_23	0
 13200	occupants_24	0
-13200	kwhr_price	0.018858615
-13500	kwhr_price	0.018527301
 13500	electric_demand_power	48996.94753
 13500	occupants_1	0
 13500	occupants_2	0
@@ -1146,8 +1102,6 @@
 13800	occupants_22	0
 13800	occupants_23	0
 13800	occupants_24	0
-13800	kwhr_price	0.017979505
-14100	kwhr_price	0.017243897
 14100	electric_demand_power	48991.68078
 14100	occupants_1	0
 14100	occupants_2	0
@@ -1196,7 +1150,6 @@
 14400	occupants_22	0
 14400	occupants_23	0
 14400	occupants_24	0
-14400	kwhr_price	0.018145313
 14700	electric_demand_power	48986.40958
 14700	occupants_1	0
 14700	occupants_2	0
@@ -1221,7 +1174,6 @@
 14700	occupants_22	0
 14700	occupants_23	0
 14700	occupants_24	0
-14700	kwhr_price	0.018156564
 15000	electric_demand_power	48965.50059
 15000	occupants_1	0
 15000	occupants_2	0
@@ -1246,7 +1198,6 @@
 15000	occupants_22	0
 15000	occupants_23	0
 15000	occupants_24	0
-15000	kwhr_price	0.018418419
 15300	electric_demand_power	48963.05462
 15300	occupants_1	0
 15300	occupants_2	0
@@ -1271,8 +1222,6 @@
 15300	occupants_22	0
 15300	occupants_23	0
 15300	occupants_24	0
-15300	kwhr_price	0.01880825
-15600	kwhr_price	0.018803672
 15600	electric_demand_power	48960.60933
 15600	occupants_1	0
 15600	occupants_2	0
@@ -1307,7 +1256,6 @@
 15900	occupants_7	0
 15900	occupants_8	0
 15900	occupants_9	0
-15900	kwhr_price	0.019586166
 15900	occupants_10	0
 15900	occupants_11	0
 15900	occupants_12	0
@@ -1322,7 +1270,6 @@
 15900	occupants_22	0
 15900	occupants_23	0
 15900	occupants_24	0
-16200	kwhr_price	0.019165921
 16200	electric_demand_power	48955.71905
 16200	occupants_1	0
 16200	occupants_2	0
@@ -1356,7 +1303,6 @@
 16500	occupants_6	0
 16500	occupants_7	0
 16500	occupants_8	0
-16500	kwhr_price	0.019184758
 16500	occupants_9	0
 16500	occupants_10	0
 16500	occupants_11	0
@@ -1372,7 +1318,6 @@
 16500	occupants_22	0
 16500	occupants_23	0
 16500	occupants_24	0
-16800	kwhr_price	0.018968199
 16800	electric_demand_power	48950.82863
 16800	occupants_1	0
 16800	occupants_2	0
@@ -1397,7 +1342,6 @@
 16800	occupants_22	0
 16800	occupants_23	0
 16800	occupants_24	0
-17100	kwhr_price	0.018188941
 17100	electric_demand_power	48948.38324
 17100	occupants_1	0
 17100	occupants_2	0
@@ -1446,8 +1390,6 @@
 17400	occupants_22	0
 17400	occupants_23	0
 17400	occupants_24	0
-17400	kwhr_price	0.01757514
-17700	kwhr_price	0.017420847
 17700	electric_demand_power	48943.49233
 17700	occupants_1	0
 17700	occupants_2	0
@@ -1496,7 +1438,6 @@
 18000	occupants_22	0
 18000	occupants_23	0
 18000	occupants_24	0
-18000	kwhr_price	0.018361545
 18300	electric_demand_power	48938.60123
 18300	occupants_1	0
 18300	occupants_2	0
@@ -1521,8 +1462,6 @@
 18300	occupants_22	0
 18300	occupants_23	0
 18300	occupants_24	0
-18300	kwhr_price	0.017986535
-18600	kwhr_price	0.018004253
 18600	electric_demand_power	80719.31835
 18600	occupants_1	0
 18600	occupants_2	0
@@ -1571,8 +1510,6 @@
 18900	occupants_22	0
 18900	occupants_23	0
 18900	occupants_24	0
-18900	kwhr_price	0.018272885
-19200	kwhr_price	0.019326006
 19200	electric_demand_power	80359.27605
 19200	occupants_1	0
 19200	occupants_2	0
@@ -1621,7 +1558,6 @@
 19500	occupants_22	0
 19500	occupants_23	0
 19500	occupants_24	0
-19500	kwhr_price	0.019822348
 19800	electric_demand_power	71494.98898
 19800	occupants_1	0
 19800	occupants_2	0
@@ -1646,11 +1582,9 @@
 19800	occupants_22	0
 19800	occupants_23	0
 19800	occupants_24	0
-19800	kwhr_price	0.020161267
 20100	electric_demand_power	71357.36598
 20100	occupants_1	0
 20100	occupants_2	0
-20100	kwhr_price	0.020249209
 20100	occupants_3	0
 20100	occupants_4	0
 20100	occupants_5	0
@@ -1696,8 +1630,6 @@
 20400	occupants_22	0
 20400	occupants_23	0
 20400	occupants_24	0
-20400	kwhr_price	0.020165225
-20700	kwhr_price	0.020265903
 20700	electric_demand_power	71086.31348
 20700	occupants_1	0
 20700	occupants_2	0
@@ -1722,7 +1654,6 @@
 20700	occupants_22	0
 20700	occupants_23	0
 20700	occupants_24	0
-21000	kwhr_price	0.020281548
 21000	electric_demand_power	70951.27197
 21000	occupants_1	0
 21000	occupants_2	0
@@ -1771,7 +1702,6 @@
 21300	occupants_22	0
 21300	occupants_23	0
 21300	occupants_24	0
-21300	kwhr_price	0.020352731
 21600	electric_demand_power	70680.3178
 21600	occupants_1	0
 21600	occupants_2	0
@@ -1792,7 +1722,6 @@
 21600	occupants_18	0
 21600	occupants_19	0
 21600	occupants_20	0
-21600	kwhr_price	0.020447922
 21600	occupants_21	0
 21600	occupants_22	0
 21600	occupants_23	0
@@ -1821,7 +1750,6 @@
 21900	occupants_22	0
 21900	occupants_23	0
 21900	occupants_24	0
-21900	kwhr_price	0.020501288
 22200	electric_demand_power	76420.15795
 22200	occupants_1	0
 22200	occupants_2	0
@@ -1846,8 +1774,6 @@
 22200	occupants_22	0
 22200	occupants_23	0
 22200	occupants_24	0
-22200	kwhr_price	0.016889419
-22500	kwhr_price	0.016006405
 22500	electric_demand_power	75008.24981
 22500	occupants_1	0
 22500	occupants_2	0
@@ -1878,7 +1804,6 @@
 22800	occupants_3	0
 22800	occupants_4	0
 22800	occupants_5	0
-22800	kwhr_price	0.017310752
 22800	occupants_6	0
 22800	occupants_7	0
 22800	occupants_8	0
@@ -1921,7 +1846,6 @@
 23100	occupants_22	0
 23100	occupants_23	0
 23100	occupants_24	0
-23100	kwhr_price	0.017028131
 23400	electric_demand_power	77580.56662
 23400	occupants_1	0
 23400	occupants_2	0
@@ -1946,8 +1870,6 @@
 23400	occupants_22	0
 23400	occupants_23	0
 23400	occupants_24	0
-23400	kwhr_price	0.017069019
-23700	kwhr_price	0.016764372
 23700	electric_demand_power	78192.77859
 23700	occupants_1	0
 23700	occupants_2	0
@@ -1996,7 +1918,6 @@
 24000	occupants_22	0
 24000	occupants_23	0
 24000	occupants_24	0
-24000	kwhr_price	0.017241951
 24300	electric_demand_power	79833.98529
 24300	occupants_1	0
 24300	occupants_2	0
@@ -2021,7 +1942,6 @@
 24300	occupants_22	0
 24300	occupants_23	0
 24300	occupants_24	0
-24300	kwhr_price	0.017440704
 24600	electric_demand_power	80662.07624
 24600	occupants_1	0
 24600	occupants_2	0
@@ -2046,8 +1966,6 @@
 24600	occupants_22	0
 24600	occupants_23	0
 24600	occupants_24	0
-24600	kwhr_price	0.017597283
-24900	kwhr_price	0.017741279
 24900	electric_demand_power	81393.66823
 24900	occupants_1	0
 24900	occupants_2	0
@@ -2096,7 +2014,6 @@
 25200	occupants_22	0
 25200	occupants_23	0
 25200	occupants_24	0
-25200	kwhr_price	0.018003502
 25500	electric_demand_power	83002.5087
 25500	occupants_1	0
 25500	occupants_2	0
@@ -2121,8 +2038,6 @@
 25500	occupants_22	0
 25500	occupants_23	0
 25500	occupants_24	0
-25500	kwhr_price	0.017846724
-25800	kwhr_price	0.017066802
 25800	electric_demand_power	135567.0401
 25800	occupants_1	2.85
 25800	occupants_2	0
@@ -2171,7 +2086,6 @@
 26100	occupants_22	17.8875
 26100	occupants_23	11.8125
 26100	occupants_24	11.025
-26100	kwhr_price	0.017315141
 26400	electric_demand_power	140924.2554
 26400	occupants_1	2.85
 26400	occupants_2	0
@@ -2196,8 +2110,6 @@
 26400	occupants_22	17.8875
 26400	occupants_23	11.8125
 26400	occupants_24	11.025
-26400	kwhr_price	0.019423567
-26700	kwhr_price	0.019685933
 26700	electric_demand_power	142493.7804
 26700	occupants_1	2.85
 26700	occupants_2	0
@@ -2222,7 +2134,6 @@
 26700	occupants_22	17.8875
 26700	occupants_23	11.8125
 26700	occupants_24	11.025
-27000	kwhr_price	0.020038133
 27000	electric_demand_power	143533.8383
 27000	occupants_1	2.85
 27000	occupants_2	0
@@ -2247,7 +2158,6 @@
 27000	occupants_22	17.8875
 27000	occupants_23	11.8125
 27000	occupants_24	11.025
-27300	kwhr_price	0.020039495
 27300	electric_demand_power	143984.8321
 27300	occupants_1	2.85
 27300	occupants_2	0
@@ -2272,7 +2182,6 @@
 27300	occupants_22	17.8875
 27300	occupants_23	11.8125
 27300	occupants_24	11.025
-27600	kwhr_price	0.019840712
 27600	electric_demand_power	145462.9748
 27600	occupants_1	2.85
 27600	occupants_2	0
@@ -2297,7 +2206,6 @@
 27600	occupants_22	17.8875
 27600	occupants_23	11.8125
 27600	occupants_24	11.025
-27900	kwhr_price	0.020182371
 27900	electric_demand_power	146620.7674
 27900	occupants_1	2.85
 27900	occupants_2	0
@@ -2322,7 +2230,6 @@
 27900	occupants_22	17.8875
 27900	occupants_23	11.8125
 27900	occupants_24	11.025
-28200	kwhr_price	0.020253949
 28200	electric_demand_power	147939.4671
 28200	occupants_1	2.85
 28200	occupants_2	0
@@ -2347,7 +2254,6 @@
 28200	occupants_22	17.8875
 28200	occupants_23	11.8125
 28200	occupants_24	11.025
-28500	kwhr_price	0.020483592
 28500	electric_demand_power	149267.8891
 28500	occupants_1	2.85
 28500	occupants_2	0
@@ -2372,7 +2278,6 @@
 28500	occupants_22	17.8875
 28500	occupants_23	11.8125
 28500	occupants_24	11.025
-28800	kwhr_price	0.020582643
 28800	electric_demand_power	150314.5666
 28800	occupants_1	2.85
 28800	occupants_2	0
@@ -2397,7 +2302,6 @@
 28800	occupants_22	17.8875
 28800	occupants_23	11.8125
 28800	occupants_24	11.025
-29100	kwhr_price	0.020770204
 29100	electric_demand_power	151573.3856
 29100	occupants_1	2.85
 29100	occupants_2	0
@@ -2422,7 +2326,6 @@
 29100	occupants_22	17.8875
 29100	occupants_23	11.8125
 29100	occupants_24	11.025
-29400	kwhr_price	0.020796916
 29400	electric_demand_power	153633.9085
 29400	occupants_1	2.85
 29400	occupants_2	56.65467626
@@ -2456,7 +2359,6 @@
 29700	occupants_6	3.7125
 29700	occupants_7	3.7125
 29700	occupants_8	3.7125
-29700	kwhr_price	0.020991992
 29700	occupants_9	3.7125
 29700	occupants_10	2.88
 29700	occupants_11	2.88
@@ -2472,7 +2374,6 @@
 29700	occupants_22	17.8875
 29700	occupants_23	11.8125
 29700	occupants_24	11.025
-30000	kwhr_price	0.02105321
 30000	electric_demand_power	156239.6666
 30000	occupants_1	2.85
 30000	occupants_2	56.65467626
@@ -2521,8 +2422,6 @@
 30300	occupants_22	17.8875
 30300	occupants_23	11.8125
 30300	occupants_24	11.025
-30300	kwhr_price	0.021272914
-30600	kwhr_price	0.021333331
 30600	electric_demand_power	159065.1997
 30600	occupants_1	2.85
 30600	occupants_2	56.65467626
@@ -2547,7 +2446,6 @@
 30600	occupants_22	17.8875
 30600	occupants_23	11.8125
 30600	occupants_24	11.025
-30900	kwhr_price	0.020948649
 30900	electric_demand_power	160686.6845
 30900	occupants_1	2.85
 30900	occupants_2	56.65467626
@@ -2573,7 +2471,6 @@
 30900	occupants_23	11.8125
 30900	occupants_24	11.025
 31200	electric_demand_power	162236.7162
-31200	kwhr_price	0.021522956
 31200	occupants_1	2.85
 31200	occupants_2	56.65467626
 31200	occupants_3	7.297297297
@@ -2597,7 +2494,6 @@
 31200	occupants_22	17.8875
 31200	occupants_23	11.8125
 31200	occupants_24	11.025
-31500	kwhr_price	0.021559878
 31500	electric_demand_power	163948.4756
 31500	occupants_1	2.85
 31500	occupants_2	56.65467626
@@ -2646,14 +2542,12 @@
 31800	occupants_22	17.8875
 31800	occupants_23	11.8125
 31800	occupants_24	11.025
-31800	kwhr_price	0.021701522
 32100	electric_demand_power	167324.1796
 32100	occupants_1	2.85
 32100	occupants_2	56.65467626
 32100	occupants_3	7.297297297
 32100	occupants_4	3.7125
 32100	occupants_5	3.7125
-32100	kwhr_price	0.02180662
 32100	occupants_6	3.7125
 32100	occupants_7	3.7125
 32100	occupants_8	3.7125
@@ -2673,7 +2567,6 @@
 32100	occupants_23	11.8125
 32100	occupants_24	11.025
 32400	electric_demand_power	169365.956
-32400	kwhr_price	0.022217529
 32400	occupants_1	2.85
 32400	occupants_2	56.65467626
 32400	occupants_3	7.297297297
@@ -2698,7 +2591,6 @@
 32400	occupants_23	11.8125
 32400	occupants_24	11.025
 32700	electric_demand_power	171311.7612
-32700	kwhr_price	0.022450887
 32700	occupants_1	2.85
 32700	occupants_2	56.65467626
 32700	occupants_3	7.297297297
@@ -2746,7 +2638,6 @@
 33000	occupants_22	17.8875
 33000	occupants_23	11.8125
 33000	occupants_24	11.025
-33000	kwhr_price	0.021580627
 33300	electric_demand_power	174843.7968
 33300	occupants_1	2.85
 33300	occupants_2	56.65467626
@@ -2771,7 +2662,6 @@
 33300	occupants_22	17.8875
 33300	occupants_23	11.8125
 33300	occupants_24	11.025
-33300	kwhr_price	0.02133812
 33600	electric_demand_power	175233.9238
 33600	occupants_1	2.85
 33600	occupants_2	56.65467626
@@ -2796,9 +2686,7 @@
 33600	occupants_22	17.8875
 33600	occupants_23	11.8125
 33600	occupants_24	11.025
-33600	kwhr_price	0.022142251
 33900	electric_demand_power	176435.6805
-33900	kwhr_price	0.021838986
 33900	occupants_1	2.85
 33900	occupants_2	56.65467626
 33900	occupants_3	7.297297297
@@ -2846,8 +2734,6 @@
 34200	occupants_22	17.8875
 34200	occupants_23	11.8125
 34200	occupants_24	11.025
-34200	kwhr_price	0.021779591
-34500	kwhr_price	0.021844617
 34500	electric_demand_power	176866.9737
 34500	occupants_1	2.85
 34500	occupants_2	56.65467626
@@ -2872,7 +2758,6 @@
 34500	occupants_22	17.8875
 34500	occupants_23	11.8125
 34500	occupants_24	11.025
-34800	kwhr_price	0.021827644
 34800	electric_demand_power	177834.723
 34800	occupants_1	2.85
 34800	occupants_2	56.65467626
@@ -2921,8 +2806,6 @@
 35100	occupants_22	17.8875
 35100	occupants_23	11.8125
 35100	occupants_24	11.025
-35100	kwhr_price	0.021821272
-35400	kwhr_price	0.021811192
 35400	electric_demand_power	178637.7503
 35400	occupants_1	2.85
 35400	occupants_2	56.65467626
@@ -2947,7 +2830,6 @@
 35400	occupants_22	17.8875
 35400	occupants_23	11.8125
 35400	occupants_24	11.025
-35700	kwhr_price	0.02163898
 35700	electric_demand_power	179166.8681
 35700	occupants_1	2.85
 35700	occupants_2	56.65467626
@@ -2975,7 +2857,6 @@
 36000	electric_demand_power	179656.04
 36000	occupants_1	2.85
 36000	occupants_2	56.65467626
-36000	kwhr_price	0.021813817
 36000	occupants_3	7.297297297
 36000	occupants_4	3.7125
 36000	occupants_5	3.7125
@@ -2997,7 +2878,6 @@
 36000	occupants_22	17.8875
 36000	occupants_23	11.8125
 36000	occupants_24	11.025
-36300	kwhr_price	0.021903831
 36300	electric_demand_power	180233.1713
 36300	occupants_1	2.85
 36300	occupants_2	56.65467626
@@ -3046,7 +2926,6 @@
 36600	occupants_22	17.8875
 36600	occupants_23	11.8125
 36600	occupants_24	11.025
-36600	kwhr_price	0.021879584
 36900	electric_demand_power	184218.6277
 36900	occupants_1	2.85
 36900	occupants_2	56.65467626
@@ -3071,7 +2950,6 @@
 36900	occupants_22	17.8875
 36900	occupants_23	11.8125
 36900	occupants_24	11.025
-36900	kwhr_price	0.022714955
 37200	electric_demand_power	185755.8889
 37200	occupants_1	2.85
 37200	occupants_2	56.65467626
@@ -3096,7 +2974,6 @@
 37200	occupants_22	17.8875
 37200	occupants_23	11.8125
 37200	occupants_24	11.025
-37200	kwhr_price	0.021995266
 37500	electric_demand_power	187403.2909
 37500	occupants_1	2.85
 37500	occupants_2	56.65467626
@@ -3107,7 +2984,6 @@
 37500	occupants_7	3.7125
 37500	occupants_8	3.7125
 37500	occupants_9	3.7125
-37500	kwhr_price	0.022753029
 37500	occupants_10	2.88
 37500	occupants_11	2.88
 37500	occupants_12	2.88
@@ -3146,7 +3022,6 @@
 37800	occupants_22	17.8875
 37800	occupants_23	11.8125
 37800	occupants_24	11.025
-37800	kwhr_price	0.022517834
 38100	electric_demand_power	189106.3905
 38100	occupants_1	2.85
 38100	occupants_2	56.65467626
@@ -3171,7 +3046,6 @@
 38100	occupants_22	17.8875
 38100	occupants_23	11.8125
 38100	occupants_24	11.025
-38100	kwhr_price	0.023215886
 38400	electric_demand_power	192336.3064
 38400	occupants_1	2.85
 38400	occupants_2	56.65467626
@@ -3196,7 +3070,6 @@
 38400	occupants_22	17.8875
 38400	occupants_23	11.8125
 38400	occupants_24	11.025
-38400	kwhr_price	0.023209546
 38700	electric_demand_power	194615.6066
 38700	occupants_1	2.85
 38700	occupants_2	56.65467626
@@ -3221,7 +3094,6 @@
 38700	occupants_22	17.8875
 38700	occupants_23	11.8125
 38700	occupants_24	11.025
-38700	kwhr_price	0.023563141
 39000	electric_demand_power	195801.1979
 39000	occupants_1	2.85
 39000	occupants_2	56.65467626
@@ -3230,7 +3102,6 @@
 39000	occupants_5	3.7125
 39000	occupants_6	3.7125
 39000	occupants_7	3.7125
-39000	kwhr_price	0.02413408
 39000	occupants_8	3.7125
 39000	occupants_9	3.7125
 39000	occupants_10	2.88
@@ -3247,7 +3118,6 @@
 39000	occupants_22	17.8875
 39000	occupants_23	11.8125
 39000	occupants_24	11.025
-39300	kwhr_price	0.02417242
 39300	electric_demand_power	197766.0082
 39300	occupants_1	2.85
 39300	occupants_2	56.65467626
@@ -3272,7 +3142,6 @@
 39300	occupants_22	17.8875
 39300	occupants_23	11.8125
 39300	occupants_24	11.025
-39600	kwhr_price	0.024316588
 39600	electric_demand_power	198597.7962
 39600	occupants_1	2.85
 39600	occupants_2	56.65467626
@@ -3311,7 +3180,6 @@
 39900	occupants_11	2.88
 39900	occupants_12	2.88
 39900	occupants_13	37.52252252
-39900	kwhr_price	0.025100115
 39900	occupants_14	3.78
 39900	occupants_15	13.75862069
 39900	occupants_17	8.19
@@ -3322,7 +3190,6 @@
 39900	occupants_22	17.8875
 39900	occupants_23	11.8125
 39900	occupants_24	11.025
-40200	kwhr_price	0.025613543
 40200	electric_demand_power	200892.8555
 40200	occupants_1	2.85
 40200	occupants_2	56.65467626
@@ -3359,7 +3226,6 @@
 40500	occupants_9	3.7125
 40500	occupants_10	2.88
 40500	occupants_11	2.88
-40500	kwhr_price	0.025510858
 40500	occupants_12	2.88
 40500	occupants_13	37.52252252
 40500	occupants_14	3.78
@@ -3372,7 +3238,6 @@
 40500	occupants_22	17.8875
 40500	occupants_23	11.8125
 40500	occupants_24	11.025
-40800	kwhr_price	0.026140386
 40800	electric_demand_power	202598.4831
 40800	occupants_1	2.85
 40800	occupants_2	56.65467626
@@ -3414,7 +3279,6 @@
 41100	occupants_14	3.78
 41100	occupants_15	13.75862069
 41100	occupants_17	8.19
-41100	kwhr_price	0.025689775
 41100	occupants_18	17.8875
 41100	occupants_19	17.8875
 41100	occupants_20	17.8875
@@ -3422,7 +3286,6 @@
 41100	occupants_22	17.8875
 41100	occupants_23	11.8125
 41100	occupants_24	11.025
-41400	kwhr_price	0.027016413
 41400	electric_demand_power	205511.2085
 41400	occupants_1	2.85
 41400	occupants_2	56.65467626
@@ -3471,7 +3334,6 @@
 41700	occupants_22	17.8875
 41700	occupants_23	11.8125
 41700	occupants_24	11.025
-41700	kwhr_price	0.027051561
 42000	electric_demand_power	208151.4379
 42000	occupants_1	2.85
 42000	occupants_2	56.65467626
@@ -3495,7 +3357,6 @@
 42000	occupants_21	17.8875
 42000	occupants_22	17.8875
 42000	occupants_23	11.8125
-42000	kwhr_price	0.02791596
 42000	occupants_24	11.025
 42300	electric_demand_power	208159.152
 42300	occupants_1	2.85
@@ -3521,7 +3382,6 @@
 42300	occupants_22	17.8875
 42300	occupants_23	11.8125
 42300	occupants_24	11.025
-42300	kwhr_price	0.027721579
 42600	electric_demand_power	209799.7347
 42600	occupants_1	2.85
 42600	occupants_2	56.65467626
@@ -3546,7 +3406,6 @@
 42600	occupants_22	17.8875
 42600	occupants_23	11.8125
 42600	occupants_24	11.025
-42600	kwhr_price	0.027860532
 42900	electric_demand_power	210367.5053
 42900	occupants_1	2.85
 42900	occupants_2	56.65467626
@@ -3558,7 +3417,6 @@
 42900	occupants_8	3.7125
 42900	occupants_9	3.7125
 42900	occupants_10	2.88
-42900	kwhr_price	0.029123404
 42900	occupants_11	2.88
 42900	occupants_12	2.88
 42900	occupants_13	37.52252252
@@ -3576,7 +3434,6 @@
 43200	occupants_1	2.85
 43200	occupants_2	56.65467626
 43200	occupants_3	7.297297297
-43200	kwhr_price	0.027605728
 43200	occupants_4	3.7125
 43200	occupants_5	3.7125
 43200	occupants_6	3.7125
@@ -3597,7 +3454,6 @@
 43200	occupants_22	17.8875
 43200	occupants_23	11.8125
 43200	occupants_24	11.025
-43500	kwhr_price	0.028720633
 43500	electric_demand_power	213159.1557
 43500	occupants_1	2.85
 43500	occupants_2	56.65467626
@@ -3622,7 +3478,6 @@
 43500	occupants_22	17.8875
 43500	occupants_23	11.8125
 43500	occupants_24	11.025
-43800	kwhr_price	0.028819695
 43800	electric_demand_power	210598.2433
 43800	occupants_1	2.85
 43800	occupants_2	56.65467626
@@ -3671,8 +3526,6 @@
 44100	occupants_22	17.8875
 44100	occupants_23	11.8125
 44100	occupants_24	11.025
-44100	kwhr_price	0.029032197
-44400	kwhr_price	0.029401316
 44400	electric_demand_power	214081.4858
 44400	occupants_1	2.85
 44400	occupants_2	56.65467626
@@ -3697,7 +3550,6 @@
 44400	occupants_22	17.8875
 44400	occupants_23	11.8125
 44400	occupants_24	11.025
-44700	kwhr_price	0.028310432
 44700	electric_demand_power	215949.7392
 44700	occupants_1	2.85
 44700	occupants_2	56.65467626
@@ -3746,8 +3598,6 @@
 45000	occupants_22	17.8875
 45000	occupants_23	11.8125
 45000	occupants_24	11.025
-45000	kwhr_price	0.02900707
-45300	kwhr_price	0.0285561
 45300	electric_demand_power	218831.4081
 45300	occupants_1	2.85
 45300	occupants_2	56.65467626
@@ -3796,7 +3646,6 @@
 45600	occupants_22	17.8875
 45600	occupants_23	11.8125
 45600	occupants_24	11.025
-45600	kwhr_price	0.028849998
 45900	electric_demand_power	222475.4642
 45900	occupants_1	2.85
 45900	occupants_2	56.65467626
@@ -3821,7 +3670,6 @@
 45900	occupants_22	17.8875
 45900	occupants_23	11.8125
 45900	occupants_24	11.025
-45900	kwhr_price	0.028738827
 46200	electric_demand_power	224847.1713
 46200	occupants_1	2.85
 46200	occupants_2	56.65467626
@@ -3846,7 +3694,6 @@
 46200	occupants_22	17.8875
 46200	occupants_23	11.8125
 46200	occupants_24	11.025
-46200	kwhr_price	0.029473409
 46500	electric_demand_power	226292.9196
 46500	occupants_1	2.85
 46500	occupants_2	56.65467626
@@ -3871,8 +3718,6 @@
 46500	occupants_22	17.8875
 46500	occupants_23	11.8125
 46500	occupants_24	11.025
-46500	kwhr_price	0.029187096
-46800	kwhr_price	0.029755821
 46800	electric_demand_power	228314.4027
 46800	occupants_1	2.85
 46800	occupants_2	56.65467626
@@ -3921,7 +3766,6 @@
 47100	occupants_22	17.8875
 47100	occupants_23	11.8125
 47100	occupants_24	11.025
-47100	kwhr_price	0.029547402
 47400	electric_demand_power	231620.8617
 47400	occupants_1	2.85
 47400	occupants_2	56.65467626
@@ -3946,8 +3790,6 @@
 47400	occupants_22	17.8875
 47400	occupants_23	11.8125
 47400	occupants_24	11.025
-47400	kwhr_price	0.030429305
-47700	kwhr_price	0.029744675
 47700	electric_demand_power	232705.3875
 47700	occupants_1	2.85
 47700	occupants_2	56.65467626
@@ -3996,8 +3838,6 @@
 48000	occupants_22	17.8875
 48000	occupants_23	11.8125
 48000	occupants_24	11.025
-48000	kwhr_price	0.030260475
-48300	kwhr_price	0.031078895
 48300	electric_demand_power	235574.6241
 48300	occupants_1	2.85
 48300	occupants_2	56.65467626
@@ -4022,7 +3862,6 @@
 48300	occupants_22	17.8875
 48300	occupants_23	11.8125
 48300	occupants_24	11.025
-48600	kwhr_price	0.031073292
 48600	electric_demand_power	238155.8097
 48600	occupants_1	2.85
 48600	occupants_2	56.65467626
@@ -4047,7 +3886,6 @@
 48600	occupants_22	17.8875
 48600	occupants_23	11.8125
 48600	occupants_24	11.025
-48900	kwhr_price	0.03125826
 48900	electric_demand_power	239200.4142
 48900	occupants_1	2.85
 48900	occupants_2	56.65467626
@@ -4096,7 +3934,6 @@
 49200	occupants_22	17.8875
 49200	occupants_23	11.8125
 49200	occupants_24	11.025
-49200	kwhr_price	0.03050024
 49500	electric_demand_power	242468.6914
 49500	occupants_1	2.85
 49500	occupants_2	56.65467626
@@ -4121,8 +3958,6 @@
 49500	occupants_22	17.8875
 49500	occupants_23	11.8125
 49500	occupants_24	11.025
-49500	kwhr_price	0.030982646
-49800	kwhr_price	0.032160862
 49800	electric_demand_power	244128.5028
 49800	occupants_1	2.85
 49800	occupants_2	56.65467626
@@ -4171,8 +4006,6 @@
 50100	occupants_22	17.8875
 50100	occupants_23	11.8125
 50100	occupants_24	11.025
-50100	kwhr_price	0.031986055
-50400	kwhr_price	0.032670859
 50400	electric_demand_power	247863.6959
 50400	occupants_1	2.85
 50400	occupants_2	56.65467626
@@ -4221,8 +4054,6 @@
 50700	occupants_22	17.8875
 50700	occupants_23	11.8125
 50700	occupants_24	11.025
-50700	kwhr_price	0.032319466
-51000	kwhr_price	0.032143388
 51000	electric_demand_power	247512.8206
 51000	occupants_1	2.85
 51000	occupants_2	0
@@ -4247,7 +4078,6 @@
 51000	occupants_22	17.8875
 51000	occupants_23	11.8125
 51000	occupants_24	11.025
-51300	kwhr_price	0.033491104
 51300	electric_demand_power	247429.8665
 51300	occupants_1	2.85
 51300	occupants_2	0
@@ -4292,7 +4122,6 @@
 51600	occupants_18	17.8875
 51600	occupants_19	17.8875
 51600	occupants_20	17.8875
-51600	kwhr_price	0.032725445
 51600	occupants_21	17.8875
 51600	occupants_22	17.8875
 51600	occupants_23	11.8125
@@ -4321,7 +4150,6 @@
 51900	occupants_22	17.8875
 51900	occupants_23	11.8125
 51900	occupants_24	11.025
-51900	kwhr_price	0.034066697
 52200	electric_demand_power	248658.6395
 52200	occupants_1	2.85
 52200	occupants_2	0
@@ -4346,8 +4174,6 @@
 52200	occupants_22	17.8875
 52200	occupants_23	11.8125
 52200	occupants_24	11.025
-52200	kwhr_price	0.0319566
-52500	kwhr_price	0.033551817
 52500	electric_demand_power	250530.8386
 52500	occupants_1	2.85
 52500	occupants_2	0
@@ -4396,7 +4222,6 @@
 52800	occupants_22	17.8875
 52800	occupants_23	11.8125
 52800	occupants_24	11.025
-52800	kwhr_price	0.033826976
 53100	electric_demand_power	252826.8918
 53100	occupants_1	2.85
 53100	occupants_2	0
@@ -4421,8 +4246,6 @@
 53100	occupants_22	17.8875
 53100	occupants_23	11.8125
 53100	occupants_24	11.025
-53100	kwhr_price	0.034366971
-53400	kwhr_price	0.03254642
 53400	electric_demand_power	251159.4832
 53400	occupants_1	2.85
 53400	occupants_2	0
@@ -4471,7 +4294,6 @@
 53700	occupants_22	17.8875
 53700	occupants_23	11.8125
 53700	occupants_24	11.025
-53700	kwhr_price	0.033372918
 54000	electric_demand_power	252230.5842
 54000	occupants_1	2.85
 54000	occupants_2	0
@@ -4482,7 +4304,6 @@
 54000	occupants_7	3.7125
 54000	occupants_8	3.7125
 54000	occupants_9	3.7125
-54000	kwhr_price	0.033407289
 54000	occupants_10	2.88
 54000	occupants_11	2.88
 54000	occupants_12	2.88
@@ -4497,7 +4318,6 @@
 54000	occupants_22	17.8875
 54000	occupants_23	11.8125
 54000	occupants_24	11.025
-54300	kwhr_price	0.034056985
 54300	electric_demand_power	254826.9029
 54300	occupants_1	2.85
 54300	occupants_2	0
@@ -4546,7 +4366,6 @@
 54600	occupants_22	17.8875
 54600	occupants_23	11.8125
 54600	occupants_24	11.025
-54600	kwhr_price	0.034018438
 54900	electric_demand_power	253724.5891
 54900	occupants_1	2.85
 54900	occupants_2	0
@@ -4561,7 +4380,6 @@
 54900	occupants_11	2.88
 54900	occupants_12	2.88
 54900	occupants_13	37.52252252
-54900	kwhr_price	0.033885036
 54900	occupants_14	3.78
 54900	occupants_15	13.75862069
 54900	occupants_17	8.19
@@ -4575,7 +4393,6 @@
 55200	electric_demand_power	253175.5317
 55200	occupants_1	2.85
 55200	occupants_2	0
-55200	kwhr_price	0.033103332
 55200	occupants_3	7.297297297
 55200	occupants_4	3.7125
 55200	occupants_5	3.7125
@@ -4597,7 +4414,6 @@
 55200	occupants_22	17.8875
 55200	occupants_23	11.8125
 55200	occupants_24	11.025
-55500	kwhr_price	0.033761201
 55500	electric_demand_power	253515.6356
 55500	occupants_1	2.85
 55500	occupants_2	0
@@ -4646,7 +4462,6 @@
 55800	occupants_22	17.8875
 55800	occupants_23	11.8125
 55800	occupants_24	11.025
-55800	kwhr_price	0.034854178
 56100	electric_demand_power	254445.9695
 56100	occupants_1	2.85
 56100	occupants_2	0
@@ -4671,8 +4486,6 @@
 56100	occupants_22	17.8875
 56100	occupants_23	11.8125
 56100	occupants_24	11.025
-56100	kwhr_price	0.033209768
-56400	kwhr_price	0.034250253
 56400	electric_demand_power	253498.2523
 56400	occupants_1	2.85
 56400	occupants_2	0
@@ -4697,7 +4510,6 @@
 56400	occupants_22	17.8875
 56400	occupants_23	11.8125
 56400	occupants_24	11.025
-56700	kwhr_price	0.034116372
 56700	electric_demand_power	252653.6232
 56700	occupants_1	2.85
 56700	occupants_2	0
@@ -4722,7 +4534,6 @@
 56700	occupants_22	17.8875
 56700	occupants_23	11.8125
 56700	occupants_24	11.025
-57000	kwhr_price	0.033669883
 57000	electric_demand_power	254773.001
 57000	occupants_1	2.85
 57000	occupants_2	0
@@ -4747,7 +4558,6 @@
 57000	occupants_22	17.8875
 57000	occupants_23	11.8125
 57000	occupants_24	11.025
-57300	kwhr_price	0.032803194
 57300	electric_demand_power	253160.7163
 57300	occupants_1	2.85
 57300	occupants_2	0
@@ -4796,7 +4606,6 @@
 57600	occupants_22	17.8875
 57600	occupants_23	11.8125
 57600	occupants_24	11.025
-57600	kwhr_price	0.034760907
 57900	electric_demand_power	254127.113
 57900	occupants_1	2.85
 57900	occupants_2	0
@@ -4821,7 +4630,6 @@
 57900	occupants_22	17.8875
 57900	occupants_23	11.8125
 57900	occupants_24	11.025
-57900	kwhr_price	0.032912264
 58200	electric_demand_power	229988.9055
 58200	occupants_1	2.85
 58200	occupants_2	0
@@ -4846,8 +4654,6 @@
 58200	occupants_22	17.8875
 58200	occupants_23	11.8125
 58200	occupants_24	0
-58200	kwhr_price	0.033042217
-58500	kwhr_price	0.033604178
 58500	electric_demand_power	228602.3694
 58500	occupants_1	2.85
 58500	occupants_2	0
@@ -4872,7 +4678,6 @@
 58500	occupants_22	17.8875
 58500	occupants_23	11.8125
 58500	occupants_24	0
-58800	kwhr_price	0.033103891
 58800	electric_demand_power	231665.622
 58800	occupants_1	2.85
 58800	occupants_2	0
@@ -4921,7 +4726,6 @@
 59100	occupants_22	17.8875
 59100	occupants_23	11.8125
 59100	occupants_24	0
-59100	kwhr_price	0.03220255
 59400	electric_demand_power	231694.8045
 59400	occupants_1	2.85
 59400	occupants_2	0
@@ -4930,7 +4734,6 @@
 59400	occupants_5	3.7125
 59400	occupants_6	3.7125
 59400	occupants_7	3.7125
-59400	kwhr_price	0.033627187
 59400	occupants_8	3.7125
 59400	occupants_9	3.7125
 59400	occupants_10	2.88
@@ -4951,7 +4754,6 @@
 59700	occupants_1	2.85
 59700	occupants_2	0
 59700	occupants_3	7.297297297
-59700	kwhr_price	0.031826145
 59700	occupants_4	3.7125
 59700	occupants_5	3.7125
 59700	occupants_6	3.7125
@@ -4996,7 +4798,6 @@
 60000	occupants_22	17.8875
 60000	occupants_23	11.8125
 60000	occupants_24	0
-60000	kwhr_price	0.032028648
 60300	electric_demand_power	233035.5444
 60300	occupants_1	2.85
 60300	occupants_2	0
@@ -5017,7 +4818,6 @@
 60300	occupants_18	17.8875
 60300	occupants_19	17.8875
 60300	occupants_20	17.8875
-60300	kwhr_price	0.032906285
 60300	occupants_21	17.8875
 60300	occupants_22	17.8875
 60300	occupants_23	11.8125
@@ -5041,7 +4841,6 @@
 60600	occupants_17	8.19
 60600	occupants_18	17.8875
 60600	occupants_19	17.8875
-60600	kwhr_price	0.033183799
 60600	occupants_20	17.8875
 60600	occupants_21	17.8875
 60600	occupants_22	17.8875
@@ -5071,8 +4870,6 @@
 60900	occupants_22	17.8875
 60900	occupants_23	11.8125
 60900	occupants_24	0
-60900	kwhr_price	0.032651652
-61200	kwhr_price	0.033527668
 61200	electric_demand_power	235082.6844
 61200	occupants_1	2.85
 61200	occupants_2	0
@@ -5121,8 +4918,6 @@
 61500	occupants_22	17.8875
 61500	occupants_23	11.8125
 61500	occupants_24	0
-61500	kwhr_price	0.033073636
-61800	kwhr_price	0.033070712
 61800	electric_demand_power	148121.4714
 61800	occupants_1	2.85
 61800	occupants_2	0
@@ -5147,7 +4942,6 @@
 61800	occupants_22	17.8875
 61800	occupants_23	11.8125
 61800	occupants_24	0
-62100	kwhr_price	0.033537443
 62100	electric_demand_power	155541.7626
 62100	occupants_1	2.85
 62100	occupants_2	0
@@ -5196,7 +4990,6 @@
 62400	occupants_22	17.8875
 62400	occupants_23	11.8125
 62400	occupants_24	0
-62400	kwhr_price	0.03093009
 62700	electric_demand_power	154877.3663
 62700	occupants_1	2.85
 62700	occupants_2	0
@@ -5221,9 +5014,7 @@
 62700	occupants_22	17.8875
 62700	occupants_23	11.8125
 62700	occupants_24	0
-62700	kwhr_price	0.03155189
 63000	electric_demand_power	154440.7767
-63000	kwhr_price	0.030987926
 63000	occupants_1	2.85
 63000	occupants_2	0
 63000	occupants_3	7.297297297
@@ -5247,7 +5038,6 @@
 63000	occupants_22	17.8875
 63000	occupants_23	11.8125
 63000	occupants_24	0
-63300	kwhr_price	0.031119108
 63300	electric_demand_power	154217.5745
 63300	occupants_1	2.85
 63300	occupants_2	0
@@ -5296,8 +5086,6 @@
 63600	occupants_22	17.8875
 63600	occupants_23	11.8125
 63600	occupants_24	0
-63600	kwhr_price	0.031542684
-63900	kwhr_price	0.031338504
 63900	electric_demand_power	153396.8663
 63900	occupants_1	2.85
 63900	occupants_2	0
@@ -5346,8 +5134,6 @@
 64200	occupants_22	17.8875
 64200	occupants_23	11.8125
 64200	occupants_24	0
-64200	kwhr_price	0.03117408
-64500	kwhr_price	0.030808771
 64500	electric_demand_power	152778.3362
 64500	occupants_1	2.85
 64500	occupants_2	0
@@ -5388,7 +5174,6 @@
 64800	occupants_13	37.52252252
 64800	occupants_14	3.78
 64800	occupants_15	13.75862069
-64800	kwhr_price	0.030808511
 64800	occupants_17	8.19
 64800	occupants_18	17.8875
 64800	occupants_19	17.8875
@@ -5421,8 +5206,6 @@
 65100	occupants_22	17.8875
 65100	occupants_23	11.8125
 65100	occupants_24	0
-65100	kwhr_price	0.029243653
-65400	kwhr_price	0.034107459
 65400	electric_demand_power	151942.1348
 65400	occupants_1	2.85
 65400	occupants_2	0
@@ -5447,7 +5230,6 @@
 65400	occupants_22	17.8875
 65400	occupants_23	11.8125
 65400	occupants_24	0
-65700	kwhr_price	0.033030633
 65700	electric_demand_power	151424.8128
 65700	occupants_1	2.85
 65700	occupants_2	0
@@ -5472,7 +5254,6 @@
 65700	occupants_22	17.8875
 65700	occupants_23	11.8125
 65700	occupants_24	0
-66000	kwhr_price	0.033526584
 66000	electric_demand_power	151143.8588
 66000	occupants_1	2.85
 66000	occupants_2	0
@@ -5521,7 +5302,6 @@
 66300	occupants_22	17.8875
 66300	occupants_23	11.8125
 66300	occupants_24	0
-66300	kwhr_price	0.03272229
 66600	electric_demand_power	149447.9616
 66600	occupants_1	2.85
 66600	occupants_2	0
@@ -5546,7 +5326,6 @@
 66600	occupants_22	17.8875
 66600	occupants_23	11.8125
 66600	occupants_24	0
-66600	kwhr_price	0.032873307
 66900	electric_demand_power	148816.4348
 66900	occupants_1	2.85
 66900	occupants_2	0
@@ -5565,7 +5344,6 @@
 66900	occupants_15	13.75862069
 66900	occupants_17	8.19
 66900	occupants_18	17.8875
-66900	kwhr_price	0.03256324
 66900	occupants_19	17.8875
 66900	occupants_20	17.8875
 66900	occupants_21	17.8875
@@ -5585,7 +5363,6 @@
 67200	occupants_10	2.88
 67200	occupants_11	2.88
 67200	occupants_12	2.88
-67200	kwhr_price	0.032306049
 67200	occupants_13	37.52252252
 67200	occupants_14	3.78
 67200	occupants_15	13.75862069
@@ -5597,7 +5374,6 @@
 67200	occupants_22	17.8875
 67200	occupants_23	11.8125
 67200	occupants_24	0
-67500	kwhr_price	0.033021377
 67500	electric_demand_power	147817.0937
 67500	occupants_1	2.85
 67500	occupants_2	0
@@ -5622,7 +5398,6 @@
 67500	occupants_22	17.8875
 67500	occupants_23	11.8125
 67500	occupants_24	0
-67800	kwhr_price	0.031961255
 67800	electric_demand_power	147340.1438
 67800	occupants_1	2.85
 67800	occupants_2	0
@@ -5647,7 +5422,6 @@
 67800	occupants_22	17.8875
 67800	occupants_23	11.8125
 67800	occupants_24	0
-68100	kwhr_price	0.032251362
 68100	electric_demand_power	146851.6219
 68100	occupants_1	2.85
 68100	occupants_2	0
@@ -5692,7 +5466,6 @@
 68400	occupants_18	17.8875
 68400	occupants_19	17.8875
 68400	occupants_20	17.8875
-68400	kwhr_price	0.031780208
 68400	occupants_21	17.8875
 68400	occupants_22	17.8875
 68400	occupants_23	11.8125
@@ -5721,8 +5494,6 @@
 68700	occupants_22	17.8875
 68700	occupants_23	11.8125
 68700	occupants_24	0
-68700	kwhr_price	0.031023229
-69000	kwhr_price	0.033113208
 69000	electric_demand_power	115547.2762
 69000	occupants_1	2.85
 69000	occupants_2	0
@@ -5747,7 +5518,6 @@
 69000	occupants_22	17.8875
 69000	occupants_23	11.8125
 69000	occupants_24	0
-69300	kwhr_price	0.03281544
 69300	electric_demand_power	114856.5559
 69300	occupants_1	2.85
 69300	occupants_2	0
@@ -5793,7 +5563,6 @@
 69600	occupants_19	17.8875
 69600	occupants_20	17.8875
 69600	occupants_21	17.8875
-69600	kwhr_price	0.031216145
 69600	occupants_22	17.8875
 69600	occupants_23	11.8125
 69600	occupants_24	0
@@ -5820,7 +5589,6 @@
 69900	occupants_21	17.8875
 69900	occupants_22	17.8875
 69900	occupants_23	11.8125
-69900	kwhr_price	0.031151031
 69900	occupants_24	0
 70200	electric_demand_power	112764.7617
 70200	occupants_1	2.85
@@ -5846,8 +5614,6 @@
 70200	occupants_22	17.8875
 70200	occupants_23	11.8125
 70200	occupants_24	0
-70200	kwhr_price	0.030792118
-70500	kwhr_price	0.03049218
 70500	electric_demand_power	120772.9306
 70500	occupants_1	2.85
 70500	occupants_2	0
@@ -5873,7 +5639,6 @@
 70500	occupants_23	11.8125
 70500	occupants_24	0
 70800	electric_demand_power	120083.3171
-70800	kwhr_price	0.030191773
 70800	occupants_1	2.85
 70800	occupants_2	0
 70800	occupants_3	7.297297297
@@ -5921,7 +5686,6 @@
 71100	occupants_22	17.8875
 71100	occupants_23	11.8125
 71100	occupants_24	0
-71100	kwhr_price	0.030446527
 71400	electric_demand_power	118809.847
 71400	occupants_1	2.85
 71400	occupants_2	0
@@ -5946,7 +5710,6 @@
 71400	occupants_22	17.8875
 71400	occupants_23	11.8125
 71400	occupants_24	0
-71400	kwhr_price	0.029998278
 71700	electric_demand_power	118178.9564
 71700	occupants_1	2.85
 71700	occupants_2	0
@@ -5971,7 +5734,6 @@
 71700	occupants_22	17.8875
 71700	occupants_23	11.8125
 71700	occupants_24	0
-71700	kwhr_price	0.029659049
 72000	electric_demand_power	117516.09
 72000	occupants_1	2.85
 72000	occupants_2	0
@@ -5996,7 +5758,6 @@
 72000	occupants_22	17.8875
 72000	occupants_23	11.8125
 72000	occupants_24	0
-72000	kwhr_price	0.029526792
 72300	electric_demand_power	116916.3202
 72300	occupants_1	2.85
 72300	occupants_2	0
@@ -6021,7 +5782,6 @@
 72300	occupants_22	17.8875
 72300	occupants_23	11.8125
 72300	occupants_24	0
-72300	kwhr_price	0.02978641
 72600	electric_demand_power	48971.403
 72600	occupants_1	0
 72600	occupants_2	0
@@ -6046,8 +5806,6 @@
 72600	occupants_22	0
 72600	occupants_23	0
 72600	occupants_24	0
-72600	kwhr_price	0.029050259
-72900	kwhr_price	0.029400243
 72900	electric_demand_power	52238.60008
 72900	occupants_1	0
 72900	occupants_2	0
@@ -6077,7 +5835,6 @@
 73200	occupants_2	0
 73200	occupants_3	0
 73200	occupants_4	0
-73200	kwhr_price	0.027220033
 73200	occupants_5	0
 73200	occupants_6	0
 73200	occupants_7	0
@@ -6121,7 +5878,6 @@
 73500	occupants_22	0
 73500	occupants_23	0
 73500	occupants_24	0
-73500	kwhr_price	0.026556461
 73800	electric_demand_power	97154.82532
 73800	occupants_1	0
 73800	occupants_2	0
@@ -6135,7 +5891,6 @@
 73800	occupants_10	0
 73800	occupants_11	0
 73800	occupants_12	0
-73800	kwhr_price	0.02713757
 73800	occupants_13	0
 73800	occupants_14	0
 73800	occupants_15	0
@@ -6171,8 +5926,6 @@
 74100	occupants_22	0
 74100	occupants_23	0
 74100	occupants_24	0
-74100	kwhr_price	0.028728647
-74400	kwhr_price	0.027046244
 74400	electric_demand_power	98669.11487
 74400	occupants_1	0
 74400	occupants_2	0
@@ -6197,7 +5950,6 @@
 74400	occupants_22	0
 74400	occupants_23	0
 74400	occupants_24	0
-74700	kwhr_price	0.027782474
 74700	electric_demand_power	90048.61988
 74700	occupants_1	0
 74700	occupants_2	0
@@ -6246,8 +5998,6 @@
 75000	occupants_22	0
 75000	occupants_23	0
 75000	occupants_24	0
-75000	kwhr_price	0.027588474
-75300	kwhr_price	0.026555212
 75300	electric_demand_power	59171.24034
 75300	occupants_1	0
 75300	occupants_2	0
@@ -6296,8 +6046,6 @@
 75600	occupants_22	0
 75600	occupants_23	0
 75600	occupants_24	0
-75600	kwhr_price	0.025955775
-75900	kwhr_price	0.025630013
 75900	electric_demand_power	82339.95722
 75900	occupants_1	0
 75900	occupants_2	0
@@ -6346,7 +6094,6 @@
 76200	occupants_22	0
 76200	occupants_23	0
 76200	occupants_24	0
-76200	kwhr_price	0.025542544
 76500	electric_demand_power	96272.93303
 76500	occupants_1	0
 76500	occupants_2	0
@@ -6371,7 +6118,6 @@
 76500	occupants_22	0
 76500	occupants_23	0
 76500	occupants_24	0
-76500	kwhr_price	0.026748166
 76800	electric_demand_power	94625.80357
 76800	occupants_1	0
 76800	occupants_2	0
@@ -6396,7 +6142,6 @@
 76800	occupants_22	0
 76800	occupants_23	0
 76800	occupants_24	0
-76800	kwhr_price	0.026239837
 77100	electric_demand_power	86957.15012
 77100	occupants_1	0
 77100	occupants_2	0
@@ -6419,7 +6164,6 @@
 77100	occupants_20	0
 77100	occupants_21	0
 77100	occupants_22	0
-77100	kwhr_price	0.026254273
 77100	occupants_23	0
 77100	occupants_24	0
 77400	electric_demand_power	62207.97737
@@ -6446,7 +6190,6 @@
 77400	occupants_22	0
 77400	occupants_23	0
 77400	occupants_24	0
-77400	kwhr_price	0.025889319
 77700	electric_demand_power	70045.59561
 77700	occupants_1	0
 77700	occupants_2	0
@@ -6471,12 +6214,10 @@
 77700	occupants_22	0
 77700	occupants_23	0
 77700	occupants_24	0
-77700	kwhr_price	0.025482071
 78000	electric_demand_power	67049.5185
 78000	occupants_1	0
 78000	occupants_2	0
 78000	occupants_3	0
-78000	kwhr_price	0.025718546
 78000	occupants_4	0
 78000	occupants_5	0
 78000	occupants_6	0
@@ -6521,8 +6262,6 @@
 78300	occupants_22	0
 78300	occupants_23	0
 78300	occupants_24	0
-78300	kwhr_price	0.025055894
-78600	kwhr_price	0.025087632
 78600	electric_demand_power	80965.34691
 78600	occupants_1	0
 78600	occupants_2	0
@@ -6547,7 +6286,6 @@
 78600	occupants_22	0
 78600	occupants_23	0
 78600	occupants_24	0
-78900	kwhr_price	0.025153357
 78900	electric_demand_power	80470.42874
 78900	occupants_1	0
 78900	occupants_2	0
@@ -6572,7 +6310,6 @@
 78900	occupants_22	0
 78900	occupants_23	0
 78900	occupants_24	0
-79200	kwhr_price	0.025765708
 79200	electric_demand_power	80194.32911
 79200	occupants_1	0
 79200	occupants_2	0
@@ -6621,8 +6358,6 @@
 79500	occupants_22	0
 79500	occupants_23	0
 79500	occupants_24	0
-79500	kwhr_price	0.024364526
-79800	kwhr_price	0.024539104
 79800	electric_demand_power	85110.90485
 79800	occupants_1	0
 79800	occupants_2	0
@@ -6647,7 +6382,6 @@
 79800	occupants_22	0
 79800	occupants_23	0
 79800	occupants_24	0
-80100	kwhr_price	0.024254736
 80100	electric_demand_power	63671.31481
 80100	occupants_1	0
 80100	occupants_2	0
@@ -6674,7 +6408,6 @@
 80100	occupants_24	0
 80400	electric_demand_power	71525.95648
 80400	occupants_1	0
-80400	kwhr_price	0.024275982
 80400	occupants_2	0
 80400	occupants_3	0
 80400	occupants_4	0
@@ -6721,7 +6454,6 @@
 80700	occupants_22	0
 80700	occupants_23	0
 80700	occupants_24	0
-80700	kwhr_price	0.022793368
 81000	electric_demand_power	67233.45012
 81000	occupants_1	0
 81000	occupants_2	0
@@ -6746,8 +6478,6 @@
 81000	occupants_22	0
 81000	occupants_23	0
 81000	occupants_24	0
-81000	kwhr_price	0.023184598
-81300	kwhr_price	0.022995606
 81300	electric_demand_power	87757.25468
 81300	occupants_1	0
 81300	occupants_2	0
@@ -6788,7 +6518,6 @@
 81600	occupants_13	0
 81600	occupants_14	0
 81600	occupants_15	0
-81600	kwhr_price	0.023384338
 81600	occupants_17	0
 81600	occupants_18	0
 81600	occupants_19	0
@@ -6797,7 +6526,6 @@
 81600	occupants_22	0
 81600	occupants_23	0
 81600	occupants_24	0
-81900	kwhr_price	0.023944941
 81900	electric_demand_power	75962.11849
 81900	occupants_1	0
 81900	occupants_2	0
@@ -6846,7 +6574,6 @@
 82200	occupants_22	0
 82200	occupants_23	0
 82200	occupants_24	0
-82200	kwhr_price	0.024051677
 82500	electric_demand_power	72815.74152
 82500	occupants_1	0
 82500	occupants_2	0
@@ -6871,7 +6598,6 @@
 82500	occupants_22	0
 82500	occupants_23	0
 82500	occupants_24	0
-82500	kwhr_price	0.022849067
 82800	electric_demand_power	71367.8658
 82800	occupants_1	0
 82800	occupants_2	0
@@ -6896,7 +6622,6 @@
 82800	occupants_22	0
 82800	occupants_23	0
 82800	occupants_24	0
-82800	kwhr_price	0.022123339
 83100	electric_demand_power	55153.17303
 83100	occupants_1	0
 83100	occupants_2	0
@@ -6921,7 +6646,6 @@
 83100	occupants_22	0
 83100	occupants_23	0
 83100	occupants_24	0
-83100	kwhr_price	0.022473706
 83400	electric_demand_power	54493.3667
 83400	occupants_1	0
 83400	occupants_2	0
@@ -6946,7 +6670,6 @@
 83400	occupants_22	0
 83400	occupants_23	0
 83400	occupants_24	0
-83400	kwhr_price	0.02483916
 83700	electric_demand_power	54413.9479
 83700	occupants_1	0
 83700	occupants_2	0
@@ -6971,7 +6694,6 @@
 83700	occupants_22	0
 83700	occupants_23	0
 83700	occupants_24	0
-83700	kwhr_price	0.023940199
 84000	electric_demand_power	54324.29561
 84000	occupants_1	0
 84000	occupants_2	0
@@ -6996,7 +6718,6 @@
 84000	occupants_22	0
 84000	occupants_23	0
 84000	occupants_24	0
-84000	kwhr_price	0.023960143
 84300	electric_demand_power	54205.44718
 84300	occupants_1	0
 84300	occupants_2	0
@@ -7021,7 +6742,6 @@
 84300	occupants_22	0
 84300	occupants_23	0
 84300	occupants_24	0
-84300	kwhr_price	0.022751927
 84600	electric_demand_power	64665.81048
 84600	occupants_1	0
 84600	occupants_2	0
@@ -7046,9 +6766,7 @@
 84600	occupants_22	0
 84600	occupants_23	0
 84600	occupants_24	0
-84600	kwhr_price	0.022768595
 84900	electric_demand_power	59107.90578
-84900	kwhr_price	0.022555566
 84900	occupants_1	0
 84900	occupants_2	0
 84900	occupants_3	0
@@ -7096,8 +6814,6 @@
 85200	occupants_22	0
 85200	occupants_23	0
 85200	occupants_24	0
-85200	kwhr_price	0.022490086
-85500	kwhr_price	0.021969771
 85500	electric_demand_power	81759.42016
 85500	occupants_1	0
 85500	occupants_2	0
@@ -7146,7 +6862,6 @@
 85800	occupants_22	0
 85800	occupants_23	0
 85800	occupants_24	0
-85800	kwhr_price	0.021864488
 86100	electric_demand_power	80788.91964
 86100	occupants_1	0
 86100	occupants_2	0
@@ -7171,7 +6886,6 @@
 86100	occupants_22	0
 86100	occupants_23	0
 86100	occupants_24	0
-86100	kwhr_price	0.021529015
 86400	electric_demand_power	70557.18789
 86400	occupants_1	0
 86400	occupants_2	0
@@ -7182,7 +6896,6 @@
 86400	occupants_7	0
 86400	occupants_8	0
 86400	occupants_9	0
-86400	kwhr_price	0.022150818
 86400	occupants_10	0
 86400	occupants_11	0
 86400	occupants_12	0
@@ -7221,8 +6934,6 @@
 86700	occupants_22	0
 86700	occupants_23	0
 86700	occupants_24	0
-86700	kwhr_price	0.021775861
-87000	kwhr_price	0.023711611
 87000	electric_demand_power	54520.48273
 87000	occupants_1	0
 87000	occupants_2	0
@@ -7271,7 +6982,6 @@
 87300	occupants_22	0
 87300	occupants_23	0
 87300	occupants_24	0
-87300	kwhr_price	0.023689411
 87600	electric_demand_power	53601.85904
 87600	occupants_1	0
 87600	occupants_2	0
@@ -7296,7 +7006,6 @@
 87600	occupants_22	0
 87600	occupants_23	0
 87600	occupants_24	0
-87600	kwhr_price	0.022445496
 87900	electric_demand_power	53501.40324
 87900	occupants_1	0
 87900	occupants_2	0
@@ -7321,8 +7030,6 @@
 87900	occupants_22	0
 87900	occupants_23	0
 87900	occupants_24	0
-87900	kwhr_price	0.021983558
-88200	kwhr_price	0.022083998
 88200	electric_demand_power	53462.91373
 88200	occupants_1	0
 88200	occupants_2	0
@@ -7371,7 +7078,6 @@
 88500	occupants_22	0
 88500	occupants_23	0
 88500	occupants_24	0
-88500	kwhr_price	0.02213969
 88800	electric_demand_power	48776.64939
 88800	occupants_1	0
 88800	occupants_2	0
@@ -7396,7 +7102,6 @@
 88800	occupants_22	0
 88800	occupants_23	0
 88800	occupants_24	0
-88800	kwhr_price	0.02125034
 89100	electric_demand_power	48775.64084
 89100	occupants_1	0
 89100	occupants_2	0
@@ -7421,7 +7126,6 @@
 89100	occupants_22	0
 89100	occupants_23	0
 89100	occupants_24	0
-89100	kwhr_price	0.021057189
 89400	electric_demand_power	48774.57232
 89400	occupants_1	0
 89400	occupants_2	0
@@ -7446,7 +7150,6 @@
 89400	occupants_22	0
 89400	occupants_23	0
 89400	occupants_24	0
-89400	kwhr_price	0.020289287
 89700	electric_demand_power	48773.44717
 89700	occupants_1	0
 89700	occupants_2	0
@@ -7471,7 +7174,6 @@
 89700	occupants_22	0
 89700	occupants_23	0
 89700	occupants_24	0
-89700	kwhr_price	0.020263386
 90000	electric_demand_power	48772.26916
 90000	occupants_1	0
 90000	occupants_2	0
@@ -7496,7 +7198,6 @@
 90000	occupants_22	0
 90000	occupants_23	0
 90000	occupants_24	0
-90000	kwhr_price	0.019854986
 90300	electric_demand_power	48771.04131
 90300	occupants_1	0
 90300	occupants_2	0
@@ -7521,7 +7222,6 @@
 90300	occupants_22	0
 90300	occupants_23	0
 90300	occupants_24	0
-90300	kwhr_price	0.02010075
 90600	electric_demand_power	48768.58574
 90600	occupants_1	0
 90600	occupants_2	0
@@ -7546,7 +7246,6 @@
 90600	occupants_22	0
 90600	occupants_23	0
 90600	occupants_24	0
-90600	kwhr_price	0.019708773
 90900	electric_demand_power	48766.08183
 90900	occupants_1	0
 90900	occupants_2	0
@@ -7571,8 +7270,6 @@
 90900	occupants_22	0
 90900	occupants_23	0
 90900	occupants_24	0
-90900	kwhr_price	0.019521089
-91200	kwhr_price	0.019754903
 91200	electric_demand_power	48763.53388
 91200	occupants_1	0
 91200	occupants_2	0
@@ -7607,7 +7304,6 @@
 91500	occupants_7	0
 91500	occupants_8	0
 91500	occupants_9	0
-91500	kwhr_price	0.019459661
 91500	occupants_10	0
 91500	occupants_11	0
 91500	occupants_12	0
@@ -7622,7 +7318,6 @@
 91500	occupants_22	0
 91500	occupants_23	0
 91500	occupants_24	0
-91800	kwhr_price	0.019668111
 91800	electric_demand_power	48757.46719
 91800	occupants_1	0
 91800	occupants_2	0
@@ -7647,7 +7342,6 @@
 91800	occupants_22	0
 91800	occupants_23	0
 91800	occupants_24	0
-92100	kwhr_price	0.019691316
 92100	electric_demand_power	48754.26432
 92100	occupants_1	0
 92100	occupants_2	0
@@ -7687,7 +7381,6 @@
 92400	occupants_12	0
 92400	occupants_13	0
 92400	occupants_14	0
-92400	kwhr_price	0.019661968
 92400	occupants_15	0
 92400	occupants_17	0
 92400	occupants_18	0
@@ -7697,7 +7390,6 @@
 92400	occupants_22	0
 92400	occupants_23	0
 92400	occupants_24	0
-92700	kwhr_price	0.019307935
 92700	electric_demand_power	48747.8439
 92700	occupants_1	0
 92700	occupants_2	0
@@ -7722,7 +7414,6 @@
 92700	occupants_22	0
 92700	occupants_23	0
 92700	occupants_24	0
-93000	kwhr_price	0.019374559
 93000	electric_demand_power	48744.62641
 93000	occupants_1	0
 93000	occupants_2	0
@@ -7771,7 +7462,6 @@
 93300	occupants_22	0
 93300	occupants_23	0
 93300	occupants_24	0
-93300	kwhr_price	0.01963146
 93600	electric_demand_power	48738.17814
 93600	occupants_1	0
 93600	occupants_2	0
@@ -7795,9 +7485,7 @@
 93600	occupants_21	0
 93600	occupants_22	0
 93600	occupants_23	0
-93600	kwhr_price	0.018801565
 93600	occupants_24	0
-93900	kwhr_price	0.018445443
 93900	electric_demand_power	48734.94428
 93900	occupants_1	0
 93900	occupants_2	0
@@ -7846,8 +7534,6 @@
 94200	occupants_22	0
 94200	occupants_23	0
 94200	occupants_24	0
-94200	kwhr_price	0.018817746
-94500	kwhr_price	0.018918107
 94500	electric_demand_power	48731.11732
 94500	occupants_1	0
 94500	occupants_2	0
@@ -7872,7 +7558,6 @@
 94500	occupants_22	0
 94500	occupants_23	0
 94500	occupants_24	0
-94800	kwhr_price	0.018293687
 94800	electric_demand_power	48729.22029
 94800	occupants_1	0
 94800	occupants_2	0
@@ -7902,7 +7587,6 @@
 95100	occupants_2	0
 95100	occupants_3	0
 95100	occupants_4	0
-95100	kwhr_price	0.018144782
 95100	occupants_5	0
 95100	occupants_6	0
 95100	occupants_7	0
@@ -7946,7 +7630,6 @@
 95400	occupants_22	0
 95400	occupants_23	0
 95400	occupants_24	0
-95400	kwhr_price	0.019501805
 95700	electric_demand_power	48723.54257
 95700	occupants_1	0
 95700	occupants_2	0
@@ -7971,7 +7654,6 @@
 95700	occupants_22	0
 95700	occupants_23	0
 95700	occupants_24	0
-95700	kwhr_price	0.018141302
 96000	electric_demand_power	48721.65115
 96000	occupants_1	0
 96000	occupants_2	0
@@ -7996,8 +7678,6 @@
 96000	occupants_22	0
 96000	occupants_23	0
 96000	occupants_24	0
-96000	kwhr_price	0.018363238
-96300	kwhr_price	0.018611738
 96300	electric_demand_power	48719.7595
 96300	occupants_1	0
 96300	occupants_2	0
@@ -8026,7 +7706,6 @@
 96600	occupants_1	0
 96600	occupants_2	0
 96600	occupants_3	0
-96600	kwhr_price	0.018471194
 96600	occupants_4	0
 96600	occupants_5	0
 96600	occupants_6	0
@@ -8047,7 +7726,6 @@
 96600	occupants_22	0
 96600	occupants_23	0
 96600	occupants_24	0
-96900	kwhr_price	0.018163206
 96900	electric_demand_power	48715.97094
 96900	occupants_1	0
 96900	occupants_2	0
@@ -8092,7 +7770,6 @@
 97200	occupants_18	0
 97200	occupants_19	0
 97200	occupants_20	0
-97200	kwhr_price	0.017659261
 97200	occupants_21	0
 97200	occupants_22	0
 97200	occupants_23	0
@@ -8121,7 +7798,6 @@
 97500	occupants_22	0
 97500	occupants_23	0
 97500	occupants_24	0
-97500	kwhr_price	0.017257694
 97800	electric_demand_power	50140.98118
 97800	occupants_1	0
 97800	occupants_2	0
@@ -8146,8 +7822,6 @@
 97800	occupants_22	0
 97800	occupants_23	0
 97800	occupants_24	0
-97800	kwhr_price	0.018690126
-98100	kwhr_price	0.01801473
 98100	electric_demand_power	50138.89132
 98100	occupants_1	0
 98100	occupants_2	0
@@ -8172,7 +7846,6 @@
 98100	occupants_22	0
 98100	occupants_23	0
 98100	occupants_24	0
-98400	kwhr_price	0.018716987
 98400	electric_demand_power	50136.80618
 98400	occupants_1	0
 98400	occupants_2	0
@@ -8198,7 +7871,6 @@
 98400	occupants_23	0
 98400	occupants_24	0
 98700	electric_demand_power	50134.72287
-98700	kwhr_price	0.017672588
 98700	occupants_1	0
 98700	occupants_2	0
 98700	occupants_3	0
@@ -8246,8 +7918,6 @@
 99000	occupants_22	0
 99000	occupants_23	0
 99000	occupants_24	0
-99000	kwhr_price	0.017575858
-99300	kwhr_price	0.018796317
 99300	electric_demand_power	50130.55907
 99300	occupants_1	0
 99300	occupants_2	0
@@ -8272,7 +7942,6 @@
 99300	occupants_22	0
 99300	occupants_23	0
 99300	occupants_24	0
-99600	kwhr_price	0.017810471
 99600	electric_demand_power	50128.47806
 99600	occupants_1	0
 99600	occupants_2	0
@@ -8297,7 +7966,6 @@
 99600	occupants_22	0
 99600	occupants_23	0
 99600	occupants_24	0
-99900	kwhr_price	0.018284694
 99900	electric_demand_power	50126.3974
 99900	occupants_1	0
 99900	occupants_2	0
@@ -8346,7 +8014,6 @@
 100200	occupants_22	0
 100200	occupants_23	0
 100200	occupants_24	0
-100200	kwhr_price	0.018646842
 100500	electric_demand_power	50122.23773
 100500	occupants_1	0
 100500	occupants_2	0
@@ -8371,14 +8038,12 @@
 100500	occupants_22	0
 100500	occupants_23	0
 100500	occupants_24	0
-100500	kwhr_price	0.018445444
 100800	electric_demand_power	50120.15892
 100800	occupants_1	0
 100800	occupants_2	0
 100800	occupants_3	0
 100800	occupants_4	0
 100800	occupants_5	0
-100800	kwhr_price	0.017993481
 100800	occupants_6	0
 100800	occupants_7	0
 100800	occupants_8	0
@@ -8421,7 +8086,6 @@
 101100	occupants_22	0
 101100	occupants_23	0
 101100	occupants_24	0
-101100	kwhr_price	0.017743823
 101400	electric_demand_power	50115.69021
 101400	occupants_1	0
 101400	occupants_2	0
@@ -8441,7 +8105,6 @@
 101400	occupants_17	0
 101400	occupants_18	0
 101400	occupants_19	0
-101400	kwhr_price	0.018349173
 101400	occupants_20	0
 101400	occupants_21	0
 101400	occupants_22	0
@@ -8471,14 +8134,12 @@
 101700	occupants_22	0
 101700	occupants_23	0
 101700	occupants_24	0
-101700	kwhr_price	0.018368246
 102000	electric_demand_power	50110.91273
 102000	occupants_1	0
 102000	occupants_2	0
 102000	occupants_3	0
 102000	occupants_4	0
 102000	occupants_5	0
-102000	kwhr_price	0.018571128
 102000	occupants_6	0
 102000	occupants_7	0
 102000	occupants_8	0
@@ -8521,8 +8182,6 @@
 102300	occupants_22	0
 102300	occupants_23	0
 102300	occupants_24	0
-102300	kwhr_price	0.018609867
-102600	kwhr_price	0.019231994
 102600	electric_demand_power	50106.14052
 102600	occupants_1	0
 102600	occupants_2	0
@@ -8556,7 +8215,6 @@
 102900	occupants_6	0
 102900	occupants_7	0
 102900	occupants_8	0
-102900	kwhr_price	0.01873253
 102900	occupants_9	0
 102900	occupants_10	0
 102900	occupants_11	0
@@ -8596,7 +8254,6 @@
 103200	occupants_22	0
 103200	occupants_23	0
 103200	occupants_24	0
-103200	kwhr_price	0.018666768
 103500	electric_demand_power	49644.30499
 103500	occupants_1	0
 103500	occupants_2	0
@@ -8620,9 +8277,7 @@
 103500	occupants_21	0
 103500	occupants_22	0
 103500	occupants_23	0
-103500	kwhr_price	0.018209874
 103500	occupants_24	0
-103800	kwhr_price	0.017667961
 103800	electric_demand_power	49642.27252
 103800	occupants_1	0
 103800	occupants_2	0
@@ -8647,7 +8302,6 @@
 103800	occupants_22	0
 103800	occupants_23	0
 103800	occupants_24	0
-104100	kwhr_price	0.018515651
 104100	electric_demand_power	49640.24227
 104100	occupants_1	0
 104100	occupants_2	0
@@ -8672,7 +8326,6 @@
 104100	occupants_22	0
 104100	occupants_23	0
 104100	occupants_24	0
-104400	kwhr_price	0.018709139
 104400	electric_demand_power	49638.21478
 104400	occupants_1	0
 104400	occupants_2	0
@@ -8697,7 +8350,6 @@
 104400	occupants_22	0
 104400	occupants_23	0
 104400	occupants_24	0
-104700	kwhr_price	0.019224712
 104700	electric_demand_power	49636.18968
 104700	occupants_1	0
 104700	occupants_2	0
@@ -8737,7 +8389,6 @@
 105000	occupants_12	0
 105000	occupants_13	0
 105000	occupants_14	0
-105000	kwhr_price	0.019306005
 105000	occupants_15	0
 105000	occupants_17	0
 105000	occupants_18	0
@@ -8771,8 +8422,6 @@
 105300	occupants_22	0
 105300	occupants_23	0
 105300	occupants_24	0
-105300	kwhr_price	0.019295284
-105600	kwhr_price	0.020254805
 105600	electric_demand_power	83896.22343
 105600	occupants_1	0
 105600	occupants_2	0
@@ -8797,7 +8446,6 @@
 105600	occupants_22	0
 105600	occupants_23	0
 105600	occupants_24	0
-105900	kwhr_price	0.019989775
 105900	electric_demand_power	83881.56822
 105900	occupants_1	0
 105900	occupants_2	0
@@ -8822,7 +8470,6 @@
 105900	occupants_22	0
 105900	occupants_23	0
 105900	occupants_24	0
-106200	kwhr_price	0.020488659
 106200	electric_demand_power	83873.73698
 106200	occupants_1	0
 106200	occupants_2	0
@@ -8859,7 +8506,6 @@
 106500	occupants_9	0
 106500	occupants_10	0
 106500	occupants_11	0
-106500	kwhr_price	0.020652361
 106500	occupants_12	0
 106500	occupants_13	0
 106500	occupants_14	0
@@ -8872,7 +8518,6 @@
 106500	occupants_22	0
 106500	occupants_23	0
 106500	occupants_24	0
-106800	kwhr_price	0.02076152
 106800	electric_demand_power	75292.02254
 106800	occupants_1	0
 106800	occupants_2	0
@@ -8921,8 +8566,6 @@
 107100	occupants_22	0
 107100	occupants_23	0
 107100	occupants_24	0
-107100	kwhr_price	0.020698559
-107400	kwhr_price	0.020795083
 107400	electric_demand_power	75290.47073
 107400	occupants_1	0
 107400	occupants_2	0
@@ -8947,7 +8590,6 @@
 107400	occupants_22	0
 107400	occupants_23	0
 107400	occupants_24	0
-107700	kwhr_price	0.020725607
 107700	electric_demand_power	75290.34022
 107700	occupants_1	0
 107700	occupants_2	0
@@ -8996,7 +8638,6 @@
 108000	occupants_22	0
 108000	occupants_23	0
 108000	occupants_24	0
-108000	kwhr_price	0.02058135
 108300	electric_demand_power	75290.65266
 108300	occupants_1	0
 108300	occupants_2	0
@@ -9021,8 +8662,6 @@
 108300	occupants_22	0
 108300	occupants_23	0
 108300	occupants_24	0
-108300	kwhr_price	0.020091476
-108600	kwhr_price	0.023138234
 108600	electric_demand_power	85610.1445
 108600	occupants_1	0
 108600	occupants_2	0
@@ -9047,7 +8686,6 @@
 108600	occupants_22	0
 108600	occupants_23	0
 108600	occupants_24	0
-108900	kwhr_price	0.023580778
 108900	electric_demand_power	82050.44424
 108900	occupants_1	0
 108900	occupants_2	0
@@ -9074,7 +8712,6 @@
 108900	occupants_24	0
 109200	electric_demand_power	82481.6198
 109200	occupants_1	0
-109200	kwhr_price	0.024608475
 109200	occupants_2	0
 109200	occupants_3	0
 109200	occupants_4	0
@@ -9121,7 +8758,6 @@
 109500	occupants_22	0
 109500	occupants_23	0
 109500	occupants_24	0
-109500	kwhr_price	0.024530314
 109800	electric_demand_power	83447.40415
 109800	occupants_1	0
 109800	occupants_2	0
@@ -9146,8 +8782,6 @@
 109800	occupants_22	0
 109800	occupants_23	0
 109800	occupants_24	0
-109800	kwhr_price	0.024603304
-110100	kwhr_price	0.024651259
 110100	electric_demand_power	84042.70171
 110100	occupants_1	0
 110100	occupants_2	0
@@ -9172,7 +8806,6 @@
 110100	occupants_22	0
 110100	occupants_23	0
 110100	occupants_24	0
-110400	kwhr_price	0.025008105
 110400	electric_demand_power	84744.36718
 110400	occupants_1	0
 110400	occupants_2	0
@@ -9214,7 +8847,6 @@
 110700	occupants_14	0
 110700	occupants_15	0
 110700	occupants_17	0
-110700	kwhr_price	0.025260185
 110700	occupants_18	0
 110700	occupants_19	0
 110700	occupants_20	0
@@ -9230,7 +8862,6 @@
 111000	occupants_5	0
 111000	occupants_6	0
 111000	occupants_7	0
-111000	kwhr_price	0.025510293
 111000	occupants_8	0
 111000	occupants_9	0
 111000	occupants_10	0
@@ -9247,7 +8878,6 @@
 111000	occupants_22	0
 111000	occupants_23	0
 111000	occupants_24	0
-111300	kwhr_price	0.025439392
 111300	electric_demand_power	86620.18153
 111300	occupants_1	0
 111300	occupants_2	0
@@ -9282,7 +8912,6 @@
 111600	occupants_7	0
 111600	occupants_8	0
 111600	occupants_9	0
-111600	kwhr_price	0.025947255
 111600	occupants_10	0
 111600	occupants_11	0
 111600	occupants_12	0
@@ -9298,7 +8927,6 @@
 111600	occupants_23	0
 111600	occupants_24	0
 111900	electric_demand_power	87879.67703
-111900	kwhr_price	0.025872271
 111900	occupants_1	0
 111900	occupants_2	0
 111900	occupants_3	0
@@ -9346,7 +8974,6 @@
 112200	occupants_22	17.8875
 112200	occupants_23	11.8125
 112200	occupants_24	11.025
-112200	kwhr_price	0.025773336
 112500	electric_demand_power	143885.326
 112500	occupants_1	2.85
 112500	occupants_2	0
@@ -9354,7 +8981,6 @@
 112500	occupants_4	3.7125
 112500	occupants_5	3.7125
 112500	occupants_6	3.7125
-112500	kwhr_price	0.026185722
 112500	occupants_7	3.7125
 112500	occupants_8	3.7125
 112500	occupants_9	3.7125
@@ -9372,7 +8998,6 @@
 112500	occupants_22	17.8875
 112500	occupants_23	11.8125
 112500	occupants_24	11.025
-112800	kwhr_price	0.029772246
 112800	electric_demand_power	145628.2504
 112800	occupants_1	2.85
 112800	occupants_2	0
@@ -9397,7 +9022,6 @@
 112800	occupants_22	17.8875
 112800	occupants_23	11.8125
 112800	occupants_24	11.025
-113100	kwhr_price	0.03020544
 113100	electric_demand_power	146867.3207
 113100	occupants_1	2.85
 113100	occupants_2	0
@@ -9443,7 +9067,6 @@
 113400	occupants_19	17.8875
 113400	occupants_20	17.8875
 113400	occupants_21	17.8875
-113400	kwhr_price	0.03081234
 113400	occupants_22	17.8875
 113400	occupants_23	11.8125
 113400	occupants_24	11.025
@@ -9451,7 +9074,6 @@
 113700	occupants_1	2.85
 113700	occupants_2	0
 113700	occupants_3	7.297297297
-113700	kwhr_price	0.030800508
 113700	occupants_4	3.7125
 113700	occupants_5	3.7125
 113700	occupants_6	3.7125
@@ -9496,7 +9118,6 @@
 114000	occupants_22	17.8875
 114000	occupants_23	11.8125
 114000	occupants_24	11.025
-114000	kwhr_price	0.030463228
 114300	electric_demand_power	150251.5682
 114300	occupants_1	2.85
 114300	occupants_2	0
@@ -9507,7 +9128,6 @@
 114300	occupants_7	3.7125
 114300	occupants_8	3.7125
 114300	occupants_9	3.7125
-114300	kwhr_price	0.031042928
 114300	occupants_10	2.88
 114300	occupants_11	2.88
 114300	occupants_12	2.88
@@ -9522,7 +9142,6 @@
 114300	occupants_22	17.8875
 114300	occupants_23	11.8125
 114300	occupants_24	11.025
-114600	kwhr_price	0.031156828
 114600	electric_demand_power	151482.9439
 114600	occupants_1	2.85
 114600	occupants_2	0
@@ -9560,7 +9179,6 @@
 114900	occupants_10	2.88
 114900	occupants_11	2.88
 114900	occupants_12	2.88
-114900	kwhr_price	0.031618752
 114900	occupants_13	37.52252252
 114900	occupants_14	3.78
 114900	occupants_15	13.75862069
@@ -9596,7 +9214,6 @@
 115200	occupants_22	17.8875
 115200	occupants_23	11.8125
 115200	occupants_24	11.025
-115200	kwhr_price	0.031648502
 115500	electric_demand_power	154871.3132
 115500	occupants_1	2.85
 115500	occupants_2	0
@@ -9616,13 +9233,11 @@
 115500	occupants_17	8.19
 115500	occupants_18	17.8875
 115500	occupants_19	17.8875
-115500	kwhr_price	0.03195117
 115500	occupants_20	17.8875
 115500	occupants_21	17.8875
 115500	occupants_22	17.8875
 115500	occupants_23	11.8125
 115500	occupants_24	11.025
-115800	kwhr_price	0.03207918
 115800	electric_demand_power	156751.4373
 115800	occupants_1	2.85
 115800	occupants_2	56.65467626
@@ -9671,11 +9286,9 @@
 116100	occupants_22	17.8875
 116100	occupants_23	11.8125
 116100	occupants_24	11.025
-116100	kwhr_price	0.032328842
 116400	electric_demand_power	159403.5703
 116400	occupants_1	2.85
 116400	occupants_2	56.65467626
-116400	kwhr_price	0.0324304
 116400	occupants_3	7.297297297
 116400	occupants_4	3.7125
 116400	occupants_5	3.7125
@@ -9721,7 +9334,6 @@
 116700	occupants_22	17.8875
 116700	occupants_23	11.8125
 116700	occupants_24	11.025
-116700	kwhr_price	0.03279998
 117000	electric_demand_power	162051.4289
 117000	occupants_1	2.85
 117000	occupants_2	56.65467626
@@ -9746,7 +9358,6 @@
 117000	occupants_22	17.8875
 117000	occupants_23	11.8125
 117000	occupants_24	11.025
-117000	kwhr_price	0.032821774
 117300	electric_demand_power	163454.6125
 117300	occupants_1	2.85
 117300	occupants_2	56.65467626
@@ -9771,8 +9382,6 @@
 117300	occupants_22	17.8875
 117300	occupants_23	11.8125
 117300	occupants_24	11.025
-117300	kwhr_price	0.032183764
-117600	kwhr_price	0.033172484
 117600	electric_demand_power	164665.6252
 117600	occupants_1	2.85
 117600	occupants_2	56.65467626
@@ -9797,7 +9406,6 @@
 117600	occupants_22	17.8875
 117600	occupants_23	11.8125
 117600	occupants_24	11.025
-117900	kwhr_price	0.033049268
 117900	electric_demand_power	166148.7043
 117900	occupants_1	2.85
 117900	occupants_2	56.65467626
@@ -9822,7 +9430,6 @@
 117900	occupants_22	17.8875
 117900	occupants_23	11.8125
 117900	occupants_24	11.025
-118200	kwhr_price	0.032792568
 118200	electric_demand_power	167989.7184
 118200	occupants_1	2.85
 118200	occupants_2	56.65467626
@@ -9856,7 +9463,6 @@
 118500	occupants_6	3.7125
 118500	occupants_7	3.7125
 118500	occupants_8	3.7125
-118500	kwhr_price	0.032411598
 118500	occupants_9	3.7125
 118500	occupants_10	2.88
 118500	occupants_11	2.88
@@ -9872,7 +9478,6 @@
 118500	occupants_22	17.8875
 118500	occupants_23	11.8125
 118500	occupants_24	11.025
-118800	kwhr_price	0.032813308
 118800	electric_demand_power	170474.1545
 118800	occupants_1	2.85
 118800	occupants_2	56.65467626
@@ -9921,7 +9526,6 @@
 119100	occupants_22	17.8875
 119100	occupants_23	11.8125
 119100	occupants_24	11.025
-119100	kwhr_price	0.03301299
 119400	electric_demand_power	176508.0636
 119400	occupants_1	2.85
 119400	occupants_2	56.65467626
@@ -9946,7 +9550,6 @@
 119400	occupants_22	17.8875
 119400	occupants_23	11.8125
 119400	occupants_24	11.025
-119400	kwhr_price	0.033080752
 119700	electric_demand_power	177529.0474
 119700	occupants_1	2.85
 119700	occupants_2	56.65467626
@@ -9965,14 +9568,12 @@
 119700	occupants_15	13.75862069
 119700	occupants_17	8.19
 119700	occupants_18	17.8875
-119700	kwhr_price	0.032681932
 119700	occupants_19	17.8875
 119700	occupants_20	17.8875
 119700	occupants_21	17.8875
 119700	occupants_22	17.8875
 119700	occupants_23	11.8125
 119700	occupants_24	11.025
-120000	kwhr_price	0.034106294
 120000	electric_demand_power	178846.8522
 120000	occupants_1	2.85
 120000	occupants_2	56.65467626
@@ -10005,7 +9606,6 @@
 120300	occupants_5	3.7125
 120300	occupants_6	3.7125
 120300	occupants_7	3.7125
-120300	kwhr_price	0.03362023
 120300	occupants_8	3.7125
 120300	occupants_9	3.7125
 120300	occupants_10	2.88
@@ -10046,8 +9646,6 @@
 120600	occupants_22	17.8875
 120600	occupants_23	11.8125
 120600	occupants_24	11.025
-120600	kwhr_price	0.033620774
-120900	kwhr_price	0.033725936
 120900	electric_demand_power	182591.3083
 120900	occupants_1	2.85
 120900	occupants_2	56.65467626
@@ -10077,7 +9675,6 @@
 121200	occupants_2	56.65467626
 121200	occupants_3	7.297297297
 121200	occupants_4	3.7125
-121200	kwhr_price	0.033847214
 121200	occupants_5	3.7125
 121200	occupants_6	3.7125
 121200	occupants_7	3.7125
@@ -10097,7 +9694,6 @@
 121200	occupants_22	17.8875
 121200	occupants_23	11.8125
 121200	occupants_24	11.025
-121500	kwhr_price	0.03384667
 121500	electric_demand_power	186544.4436
 121500	occupants_1	2.85
 121500	occupants_2	56.65467626
@@ -10122,7 +9718,6 @@
 121500	occupants_22	17.8875
 121500	occupants_23	11.8125
 121500	occupants_24	11.025
-121800	kwhr_price	0.033933676
 121800	electric_demand_power	188099.9347
 121800	occupants_1	2.85
 121800	occupants_2	56.65467626
@@ -10147,7 +9742,6 @@
 121800	occupants_22	17.8875
 121800	occupants_23	11.8125
 121800	occupants_24	11.025
-122100	kwhr_price	0.033711996
 122100	electric_demand_power	189715.2864
 122100	occupants_1	2.85
 122100	occupants_2	56.65467626
@@ -10172,7 +9766,6 @@
 122100	occupants_22	17.8875
 122100	occupants_23	11.8125
 122100	occupants_24	11.025
-122400	kwhr_price	0.034100786
 122400	electric_demand_power	191569.9756
 122400	occupants_1	2.85
 122400	occupants_2	56.65467626
@@ -10197,7 +9790,6 @@
 122400	occupants_22	17.8875
 122400	occupants_23	11.8125
 122400	occupants_24	11.025
-122700	kwhr_price	0.034282074
 122700	electric_demand_power	193304.1578
 122700	occupants_1	2.85
 122700	occupants_2	56.65467626
@@ -10222,7 +9814,6 @@
 122700	occupants_22	17.8875
 122700	occupants_23	11.8125
 122700	occupants_24	11.025
-123000	kwhr_price	0.034396654
 123000	electric_demand_power	195348.6203
 123000	occupants_1	2.85
 123000	occupants_2	56.65467626
@@ -10271,7 +9862,6 @@
 123300	occupants_22	17.8875
 123300	occupants_23	11.8125
 123300	occupants_24	11.025
-123300	kwhr_price	0.059138
 123600	electric_demand_power	196620.3549
 123600	occupants_1	2.85
 123600	occupants_2	56.65467626
@@ -10288,7 +9878,6 @@
 123600	occupants_13	37.52252252
 123600	occupants_14	3.78
 123600	occupants_15	13.75862069
-123600	kwhr_price	0.03463513
 123600	occupants_17	8.19
 123600	occupants_18	17.8875
 123600	occupants_19	17.8875
@@ -10297,7 +9886,6 @@
 123600	occupants_22	17.8875
 123600	occupants_23	11.8125
 123600	occupants_24	11.025
-123900	kwhr_price	0.0587804
 123900	electric_demand_power	197466.922
 123900	occupants_1	2.85
 123900	occupants_2	56.65467626
@@ -10346,7 +9934,6 @@
 124200	occupants_22	17.8875
 124200	occupants_23	11.8125
 124200	occupants_24	11.025
-124200	kwhr_price	0.035030992
 124500	electric_demand_power	207997.6512
 124500	occupants_1	2.85
 124500	occupants_2	56.65467626
@@ -10371,8 +9958,6 @@
 124500	occupants_22	17.8875
 124500	occupants_23	11.8125
 124500	occupants_24	11.025
-124500	kwhr_price	0.0677552
-124800	kwhr_price	0.034194762
 124800	electric_demand_power	178375.9955
 124800	occupants_1	2.85
 124800	occupants_2	56.65467626
@@ -10421,7 +10006,6 @@
 125100	occupants_22	17.8875
 125100	occupants_23	11.8125
 125100	occupants_24	11.025
-125100	kwhr_price	0.0907484
 125400	electric_demand_power	173626.3851
 125400	occupants_1	2.85
 125400	occupants_2	56.65467626
@@ -10446,8 +10030,6 @@
 125400	occupants_22	17.8875
 125400	occupants_23	11.8125
 125400	occupants_24	11.025
-125400	kwhr_price	0.035089744
-125700	kwhr_price	0.1058024
 125700	electric_demand_power	218204.2042
 125700	occupants_1	2.85
 125700	occupants_2	56.65467626
@@ -10472,7 +10054,6 @@
 125700	occupants_22	17.8875
 125700	occupants_23	11.8125
 125700	occupants_24	11.025
-126000	kwhr_price	0.035060776
 126000	electric_demand_power	166438.747
 126000	occupants_1	2.85
 126000	occupants_2	56.65467626
@@ -10497,7 +10078,6 @@
 126000	occupants_22	17.8875
 126000	occupants_23	11.8125
 126000	occupants_24	11.025
-126300	kwhr_price	0.1607912
 126300	electric_demand_power	221057.2465
 126300	occupants_1	2.85
 126300	occupants_2	56.65467626
@@ -10522,7 +10102,6 @@
 126300	occupants_22	17.8875
 126300	occupants_23	11.8125
 126300	occupants_24	11.025
-126600	kwhr_price	0.035414988
 126600	electric_demand_power	165623.4354
 126600	occupants_1	2.85
 126600	occupants_2	56.65467626
@@ -10547,7 +10126,6 @@
 126600	occupants_22	17.8875
 126600	occupants_23	11.8125
 126600	occupants_24	11.025
-126900	kwhr_price	0.150847962
 126900	electric_demand_power	225758.2118
 126900	occupants_1	2.85
 126900	occupants_2	56.65467626
@@ -10572,7 +10150,6 @@
 126900	occupants_22	17.8875
 126900	occupants_23	11.8125
 126900	occupants_24	11.025
-127200	kwhr_price	0.0837968
 127200	electric_demand_power	163033.3992
 127200	occupants_1	2.85
 127200	occupants_2	56.65467626
@@ -10597,7 +10174,6 @@
 127200	occupants_22	17.8875
 127200	occupants_23	11.8125
 127200	occupants_24	11.025
-127500	kwhr_price	0.163172
 127500	electric_demand_power	230545.5912
 127500	occupants_1	2.85
 127500	occupants_2	56.65467626
@@ -10646,8 +10222,6 @@
 127800	occupants_22	17.8875
 127800	occupants_23	11.8125
 127800	occupants_24	11.025
-127800	kwhr_price	0.0981008
-128100	kwhr_price	0.24536
 128100	electric_demand_power	190891.2281
 128100	occupants_1	2.85
 128100	occupants_2	56.65467626
@@ -10696,8 +10270,6 @@
 128400	occupants_22	17.8875
 128400	occupants_23	11.8125
 128400	occupants_24	11.025
-128400	kwhr_price	0.1302152
-128700	kwhr_price	0.146684
 128700	electric_demand_power	195286.3587
 128700	occupants_1	2.85
 128700	occupants_2	56.65467626
@@ -10746,7 +10318,6 @@
 129000	occupants_22	17.8875
 129000	occupants_23	11.8125
 129000	occupants_24	11.025
-129000	kwhr_price	0.1333328
 129300	electric_demand_power	178410.0126
 129300	occupants_1	2.85
 129300	occupants_2	56.65467626
@@ -10771,8 +10342,6 @@
 129300	occupants_22	17.8875
 129300	occupants_23	11.8125
 129300	occupants_24	11.025
-129300	kwhr_price	0.2099648
-129600	kwhr_price	0.064112
 129600	electric_demand_power	173132.7756
 129600	occupants_1	2.85
 129600	occupants_2	56.65467626
@@ -10797,7 +10366,6 @@
 129600	occupants_22	17.8875
 129600	occupants_23	11.8125
 129600	occupants_24	11.025
-129900	kwhr_price	0.1935224
 129900	electric_demand_power	186840.7128
 129900	occupants_1	2.85
 129900	occupants_2	56.65467626
@@ -10822,7 +10390,6 @@
 129900	occupants_22	17.8875
 129900	occupants_23	11.8125
 129900	occupants_24	11.025
-130200	kwhr_price	0.1309448
 130200	electric_demand_power	168768.4988
 130200	occupants_1	2.85
 130200	occupants_2	56.65467626
@@ -10847,7 +10414,6 @@
 130200	occupants_22	17.8875
 130200	occupants_23	11.8125
 130200	occupants_24	11.025
-130500	kwhr_price	0.2257616
 130500	electric_demand_power	249561.2446
 130500	occupants_1	2.85
 130500	occupants_2	56.65467626
@@ -10872,7 +10438,6 @@
 130500	occupants_22	17.8875
 130500	occupants_23	11.8125
 130500	occupants_24	11.025
-130800	kwhr_price	0.1408688
 130800	electric_demand_power	168646.8689
 130800	occupants_1	2.85
 130800	occupants_2	56.65467626
@@ -10921,7 +10486,6 @@
 131100	occupants_22	17.8875
 131100	occupants_23	11.8125
 131100	occupants_24	11.025
-131100	kwhr_price	0.3818096
 131400	electric_demand_power	171362.6613
 131400	occupants_1	2.85
 131400	occupants_2	56.65467626
@@ -10939,7 +10503,6 @@
 131400	occupants_14	3.78
 131400	occupants_15	13.75862069
 131400	occupants_17	8.19
-131400	kwhr_price	0.1791728
 131400	occupants_18	17.8875
 131400	occupants_19	17.8875
 131400	occupants_20	17.8875
@@ -10971,7 +10534,6 @@
 131700	occupants_22	17.8875
 131700	occupants_23	11.8125
 131700	occupants_24	11.025
-131700	kwhr_price	0.1885808
 132000	electric_demand_power	173057.4695
 132000	occupants_1	2.85
 132000	occupants_2	56.65467626
@@ -10996,7 +10558,6 @@
 132000	occupants_22	17.8875
 132000	occupants_23	11.8125
 132000	occupants_24	11.025
-132000	kwhr_price	0.1639568
 132300	electric_demand_power	175033.7147
 132300	occupants_1	2.85
 132300	occupants_2	56.65467626
@@ -11021,8 +10582,6 @@
 132300	occupants_22	17.8875
 132300	occupants_23	11.8125
 132300	occupants_24	11.025
-132300	kwhr_price	0.2187008
-132600	kwhr_price	0.1771544
 132600	electric_demand_power	176537.9722
 132600	occupants_1	2.85
 132600	occupants_2	56.65467626
@@ -11071,7 +10630,6 @@
 132900	occupants_22	17.8875
 132900	occupants_23	11.8125
 132900	occupants_24	11.025
-132900	kwhr_price	0.2896856
 133200	electric_demand_power	177393.6104
 133200	occupants_1	2.85
 133200	occupants_2	56.65467626
@@ -11096,7 +10654,6 @@
 133200	occupants_22	17.8875
 133200	occupants_23	11.8125
 133200	occupants_24	11.025
-133200	kwhr_price	0.2151512
 133500	electric_demand_power	185453.0503
 133500	occupants_1	2.85
 133500	occupants_2	56.65467626
@@ -11121,7 +10678,6 @@
 133500	occupants_22	17.8875
 133500	occupants_23	11.8125
 133500	occupants_24	11.025
-133500	kwhr_price	0.2524904
 133800	electric_demand_power	184031.2204
 133800	occupants_1	2.85
 133800	occupants_2	56.65467626
@@ -11142,12 +10698,10 @@
 133800	occupants_18	17.8875
 133800	occupants_19	17.8875
 133800	occupants_20	17.8875
-133800	kwhr_price	0.2644688
 133800	occupants_21	17.8875
 133800	occupants_22	17.8875
 133800	occupants_23	11.8125
 133800	occupants_24	11.025
-134100	kwhr_price	0.235808
 134100	electric_demand_power	186007.2492
 134100	occupants_1	2.85
 134100	occupants_2	56.65467626
@@ -11172,7 +10726,6 @@
 134100	occupants_22	17.8875
 134100	occupants_23	11.8125
 134100	occupants_24	11.025
-134400	kwhr_price	0.2332352
 134400	electric_demand_power	186960.9754
 134400	occupants_1	2.85
 134400	occupants_2	56.65467626
@@ -11221,7 +10774,6 @@
 134700	occupants_22	17.8875
 134700	occupants_23	11.8125
 134700	occupants_24	11.025
-134700	kwhr_price	0.2870936
 135000	electric_demand_power	188824.4927
 135000	occupants_1	2.85
 135000	occupants_2	56.65467626
@@ -11236,7 +10788,6 @@
 135000	occupants_11	2.88
 135000	occupants_12	2.88
 135000	occupants_13	37.52252252
-135000	kwhr_price	0.2925224
 135000	occupants_14	3.78
 135000	occupants_15	13.75862069
 135000	occupants_17	8.19
@@ -11271,7 +10822,6 @@
 135300	occupants_22	17.8875
 135300	occupants_23	11.8125
 135300	occupants_24	11.025
-135300	kwhr_price	0.3373904
 135600	electric_demand_power	190620.334
 135600	occupants_1	2.85
 135600	occupants_2	56.65467626
@@ -11282,7 +10832,6 @@
 135600	occupants_7	3.7125
 135600	occupants_8	3.7125
 135600	occupants_9	3.7125
-135600	kwhr_price	0.2454128
 135600	occupants_10	2.88
 135600	occupants_11	2.88
 135600	occupants_12	2.88
@@ -11321,8 +10870,6 @@
 135900	occupants_22	17.8875
 135900	occupants_23	11.8125
 135900	occupants_24	11.025
-135900	kwhr_price	0.2853704
-136200	kwhr_price	0.3303896
 136200	electric_demand_power	192212.2911
 136200	occupants_1	2.85
 136200	occupants_2	56.65467626
@@ -11371,7 +10918,6 @@
 136500	occupants_22	17.8875
 136500	occupants_23	11.8125
 136500	occupants_24	11.025
-136500	kwhr_price	0.3026384
 136800	electric_demand_power	193712.9096
 136800	occupants_1	2.85
 136800	occupants_2	56.65467626
@@ -11396,8 +10942,6 @@
 136800	occupants_22	17.8875
 136800	occupants_23	11.8125
 136800	occupants_24	11.025
-136800	kwhr_price	0.4513736
-137100	kwhr_price	0.3194768
 137100	electric_demand_power	194449.2391
 137100	occupants_1	2.85
 137100	occupants_2	56.65467626
@@ -11436,7 +10980,6 @@
 137400	occupants_11	2.88
 137400	occupants_12	2.88
 137400	occupants_13	37.52252252
-137400	kwhr_price	0.3193088
 137400	occupants_14	3.78
 137400	occupants_15	13.75862069
 137400	occupants_17	8.19
@@ -11447,7 +10990,6 @@
 137400	occupants_22	17.8875
 137400	occupants_23	11.8125
 137400	occupants_24	11.025
-137700	kwhr_price	0.4887056
 137700	electric_demand_power	194967.4393
 137700	occupants_1	2.85
 137700	occupants_2	0
@@ -11472,7 +11014,6 @@
 137700	occupants_22	17.8875
 137700	occupants_23	11.8125
 137700	occupants_24	11.025
-138000	kwhr_price	0.3572792
 138000	electric_demand_power	196419.6865
 138000	occupants_1	2.85
 138000	occupants_2	0
@@ -11497,7 +11038,6 @@
 138000	occupants_22	17.8875
 138000	occupants_23	11.8125
 138000	occupants_24	11.025
-138300	kwhr_price	0.4945256
 138300	electric_demand_power	197807.3805
 138300	occupants_1	2.85
 138300	occupants_2	0
@@ -11546,8 +11086,6 @@
 138600	occupants_22	17.8875
 138600	occupants_23	11.8125
 138600	occupants_24	11.025
-138600	kwhr_price	0.3462368
-138900	kwhr_price	0.5298248
 138900	electric_demand_power	200559.0485
 138900	occupants_1	2.85
 138900	occupants_2	0
@@ -11572,7 +11110,6 @@
 138900	occupants_22	17.8875
 138900	occupants_23	11.8125
 138900	occupants_24	11.025
-139200	kwhr_price	0.4879424
 139200	electric_demand_power	201928.2755
 139200	occupants_1	2.85
 139200	occupants_2	0
@@ -11597,7 +11134,6 @@
 139200	occupants_22	17.8875
 139200	occupants_23	11.8125
 139200	occupants_24	11.025
-139500	kwhr_price	0.447212
 139500	electric_demand_power	203284.3835
 139500	occupants_1	2.85
 139500	occupants_2	0
@@ -11626,7 +11162,6 @@
 139800	occupants_1	2.85
 139800	occupants_2	0
 139800	occupants_3	7.297297297
-139800	kwhr_price	0.4296368
 139800	occupants_4	3.7125
 139800	occupants_5	3.7125
 139800	occupants_6	3.7125
@@ -11671,7 +11206,6 @@
 140100	occupants_22	17.8875
 140100	occupants_23	11.8125
 140100	occupants_24	11.025
-140100	kwhr_price	0.459284
 140400	electric_demand_power	207263.7295
 140400	occupants_1	2.85
 140400	occupants_2	0
@@ -11679,7 +11213,6 @@
 140400	occupants_4	3.7125
 140400	occupants_5	3.7125
 140400	occupants_6	3.7125
-140400	kwhr_price	0.432752
 140400	occupants_7	3.7125
 140400	occupants_8	3.7125
 140400	occupants_9	3.7125
@@ -11721,13 +11254,11 @@
 140700	occupants_22	17.8875
 140700	occupants_23	11.8125
 140700	occupants_24	11.025
-140700	kwhr_price	0.4809536
 141000	electric_demand_power	208968.8345
 141000	occupants_1	2.85
 141000	occupants_2	0
 141000	occupants_3	7.297297297
 141000	occupants_4	3.7125
-141000	kwhr_price	0.5281928
 141000	occupants_5	3.7125
 141000	occupants_6	3.7125
 141000	occupants_7	3.7125
@@ -11771,7 +11302,6 @@
 141300	occupants_22	17.8875
 141300	occupants_23	11.8125
 141300	occupants_24	11.025
-141300	kwhr_price	0.5337944
 141600	electric_demand_power	209687.7261
 141600	occupants_1	2.85
 141600	occupants_2	0
@@ -11796,8 +11326,6 @@
 141600	occupants_22	17.8875
 141600	occupants_23	11.8125
 141600	occupants_24	11.025
-141600	kwhr_price	0.4898
-141900	kwhr_price	0.5354816
 141900	electric_demand_power	209957.208
 141900	occupants_1	2.85
 141900	occupants_2	0
@@ -11846,8 +11374,6 @@
 142200	occupants_22	17.8875
 142200	occupants_23	11.8125
 142200	occupants_24	11.025
-142200	kwhr_price	0.5660912
-142500	kwhr_price	0.5180312
 142500	electric_demand_power	210403.596
 142500	occupants_1	2.85
 142500	occupants_2	0
@@ -11875,7 +11401,6 @@
 142800	electric_demand_power	210616.5045
 142800	occupants_1	2.85
 142800	occupants_2	0
-142800	kwhr_price	0.5685704
 142800	occupants_3	7.297297297
 142800	occupants_4	3.7125
 142800	occupants_5	3.7125
@@ -11897,7 +11422,6 @@
 142800	occupants_22	17.8875
 142800	occupants_23	11.8125
 142800	occupants_24	11.025
-143100	kwhr_price	0.4745288
 143100	electric_demand_power	210830.648
 143100	occupants_1	2.85
 143100	occupants_2	0
@@ -11922,7 +11446,6 @@
 143100	occupants_22	17.8875
 143100	occupants_23	11.8125
 143100	occupants_24	11.025
-143400	kwhr_price	0.5750672
 143400	electric_demand_power	211042.395
 143400	occupants_1	2.85
 143400	occupants_2	0
@@ -11947,7 +11470,6 @@
 143400	occupants_22	17.8875
 143400	occupants_23	11.8125
 143400	occupants_24	11.025
-143700	kwhr_price	0.4866704
 143700	electric_demand_power	211229.946
 143700	occupants_1	2.85
 143700	occupants_2	0
@@ -11996,7 +11518,6 @@
 144000	occupants_22	17.8875
 144000	occupants_23	11.8125
 144000	occupants_24	11.025
-144000	kwhr_price	0.5522048
 144300	electric_demand_power	211543.6885
 144300	occupants_1	2.85
 144300	occupants_2	0
@@ -12012,7 +11533,6 @@
 144300	occupants_12	2.88
 144300	occupants_13	37.52252252
 144300	occupants_14	3.78
-144300	kwhr_price	0.5664968
 144300	occupants_15	13.75862069
 144300	occupants_17	8.19
 144300	occupants_18	17.8875
@@ -12044,10 +11564,8 @@
 144600	occupants_20	17.8875
 144600	occupants_21	17.8875
 144600	occupants_22	17.8875
-144600	kwhr_price	0.4952936
 144600	occupants_23	11.8125
 144600	occupants_24	0
-144900	kwhr_price	0.5560976
 144900	electric_demand_power	186291.3568
 144900	occupants_1	2.85
 144900	occupants_2	0
@@ -12072,7 +11590,6 @@
 144900	occupants_22	17.8875
 144900	occupants_23	11.8125
 144900	occupants_24	0
-145200	kwhr_price	0.4184024
 145200	electric_demand_power	186432.8406
 145200	occupants_1	2.85
 145200	occupants_2	0
@@ -12097,7 +11614,6 @@
 145200	occupants_22	17.8875
 145200	occupants_23	11.8125
 145200	occupants_24	0
-145500	kwhr_price	0.4925216
 145500	electric_demand_power	186505.938
 145500	occupants_1	2.85
 145500	occupants_2	0
@@ -12146,7 +11662,6 @@
 145800	occupants_22	17.8875
 145800	occupants_23	11.8125
 145800	occupants_24	0
-145800	kwhr_price	0.4095008
 146100	electric_demand_power	186528.4259
 146100	occupants_1	2.85
 146100	occupants_2	0
@@ -12171,7 +11686,6 @@
 146100	occupants_22	17.8875
 146100	occupants_23	11.8125
 146100	occupants_24	0
-146100	kwhr_price	0.45896
 146400	electric_demand_power	186205.3685
 146400	occupants_1	2.85
 146400	occupants_2	0
@@ -12196,8 +11710,6 @@
 146400	occupants_22	17.8875
 146400	occupants_23	11.8125
 146400	occupants_24	0
-146400	kwhr_price	0.4270712
-146700	kwhr_price	0.4736648
 146700	electric_demand_power	185833.0492
 146700	occupants_1	2.85
 146700	occupants_2	0
@@ -12246,7 +11758,6 @@
 147000	occupants_22	17.8875
 147000	occupants_23	11.8125
 147000	occupants_24	0
-147000	kwhr_price	0.4306592
 147300	electric_demand_power	184879.9481
 147300	occupants_1	2.85
 147300	occupants_2	0
@@ -12271,7 +11782,6 @@
 147300	occupants_22	17.8875
 147300	occupants_23	11.8125
 147300	occupants_24	0
-147300	kwhr_price	0.5122352
 147600	electric_demand_power	184383.8537
 147600	occupants_1	2.85
 147600	occupants_2	0
@@ -12296,8 +11806,6 @@
 147600	occupants_22	17.8875
 147600	occupants_23	11.8125
 147600	occupants_24	0
-147600	kwhr_price	0.400856
-147900	kwhr_price	0.5159864
 147900	electric_demand_power	183854.0368
 147900	occupants_1	2.85
 147900	occupants_2	0
@@ -12322,7 +11830,6 @@
 147900	occupants_22	17.8875
 147900	occupants_23	11.8125
 147900	occupants_24	0
-148200	kwhr_price	0.4879376
 148200	electric_demand_power	140992.3571
 148200	occupants_1	2.85
 148200	occupants_2	0
@@ -12371,8 +11878,6 @@
 148500	occupants_22	17.8875
 148500	occupants_23	11.8125
 148500	occupants_24	0
-148500	kwhr_price	0.4839176
-148800	kwhr_price	0.3928352
 148800	electric_demand_power	148876.3993
 148800	occupants_1	2.85
 148800	occupants_2	0
@@ -12421,7 +11926,6 @@
 149100	occupants_22	17.8875
 149100	occupants_23	11.8125
 149100	occupants_24	0
-149100	kwhr_price	0.4238408
 149400	electric_demand_power	148952.0415
 149400	occupants_1	2.85
 149400	occupants_2	0
@@ -12446,7 +11950,6 @@
 149400	occupants_22	17.8875
 149400	occupants_23	11.8125
 149400	occupants_24	0
-149400	kwhr_price	0.363836
 149700	electric_demand_power	148966.9277
 149700	occupants_1	2.85
 149700	occupants_2	0
@@ -12471,8 +11974,6 @@
 149700	occupants_22	17.8875
 149700	occupants_23	11.8125
 149700	occupants_24	0
-149700	kwhr_price	0.3848816
-150000	kwhr_price	0.3785408
 150000	electric_demand_power	148970.1257
 150000	occupants_1	2.85
 150000	occupants_2	0
@@ -12497,7 +11998,6 @@
 150000	occupants_22	17.8875
 150000	occupants_23	11.8125
 150000	occupants_24	0
-150300	kwhr_price	0.420392
 150300	electric_demand_power	148962.3069
 150300	occupants_1	2.85
 150300	occupants_2	0
@@ -12522,7 +12022,6 @@
 150300	occupants_22	17.8875
 150300	occupants_23	11.8125
 150300	occupants_24	0
-150600	kwhr_price	0.3967592
 150600	electric_demand_power	148948.7998
 150600	occupants_1	2.85
 150600	occupants_2	0
@@ -12547,7 +12046,6 @@
 150600	occupants_22	17.8875
 150600	occupants_23	11.8125
 150600	occupants_24	0
-150900	kwhr_price	0.3169736
 150900	electric_demand_power	148927.7319
 150900	occupants_1	2.85
 150900	occupants_2	0
@@ -12596,7 +12094,6 @@
 151200	occupants_22	17.8875
 151200	occupants_23	11.8125
 151200	occupants_24	0
-151200	kwhr_price	0.4540256
 151500	electric_demand_power	148871.0263
 151500	occupants_1	2.85
 151500	occupants_2	0
@@ -12621,7 +12118,6 @@
 151500	occupants_22	17.8875
 151500	occupants_23	11.8125
 151500	occupants_24	0
-151500	kwhr_price	0.2992712
 151800	electric_demand_power	147575.1715
 151800	occupants_1	2.85
 151800	occupants_2	0
@@ -12646,8 +12142,6 @@
 151800	occupants_22	17.8875
 151800	occupants_23	11.8125
 151800	occupants_24	0
-151800	kwhr_price	0.4909544
-152100	kwhr_price	0.4328528
 152100	electric_demand_power	146331.5652
 152100	occupants_1	2.85
 152100	occupants_2	0
@@ -12696,8 +12190,6 @@
 152400	occupants_22	17.8875
 152400	occupants_23	11.8125
 152400	occupants_24	0
-152400	kwhr_price	0.452084
-152700	kwhr_price	0.4384496
 152700	electric_demand_power	143843.4197
 152700	occupants_1	2.85
 152700	occupants_2	0
@@ -12722,7 +12214,6 @@
 152700	occupants_22	17.8875
 152700	occupants_23	11.8125
 152700	occupants_24	0
-153000	kwhr_price	0.4575608
 153000	electric_demand_power	142623.2166
 153000	occupants_1	2.85
 153000	occupants_2	0
@@ -12747,7 +12238,6 @@
 153000	occupants_22	17.8875
 153000	occupants_23	11.8125
 153000	occupants_24	0
-153300	kwhr_price	0.4139648
 153300	electric_demand_power	141421.9685
 153300	occupants_1	2.85
 153300	occupants_2	0
@@ -12772,7 +12262,6 @@
 153300	occupants_22	17.8875
 153300	occupants_23	11.8125
 153300	occupants_24	0
-153600	kwhr_price	0.3908504
 153600	electric_demand_power	140232.6571
 153600	occupants_1	2.85
 153600	occupants_2	0
@@ -12802,7 +12291,6 @@
 153900	occupants_2	0
 153900	occupants_3	7.297297297
 153900	occupants_4	3.7125
-153900	kwhr_price	0.4866056
 153900	occupants_5	3.7125
 153900	occupants_6	3.7125
 153900	occupants_7	3.7125
@@ -12826,7 +12314,6 @@
 154200	occupants_1	2.85
 154200	occupants_2	0
 154200	occupants_3	7.297297297
-154200	kwhr_price	0.3857072
 154200	occupants_4	3.7125
 154200	occupants_5	3.7125
 154200	occupants_6	3.7125
@@ -12871,8 +12358,6 @@
 154500	occupants_22	17.8875
 154500	occupants_23	11.8125
 154500	occupants_24	0
-154500	kwhr_price	0.3804104
-154800	kwhr_price	0.3354788
 154800	electric_demand_power	135642.6704
 154800	occupants_1	2.85
 154800	occupants_2	0
@@ -12921,8 +12406,6 @@
 155100	occupants_22	17.8875
 155100	occupants_23	11.8125
 155100	occupants_24	0
-155100	kwhr_price	0.3266432
-155400	kwhr_price	0.033021171
 155400	electric_demand_power	104591.6865
 155400	occupants_1	2.85
 155400	occupants_2	0
@@ -12971,8 +12454,6 @@
 155700	occupants_22	17.8875
 155700	occupants_23	11.8125
 155700	occupants_24	0
-155700	kwhr_price	0.0325921
-156000	kwhr_price	0.030607463
 156000	electric_demand_power	103440.5906
 156000	occupants_1	2.85
 156000	occupants_2	0
@@ -12997,7 +12478,6 @@
 156000	occupants_22	17.8875
 156000	occupants_23	11.8125
 156000	occupants_24	0
-156300	kwhr_price	0.030158768
 156300	electric_demand_power	114158.6768
 156300	occupants_1	2.85
 156300	occupants_2	0
@@ -13022,7 +12502,6 @@
 156300	occupants_22	17.8875
 156300	occupants_23	11.8125
 156300	occupants_24	0
-156600	kwhr_price	0.030567084
 156600	electric_demand_power	108544.1877
 156600	occupants_1	2.85
 156600	occupants_2	0
@@ -13047,7 +12526,6 @@
 156600	occupants_22	17.8875
 156600	occupants_23	11.8125
 156600	occupants_24	0
-156900	kwhr_price	0.030257547
 156900	electric_demand_power	116425.4762
 156900	occupants_1	2.85
 156900	occupants_2	0
@@ -13072,7 +12550,6 @@
 156900	occupants_22	17.8875
 156900	occupants_23	11.8125
 156900	occupants_24	0
-157200	kwhr_price	0.029768879
 157200	electric_demand_power	115759.2131
 157200	occupants_1	2.85
 157200	occupants_2	0
@@ -13097,7 +12574,6 @@
 157200	occupants_22	17.8875
 157200	occupants_23	11.8125
 157200	occupants_24	0
-157500	kwhr_price	0.029369769
 157500	electric_demand_power	115087.6609
 157500	occupants_1	2.85
 157500	occupants_2	0
@@ -13146,7 +12622,6 @@
 157800	occupants_22	17.8875
 157800	occupants_23	11.8125
 157800	occupants_24	0
-157800	kwhr_price	0.029543637
 158100	electric_demand_power	113929.667
 158100	occupants_1	2.85
 158100	occupants_2	0
@@ -13171,7 +12646,6 @@
 158100	occupants_22	17.8875
 158100	occupants_23	11.8125
 158100	occupants_24	0
-158100	kwhr_price	0.029081692
 158400	electric_demand_power	113358.5842
 158400	occupants_1	2.85
 158400	occupants_2	0
@@ -13196,7 +12670,6 @@
 158400	occupants_22	17.8875
 158400	occupants_23	11.8125
 158400	occupants_24	0
-158400	kwhr_price	0.029021899
 158700	electric_demand_power	112763.1584
 158700	occupants_1	2.85
 158700	occupants_2	0
@@ -13221,7 +12694,6 @@
 158700	occupants_22	17.8875
 158700	occupants_23	11.8125
 158700	occupants_24	0
-158700	kwhr_price	0.028717012
 159000	electric_demand_power	48734.04691
 159000	occupants_1	0
 159000	occupants_2	0
@@ -13246,8 +12718,6 @@
 159000	occupants_22	0
 159000	occupants_23	0
 159000	occupants_24	0
-159000	kwhr_price	0.028446396
-159300	kwhr_price	0.027680798
 159300	electric_demand_power	73852.15478
 159300	occupants_1	0
 159300	occupants_2	0
@@ -13296,8 +12766,6 @@
 159600	occupants_22	0
 159600	occupants_23	0
 159600	occupants_24	0
-159600	kwhr_price	0.027198164
-159900	kwhr_price	0.026783558
 159900	electric_demand_power	99362.24549
 159900	occupants_1	0
 159900	occupants_2	0
@@ -13346,7 +12814,6 @@
 160200	occupants_22	0
 160200	occupants_23	0
 160200	occupants_24	0
-160200	kwhr_price	0.027554316
 160500	electric_demand_power	98153.84115
 160500	occupants_1	0
 160500	occupants_2	0
@@ -13371,7 +12838,6 @@
 160500	occupants_22	0
 160500	occupants_23	0
 160500	occupants_24	0
-160500	kwhr_price	0.027890889
 160800	electric_demand_power	97656.14134
 160800	occupants_1	0
 160800	occupants_2	0
@@ -13396,8 +12862,6 @@
 160800	occupants_22	0
 160800	occupants_23	0
 160800	occupants_24	0
-160800	kwhr_price	0.02717938
-161100	kwhr_price	0.027116439
 161100	electric_demand_power	60066.3041
 161100	occupants_1	0
 161100	occupants_2	0
@@ -13437,7 +12901,6 @@
 161400	occupants_12	0
 161400	occupants_13	0
 161400	occupants_14	0
-161400	kwhr_price	0.027389017
 161400	occupants_15	0
 161400	occupants_17	0
 161400	occupants_18	0
@@ -13470,11 +12933,9 @@
 161700	occupants_21	0
 161700	occupants_22	0
 161700	occupants_23	0
-161700	kwhr_price	0.026185715
 161700	occupants_24	0
 162000	electric_demand_power	91437.6442
 162000	occupants_1	0
-162000	kwhr_price	0.025296941
 162000	occupants_2	0
 162000	occupants_3	0
 162000	occupants_4	0
@@ -13501,7 +12962,6 @@
 162300	occupants_1	0
 162300	occupants_2	0
 162300	occupants_3	0
-162300	kwhr_price	0.025877273
 162300	occupants_4	0
 162300	occupants_5	0
 162300	occupants_6	0
@@ -13546,8 +13006,6 @@
 162600	occupants_22	0
 162600	occupants_23	0
 162600	occupants_24	0
-162600	kwhr_price	0.02695105
-162900	kwhr_price	0.026825719
 162900	electric_demand_power	95335.6538
 162900	occupants_1	0
 162900	occupants_2	0
@@ -13574,7 +13032,6 @@
 162900	occupants_24	0
 163200	electric_demand_power	86657.71574
 163200	occupants_1	0
-163200	kwhr_price	0.025944519
 163200	occupants_2	0
 163200	occupants_3	0
 163200	occupants_4	0
@@ -13599,7 +13056,6 @@
 163200	occupants_24	0
 163500	electric_demand_power	62093.26581
 163500	occupants_1	0
-163500	kwhr_price	0.026377591
 163500	occupants_2	0
 163500	occupants_3	0
 163500	occupants_4	0
@@ -13622,7 +13078,6 @@
 163500	occupants_22	0
 163500	occupants_23	0
 163500	occupants_24	0
-163800	kwhr_price	0.025991568
 163800	electric_demand_power	55844.42511
 163800	occupants_1	0
 163800	occupants_2	0
@@ -13647,7 +13102,6 @@
 163800	occupants_22	0
 163800	occupants_23	0
 163800	occupants_24	0
-164100	kwhr_price	0.025173595
 164100	electric_demand_power	55746.83403
 164100	occupants_1	0
 164100	occupants_2	0
@@ -13672,7 +13126,6 @@
 164100	occupants_22	0
 164100	occupants_23	0
 164100	occupants_24	0
-164400	kwhr_price	0.024777321
 164400	electric_demand_power	83613.97666
 164400	occupants_1	0
 164400	occupants_2	0
@@ -13697,7 +13150,6 @@
 164400	occupants_22	0
 164400	occupants_23	0
 164400	occupants_24	0
-164700	kwhr_price	0.024882892
 164700	electric_demand_power	87516.88679
 164700	occupants_1	0
 164700	occupants_2	0
@@ -13746,8 +13198,6 @@
 165000	occupants_22	0
 165000	occupants_23	0
 165000	occupants_24	0
-165000	kwhr_price	0.025037745
-165300	kwhr_price	0.025398262
 165300	electric_demand_power	85860.65961
 165300	occupants_1	0
 165300	occupants_2	0
@@ -13796,7 +13246,6 @@
 165600	occupants_22	0
 165600	occupants_23	0
 165600	occupants_24	0
-165600	kwhr_price	0.024830518
 165900	electric_demand_power	89268.93164
 165900	occupants_1	0
 165900	occupants_2	0
@@ -13821,7 +13270,6 @@
 165900	occupants_22	0
 165900	occupants_23	0
 165900	occupants_24	0
-165900	kwhr_price	0.024941474
 166200	electric_demand_power	66330.54407
 166200	occupants_1	0
 166200	occupants_2	0
@@ -13846,7 +13294,6 @@
 166200	occupants_22	0
 166200	occupants_23	0
 166200	occupants_24	0
-166200	kwhr_price	0.02436588
 166500	electric_demand_power	55706.69583
 166500	occupants_1	0
 166500	occupants_2	0
@@ -13870,7 +13317,6 @@
 166500	occupants_21	0
 166500	occupants_22	0
 166500	occupants_23	0
-166500	kwhr_price	0.024847984
 166500	occupants_24	0
 166800	electric_demand_power	56356.84905
 166800	occupants_1	0
@@ -13880,7 +13326,6 @@
 166800	occupants_5	0
 166800	occupants_6	0
 166800	occupants_7	0
-166800	kwhr_price	0.024089773
 166800	occupants_8	0
 166800	occupants_9	0
 166800	occupants_10	0
@@ -13921,7 +13366,6 @@
 167100	occupants_22	0
 167100	occupants_23	0
 167100	occupants_24	0
-167100	kwhr_price	0.022730628
 167400	electric_demand_power	55883.83362
 167400	occupants_1	0
 167400	occupants_2	0
@@ -13945,9 +13389,7 @@
 167400	occupants_21	0
 167400	occupants_22	0
 167400	occupants_23	0
-167400	kwhr_price	0.022588084
 167400	occupants_24	0
-167700	kwhr_price	0.022434642
 167700	electric_demand_power	80197.20678
 167700	occupants_1	0
 167700	occupants_2	0
@@ -13972,7 +13414,6 @@
 167700	occupants_22	0
 167700	occupants_23	0
 167700	occupants_24	0
-168000	kwhr_price	0.02275484
 168000	electric_demand_power	87263.90225
 168000	occupants_1	0
 168000	occupants_2	0
@@ -14021,7 +13462,6 @@
 168300	occupants_22	0
 168300	occupants_23	0
 168300	occupants_24	0
-168300	kwhr_price	0.023460071
 168600	electric_demand_power	89466.98617
 168600	occupants_1	0
 168600	occupants_2	0
@@ -14046,7 +13486,6 @@
 168600	occupants_22	0
 168600	occupants_23	0
 168600	occupants_24	0
-168600	kwhr_price	0.023502878
 168900	electric_demand_power	88776.0042
 168900	occupants_1	0
 168900	occupants_2	0
@@ -14064,7 +13503,6 @@
 168900	occupants_14	0
 168900	occupants_15	0
 168900	occupants_17	0
-168900	kwhr_price	0.023352111
 168900	occupants_18	0
 168900	occupants_19	0
 168900	occupants_20	0
@@ -14072,7 +13510,6 @@
 168900	occupants_22	0
 168900	occupants_23	0
 168900	occupants_24	0
-169200	kwhr_price	0.022126911
 169200	electric_demand_power	87295.45598
 169200	occupants_1	0
 169200	occupants_2	0
@@ -14104,7 +13541,6 @@
 169500	occupants_4	0
 169500	occupants_5	0
 169500	occupants_6	0
-169500	kwhr_price	0.022839543
 169500	occupants_7	0
 169500	occupants_8	0
 169500	occupants_9	0
@@ -14146,7 +13582,6 @@
 169800	occupants_22	0
 169800	occupants_23	0
 169800	occupants_24	0
-169800	kwhr_price	0.025284069
 170100	electric_demand_power	48777.24681
 170100	occupants_1	0
 170100	occupants_2	0
@@ -14171,7 +13606,6 @@
 170100	occupants_22	0
 170100	occupants_23	0
 170100	occupants_24	0
-170100	kwhr_price	0.023656894
 170400	electric_demand_power	48777.20036
 170400	occupants_1	0
 170400	occupants_2	0
@@ -14196,7 +13630,6 @@
 170400	occupants_22	0
 170400	occupants_23	0
 170400	occupants_24	0
-170400	kwhr_price	0.023191846
 170700	electric_demand_power	48777.37617
 170700	occupants_1	0
 170700	occupants_2	0
@@ -14206,7 +13639,6 @@
 170700	occupants_6	0
 170700	occupants_7	0
 170700	occupants_8	0
-170700	kwhr_price	0.02247673
 170700	occupants_9	0
 170700	occupants_10	0
 170700	occupants_11	0
@@ -14232,7 +13664,6 @@
 171000	occupants_7	0
 171000	occupants_8	0
 171000	occupants_9	0
-171000	kwhr_price	0.022301958
 171000	occupants_10	0
 171000	occupants_11	0
 171000	occupants_12	0
@@ -14271,7 +13702,6 @@
 171300	occupants_22	0
 171300	occupants_23	0
 171300	occupants_24	0
-171300	kwhr_price	0.02230932
 171600	electric_demand_power	88566.40451
 171600	occupants_1	0
 171600	occupants_2	0
@@ -14296,7 +13726,6 @@
 171600	occupants_22	0
 171600	occupants_23	0
 171600	occupants_24	0
-171600	kwhr_price	0.021060603
 171900	electric_demand_power	87667.59647
 171900	occupants_1	0
 171900	occupants_2	0
@@ -14321,7 +13750,6 @@
 171900	occupants_22	0
 171900	occupants_23	0
 171900	occupants_24	0
-171900	kwhr_price	0.021329017
 172200	electric_demand_power	86982.04808
 172200	occupants_1	0
 172200	occupants_2	0
@@ -14346,7 +13774,6 @@
 172200	occupants_22	0
 172200	occupants_23	0
 172200	occupants_24	0
-172200	kwhr_price	0.022463355
 172500	electric_demand_power	86588.86845
 172500	occupants_1	0
 172500	occupants_2	0
@@ -14371,8 +13798,6 @@
 172500	occupants_22	0
 172500	occupants_23	0
 172500	occupants_24	0
-172500	kwhr_price	0.022551289
-172800	kwhr_price	0.02201173
 172800	electric_demand_power	81121.79993
 172800	occupants_1	0
 172800	occupants_2	0

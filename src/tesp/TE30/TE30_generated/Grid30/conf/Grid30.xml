@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <objectModel
     xsi:schemaLocation="http://standards.ieee.org/IEEE1516-2010
-      http://standards.ieee.org/downloads/1516/1516.2-2010/IEEE1516-DIF-2010.xsd"
-    xmlns="http://standards.ieee.org/IEEE1516-2010" 
+      http://standards.ieee.org/downloads/1516/1516.2-2010/IEEE1516-DIF-2010.xsd
+      https://pages.nist.gov/ucef ucef.xsd"
+    xmlns="http://standards.ieee.org/IEEE1516-2010"
+    xmlns:ucef="https://pages.nist.gov/ucef"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelIdentification>
         <name>Grid30</name>
@@ -179,7 +181,7 @@
                 </attribute>
                 <attribute>
                     <name>measured_voltage_1</name>
-                    <dataType>double</dataType>
+                    <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>Publish</sharing>

@@ -130,7 +130,7 @@ public class Meter extends ObjectRoot {
         _datamemberNames.add("price");
 
         _datamemberTypeMap.put("bill_mode", "String");
-        _datamemberTypeMap.put("measured_voltage_1", "double");
+        _datamemberTypeMap.put("measured_voltage_1", "String");
         _datamemberTypeMap.put("monthly_fee", "double");
         _datamemberTypeMap.put("name", "String");
         _datamemberTypeMap.put("price", "double");
@@ -763,15 +763,15 @@ public class Meter extends ObjectRoot {
         return _bill_mode.getTime();
     }
 
-    protected Attribute< Double > _measured_voltage_1 =
-            new Attribute< Double >(  new Double( 0 )  );
+    protected Attribute< String > _measured_voltage_1 =
+            new Attribute< String >(  new String( "" )  );
 
     /**
     * Set the value of the "measured_voltage_1" attribute to "value" for this object.
     *
     * @param value the new value for the "measured_voltage_1" attribute
     */
-    public void set_measured_voltage_1( double value ) {
+    public void set_measured_voltage_1( String value ) {
         _measured_voltage_1.setValue( value );
         _measured_voltage_1.setTime( getTime() );
     }
@@ -781,7 +781,7 @@ public class Meter extends ObjectRoot {
     *
     * @return the value of the "measured_voltage_1" attribute
     */
-    public double get_measured_voltage_1() {
+    public String get_measured_voltage_1() {
         return _measured_voltage_1.getValue();
     }
 
@@ -953,7 +953,7 @@ public class Meter extends ObjectRoot {
     */
     public Object getAttribute( String datamemberName ) {
         if ( "bill_mode".equals(datamemberName) ) return get_bill_mode();
-        else if ( "measured_voltage_1".equals(datamemberName) ) return new Double(get_measured_voltage_1());
+        else if ( "measured_voltage_1".equals(datamemberName) ) return get_measured_voltage_1();
         else if ( "monthly_fee".equals(datamemberName) ) return new Double(get_monthly_fee());
         else if ( "name".equals(datamemberName) ) return get_name();
         else if ( "price".equals(datamemberName) ) return new Double(get_price());
@@ -963,7 +963,7 @@ public class Meter extends ObjectRoot {
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
         if ( "bill_mode".equals( datamemberName) ) set_bill_mode( val );
-        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( Double.parseDouble(val) );
+        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( val );
         else if ( "monthly_fee".equals( datamemberName) ) set_monthly_fee( Double.parseDouble(val) );
         else if ( "name".equals( datamemberName) ) set_name( val );
         else if ( "price".equals( datamemberName) ) set_price( Double.parseDouble(val) );
@@ -975,7 +975,7 @@ public class Meter extends ObjectRoot {
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
         if ( "bill_mode".equals( datamemberName) ) set_bill_mode( (String)val );
-        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( (Double)val );
+        else if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( (String)val );
         else if ( "monthly_fee".equals( datamemberName) ) set_monthly_fee( (Double)val );
         else if ( "name".equals( datamemberName) ) set_name( (String)val );
         else if ( "price".equals( datamemberName) ) set_price( (Double)val );

@@ -32,20 +32,14 @@ public class AuctionBase extends SynchronizedFederate {
 		enableAsynchronousDelivery();
         // interaction pubsub
         
-        		
+        
+        SimTime.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+			SimTime.get_handle(), 
+			SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED, 
+			SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED 
+		);		
 		// object pubsub
-        
-        	
-        Meter.publish_bill_mode();
-        Meter.publish_measured_voltage_1();
-        Meter.publish_monthly_fee();
-        Meter.publish_name();
-        Meter.publish_price();
-        Meter.publish(getLRC());
-        
-        	
-        Market.publish_clearing_price();
-        Market.publish(getLRC());
         
         	
         House.publish_air_temperature();
@@ -56,6 +50,18 @@ public class AuctionBase extends SynchronizedFederate {
         House.publish_power_state();
         House.publish_thermostat_deadband();
         House.publish(getLRC());
+        
+        	
+        Market.publish_clearing_price();
+        Market.publish(getLRC());
+        
+        	
+        Meter.publish_bill_mode();
+        Meter.publish_measured_voltage_1();
+        Meter.publish_monthly_fee();
+        Meter.publish_name();
+        Meter.publish_price();
+        Meter.publish(getLRC());
                 
         	
         Meter.subscribe_bill_mode();
@@ -66,12 +72,6 @@ public class AuctionBase extends SynchronizedFederate {
         Meter.subscribe(getLRC());
         
         	
-        Substation.subscribe_distribution_load();
-        Substation.subscribe_name();
-        Substation.subscribe_positive_sequence_voltage();
-        Substation.subscribe(getLRC());
-        
-        	
         House.subscribe_air_temperature();
         House.subscribe_cooling_setpoint();
         House.subscribe_heating_setpoint();
@@ -80,6 +80,12 @@ public class AuctionBase extends SynchronizedFederate {
         House.subscribe_power_state();
         House.subscribe_thermostat_deadband();
         House.subscribe(getLRC());
+        
+        	
+        Substation.subscribe_distribution_load();
+        Substation.subscribe_name();
+        Substation.subscribe_positive_sequence_voltage();
+        Substation.subscribe(getLRC());
         	}
         
 	

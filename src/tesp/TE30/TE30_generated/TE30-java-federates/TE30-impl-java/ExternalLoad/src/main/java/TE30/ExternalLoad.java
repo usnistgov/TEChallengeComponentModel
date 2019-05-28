@@ -1,7 +1,6 @@
 package TE30;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -9,14 +8,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import com.opencsv.CSVWriter;
 
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
+import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.utils.CpswtUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +26,10 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class ExternalLoad extends ExternalLoadBase {
-    private final static String subscriptions = "/subscriptions.txt";
+    private final static String subscriptions = "/load_subscriptions.txt";
 
+    private final static double base_price = 0.02;
+    
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -37,6 +39,8 @@ public class ExternalLoad extends ExternalLoadBase {
     private double logicalTimeScale;
     
     private double lastLogicalTime;
+    
+    private double price = base_price;
 
     private Meter meter = new Meter();
     
@@ -61,6 +65,18 @@ public class ExternalLoad extends ExternalLoadBase {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
             }
         }
+ 
+        ObjectReflector reflector = null;
+        while ((reflector = getNextObjectReflectorNoWait()) != null) {
+            reflector.reflect();
+            ObjectRoot object = reflector.getObjectRoot();
+            if (object instanceof Market) {
+                handleObjectClass((Market) object);
+            }
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
+            }
+        }
      }
 
     private void execute() throws Exception {
@@ -71,14 +87,11 @@ public class ExternalLoad extends ExternalLoadBase {
         }
 
         //for real-time pricing response - can redefine on the command line
-        double base_price = 0.02;
         double degF_per_price = 25.0;
         double max_delta_hi = 4.0;
         double max_delta_lo = 4.0;
         double delta = 0.0;
         double phaseWatts = 0.0;
-                    
-        double price = base_price;
         double totalWatts = 0.0;
 
         // read-in values eplus_json subscribes to from the Auction and EPlus federates
@@ -139,9 +152,7 @@ public class ExternalLoad extends ExternalLoadBase {
             
             for(int i=0; i<events.size(); i++){
                 String topic = events.get(i).get(1);
-                if(topic.equals("kwhr_price")){
-                    price = Double.parseDouble(events.get(i).get(2));
-                }else if(topic.equals("electric_demand_power")){
+                if(topic.equals("electric_demand_power")){
                     totalWatts = Double.parseDouble(events.get(i).get(2));
                 }else if(topic.contains("occupants_")){
                     occupants += Double.parseDouble(events.get(i).get(2));
@@ -149,6 +160,8 @@ public class ExternalLoad extends ExternalLoadBase {
                     log.debug(events.get(i).get(2));
                 }
             }
+            
+            checkReceivedSubscriptions();
             
             // this is price response
             delta = degF_per_price * (price - base_price);
@@ -189,8 +202,6 @@ public class ExternalLoad extends ExternalLoadBase {
                     ""+monthly_fee,         //monthly fee
                     ""+occupants});         //occupants
             op.flush();
-
-            checkReceivedSubscriptions();
             
             if (currentTime >= lastLogicalTime) {
                 log.debug("reached last logical time step");
@@ -220,6 +231,11 @@ public class ExternalLoad extends ExternalLoadBase {
         
         log.debug("received SimTime");
         receivedSimTime = true;
+    }
+    
+    private void handleObjectClass(Market object) {
+        price = object.get_clearing_price();
+        log.trace("new clearing price {}", price);
     }
     
     private List<List<String>> read_file(String fname, String delimiter) throws Exception

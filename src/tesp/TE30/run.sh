@@ -79,8 +79,12 @@ cd $root_directory/TE30_deployment
 xterm -fg yellow -bg black -l -lf $logs_directory/external-load-${timestamp}.log -T "External Load" -geometry 140x40+360+120 -e "mvn exec:java -P ExecJava,ExternalLoad" &
 waitUntilJoined ExternalLoad 1
 
+cd $root_directory/TE30_deployment
+xterm -fg green -bg black -l -lf $logs_directory/auction-${timestamp}.log -T "Auction" -geometry 140x40+540+180 -e "mvn exec:java -P ExecJava,Auction" &
+waitUntilJoined Auction 1
+
 cd $root_directory/TE30_generated/Grid30
-xterm -fg green -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log -T "GridLAB-D" -geometry 140x40+540+180 -e "sh run.sh" &
+xterm -fg cyan -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log -T "GridLAB-D" -geometry 140x40+720+240 -e "sh run.sh" &
 
 # terminate the simulation
 read -n 1 -r -s -p "Press any key to terminate the federation execution..."

@@ -8,7 +8,7 @@
         <name>TE30</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2019-04-15</modificationDate>
+        <modificationDate>2019-04-28</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -23,6 +23,73 @@
         <objectClass>
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
+            <objectClass>
+                <name>House</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>air_temperature</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>cooling_setpoint</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>heating_setpoint</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>hvac_load</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>power_state</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>thermostat_deadband</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
             <objectClass>
                 <name>Load</name>
                 <sharing>PublishSubscribe</sharing>
@@ -64,10 +131,32 @@
                 </attribute>
             </objectClass>
             <objectClass>
+                <name>Market</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>clearing_price</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
                 <name>Meter</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
                     <name>bill_mode</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_voltage_1</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
@@ -96,6 +185,37 @@
                 <attribute>
                     <name>price</name>
                     <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
+                <name>Substation</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>distribution_load</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>positive_sequence_voltage</name>
+                    <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>PublishSubscribe</sharing>

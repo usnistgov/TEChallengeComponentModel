@@ -1,10 +1,15 @@
 {
   "federateTypesAllowed": [
+    "Auction",
     "ExternalLoad",
     "Grid30",
     "SimulationTime"
   ],
   "expectedFederates": [
+    {
+      "federateType": "Auction",
+      "count": 1
+    },
     {
       "federateType": "ExternalLoad",
       "count": 1
@@ -19,6 +24,10 @@
     }
   ],
   "lateJoinerFederates": [
+    {
+      "federateType": "Auction",
+      "count": 0
+    },
     {
       "federateType": "ExternalLoad",
       "count": 0

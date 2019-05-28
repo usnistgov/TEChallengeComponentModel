@@ -211,13 +211,13 @@ public class hvac{
 		return false;
 	}
 	
-	public void set_hvac_load(String str){
+	public void set_hvac_load(double load){
 		//Sets the hvac_load attribute, if greater than zero
 
         //Args:
         //    str: FNCS message with load in kW
             
-		double val = parse_fncs_number(str);
+		double val = load;
 		if(val > 0.0){
 			this.hvac_kw = val;
 		}
@@ -236,13 +236,13 @@ public class hvac{
 		}
 	}
 	
-	public void set_air_temp(String str){
+	public void set_air_temp(double air_temp){
 		//Sets the air_temp attribute
 
         //Args:
         //    str: FNCS message with temperature in degrees Fahrenheit
             
-		this.air_temp = parse_fncs_number(str);
+		this.air_temp = air_temp;
 	}
 	
 	public void set_voltage(String str){
@@ -293,5 +293,12 @@ public class hvac{
 		}
 		return (double) vals.get(0);
 	}
-
+	
+	public String get_house_name() {
+	    return houseName;
+	}
+	
+	public String get_meter_name() {
+	    return meterName;
+	}
 }
