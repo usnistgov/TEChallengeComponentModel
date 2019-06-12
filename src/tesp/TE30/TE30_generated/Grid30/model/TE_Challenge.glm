@@ -56,11 +56,6 @@ object player {
     file "players/phase_C.player";
     loop 1;
 }
-object player {
-    name positive_sequence_voltage;
-    file "players/positive_sequence_voltage.player";
-    loop 1;
-}
 
 object transformer_configuration {
 	name substation_config;
@@ -128,7 +123,7 @@ object substation {
 	name network_node;
 	phases ABCN;
 	nominal_voltage 133000;
-	positive_sequence_voltage positive_sequence_voltage.value;
+	positive_sequence_voltage 133000;
 	bustype SWING;
   base_power 12MVA;
   power_convergence_value 100VA;

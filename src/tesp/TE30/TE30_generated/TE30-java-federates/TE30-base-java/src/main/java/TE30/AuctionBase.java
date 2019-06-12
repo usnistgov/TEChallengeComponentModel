@@ -42,6 +42,22 @@ public class AuctionBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        Meter.publish_bill_mode();
+        Meter.publish_measured_voltage_1();
+        Meter.publish_monthly_fee();
+        Meter.publish_name();
+        Meter.publish_price();
+        Meter.publish(getLRC());
+        
+        	
+        PhysicalStatus.publish_responsive_c1();
+        PhysicalStatus.publish_responsive_c2();
+        PhysicalStatus.publish_responsive_deg();
+        PhysicalStatus.publish_responsive_max_mw();
+        PhysicalStatus.publish_unresponsive_mw();
+        PhysicalStatus.publish(getLRC());
+        
+        	
         Market.publish_clearing_price();
         Market.publish(getLRC());
         
@@ -54,40 +70,12 @@ public class AuctionBase extends SynchronizedFederate {
         House.publish_power_state();
         House.publish_thermostat_deadband();
         House.publish(getLRC());
-        
-        	
-        PhysicalStatus.publish_responsive_c1();
-        PhysicalStatus.publish_responsive_c2();
-        PhysicalStatus.publish_responsive_deg();
-        PhysicalStatus.publish_responsive_max_mw();
-        PhysicalStatus.publish_unresponsive_mw();
-        PhysicalStatus.publish(getLRC());
-        
-        	
-        Meter.publish_bill_mode();
-        Meter.publish_measured_voltage_1();
-        Meter.publish_monthly_fee();
-        Meter.publish_name();
-        Meter.publish_price();
-        Meter.publish(getLRC());
                 
-        	
-        LMP.subscribe_lmp();
-        LMP.subscribe(getLRC());
-        
         	
         Substation.subscribe_distribution_load();
         Substation.subscribe_name();
         Substation.subscribe_positive_sequence_voltage();
         Substation.subscribe(getLRC());
-        
-        	
-        Meter.subscribe_bill_mode();
-        Meter.subscribe_measured_voltage_1();
-        Meter.subscribe_monthly_fee();
-        Meter.subscribe_name();
-        Meter.subscribe_price();
-        Meter.subscribe(getLRC());
         
         	
         House.subscribe_air_temperature();
@@ -98,6 +86,18 @@ public class AuctionBase extends SynchronizedFederate {
         House.subscribe_power_state();
         House.subscribe_thermostat_deadband();
         House.subscribe(getLRC());
+        
+        	
+        Meter.subscribe_bill_mode();
+        Meter.subscribe_measured_voltage_1();
+        Meter.subscribe_monthly_fee();
+        Meter.subscribe_name();
+        Meter.subscribe_price();
+        Meter.subscribe(getLRC());
+        
+        	
+        LMP.subscribe_lmp();
+        LMP.subscribe(getLRC());
         	}
         
 	

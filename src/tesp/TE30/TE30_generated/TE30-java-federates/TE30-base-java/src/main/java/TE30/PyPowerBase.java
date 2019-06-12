@@ -42,6 +42,12 @@ public class PyPowerBase extends SynchronizedFederate {
 		// object pubsub
         
         	
+        Substation.publish_distribution_load();
+        Substation.publish_name();
+        Substation.publish_positive_sequence_voltage();
+        Substation.publish(getLRC());
+        
+        	
         LMP.publish_lmp();
         LMP.publish(getLRC());
                 
