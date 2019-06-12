@@ -15,6 +15,8 @@
         
         <module>ExternalLoad</module>
         
+        <module>PyPower</module>
+        
         <module>SimulationTime</module>
         
     </modules>

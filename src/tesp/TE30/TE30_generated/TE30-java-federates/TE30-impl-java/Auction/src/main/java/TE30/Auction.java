@@ -1,15 +1,11 @@
 package TE30;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +34,6 @@ import org.apache.logging.log4j.Logger;
 public class Auction extends AuctionBase {
     private final static String config = "/TE_Challenge_agent_dict.json";
     
-    private final static String subscriptions = "/auction_subscriptions.txt";
-    
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
@@ -57,6 +51,8 @@ public class Auction extends AuctionBase {
     private Map<String, hvac> hvacObjs = new HashMap<String, hvac>();
 
     private Market market = new Market();
+    
+    private PhysicalStatus status = new PhysicalStatus();
     
     private Map<String, House> houses = new HashMap<String, House>();
     
@@ -89,6 +85,9 @@ public class Auction extends AuctionBase {
             }
             else if (object instanceof House) {
                 handleObjectClass((House) object);
+            }
+            else if (object instanceof LMP) {
+                handleObjectClass((LMP) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -140,8 +139,10 @@ public class Auction extends AuctionBase {
         }
         
         log.trace("starting initialization");
+        
         // register the market HLA object
         market.registerObject(getLRC());
+        status.registerObject(getLRC());
         
         // ==================== Time step looping under FNCS ===========================
         aucObj.initAuction();
@@ -178,11 +179,6 @@ public class Auction extends AuctionBase {
         
         ////////////////////////////End Test////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
-        
-        // read-in values auction subscribes to from the PyPower and GridLabD federates
-        // that is done to bypass the fncs communication in order to isolate the 
-        // auction federate from the expriment.
-        List<List<String>> subs = read_file(subscriptions, "\t");
 
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
@@ -229,22 +225,6 @@ public class Auction extends AuctionBase {
             day_of_week = dt_now.getDayOfWeek().getValue()-1;
             hour_of_day = dt_now.getHour();
             
-            List<List<String>> events = new ArrayList<List<String>>();
-            subs.forEach(sub->{
-                if(Integer.parseInt(sub.get(0)) == (int)federateTime){
-                    events.add(Arrays.asList(sub.get(0), sub.get(1), sub.get(2)));
-                }
-            });
-            for(int i=0; i<events.size(); i++){
-                String topic = events.get(i).get(1);
-                if(topic.equals("LMP")){
-                    LMP = parse_fncs_magnitude(events.get(i).get(2));
-                    aucObj.set_lmp(LMP);
-                }else{
-                    log.debug(events.get(i).get(2));
-                }
-            }
-            
             checkReceivedSubscriptions();
             
             // set the time-of-day schedule
@@ -288,16 +268,20 @@ public class Auction extends AuctionBase {
             }
             if(time_granted >= tnext_agg){
                 aucObj.aggregate_bids();
-                //fncs.publish ('unresponsive_mw', aucObj.agg_unresp)
+                
+                status.set_unresponsive_mw(aucObj.agg_unresp);
+                status.set_responsive_max_mw(aucObj.agg_resp_max);
+                status.set_responsive_c1(aucObj.agg_c1);
+                status.set_responsive_c2(aucObj.agg_c2);
+                status.set_responsive_deg(aucObj.agg_deg);
+                status.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                
                 AggUn = aucObj.agg_unresp; //For Testing Purposes
-                //fncs.publish ('responsive_max_mw', aucObj.agg_resp_max)
                 AggRespMax = aucObj.agg_resp_max; //For Testing Purposes
-                //fncs.publish ('responsive_c2', aucObj.agg_c2)
                 AggC2 = aucObj.agg_c2; //For Testing Purposes
-                //fncs.publish ('responsive_c1', aucObj.agg_c1)
                 AggC1 = aucObj.agg_c1; //For Testing Purposes
-                //fncs.publish ('responsive_deg', aucObj.agg_deg)
                 AggDeg = aucObj.agg_deg; //For Testing Purposes
+                
                 tnext_agg += period;
             }
             if(time_granted >= tnext_clear){
@@ -416,6 +400,11 @@ public class Auction extends AuctionBase {
         hvacObjs.get(key).set_hvac_state(object.get_power_state());
     }
     
+    private void handleObjectClass(LMP object) {
+        log.trace("received LMP as {}", object.get_lmp());
+        aucObj.set_lmp(object.get_lmp());
+    }
+    
     private Map<String, Object> load_json_case(String fname) throws Exception
     {
         log.debug("loading JSON {}", fname);
@@ -424,54 +413,6 @@ public class Auction extends AuctionBase {
         ObjectMapper mapper = new ObjectMapper();
         MapType type = mapper.getTypeFactory().constructMapType(Map.class, String.class, Object.class);
         return mapper.readValue(json, type);
-    }
-    
-    private List<List<String>> read_file(String fname, String delimiter) throws Exception
-    {
-        log.debug("reading file {}", fname);
-        InputStream inputStream = this.getClass().getResourceAsStream(fname);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-        List<List<String>> data = new ArrayList<List<String>>();
-        while(reader.ready()) {
-            String line = reader.readLine();
-            List<String> list = new ArrayList<String>(Arrays.asList(line.split(delimiter)));
-            data.add(list);
-        }
-        return data;
-        
-        /*
-        File file = new File(Auction_loop.class.getResource(fname).toURI());
-        Scanner dataFile = new Scanner(file.toPath());
-        List<List<String>> data = new ArrayList<List<String>>();
-        while(dataFile.hasNext()){
-            String line = dataFile.nextLine();
-            Scanner sc = new Scanner(line);
-            sc.useDelimiter(delimiter);
-            List<String> list = new ArrayList<String>();
-            while(sc.hasNext()){
-                list.add(sc.next());
-            }
-            sc.close();
-            data.add(list);
-        }
-        dataFile.close();
-        return data;
-        */
-    }
-    
-    private double parse_fncs_magnitude(String arg) throws Exception
-    {
-        String tok = arg.replaceAll("\\+-; MWVAFKdegrij", "");
-        ArrayList vals = new ArrayList(Arrays.asList(tok.split("[+-]+")));
-        if(vals.size() < 2){// only a real part provided
-            vals.add("0");
-        }
-        vals.set(0, Double.parseDouble(vals.get(0).toString()));
-        if(Character.toString(arg.charAt(0)).equals("-")){
-            vals.set(0, ((double) vals.get(0))*(-1.0));
-        }
-        return (double) vals.get(0);
     }
     
     private double parse_kw(String arg) throws Exception

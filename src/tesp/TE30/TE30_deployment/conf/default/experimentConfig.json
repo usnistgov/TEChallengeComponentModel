@@ -3,6 +3,7 @@
     "Auction",
     "ExternalLoad",
     "Grid30",
+    "PyPower",
     "SimulationTime"
   ],
   "expectedFederates": [
@@ -16,6 +17,10 @@
     },
     {
       "federateType": "Grid30",
+      "count": 1
+    },
+    {
+      "federateType": "PyPower",
       "count": 1
     },
     {
@@ -34,6 +39,10 @@
     },
     {
       "federateType": "Grid30",
+      "count": 0
+    },
+    {
+      "federateType": "PyPower",
       "count": 0
     },
     {

@@ -5,14 +5,15 @@
     xmlns="http://standards.ieee.org/IEEE1516-2010" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelIdentification>
-        <name>TE30</name>
-        <type>FOM</type>
+        <name>PyPower</name>
+        <type>SOM</type>
         <version>0.1.0</version>
         <modificationDate>2019-05-12</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
-          This file was generated from WebGME based on the
-          TE30 project.
+            This file was generated from WebGME based on the federate
+            PyPower in the TE30
+            project.
         </description>
         <poc>
             <pocType>Primary author</pocType>
@@ -24,196 +25,27 @@
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
             <objectClass>
-                <name>House</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>air_temperature</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>cooling_setpoint</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>heating_setpoint</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>hvac_load</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>power_state</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>thermostat_deadband</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
                 <name>LMP</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Publish</sharing>
                 <attribute>
                     <name>lmp</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Load</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>constant_power_A</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_B</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_C</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Market</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>clearing_price</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Meter</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>bill_mode</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>measured_voltage_1</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>monthly_fee</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>price</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
             </objectClass>
             <objectClass>
                 <name>PhysicalStatus</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Subscribe</sharing>
                 <attribute>
                     <name>responsive_c1</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -222,7 +54,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -231,7 +63,7 @@
                     <dataType>int</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -240,7 +72,7 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -249,20 +81,20 @@
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
             </objectClass>
             <objectClass>
                 <name>Substation</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Subscribe</sharing>
                 <attribute>
                     <name>distribution_load</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -271,7 +103,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -280,7 +112,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Subscribe</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
@@ -363,7 +195,7 @@
                     </interactionClass>
                     <interactionClass>
                         <name>SimTime</name>
-                        <sharing>PublishSubscribe</sharing>
+                        <sharing>Subscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>Receive</order>
                         <parameter> 

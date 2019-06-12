@@ -36,6 +36,12 @@
 		
 		<dependency><!-- The depenency for the user written code-->
 			<groupId>gov.nist.hla.te</groupId>
+			<artifactId>PyPower</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency><!-- The depenency for the user written code-->
+			<groupId>gov.nist.hla.te</groupId>
 			<artifactId>SimulationTime</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
@@ -177,6 +183,7 @@
 		                            <mkdir dir="${project.basedir}/target/Auction" />
 		                            <mkdir dir="${project.basedir}/target/ExternalLoad" />
 		                            <mkdir dir="${project.basedir}/target/Grid30" />
+		                            <mkdir dir="${project.basedir}/target/PyPower" />
 		                            <mkdir dir="${project.basedir}/target/SimulationTime" />
 		                    	</tasks>
 		                	</configuration>
@@ -250,6 +257,13 @@
             <properties>
                 <federate.name>Grid30</federate.name>
                 <federate.configFile>grid30.json</federate.configFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>PyPower</id>
+            <properties>
+                <federate.name>PyPower</federate.name>
+                <federate.configFile>pypower.json</federate.configFile>
             </properties>
         </profile>
         <profile>

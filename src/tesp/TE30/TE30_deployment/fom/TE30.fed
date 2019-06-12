@@ -57,6 +57,9 @@
         (attribute power_state reliable timestamp)
         (attribute thermostat_deadband reliable timestamp)
       )
+      (class LMP
+        (attribute lmp reliable timestamp)
+      )
       (class Load
         (attribute constant_power_A reliable timestamp)
         (attribute constant_power_B reliable timestamp)
@@ -72,6 +75,13 @@
         (attribute monthly_fee reliable timestamp)
         (attribute name reliable timestamp)
         (attribute price reliable timestamp)
+      )
+      (class PhysicalStatus
+        (attribute responsive_c1 reliable timestamp)
+        (attribute responsive_c2 reliable timestamp)
+        (attribute responsive_deg reliable timestamp)
+        (attribute responsive_max_mw reliable timestamp)
+        (attribute unresponsive_mw reliable timestamp)
       )
       (class Substation
         (attribute distribution_load reliable timestamp)
