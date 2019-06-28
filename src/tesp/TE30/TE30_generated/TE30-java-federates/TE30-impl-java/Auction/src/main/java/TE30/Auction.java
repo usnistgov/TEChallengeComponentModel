@@ -233,7 +233,7 @@ public class Auction extends AuctionBase {
                     House house = houses.get(value.get_house_name());
                     house.set_name(value.get_house_name());
                     house.set_cooling_setpoint(value.basepoint);
-                    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    //house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 }
             }
             if(bSetDefaults){
@@ -242,13 +242,13 @@ public class Auction extends AuctionBase {
                     meter.set_name(value.get_meter_name());
                     meter.set_bill_mode("HOURLY");
                     meter.set_monthly_fee(0.0);
-                    meter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    //meter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                     
                     House house = houses.get(value.get_house_name());
                     house.set_name(value.get_house_name());
                     house.set_thermostat_deadband(value.deadband);
                     house.set_heating_setpoint(60.0);
-                    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    //house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 }
                 bSetDefaults = false;
             }
@@ -307,16 +307,24 @@ public class Auction extends AuctionBase {
                         Meter meter = meters.get(value.get_meter_name());
                         meter.set_name(value.get_meter_name());
                         meter.set_price(aucObj.clearing_price);
-                        meter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                        //meter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                         if(value.bid_accepted()){
                             House house = houses.get(value.get_house_name());
                             house.set_name(value.get_house_name());
                             house.set_cooling_setpoint(value.setpoint);
-                            house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                            //house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                         }
                     }
                 }
                 tnext_adjust += period;
+            }
+            
+            // update all the objects at once to avoid dropped messages at GridLAB-D
+            for (Meter meter : meters.values()) {
+                meter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            }
+            for (House house : houses.values()) {
+                house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             }
 
             op.writeNext(new String[] {""+time_granted,
