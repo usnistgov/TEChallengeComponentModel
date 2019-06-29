@@ -129,8 +129,8 @@ public class PyPower extends PyPowerBase {
         fncsBus = (ArrayList<List>) ppc.get("FNCS");
         
         int nloads = loads.size();
-        int tnext_opf = -1 * dt;
-        //int tnext_opf = -2 * dt;
+        //int tnext_opf = -1 * dt;
+        int tnext_opf = -2 * dt;
         
         /////////////////////////////////
         //TODO - create json output files (fncsPYPOWER_isolated.py, line 154):
