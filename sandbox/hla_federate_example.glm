@@ -1,0 +1,34 @@
+// A single house model used as an example of the GridLAB-D HLA federate.
+//  Inputs from HLA: house1/heating_setpoint (double); house1/cooling_setpoint (double)
+//  Outputs to HLA:  house1/compressor_count (int); house1/compressor_on (bool); house1/air_temperature (double); clock (timestamp)
+//
+// Changes to the setpoints from HLA should change the range of temperature values reported by the GridLAB-D federate.
+// The compressor outputs are to test whether the federate handles the other supported data types.
+
+module tape;
+module climate;
+module residential;
+
+object climate {
+    name weather;
+    tmyfile "AZ-Phoenix.tmy2";
+}
+
+object house {
+    name house1;
+}
+
+object house {
+    name house2;
+}
+
+object house {
+    name house3;
+}
+
+object multi_recorder {
+    property house1:air_temperature, house1:cooling_setpoint, house1:compressor_count, house2:air_temperature, house2:cooling_setpoint, house2:compressor_count, house3:air_temperature, house3:cooling_setpoint, house3:compressor_count;
+    file house_data.csv;
+    interval 900;
+}
+

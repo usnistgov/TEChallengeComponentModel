@@ -1,0 +1,307 @@
+{
+  "__OBJECTS__": {
+    "3b090f40-1376-4bb1-85aa-73f6f8e0b313": {
+      "attributes": {
+        "EnableROAsynchronousDelivery": "true",
+        "FederateType": "1",
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "TransactiveAgent"
+      },
+      "__FEDERATE_BASE__": "JavaFederate",
+      "federates": [],
+      "__FEDERATE_TYPE__": "directly deployable",
+      "parameters": [],
+      "inputs": [
+        {
+          "GUID": "c06f6366-d05a-449a-8136-a5513c541d82"
+        }
+      ],
+      "outputs": [],
+      "objectinputs": [
+        {
+          "GUID": "7613e1f2-f758-43c2-a7f7-6860186f59da"
+        },
+        {
+          "GUID": "869ed29e-8068-446c-9033-22b6d0be7d44"
+        },
+        {
+          "GUID": "c91f985d-22d0-4b55-b194-1223ac0e350e"
+        },
+        {
+          "GUID": "c717ad32-9f8d-4e9a-b8e1-65aef2215737"
+        }
+      ],
+      "objectoutputs": [
+        {
+          "GUID": "869ed29e-8068-446c-9033-22b6d0be7d44"
+        },
+        {
+          "GUID": "c91f985d-22d0-4b55-b194-1223ac0e350e"
+        },
+        {
+          "GUID": "c717ad32-9f8d-4e9a-b8e1-65aef2215737"
+        },
+        {
+          "GUID": "7613e1f2-f758-43c2-a7f7-6860186f59da"
+        }
+      ],
+      "RegistryInfo": "",
+      "documentation": "No documentation exists yet.",
+      "repository": "No repository exists yet.",
+      "GUID": "3b090f40-1376-4bb1-85aa-73f6f8e0b313"
+    },
+    "7613e1f2-f758-43c2-a7f7-6860186f59da": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Tender"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "f8c44b62-af38-4c60-b8b4-75305ba83caa"
+      },
+      "parameters": [
+        {
+          "name": "quantity",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeReference",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "tenderId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "7613e1f2-f758-43c2-a7f7-6860186f59da"
+    },
+    "869ed29e-8068-446c-9033-22b6d0be7d44": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Transaction"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "f8c44b62-af38-4c60-b8b4-75305ba83caa"
+      },
+      "parameters": [
+        {
+          "name": "accept",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "tenderId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "869ed29e-8068-446c-9033-22b6d0be7d44"
+    },
+    "e56c82c2-48c9-4a5e-a75a-af2698432981": {
+      "attributes": {
+        "name": "SimulationControl",
+        "Order": "timestamp",
+        "LogLevel": "NORMAL",
+        "EnableLogging": "false",
+        "Delivery": "reliable"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "873660a9-b173-40c3-9328-645e315ce742"
+      },
+      "parameters": [
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "e56c82c2-48c9-4a5e-a75a-af2698432981"
+    },
+    "c06f6366-d05a-449a-8136-a5513c541d82": {
+      "attributes": {
+        "Delivery": "reliable",
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "Order": "receive",
+        "name": "SimTime"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "e56c82c2-48c9-4a5e-a75a-af2698432981"
+      },
+      "parameters": [
+        {
+          "name": "ignoreUntil",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeZone",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStart",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStop",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeScale",
+          "ParameterType": "double",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "c06f6366-d05a-449a-8136-a5513c541d82"
+    },
+    "c91f985d-22d0-4b55-b194-1223ac0e350e": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Quote"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "f8c44b62-af38-4c60-b8b4-75305ba83caa"
+      },
+      "parameters": [
+        {
+          "name": "quoteId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeReference",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "quantity",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "c91f985d-22d0-4b55-b194-1223ac0e350e"
+    },
+    "c717ad32-9f8d-4e9a-b8e1-65aef2215737": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "MarketStatus"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "f8c44b62-af38-4c60-b8b4-75305ba83caa"
+      },
+      "parameters": [
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "time",
+          "ParameterType": "int",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "c717ad32-9f8d-4e9a-b8e1-65aef2215737"
+    }
+  },
+  "__ROOT_OBJECT__": {
+    "GUID": "3b090f40-1376-4bb1-85aa-73f6f8e0b313",
+    "name": "TransactiveAgent",
+    "version": "0.0.1",
+    "description": ""
+  },
+  "Federates": {
+    "3b090f40-1376-4bb1-85aa-73f6f8e0b313": ""
+  },
+  "COAs": {},
+  "Experiments": {},
+  "Interactions": {
+    "e56c82c2-48c9-4a5e-a75a-af2698432981": "",
+    "c06f6366-d05a-449a-8136-a5513c541d82": ""
+  },
+  "Objects": {
+    "7613e1f2-f758-43c2-a7f7-6860186f59da": "",
+    "869ed29e-8068-446c-9033-22b6d0be7d44": "",
+    "c91f985d-22d0-4b55-b194-1223ac0e350e": "",
+    "c717ad32-9f8d-4e9a-b8e1-65aef2215737": ""
+  },
+  "ObjectAttribute": {},
+  "Repositories": [],
+  "Builds": [],
+  "Executions": []
+}

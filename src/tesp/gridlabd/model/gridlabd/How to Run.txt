@@ -1,0 +1,10 @@
+1. Open command window/terminal
+
+2. Navigate to the location of the gridlabd file:
+example: path_to\gridlabd
+
+3. Enter command (windows): 
+start /b cmd /c gridlabd TE_Challenge.glm ^>gridlabd.log 2^>^&1
+
+3. Enter command (linux): 
+exec gridlabd TE_Challenge.glm &> gridlabd.log &

@@ -1,0 +1,918 @@
+{
+  "__OBJECTS__": {
+    "574b4319-88ed-423b-b662-1d99ccdb5d0d": {
+      "attributes": {
+        "EnableROAsynchronousDelivery": "true",
+        "FederateType": "1",
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "SupervisoryController"
+      },
+      "__FEDERATE_BASE__": "JavaFederate",
+      "federates": [],
+      "__FEDERATE_TYPE__": "directly deployable",
+      "parameters": [],
+      "inputs": [
+        {
+          "GUID": "79397076-f6cb-4e12-ac11-dac6303ace92"
+        },
+        {
+          "GUID": "517e648a-593e-41ba-a7f9-47d6029e9b3b"
+        }
+      ],
+      "outputs": [],
+      "objectinputs": [
+        {
+          "GUID": "dc27f0c0-2570-4ff5-9ac3-1127570170d6"
+        },
+        {
+          "GUID": "98f77f62-cefe-400e-a5c2-3ba88deddf92"
+        },
+        {
+          "GUID": "021c58fd-221d-433a-8e5b-f1a1b59c0ac9"
+        },
+        {
+          "GUID": "9f92cee8-bd15-48da-82f2-5c43240bdd43"
+        }
+      ],
+      "objectoutputs": [
+        {
+          "GUID": "3652c9ed-4729-493e-b89d-89a1923849f2"
+        },
+        {
+          "GUID": "abde6b7a-370c-4343-987e-beb9b2a5d343"
+        }
+      ],
+      "RegistryInfo": "",
+      "documentation": "No documentation exists yet.",
+      "repository": "No repository exists yet.",
+      "GUID": "574b4319-88ed-423b-b662-1d99ccdb5d0d"
+    },
+    "dc27f0c0-2570-4ff5-9ac3-1127570170d6": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Transaction"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "accept",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "tenderId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "dc27f0c0-2570-4ff5-9ac3-1127570170d6"
+    },
+    "5b51ed2b-69ea-484a-b1f7-d1a1b0a06663": {
+      "attributes": {
+        "name": "SimulationControl",
+        "Order": "timestamp",
+        "LogLevel": "NORMAL",
+        "EnableLogging": "false",
+        "Delivery": "reliable"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "c512cb93-c90f-497c-a1e3-54e46217fa2b"
+      },
+      "parameters": [
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "5b51ed2b-69ea-484a-b1f7-d1a1b0a06663"
+    },
+    "79397076-f6cb-4e12-ac11-dac6303ace92": {
+      "attributes": {
+        "Delivery": "reliable",
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "Order": "receive",
+        "name": "SimTime"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "5b51ed2b-69ea-484a-b1f7-d1a1b0a06663"
+      },
+      "parameters": [
+        {
+          "name": "unixTimeStart",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStop",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeZone",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ignoreUntil",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeScale",
+          "ParameterType": "double",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "79397076-f6cb-4e12-ac11-dac6303ace92"
+    },
+    "98f77f62-cefe-400e-a5c2-3ba88deddf92": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "MarketStatus"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "time",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "98f77f62-cefe-400e-a5c2-3ba88deddf92"
+    },
+    "3652c9ed-4729-493e-b89d-89a1923849f2": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "SupervisoryControlSignal"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "localControllerName",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "modulationSignal",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "3652c9ed-4729-493e-b89d-89a1923849f2"
+    },
+    "abde6b7a-370c-4343-987e-beb9b2a5d343": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Tender"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "quantity",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeReference",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "tenderId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "abde6b7a-370c-4343-987e-beb9b2a5d343"
+    },
+    "517e648a-593e-41ba-a7f9-47d6029e9b3b": {
+      "attributes": {
+        "Delivery": "reliable",
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "Order": "timestamp",
+        "name": "TMYWeather"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "c512cb93-c90f-497c-a1e3-54e46217fa2b"
+      },
+      "parameters": [
+        {
+          "name": "pressureUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "extraTerrestrialRadiation",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIrradianceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIlluminanceUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "totalSkyCover",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "presentWeatherSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "zenithLuminanceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "aerosolOpticalDepthUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "albedoSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "horizontalVisibilitySource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "pressure",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "pressureSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIrradiance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dryBulbTemperature",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dryBulbTemperatureSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "windSpeedUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "time",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "opaqueSkyCoverSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "longitude",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windSpeed",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "albedo",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIlluminanceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIrradiance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "horizontalVisibility",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "totalSkyCoverSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "totalSkyCoverUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windDirectionSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ceilingHeight",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIrradiance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windDirectionUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIrradiancSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "latitude",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "relativeHumidityUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "liquidPrecipitationDepth",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windSpeedSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "dewPointTemperature",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dewPointTemperatureUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "windDirection",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "zenithLuminance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "stationState",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ceilingHeightUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "elevation",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "stationName",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIrradianceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIlluminanceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIlluminanceUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "aerosolOpticalDepth",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "zenithLuminanceUncertianty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeZone",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "aerosolOpticalDepthSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "albedoUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "stationIDCode",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "date",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ceilingHeightSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "dewPointTemperatureSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIlluminance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIlluminanceSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIlluminanceUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "diffuseHorizontalIrradiancUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIlluminance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "directNormalIrradianceUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "dryBulbTemperatureUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "extraTerrestrialRadiationNormal",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIlluminance",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "globalHorizontalIrradianceUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "horizontalVisibilityUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "liquidPrecipitationDepthSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "liquidPrecipitationDepthUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "liquidPrecipitationQuantity",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "opaqueSkyCoverUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "precipitableWater",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "precipitableWaterSource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "precipitableWaterUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "presentWeather",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "presentWeatherUncertainty",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "opaqueSkyCover",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "relativeHumidity",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "relativeHumiditySource",
+          "ParameterType": "String",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "517e648a-593e-41ba-a7f9-47d6029e9b3b"
+    },
+    "021c58fd-221d-433a-8e5b-f1a1b59c0ac9": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "ResourcesPhysicalStatus"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "status",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "phases",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "name",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "gridNodeId",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "loadInstanceName",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "021c58fd-221d-433a-8e5b-f1a1b59c0ac9"
+    },
+    "9f92cee8-bd15-48da-82f2-5c43240bdd43": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "Quote"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "393090b9-02b8-4452-8326-23a8af650655"
+      },
+      "parameters": [
+        {
+          "name": "price",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeReference",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "quoteId",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "quantity",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "9f92cee8-bd15-48da-82f2-5c43240bdd43"
+    }
+  },
+  "__ROOT_OBJECT__": {
+    "GUID": "574b4319-88ed-423b-b662-1d99ccdb5d0d",
+    "name": "SupervisoryController",
+    "version": "0.0.1",
+    "description": ""
+  },
+  "Federates": {
+    "574b4319-88ed-423b-b662-1d99ccdb5d0d": ""
+  },
+  "COAs": {},
+  "Experiments": {},
+  "Interactions": {
+    "5b51ed2b-69ea-484a-b1f7-d1a1b0a06663": "",
+    "79397076-f6cb-4e12-ac11-dac6303ace92": "",
+    "517e648a-593e-41ba-a7f9-47d6029e9b3b": ""
+  },
+  "Objects": {
+    "dc27f0c0-2570-4ff5-9ac3-1127570170d6": "",
+    "98f77f62-cefe-400e-a5c2-3ba88deddf92": "",
+    "3652c9ed-4729-493e-b89d-89a1923849f2": "",
+    "abde6b7a-370c-4343-987e-beb9b2a5d343": "",
+    "021c58fd-221d-433a-8e5b-f1a1b59c0ac9": "",
+    "9f92cee8-bd15-48da-82f2-5c43240bdd43": ""
+  },
+  "ObjectAttribute": {},
+  "Repositories": [],
+  "Builds": [],
+  "Executions": []
+}

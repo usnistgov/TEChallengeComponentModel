@@ -1,0 +1,292 @@
+// Weather information
+//object recorder {
+//	parent "RegionalWeather";
+//	property temperature,humidity,solar_flux;
+//	interval 60;
+//	file weather.csv;
+//}
+
+// Net load at substation
+object multi_recorder {
+	file substation_parameters.csv;
+	interval 15;
+	property network_node:distribution_load, network_node:positive_sequence_voltage, network_node:distribution_power_A, network_node:distribution_power_B, network_node:distribution_power_C, F1_transformer_meter:measured_power_A,F1_transformer_meter:measured_power_B,F1_transformer_meter:measured_power_C,F1_transformer_meter:measured_voltage_A,F1_transformer_meter:measured_voltage_B, F1_transformer_meter:measured_voltage_C;	
+}
+
+// Energyplus load
+object multi_recorder {
+	file Eplus_load.csv;
+	interval 15;	
+	parent Eplus_meter;
+	property Eplus_meter:measured_power_A, Eplus_meter:measured_power_B, Eplus_meter:measured_power_C, Eplus_meter:measured_voltage_A, Eplus_meter:measured_voltage_B, Eplus_meter:measured_voltage_C, Eplus_load: constant_power_A, Eplus_load: constant_power_B, Eplus_load: constant_power_C;
+	
+	
+}
+
+// bill debugging
+object recorder {
+	parent Eplus_meter;
+	property bill_mode,monthly_fee,price,monthly_bill,monthly_energy;
+	interval 15;
+	file Eplus_bill.csv;
+}
+
+/////////////////////////////////////////////////////////// COLLECT LOAD DATA FROM ALL TRIPLEX METERS/HOUSES ///////////////////////////////////////////////////////////
+// house powers1
+object multi_recorder {
+	file measured_powers1.csv;
+	interval 15;
+	property F1_triplex_node_A:indiv_measured_power_1, F1_triplex_node_A:indiv_measured_power_2, F1_triplex_node_B:indiv_measured_power_1, F1_triplex_node_B:indiv_measured_power_2, F1_triplex_node_C:indiv_measured_power_1, F1_triplex_node_C:indiv_measured_power_2, F1_tpm_rt_B0:indiv_measured_power_1, F1_tpm_rt_B0:indiv_measured_power_2, F1_tpm_rt_C1:indiv_measured_power_1, F1_tpm_rt_C1:indiv_measured_power_2, F1_tpm_rt_C2:indiv_measured_power_1, F1_tpm_rt_C2:indiv_measured_power_2, F1_tpm_rt_B3:indiv_measured_power_1, F1_tpm_rt_B3:indiv_measured_power_2, F1_tpm_rt_B4:indiv_measured_power_1, F1_tpm_rt_B4:indiv_measured_power_2, F1_tpm_rt_A5:indiv_measured_power_1, F1_tpm_rt_A5:indiv_measured_power_2, F1_tpm_rt_B6:indiv_measured_power_1, F1_tpm_rt_B6:indiv_measured_power_2, F1_tpm_rt_B7:indiv_measured_power_1, F1_tpm_rt_B7:indiv_measured_power_2, F1_tpm_rt_A8:indiv_measured_power_1, F1_tpm_rt_A8:indiv_measured_power_2;
+}
+
+// house powers2
+object multi_recorder {
+	file measured_powers2.csv;
+	interval 15;
+	property F1_tpm_rt_A9:indiv_measured_power_1, F1_tpm_rt_A9:indiv_measured_power_2, F1_tpm_rt_C10:indiv_measured_power_1, F1_tpm_rt_C10:indiv_measured_power_2, F1_tpm_rt_A11:indiv_measured_power_1, F1_tpm_rt_A11:indiv_measured_power_2, F1_tpm_rt_A12:indiv_measured_power_1, F1_tpm_rt_A12:indiv_measured_power_2, F1_tpm_rt_A13:indiv_measured_power_1, F1_tpm_rt_A13:indiv_measured_power_2, F1_tpm_rt_C14:indiv_measured_power_1, F1_tpm_rt_C14:indiv_measured_power_2, F1_tpm_rt_A15:indiv_measured_power_1, F1_tpm_rt_A15:indiv_measured_power_2, F1_tpm_rt_A16:indiv_measured_power_1, F1_tpm_rt_A16:indiv_measured_power_2, F1_tpm_rt_C17:indiv_measured_power_1, F1_tpm_rt_C17:indiv_measured_power_2, F1_tpm_rt_C18:indiv_measured_power_1, F1_tpm_rt_C18:indiv_measured_power_2, F1_tpm_rt_B19:indiv_measured_power_1, F1_tpm_rt_B19:indiv_measured_power_2, F1_tpm_rt_B20:indiv_measured_power_1, F1_tpm_rt_B20:indiv_measured_power_2;
+}
+
+// house powers3
+object multi_recorder {
+	file measured_powers3.csv;
+	interval 15;
+	property F1_tpm_rt_C21:indiv_measured_power_1, F1_tpm_rt_C21:indiv_measured_power_2, F1_tpm_rt_B22:indiv_measured_power_1, F1_tpm_rt_B22:indiv_measured_power_2, F1_tpm_rt_B23:indiv_measured_power_1, F1_tpm_rt_B23:indiv_measured_power_2, F1_tpm_rt_B24:indiv_measured_power_1, F1_tpm_rt_B24:indiv_measured_power_2, F1_tpm_rt_A25:indiv_measured_power_1, F1_tpm_rt_A25:indiv_measured_power_2, F1_tpm_rt_A26:indiv_measured_power_1, F1_tpm_rt_A26:indiv_measured_power_2, F1_tpm_rt_C27:indiv_measured_power_1, F1_tpm_rt_C27:indiv_measured_power_2, F1_tpm_rt_A28:indiv_measured_power_1, F1_tpm_rt_A28:indiv_measured_power_2, F1_tpm_rt_C29:indiv_measured_power_1, F1_tpm_rt_C29:indiv_measured_power_2;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////// COLLECT VOLTAGE DATA FROM ALL TRIPLEX METERS/HOUSES ///////////////////////////////////////////////////////////
+
+// house voltages 1
+object multi_recorder {
+	file measured_voltages1.csv;
+	interval 15;
+	property F1_triplex_node_A:voltage_1, F1_triplex_node_A:voltage_2, F1_triplex_node_B:voltage_1, F1_triplex_node_B:voltage_2, F1_triplex_node_C:voltage_1, F1_triplex_node_C:voltage_2, F1_tpm_rt_B0:voltage_1, F1_tpm_rt_B0:voltage_2, F1_tpm_rt_C1:voltage_1, F1_tpm_rt_C1:voltage_2, F1_tpm_rt_C2:voltage_1, F1_tpm_rt_C2:voltage_2, F1_tpm_rt_B3:voltage_1, F1_tpm_rt_B3:voltage_2, F1_tpm_rt_B4:voltage_1, F1_tpm_rt_B4:voltage_2, F1_tpm_rt_A5:voltage_1, F1_tpm_rt_A5:voltage_2, F1_tpm_rt_B6:voltage_1, F1_tpm_rt_B6:voltage_2, F1_tpm_rt_B7:voltage_1, F1_tpm_rt_B7:voltage_2, F1_tpm_rt_A8:voltage_1, F1_tpm_rt_A8:voltage_2, F1_tpm_rt_A9:voltage_1, F1_tpm_rt_A9:voltage_2, F1_tpm_rt_C10:voltage_1, F1_tpm_rt_C10:voltage_2, F1_tpm_rt_A11:voltage_1, F1_tpm_rt_A11:voltage_2, F1_tpm_rt_A12:voltage_1, F1_tpm_rt_A12:voltage_2, F1_tpm_rt_A13:voltage_1, F1_tpm_rt_A13:voltage_2, F1_tpm_rt_C14:voltage_1, F1_tpm_rt_C14:voltage_2, F1_tpm_rt_A15:voltage_1, F1_tpm_rt_A15:voltage_2;
+} 
+
+// house voltages 2
+object multi_recorder {
+	file measured_voltages2.csv;
+	interval 15;
+	property  F1_tpm_rt_A16:voltage_1, F1_tpm_rt_A16:voltage_2, F1_tpm_rt_C17:voltage_1, F1_tpm_rt_C17:voltage_2, F1_tpm_rt_C18:voltage_1, F1_tpm_rt_C18:voltage_2, F1_tpm_rt_B19:voltage_1, F1_tpm_rt_B19:voltage_2, F1_tpm_rt_B20:voltage_1, F1_tpm_rt_B20:voltage_2, F1_tpm_rt_C21:voltage_1, F1_tpm_rt_C21:voltage_2, F1_tpm_rt_B22:voltage_1, F1_tpm_rt_B22:voltage_2, F1_tpm_rt_B23:voltage_1, F1_tpm_rt_B23:voltage_2, F1_tpm_rt_B24:voltage_1, F1_tpm_rt_B24:voltage_2, F1_tpm_rt_A25:voltage_1, F1_tpm_rt_A25:voltage_2, F1_tpm_rt_A26:voltage_1, F1_tpm_rt_A26:voltage_2, F1_tpm_rt_C27:voltage_1, F1_tpm_rt_C27:voltage_2, F1_tpm_rt_A28:voltage_1, F1_tpm_rt_A28:voltage_2, F1_tpm_rt_C29:voltage_1, F1_tpm_rt_C29:voltage_2;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////// COLLECT BILLING DATA FROM ALL TRIPLEX METERS/HOUSES ///////////////////////////////////////////////////////////
+// house bill modes 1
+object multi_recorder {
+	file bill_modes1.csv;
+	interval 15;
+	property F1_triplex_node_A:bill_mode, F1_triplex_node_B:bill_mode, F1_triplex_node_C:bill_mode, F1_tpm_flatrate_B0:bill_mode, F1_tpm_rt_B0:bill_mode, F1_tpm_flatrate_C1:bill_mode, F1_tpm_rt_C1:bill_mode, F1_tpm_flatrate_C2:bill_mode, F1_tpm_rt_C2:bill_mode, F1_tpm_flatrate_B3:bill_mode, F1_tpm_rt_B3:bill_mode, F1_tpm_flatrate_B4:bill_mode, F1_tpm_rt_B4:bill_mode, F1_tpm_flatrate_A5:bill_mode, F1_tpm_rt_A5:bill_mode, F1_tpm_flatrate_B6:bill_mode, F1_tpm_rt_B6:bill_mode, F1_tpm_flatrate_B7:bill_mode, F1_tpm_rt_B7:bill_mode, F1_tpm_flatrate_A8:bill_mode, F1_tpm_rt_A8:bill_mode, F1_tpm_flatrate_A9:bill_mode, F1_tpm_rt_A9:bill_mode, F1_tpm_flatrate_C10:bill_mode, F1_tpm_rt_C10:bill_mode, F1_tpm_flatrate_A11:bill_mode, F1_tpm_rt_A11:bill_mode, F1_tpm_flatrate_A12:bill_mode, F1_tpm_rt_A12:bill_mode, F1_tpm_flatrate_A13:bill_mode, F1_tpm_rt_A13:bill_mode, F1_tpm_flatrate_C14:bill_mode, F1_tpm_rt_C14:bill_mode;
+}
+
+// house bill modes 2
+object multi_recorder {
+	file bill_modes2.csv;
+	interval 15;
+	property F1_tpm_flatrate_A15:bill_mode, F1_tpm_rt_A15:bill_mode, F1_tpm_flatrate_A16:bill_mode, F1_tpm_rt_A16:bill_mode, F1_tpm_flatrate_C17:bill_mode, F1_tpm_rt_C17:bill_mode, F1_tpm_flatrate_C18:bill_mode, F1_tpm_rt_C18:bill_mode, F1_tpm_flatrate_B19:bill_mode, F1_tpm_rt_B19:bill_mode, F1_tpm_flatrate_B20:bill_mode, F1_tpm_rt_B20:bill_mode, F1_tpm_flatrate_C21:bill_mode, F1_tpm_rt_C21:bill_mode, F1_tpm_flatrate_B22:bill_mode, F1_tpm_rt_B22:bill_mode, F1_tpm_flatrate_B23:bill_mode, F1_tpm_rt_B23:bill_mode, F1_tpm_flatrate_B24:bill_mode, F1_tpm_rt_B24:bill_mode, F1_tpm_flatrate_A25:bill_mode, F1_tpm_rt_A25:bill_mode, F1_tpm_flatrate_A26:bill_mode, F1_tpm_rt_A26:bill_mode, F1_tpm_flatrate_C27:bill_mode, F1_tpm_rt_C27:bill_mode, F1_tpm_flatrate_A28:bill_mode, F1_tpm_rt_A28:bill_mode, F1_tpm_flatrate_C29:bill_mode, F1_tpm_rt_C29:bill_mode;	
+}
+
+// house monthly fees 1
+object multi_recorder {
+	file monthly_fees1.csv;
+	interval 15;
+	property F1_triplex_node_A:monthly_fee, F1_triplex_node_B:monthly_fee, F1_triplex_node_C:monthly_fee, F1_tpm_flatrate_B0:monthly_fee, F1_tpm_rt_B0:monthly_fee, F1_tpm_flatrate_C1:monthly_fee, F1_tpm_rt_C1:monthly_fee, F1_tpm_flatrate_C2:monthly_fee, F1_tpm_rt_C2:monthly_fee, F1_tpm_flatrate_B3:monthly_fee, F1_tpm_rt_B3:monthly_fee, F1_tpm_flatrate_B4:monthly_fee, F1_tpm_rt_B4:monthly_fee, F1_tpm_flatrate_A5:monthly_fee, F1_tpm_rt_A5:monthly_fee, F1_tpm_flatrate_B6:monthly_fee, F1_tpm_rt_B6:monthly_fee, F1_tpm_flatrate_B7:monthly_fee, F1_tpm_rt_B7:monthly_fee, F1_tpm_flatrate_A8:monthly_fee, F1_tpm_rt_A8:monthly_fee, F1_tpm_flatrate_A9:monthly_fee, F1_tpm_rt_A9:monthly_fee, F1_tpm_flatrate_C10:monthly_fee, F1_tpm_rt_C10:monthly_fee, F1_tpm_flatrate_A11:monthly_fee, F1_tpm_rt_A11:monthly_fee, F1_tpm_flatrate_A12:monthly_fee, F1_tpm_rt_A12:monthly_fee, F1_tpm_flatrate_A13:monthly_fee, F1_tpm_rt_A13:monthly_fee, F1_tpm_flatrate_C14:monthly_fee, F1_tpm_rt_C14:monthly_fee;
+}
+
+// house monthly fees 2
+object multi_recorder {
+	file monthly_fees2.csv;
+	interval 15;
+	property F1_tpm_flatrate_A15:monthly_fee, F1_tpm_rt_A15:monthly_fee, F1_tpm_flatrate_A16:monthly_fee, F1_tpm_rt_A16:monthly_fee, F1_tpm_flatrate_C17:monthly_fee, F1_tpm_rt_C17:monthly_fee, F1_tpm_flatrate_C18:monthly_fee, F1_tpm_rt_C18:monthly_fee, F1_tpm_flatrate_B19:monthly_fee, F1_tpm_rt_B19:monthly_fee, F1_tpm_flatrate_B20:monthly_fee, F1_tpm_rt_B20:monthly_fee, F1_tpm_flatrate_C21:monthly_fee, F1_tpm_rt_C21:monthly_fee, F1_tpm_flatrate_B22:monthly_fee, F1_tpm_rt_B22:monthly_fee, F1_tpm_flatrate_B23:monthly_fee, F1_tpm_rt_B23:monthly_fee, F1_tpm_flatrate_B24:monthly_fee, F1_tpm_rt_B24:monthly_fee, F1_tpm_flatrate_A25:monthly_fee, F1_tpm_rt_A25:monthly_fee, F1_tpm_flatrate_A26:monthly_fee, F1_tpm_rt_A26:monthly_fee, F1_tpm_flatrate_C27:monthly_fee, F1_tpm_rt_C27:monthly_fee, F1_tpm_flatrate_A28:monthly_fee, F1_tpm_rt_A28:monthly_fee, F1_tpm_flatrate_C29:monthly_fee, F1_tpm_rt_C29:monthly_fee;	
+}
+
+// house prices 1
+object multi_recorder {
+	file prices1.csv;
+	interval 15;
+	property F1_triplex_node_A:price, F1_triplex_node_B:price, F1_triplex_node_C:price, F1_tpm_flatrate_B0:price, F1_tpm_rt_B0:price, F1_tpm_flatrate_C1:price, F1_tpm_rt_C1:price, F1_tpm_flatrate_C2:price, F1_tpm_rt_C2:price, F1_tpm_flatrate_B3:price, F1_tpm_rt_B3:price, F1_tpm_flatrate_B4:price, F1_tpm_rt_B4:price, F1_tpm_flatrate_A5:price, F1_tpm_rt_A5:price, F1_tpm_flatrate_B6:price, F1_tpm_rt_B6:price, F1_tpm_flatrate_B7:price, F1_tpm_rt_B7:price, F1_tpm_flatrate_A8:price, F1_tpm_rt_A8:price, F1_tpm_flatrate_A9:price, F1_tpm_rt_A9:price, F1_tpm_flatrate_C10:price, F1_tpm_rt_C10:price, F1_tpm_flatrate_A11:price, F1_tpm_rt_A11:price, F1_tpm_flatrate_A12:price, F1_tpm_rt_A12:price, F1_tpm_flatrate_A13:price, F1_tpm_rt_A13:price, F1_tpm_flatrate_C14:price, F1_tpm_rt_C14:price;
+}
+
+// house prices 2
+object multi_recorder {
+	file prices2.csv;
+	interval 15;
+	property F1_tpm_flatrate_A15:price, F1_tpm_rt_A15:price, F1_tpm_flatrate_A16:price, F1_tpm_rt_A16:price, F1_tpm_flatrate_C17:price, F1_tpm_rt_C17:price, F1_tpm_flatrate_C18:price, F1_tpm_rt_C18:price, F1_tpm_flatrate_B19:price, F1_tpm_rt_B19:price, F1_tpm_flatrate_B20:price, F1_tpm_rt_B20:price, F1_tpm_flatrate_C21:price, F1_tpm_rt_C21:price, F1_tpm_flatrate_B22:price, F1_tpm_rt_B22:price, F1_tpm_flatrate_B23:price, F1_tpm_rt_B23:price, F1_tpm_flatrate_B24:price, F1_tpm_rt_B24:price, F1_tpm_flatrate_A25:price, F1_tpm_rt_A25:price, F1_tpm_flatrate_A26:price, F1_tpm_rt_A26:price, F1_tpm_flatrate_C27:price, F1_tpm_rt_C27:price, F1_tpm_flatrate_A28:price, F1_tpm_rt_A28:price, F1_tpm_flatrate_C29:price, F1_tpm_rt_C29:price;	
+}
+
+// house monthly bill 1
+object multi_recorder {
+	file monthly_bills1.csv;
+	interval 15;
+	property F1_triplex_node_A:monthly_bill, F1_triplex_node_B:monthly_bill, F1_triplex_node_C:monthly_bill, F1_tpm_flatrate_B0:monthly_bill, F1_tpm_rt_B0:monthly_bill, F1_tpm_flatrate_C1:monthly_bill, F1_tpm_rt_C1:monthly_bill, F1_tpm_flatrate_C2:monthly_bill, F1_tpm_rt_C2:monthly_bill, F1_tpm_flatrate_B3:monthly_bill, F1_tpm_rt_B3:monthly_bill, F1_tpm_flatrate_B4:monthly_bill, F1_tpm_rt_B4:monthly_bill, F1_tpm_flatrate_A5:monthly_bill, F1_tpm_rt_A5:monthly_bill, F1_tpm_flatrate_B6:monthly_bill, F1_tpm_rt_B6:monthly_bill, F1_tpm_flatrate_B7:monthly_bill, F1_tpm_rt_B7:monthly_bill, F1_tpm_flatrate_A8:monthly_bill, F1_tpm_rt_A8:monthly_bill, F1_tpm_flatrate_A9:monthly_bill, F1_tpm_rt_A9:monthly_bill, F1_tpm_flatrate_C10:monthly_bill, F1_tpm_rt_C10:monthly_bill, F1_tpm_flatrate_A11:monthly_bill, F1_tpm_rt_A11:monthly_bill, F1_tpm_flatrate_A12:monthly_bill, F1_tpm_rt_A12:monthly_bill, F1_tpm_flatrate_A13:monthly_bill;
+}
+
+// house monthly bill 2
+object multi_recorder {
+	file monthly_bills2.csv;
+	interval 15;
+	property F1_tpm_rt_A13:monthly_bill, F1_tpm_flatrate_C14:monthly_bill, F1_tpm_rt_C14:monthly_bill, F1_tpm_flatrate_A15:monthly_bill, F1_tpm_rt_A15:monthly_bill, F1_tpm_flatrate_A16:monthly_bill, F1_tpm_rt_A16:monthly_bill, F1_tpm_flatrate_C17:monthly_bill, F1_tpm_rt_C17:monthly_bill, F1_tpm_flatrate_C18:monthly_bill, F1_tpm_rt_C18:monthly_bill, F1_tpm_flatrate_B19:monthly_bill, F1_tpm_rt_B19:monthly_bill, F1_tpm_flatrate_B20:monthly_bill, F1_tpm_rt_B20:monthly_bill, F1_tpm_flatrate_C21:monthly_bill, F1_tpm_rt_C21:monthly_bill, F1_tpm_flatrate_B22:monthly_bill, F1_tpm_rt_B22:monthly_bill, F1_tpm_flatrate_B23:monthly_bill, F1_tpm_rt_B23:monthly_bill, F1_tpm_flatrate_B24:monthly_bill, F1_tpm_rt_B24:monthly_bill, F1_tpm_flatrate_A25:monthly_bill, F1_tpm_rt_A25:monthly_bill, F1_tpm_flatrate_A26:monthly_bill, F1_tpm_rt_A26:monthly_bill, F1_tpm_flatrate_C27:monthly_bill, F1_tpm_rt_C27:monthly_bill, F1_tpm_flatrate_A28:monthly_bill, F1_tpm_rt_A28:monthly_bill, F1_tpm_flatrate_C29:monthly_bill, F1_tpm_rt_C29:monthly_bill;	
+}
+
+// house monthly energy 1
+object multi_recorder {
+	file monthly_energies1.csv;
+	interval 15;
+	property F1_triplex_node_A:monthly_energy, F1_triplex_node_B:monthly_energy, F1_triplex_node_C:monthly_energy, F1_tpm_flatrate_B0:monthly_energy, F1_tpm_rt_B0:monthly_energy, F1_tpm_flatrate_C1:monthly_energy, F1_tpm_rt_C1:monthly_energy, F1_tpm_flatrate_C2:monthly_energy, F1_tpm_rt_C2:monthly_energy, F1_tpm_flatrate_B3:monthly_energy, F1_tpm_rt_B3:monthly_energy, F1_tpm_flatrate_B4:monthly_energy, F1_tpm_rt_B4:monthly_energy, F1_tpm_flatrate_A5:monthly_energy, F1_tpm_rt_A5:monthly_energy, F1_tpm_flatrate_B6:monthly_energy, F1_tpm_rt_B6:monthly_energy, F1_tpm_flatrate_B7:monthly_energy, F1_tpm_rt_B7:monthly_energy, F1_tpm_flatrate_A8:monthly_energy, F1_tpm_rt_A8:monthly_energy, F1_tpm_flatrate_A9:monthly_energy, F1_tpm_rt_A9:monthly_energy, F1_tpm_flatrate_C10:monthly_energy, F1_tpm_rt_C10:monthly_energy, F1_tpm_flatrate_A11:monthly_energy, F1_tpm_rt_A11:monthly_energy, F1_tpm_flatrate_A12:monthly_energy, F1_tpm_rt_A12:monthly_energy;
+}
+
+// house monthly energy 2
+object multi_recorder {
+	file monthly_energies2.csv;
+	interval 15;
+	property F1_tpm_flatrate_A13:monthly_energy, F1_tpm_rt_A13:monthly_energy, F1_tpm_flatrate_C14:monthly_energy, F1_tpm_rt_C14:monthly_energy, F1_tpm_flatrate_A15:monthly_energy, F1_tpm_rt_A15:monthly_energy, F1_tpm_flatrate_A16:monthly_energy, F1_tpm_rt_A16:monthly_energy, F1_tpm_flatrate_C17:monthly_energy, F1_tpm_rt_C17:monthly_energy, F1_tpm_flatrate_C18:monthly_energy, F1_tpm_rt_C18:monthly_energy, F1_tpm_flatrate_B19:monthly_energy, F1_tpm_rt_B19:monthly_energy, F1_tpm_flatrate_B20:monthly_energy, F1_tpm_rt_B20:monthly_energy, F1_tpm_flatrate_C21:monthly_energy, F1_tpm_rt_C21:monthly_energy, F1_tpm_flatrate_B22:monthly_energy, F1_tpm_rt_B22:monthly_energy, F1_tpm_flatrate_B23:monthly_energy, F1_tpm_rt_B23:monthly_energy, F1_tpm_flatrate_B24:monthly_energy, F1_tpm_rt_B24:monthly_energy, F1_tpm_flatrate_A25:monthly_energy, F1_tpm_rt_A25:monthly_energy, F1_tpm_flatrate_A26:monthly_energy, F1_tpm_rt_A26:monthly_energy;
+}
+
+// house monthly energy 3
+object multi_recorder {
+	file monthly_energies3.csv;
+	interval 15;
+	property F1_tpm_flatrate_C27:monthly_energy, F1_tpm_rt_C27:monthly_energy, F1_tpm_flatrate_A28:monthly_energy, F1_tpm_rt_A28:monthly_energy, F1_tpm_flatrate_C29:monthly_energy, F1_tpm_rt_C29:monthly_energy;	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// house debugging
+//object recorder {
+//	parent F1_house_A5;
+//	property cooling_setpoint,heating_setpoint,air_temperature,outdoor_temperature,cooling_demand,heating_demand,hvac_load,last_cooling_load,power_state,system_mode;
+//	interval 15;
+//	file F1_house_A5.csv;
+//}
+
+/////////////////////////////////////////////////////////// COLLECT DETAILS ON ALL HOUSES ///////////////////////////////////////////////////////////
+object multi_recorder {
+  file cooling_setpoints.csv;
+  interval 15;
+  property F1_house_A5:cooling_setpoint, F1_house_A8:cooling_setpoint, F1_house_A9:cooling_setpoint, F1_house_A11:cooling_setpoint, F1_house_A12:cooling_setpoint, F1_house_A13:cooling_setpoint, F1_house_A15:cooling_setpoint, F1_house_A16:cooling_setpoint, F1_house_A25:cooling_setpoint, F1_house_A26:cooling_setpoint, F1_house_A28:cooling_setpoint, F1_house_B0:cooling_setpoint, F1_house_B3:cooling_setpoint, F1_house_B4:cooling_setpoint, F1_house_B6:cooling_setpoint, F1_house_B7:cooling_setpoint, F1_house_B19:cooling_setpoint, F1_house_B20:cooling_setpoint, F1_house_B22:cooling_setpoint, F1_house_B23:cooling_setpoint, F1_house_B24:cooling_setpoint, F1_house_C1:cooling_setpoint, F1_house_C2:cooling_setpoint, F1_house_C10:cooling_setpoint, F1_house_C14:cooling_setpoint, F1_house_C17:cooling_setpoint, F1_house_C18:cooling_setpoint, F1_house_C21:cooling_setpoint, F1_house_C27:cooling_setpoint, F1_house_C29:cooling_setpoint;
+}
+
+object multi_recorder {
+  file heating_setpoints.csv;
+  interval 15;
+  property F1_house_A5:heating_setpoint, F1_house_A8:heating_setpoint, F1_house_A9:heating_setpoint, F1_house_A11:heating_setpoint, F1_house_A12:heating_setpoint, F1_house_A13:heating_setpoint, F1_house_A15:heating_setpoint, F1_house_A16:heating_setpoint, F1_house_A25:heating_setpoint, F1_house_A26:heating_setpoint, F1_house_A28:heating_setpoint, F1_house_B0:heating_setpoint, F1_house_B3:heating_setpoint, F1_house_B4:heating_setpoint, F1_house_B6:heating_setpoint, F1_house_B7:heating_setpoint, F1_house_B19:heating_setpoint, F1_house_B20:heating_setpoint, F1_house_B22:heating_setpoint, F1_house_B23:heating_setpoint, F1_house_B24:heating_setpoint, F1_house_C1:heating_setpoint, F1_house_C2:heating_setpoint, F1_house_C10:heating_setpoint, F1_house_C14:heating_setpoint, F1_house_C17:heating_setpoint, F1_house_C18:heating_setpoint, F1_house_C21:heating_setpoint, F1_house_C27:heating_setpoint, F1_house_C29:heating_setpoint;
+}
+
+object multi_recorder {
+  file thermostat_deadband.csv;
+  interval 15;
+  property F1_house_A5:thermostat_deadband, F1_house_A8:thermostat_deadband, F1_house_A9:thermostat_deadband, F1_house_A11:thermostat_deadband, F1_house_A12:thermostat_deadband, F1_house_A13:thermostat_deadband, F1_house_A15:thermostat_deadband, F1_house_A16:thermostat_deadband, F1_house_A25:thermostat_deadband, F1_house_A26:thermostat_deadband, F1_house_A28:thermostat_deadband, F1_house_B0:thermostat_deadband, F1_house_B3:thermostat_deadband, F1_house_B4:thermostat_deadband, F1_house_B6:thermostat_deadband, F1_house_B7:thermostat_deadband, F1_house_B19:thermostat_deadband, F1_house_B20:thermostat_deadband, F1_house_B22:thermostat_deadband, F1_house_B23:thermostat_deadband, F1_house_B24:thermostat_deadband, F1_house_C1:thermostat_deadband, F1_house_C2:thermostat_deadband, F1_house_C10:thermostat_deadband, F1_house_C14:thermostat_deadband, F1_house_C17:thermostat_deadband, F1_house_C18:thermostat_deadband, F1_house_C21:thermostat_deadband, F1_house_C27:thermostat_deadband, F1_house_C29:thermostat_deadband;
+}
+
+object multi_recorder {
+  file air_temperatures.csv;
+  interval 15;
+  property F1_house_A5:air_temperature, F1_house_A8:air_temperature, F1_house_A9:air_temperature, F1_house_A11:air_temperature, F1_house_A12:air_temperature, F1_house_A13:air_temperature, F1_house_A15:air_temperature, F1_house_A16:air_temperature, F1_house_A25:air_temperature, F1_house_A26:air_temperature, F1_house_A28:air_temperature, F1_house_B0:air_temperature, F1_house_B3:air_temperature, F1_house_B4:air_temperature, F1_house_B6:air_temperature, F1_house_B7:air_temperature, F1_house_B19:air_temperature, F1_house_B20:air_temperature, F1_house_B22:air_temperature, F1_house_B23:air_temperature, F1_house_B24:air_temperature, F1_house_C1:air_temperature, F1_house_C2:air_temperature, F1_house_C10:air_temperature, F1_house_C14:air_temperature, F1_house_C17:air_temperature, F1_house_C18:air_temperature, F1_house_C21:air_temperature, F1_house_C27:air_temperature, F1_house_C29:air_temperature;
+}
+
+object multi_recorder {
+  file outdoor_temperatures.csv;
+  interval 15;
+  property F1_house_A5:outdoor_temperature, F1_house_A8:outdoor_temperature, F1_house_A9:outdoor_temperature, F1_house_A11:outdoor_temperature, F1_house_A12:outdoor_temperature, F1_house_A13:outdoor_temperature, F1_house_A15:outdoor_temperature, F1_house_A16:outdoor_temperature, F1_house_A25:outdoor_temperature, F1_house_A26:outdoor_temperature, F1_house_A28:outdoor_temperature, F1_house_B0:outdoor_temperature, F1_house_B3:outdoor_temperature, F1_house_B4:outdoor_temperature, F1_house_B6:outdoor_temperature, F1_house_B7:outdoor_temperature, F1_house_B19:outdoor_temperature, F1_house_B20:outdoor_temperature, F1_house_B22:outdoor_temperature, F1_house_B23:outdoor_temperature, F1_house_B24:outdoor_temperature, F1_house_C1:outdoor_temperature, F1_house_C2:outdoor_temperature, F1_house_C10:outdoor_temperature, F1_house_C14:outdoor_temperature, F1_house_C17:outdoor_temperature, F1_house_C18:outdoor_temperature, F1_house_C21:outdoor_temperature, F1_house_C27:outdoor_temperature, F1_house_C29:outdoor_temperature;
+}
+
+object multi_recorder {
+  file cooling_demands.csv;
+  interval 15;
+  property F1_house_A5:cooling_demand, F1_house_A8:cooling_demand, F1_house_A9:cooling_demand, F1_house_A11:cooling_demand, F1_house_A12:cooling_demand, F1_house_A13:cooling_demand, F1_house_A15:cooling_demand, F1_house_A16:cooling_demand, F1_house_A25:cooling_demand, F1_house_A26:cooling_demand, F1_house_A28:cooling_demand, F1_house_B0:cooling_demand, F1_house_B3:cooling_demand, F1_house_B4:cooling_demand, F1_house_B6:cooling_demand, F1_house_B7:cooling_demand, F1_house_B19:cooling_demand, F1_house_B20:cooling_demand, F1_house_B22:cooling_demand, F1_house_B23:cooling_demand, F1_house_B24:cooling_demand, F1_house_C1:cooling_demand, F1_house_C2:cooling_demand, F1_house_C10:cooling_demand, F1_house_C14:cooling_demand, F1_house_C17:cooling_demand, F1_house_C18:cooling_demand, F1_house_C21:cooling_demand, F1_house_C27:cooling_demand, F1_house_C29:cooling_demand;
+}
+
+object multi_recorder {
+  file hvac_loads.csv;
+  interval 15;
+  property F1_house_A5:hvac_load, F1_house_A8:hvac_load, F1_house_A9:hvac_load, F1_house_A11:hvac_load, F1_house_A12:hvac_load, F1_house_A13:hvac_load, F1_house_A15:hvac_load, F1_house_A16:hvac_load, F1_house_A25:hvac_load, F1_house_A26:hvac_load, F1_house_A28:hvac_load, F1_house_B0:hvac_load, F1_house_B3:hvac_load, F1_house_B4:hvac_load, F1_house_B6:hvac_load, F1_house_B7:hvac_load, F1_house_B19:hvac_load, F1_house_B20:hvac_load, F1_house_B22:hvac_load, F1_house_B23:hvac_load, F1_house_B24:hvac_load, F1_house_C1:hvac_load, F1_house_C2:hvac_load, F1_house_C10:hvac_load, F1_house_C14:hvac_load, F1_house_C17:hvac_load, F1_house_C18:hvac_load, F1_house_C21:hvac_load, F1_house_C27:hvac_load, F1_house_C29:hvac_load;
+}
+
+object multi_recorder {
+  file last_cooling_loads.csv;
+  interval 15;
+  property F1_house_A5:last_cooling_load, F1_house_A8:last_cooling_load, F1_house_A9:last_cooling_load, F1_house_A11:last_cooling_load, F1_house_A12:last_cooling_load, F1_house_A13:last_cooling_load, F1_house_A15:last_cooling_load, F1_house_A16:last_cooling_load, F1_house_A25:last_cooling_load, F1_house_A26:last_cooling_load, F1_house_A28:last_cooling_load, F1_house_B0:last_cooling_load, F1_house_B3:last_cooling_load, F1_house_B4:last_cooling_load, F1_house_B6:last_cooling_load, F1_house_B7:last_cooling_load, F1_house_B19:last_cooling_load, F1_house_B20:last_cooling_load, F1_house_B22:last_cooling_load, F1_house_B23:last_cooling_load, F1_house_B24:last_cooling_load, F1_house_C1:last_cooling_load, F1_house_C2:last_cooling_load, F1_house_C10:last_cooling_load, F1_house_C14:last_cooling_load, F1_house_C17:last_cooling_load, F1_house_C18:last_cooling_load, F1_house_C21:last_cooling_load, F1_house_C27:last_cooling_load, F1_house_C29:last_cooling_load;
+}
+
+object multi_recorder {
+  file power_states.csv;
+  interval 15;
+  property F1_house_A5:power_state, F1_house_A8:power_state, F1_house_A9:power_state, F1_house_A11:power_state, F1_house_A12:power_state, F1_house_A13:power_state, F1_house_A15:power_state, F1_house_A16:power_state, F1_house_A25:power_state, F1_house_A26:power_state, F1_house_A28:power_state, F1_house_B0:power_state, F1_house_B3:power_state, F1_house_B4:power_state, F1_house_B6:power_state, F1_house_B7:power_state, F1_house_B19:power_state, F1_house_B20:power_state, F1_house_B22:power_state, F1_house_B23:power_state, F1_house_B24:power_state, F1_house_C1:power_state, F1_house_C2:power_state, F1_house_C10:power_state, F1_house_C14:power_state, F1_house_C17:power_state, F1_house_C18:power_state, F1_house_C21:power_state, F1_house_C27:power_state, F1_house_C29:power_state;
+}
+
+object multi_recorder {
+  file system_modes.csv;
+  interval 15;
+  property F1_house_A5:system_mode, F1_house_A8:system_mode, F1_house_A9:system_mode, F1_house_A11:system_mode, F1_house_A12:system_mode, F1_house_A13:system_mode, F1_house_A15:system_mode, F1_house_A16:system_mode, F1_house_A25:system_mode, F1_house_A26:system_mode, F1_house_A28:system_mode, F1_house_B0:system_mode, F1_house_B3:system_mode, F1_house_B4:system_mode, F1_house_B6:system_mode, F1_house_B7:system_mode, F1_house_B19:system_mode, F1_house_B20:system_mode, F1_house_B22:system_mode, F1_house_B23:system_mode, F1_house_B24:system_mode, F1_house_C1:system_mode, F1_house_C2:system_mode, F1_house_C10:system_mode, F1_house_C14:system_mode, F1_house_C17:system_mode, F1_house_C18:system_mode, F1_house_C21:system_mode, F1_house_C27:system_mode, F1_house_C29:system_mode;
+}
+
+object multi_recorder {
+  file total_loads.csv;
+  interval 15;
+  property F1_house_A5:total_load, F1_house_A8:total_load, F1_house_A9:total_load, F1_house_A11:total_load, F1_house_A12:total_load, F1_house_A13:total_load, F1_house_A15:total_load, F1_house_A16:total_load, F1_house_A25:total_load, F1_house_A26:total_load, F1_house_A28:total_load, F1_house_B0:total_load, F1_house_B3:total_load, F1_house_B4:total_load, F1_house_B6:total_load, F1_house_B7:total_load, F1_house_B19:total_load, F1_house_B20:total_load, F1_house_B22:total_load, F1_house_B23:total_load, F1_house_B24:total_load, F1_house_C1:total_load, F1_house_C2:total_load, F1_house_C10:total_load, F1_house_C14:total_load, F1_house_C17:total_load, F1_house_C18:total_load, F1_house_C21:total_load, F1_house_C27:total_load, F1_house_C29:total_load;
+}
+
+object multi_recorder {
+  file hvac_power_factors.csv;
+  interval 15;
+  property F1_house_A5:hvac_power_factor, F1_house_A8:hvac_power_factor, F1_house_A9:hvac_power_factor, F1_house_A11:hvac_power_factor, F1_house_A12:hvac_power_factor, F1_house_A13:hvac_power_factor, F1_house_A15:hvac_power_factor, F1_house_A16:hvac_power_factor, F1_house_A25:hvac_power_factor, F1_house_A26:hvac_power_factor, F1_house_A28:hvac_power_factor, F1_house_B0:hvac_power_factor, F1_house_B3:hvac_power_factor, F1_house_B4:hvac_power_factor, F1_house_B6:hvac_power_factor, F1_house_B7:hvac_power_factor, F1_house_B19:hvac_power_factor, F1_house_B20:hvac_power_factor, F1_house_B22:hvac_power_factor, F1_house_B23:hvac_power_factor, F1_house_B24:hvac_power_factor, F1_house_C1:hvac_power_factor, F1_house_C2:hvac_power_factor, F1_house_C10:hvac_power_factor, F1_house_C14:hvac_power_factor, F1_house_C17:hvac_power_factor, F1_house_C18:hvac_power_factor, F1_house_C21:hvac_power_factor, F1_house_C27:hvac_power_factor, F1_house_C29:hvac_power_factor;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////// COLLECT POWER AND ENERGY DATA FROM ALL TRIPLEX METERS/INVERTERS ///////////////////////////////////////////////////////////////////
+
+// inverter powers1
+object multi_recorder {
+	file inverter_measured_powers1.csv;
+	interval 15;
+	property solar_F1_tpm_rt_B0:indiv_measured_power_1, solar_F1_tpm_rt_B0:indiv_measured_power_2, solar_F1_tpm_rt_C1:indiv_measured_power_1, solar_F1_tpm_rt_C1:indiv_measured_power_2, solar_F1_tpm_rt_C2:indiv_measured_power_1, solar_F1_tpm_rt_C2:indiv_measured_power_2, solar_F1_tpm_rt_B3:indiv_measured_power_1, solar_F1_tpm_rt_B3:indiv_measured_power_2, solar_F1_tpm_rt_B4:indiv_measured_power_1, solar_F1_tpm_rt_B4:indiv_measured_power_2, solar_F1_tpm_rt_A5:indiv_measured_power_1, solar_F1_tpm_rt_A5:indiv_measured_power_2, solar_F1_tpm_rt_B6:indiv_measured_power_1, solar_F1_tpm_rt_B6:indiv_measured_power_2, solar_F1_tpm_rt_B7:indiv_measured_power_1, solar_F1_tpm_rt_B7:indiv_measured_power_2, solar_F1_tpm_rt_A8:indiv_measured_power_1, solar_F1_tpm_rt_A8:indiv_measured_power_2;
+}
+
+// inverter powers2
+object multi_recorder {
+	file inverter_measured_powers2.csv;
+	interval 15;
+	property solar_F1_tpm_rt_A9:indiv_measured_power_1, solar_F1_tpm_rt_A9:indiv_measured_power_2, solar_F1_tpm_rt_C10:indiv_measured_power_1, solar_F1_tpm_rt_C10:indiv_measured_power_2, solar_F1_tpm_rt_A11:indiv_measured_power_1, solar_F1_tpm_rt_A11:indiv_measured_power_2, solar_F1_tpm_rt_A12:indiv_measured_power_1, solar_F1_tpm_rt_A12:indiv_measured_power_2, solar_F1_tpm_rt_A13:indiv_measured_power_1, solar_F1_tpm_rt_A13:indiv_measured_power_2, solar_F1_tpm_rt_C14:indiv_measured_power_1, solar_F1_tpm_rt_C14:indiv_measured_power_2, solar_F1_tpm_rt_A15:indiv_measured_power_1, solar_F1_tpm_rt_A15:indiv_measured_power_2, solar_F1_tpm_rt_A16:indiv_measured_power_1, solar_F1_tpm_rt_A16:indiv_measured_power_2, solar_F1_tpm_rt_C17:indiv_measured_power_1, solar_F1_tpm_rt_C17:indiv_measured_power_2, solar_F1_tpm_rt_C18:indiv_measured_power_1, solar_F1_tpm_rt_C18:indiv_measured_power_2, solar_F1_tpm_rt_B19:indiv_measured_power_1, solar_F1_tpm_rt_B19:indiv_measured_power_2;
+}
+
+// inverter powers3
+object multi_recorder {
+	file inverter_measured_powers3.csv;
+	interval 15;
+	property solar_F1_tpm_rt_B20:indiv_measured_power_1, solar_F1_tpm_rt_B20:indiv_measured_power_2, solar_F1_tpm_rt_C21:indiv_measured_power_1, solar_F1_tpm_rt_C21:indiv_measured_power_2, solar_F1_tpm_rt_B22:indiv_measured_power_1, solar_F1_tpm_rt_B22:indiv_measured_power_2, solar_F1_tpm_rt_B23:indiv_measured_power_1, solar_F1_tpm_rt_B23:indiv_measured_power_2, solar_F1_tpm_rt_B24:indiv_measured_power_1, solar_F1_tpm_rt_B24:indiv_measured_power_2, solar_F1_tpm_rt_A25:indiv_measured_power_1, solar_F1_tpm_rt_A25:indiv_measured_power_2, solar_F1_tpm_rt_A26:indiv_measured_power_1, solar_F1_tpm_rt_A26:indiv_measured_power_2, solar_F1_tpm_rt_C27:indiv_measured_power_1, solar_F1_tpm_rt_C27:indiv_measured_power_2, solar_F1_tpm_rt_A28:indiv_measured_power_1, solar_F1_tpm_rt_A28:indiv_measured_power_2, solar_F1_tpm_rt_C29:indiv_measured_power_1, solar_F1_tpm_rt_C29:indiv_measured_power_2;
+}
+
+
+// inverter monthly energy 1
+object multi_recorder {
+	file inverter_monthly_energies1.csv;
+	interval 15;
+	property solar_F1_tpm_rt_B0:monthly_energy, solar_F1_tpm_rt_C1:monthly_energy, solar_F1_tpm_rt_C2:monthly_energy, solar_F1_tpm_rt_B3:monthly_energy, solar_F1_tpm_rt_B4:monthly_energy, solar_F1_tpm_rt_A5:monthly_energy, solar_F1_tpm_rt_B6:monthly_energy, solar_F1_tpm_rt_B7:monthly_energy, solar_F1_tpm_rt_A8:monthly_energy, solar_F1_tpm_rt_A9:monthly_energy, solar_F1_tpm_rt_C10:monthly_energy, solar_F1_tpm_rt_A11:monthly_energy, solar_F1_tpm_rt_A12:monthly_energy, solar_F1_tpm_rt_A13:monthly_energy, solar_F1_tpm_rt_C14:monthly_energy;
+}
+
+// inverter monthly energy 2
+object multi_recorder {
+	file inverter_monthly_energies2.csv;
+	interval 15;
+	property solar_F1_tpm_rt_A15:monthly_energy, solar_F1_tpm_rt_A16:monthly_energy, solar_F1_tpm_rt_C17:monthly_energy, solar_F1_tpm_rt_C18:monthly_energy, solar_F1_tpm_rt_B19:monthly_energy, solar_F1_tpm_rt_B20:monthly_energy, solar_F1_tpm_rt_C21:monthly_energy, solar_F1_tpm_rt_B22:monthly_energy, solar_F1_tpm_rt_B23:monthly_energy, solar_F1_tpm_rt_B24:monthly_energy, solar_F1_tpm_rt_A25:monthly_energy, solar_F1_tpm_rt_A26:monthly_energy, solar_F1_tpm_rt_C27:monthly_energy, solar_F1_tpm_rt_A28:monthly_energy, solar_F1_tpm_rt_C29:monthly_energy;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//object multi_recorder {
+//  file hvac_loads.csv;
+//  interval 3;
+//  property network_node:distribution_load.real, F1_house_A5:hvac_load, F1_house_A8:hvac_load, F1_house_A9:hvac_load, F1_house_A11:hvac_load, F1_house_A12:hvac_load, F1_house_A13:hvac_load, F1_house_A15:hvac_load, F1_house_A16:hvac_load, F1_house_A25:hvac_load, F1_house_A26:hvac_load, F1_house_A28:hvac_load, F1_house_B0:hvac_load, F1_house_B3:hvac_load, F1_house_B4:hvac_load, F1_house_B6:hvac_load, F1_house_B7:hvac_load, F1_house_B19:hvac_load, F1_house_B20:hvac_load, F1_house_B22:hvac_load, F1_house_B23:hvac_load, F1_house_B24:hvac_load, F1_house_C1:hvac_load, F1_house_C2:hvac_load, F1_house_C10:hvac_load, F1_house_C14:hvac_load, F1_house_C17:hvac_load, F1_house_C18:hvac_load, F1_house_C21:hvac_load, F1_house_C27:hvac_load, F1_house_C29:hvac_load;
+//}
+
+
+//object recorder {
+//	parent F1_tpm_rt_C2;
+//	property bill_mode,monthly_fee,price,monthly_bill,monthly_energy,measured_real_power;
+//	interval 60.000000;
+//	file C2_bill.csv;
+//}
+

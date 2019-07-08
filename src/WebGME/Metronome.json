@@ -1,0 +1,149 @@
+{
+  "__OBJECTS__": {
+    "002ee978-ff30-4c17-9626-912380c8c8c7": {
+      "attributes": {
+        "EnableROAsynchronousDelivery": "true",
+        "FederateType": "1",
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Metronome"
+      },
+      "__FEDERATE_BASE__": "JavaFederate",
+      "federates": [],
+      "__FEDERATE_TYPE__": "directly deployable",
+      "parameters": [],
+      "inputs": [],
+      "outputs": [
+        {
+          "GUID": "125bd1b7-ab7f-4593-ad1d-5266c512e5a2"
+        }
+      ],
+      "objectinputs": [],
+      "objectoutputs": [],
+      "RegistryInfo": "",
+      "documentation": "No documentation exists yet.",
+      "repository": "No repository exists yet.",
+      "GUID": "002ee978-ff30-4c17-9626-912380c8c8c7"
+    },
+    "c8e4a59f-9427-4919-89bf-d462f51d0dd8": {
+      "attributes": {
+        "name": "SimulationControl",
+        "Order": "timestamp",
+        "LogLevel": "NORMAL",
+        "EnableLogging": "false",
+        "Delivery": "reliable"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "f1e2b320-4608-4f87-94fc-014aa93a1b48"
+      },
+      "parameters": [
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "c8e4a59f-9427-4919-89bf-d462f51d0dd8"
+    },
+    "125bd1b7-ab7f-4593-ad1d-5266c512e5a2": {
+      "attributes": {
+        "Delivery": "reliable",
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "Order": "receive",
+        "name": "SimTime"
+      },
+      "__INTERACTION_BASE__": {
+        "GUID": "c8e4a59f-9427-4919-89bf-d462f51d0dd8"
+      },
+      "parameters": [
+        {
+          "name": "originFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "sourceFed",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "federateFilter",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "ignoreUntil",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStart",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "unixTimeStop",
+          "ParameterType": "long",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeScale",
+          "ParameterType": "double",
+          "Hidden": "false"
+        },
+        {
+          "name": "timeZone",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualLogicalGenerationTime",
+          "ParameterType": "double",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "125bd1b7-ab7f-4593-ad1d-5266c512e5a2"
+    }
+  },
+  "__ROOT_OBJECT__": {
+    "GUID": "002ee978-ff30-4c17-9626-912380c8c8c7",
+    "name": "Metronome",
+    "version": "0.0.1",
+    "description": ""
+  },
+  "Federates": {
+    "002ee978-ff30-4c17-9626-912380c8c8c7": ""
+  },
+  "COAs": {},
+  "Experiments": {},
+  "Interactions": {
+    "c8e4a59f-9427-4919-89bf-d462f51d0dd8": "",
+    "125bd1b7-ab7f-4593-ad1d-5266c512e5a2": ""
+  },
+  "Objects": {},
+  "ObjectAttribute": {},
+  "Repositories": [],
+  "Builds": [],
+  "Executions": []
+}

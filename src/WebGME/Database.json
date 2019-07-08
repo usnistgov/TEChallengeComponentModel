@@ -1,0 +1,47 @@
+{
+  "__OBJECTS__": {
+    "f82dd8ca-e9f8-4b07-a7b7-1e6f77ffb3d0": {
+      "attributes": {
+        "EnableROAsynchronousDelivery": "true",
+        "FederateType": "1",
+        "GeneratorClass": "",
+        "InstantiationScript": "",
+        "Lookahead": "0.2",
+        "Meld": "false",
+        "Step": "1.0",
+        "TimeConstrained": "true",
+        "TimeRegulating": "true",
+        "name": "Database"
+      },
+      "__FEDERATE_BASE__": "JavaFederate",
+      "federates": [],
+      "__FEDERATE_TYPE__": "directly deployable",
+      "parameters": [],
+      "inputs": [],
+      "outputs": [],
+      "objectinputs": [],
+      "objectoutputs": [],
+      "RegistryInfo": "",
+      "documentation": "No documentation exists yet.",
+      "repository": "No repository exists yet.",
+      "GUID": "f82dd8ca-e9f8-4b07-a7b7-1e6f77ffb3d0"
+    }
+  },
+  "__ROOT_OBJECT__": {
+    "GUID": "f82dd8ca-e9f8-4b07-a7b7-1e6f77ffb3d0",
+    "name": "Database",
+    "version": "0.0.1",
+    "description": ""
+  },
+  "Federates": {
+    "f82dd8ca-e9f8-4b07-a7b7-1e6f77ffb3d0": ""
+  },
+  "COAs": {},
+  "Experiments": {},
+  "Interactions": {},
+  "Objects": {},
+  "ObjectAttribute": {},
+  "Repositories": [],
+  "Builds": [],
+  "Executions": []
+}

@@ -1,0 +1,107 @@
+{
+  "federateTypesAllowed": [
+    "Database",
+    "Generators",
+    "Grid",
+    "Loads",
+    "LocalController",
+    "Market",
+    "Metronome",
+    "Storage",
+    "SupervisoryController",
+    "TransactiveAgent",
+    "Weather"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Database",
+      "count": 1
+    },
+    {
+      "federateType": "Generators",
+      "count": 1
+    },
+    {
+      "federateType": "Grid",
+      "count": 1
+    },
+    {
+      "federateType": "Loads",
+      "count": 1
+    },
+    {
+      "federateType": "LocalController",
+      "count": 1
+    },
+    {
+      "federateType": "Market",
+      "count": 1
+    },
+    {
+      "federateType": "Metronome",
+      "count": 1
+    },
+    {
+      "federateType": "Storage",
+      "count": 1
+    },
+    {
+      "federateType": "SupervisoryController",
+      "count": 1
+    },
+    {
+      "federateType": "TransactiveAgent",
+      "count": 1
+    },
+    {
+      "federateType": "Weather",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Database",
+      "count": 0
+    },
+    {
+      "federateType": "Generators",
+      "count": 0
+    },
+    {
+      "federateType": "Grid",
+      "count": 0
+    },
+    {
+      "federateType": "Loads",
+      "count": 0
+    },
+    {
+      "federateType": "LocalController",
+      "count": 0
+    },
+    {
+      "federateType": "Market",
+      "count": 0
+    },
+    {
+      "federateType": "Metronome",
+      "count": 0
+    },
+    {
+      "federateType": "Storage",
+      "count": 0
+    },
+    {
+      "federateType": "SupervisoryController",
+      "count": 0
+    },
+    {
+      "federateType": "TransactiveAgent",
+      "count": 0
+    },
+    {
+      "federateType": "Weather",
+      "count": 0
+    }
+  ]
+}

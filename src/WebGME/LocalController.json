@@ -1,0 +1,386 @@
+{
+  "__OBJECTS__": {
+    "4b2f780f-d788-4388-8314-16d92495659b": {
+      "attributes": {
+        "name": "LocalController",
+        "TimeRegulating": "true",
+        "TimeConstrained": "true",
+        "Step": "1.0",
+        "Meld": "false",
+        "Lookahead": "0.2",
+        "InstantiationScript": "",
+        "GeneratorClass": "",
+        "FederateType": "1",
+        "EnableROAsynchronousDelivery": "true"
+      },
+      "__FEDERATE_BASE__": "JavaFederate",
+      "federates": [],
+      "__FEDERATE_TYPE__": "directly deployable",
+      "parameters": [],
+      "inputs": [],
+      "outputs": [],
+      "objectinputs": [
+        {
+          "GUID": "978d5908-2da4-415f-a879-a3c2ee40249a"
+        },
+        {
+          "GUID": "a510506e-9f7d-47e3-9721-5605983085dc"
+        }
+      ],
+      "objectoutputs": [
+        {
+          "GUID": "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49"
+        }
+      ],
+      "RegistryInfo": "",
+      "documentation": "No documentation exists yet.",
+      "repository": "No repository exists yet.",
+      "GUID": "4b2f780f-d788-4388-8314-16d92495659b"
+    },
+    "978d5908-2da4-415f-a879-a3c2ee40249a": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "ResourcesPhysicalStatus"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
+      },
+      "parameters": [
+        {
+          "name": "voltage_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "type",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "phases",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "name",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "gridNodeId",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "impedance_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "loadInstanceName",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "current_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "voltage_Imaginary_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_A",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Imaginary_B",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "power_Real_C",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "status",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "978d5908-2da4-415f-a879-a3c2ee40249a"
+    },
+    "a510506e-9f7d-47e3-9721-5605983085dc": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "SupervisoryControlSignal"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
+      },
+      "parameters": [
+        {
+          "name": "localControllerName",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "modulationSignal",
+          "ParameterType": "float",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "a510506e-9f7d-47e3-9721-5605983085dc"
+    },
+    "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49": {
+      "attributes": {
+        "EnableLogging": "false",
+        "LogLevel": "NORMAL",
+        "name": "ResourceControl"
+      },
+      "__OBJECT_BASE__": {
+        "GUID": "d8d8ee48-dc66-46a0-b405-cdfc3a7b902b"
+      },
+      "parameters": [
+        {
+          "name": "downRampToCompletion",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "adjustedNoDRPower",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "upDuration",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "realDesiredFractionOfFullRatedOutputEnd",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "activePowerCurve",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "upBeginRamp",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "upRampToCompletion",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        },
+        {
+          "name": "reactiveDesiredFractionOfFullRatedOutputEnd",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "maximumRealPower",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "upRate",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "downBeginRamp",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "downRate",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "downDuration",
+          "ParameterType": "int",
+          "Hidden": "false"
+        },
+        {
+          "name": "loadStatusType",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "Resources",
+          "ParameterType": "String",
+          "Hidden": "false"
+        },
+        {
+          "name": "actualDemand",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "adjustedFullDRPower",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "maximumReactivePower",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "reactiveDesiredFractionOfFullRatedOutputBegin",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "reactiveRequiredFractionOfFullRatedInputPowerDrawnBegin",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "reactiveRequiredFractionOfFullRatedInputPowerDrawnEnd",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "realDesiredFractionOfFullRatedOutputBegin",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "realRequiredFractionOfFullRatedInputPowerDrawnBegin",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "realRequiredFractionOfFullRatedInputPowerDrawnEnd",
+          "ParameterType": "float",
+          "Hidden": "false"
+        },
+        {
+          "name": "locked",
+          "ParameterType": "boolean",
+          "Hidden": "false"
+        }
+      ],
+      "GUID": "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49"
+    }
+  },
+  "__ROOT_OBJECT__": {
+    "GUID": "4b2f780f-d788-4388-8314-16d92495659b",
+    "name": "LocalController",
+    "version": "0.0.1",
+    "description": ""
+  },
+  "Federates": {
+    "4b2f780f-d788-4388-8314-16d92495659b": ""
+  },
+  "COAs": {},
+  "Experiments": {},
+  "Interactions": {},
+  "Objects": {
+    "978d5908-2da4-415f-a879-a3c2ee40249a": "",
+    "a510506e-9f7d-47e3-9721-5605983085dc": "",
+    "3a6150b3-eb3b-4aba-a00e-9f8ac1af7a49": ""
+  },
+  "ObjectAttribute": {},
+  "Repositories": [],
+  "Builds": [],
+  "Executions": []
+}

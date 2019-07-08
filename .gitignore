@@ -1,0 +1,31 @@
+# ignore these directories since they are built in compilation processes
+target/
+bin/
+logs/
+.classpath
+.settings/
+.DS_Store
+*.retry
+dependency-reduced-pom.xml
+*.*~
+Xterm.log.*
+*.log
+
+# we are using maven so .project should not be stored
+.project
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Configuration files
+RTI.rid
