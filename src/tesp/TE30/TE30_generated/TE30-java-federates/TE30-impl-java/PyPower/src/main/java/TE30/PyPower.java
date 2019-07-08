@@ -129,7 +129,7 @@ public class PyPower extends PyPowerBase {
         fncsBus = (ArrayList<List>) ppc.get("FNCS");
         
         int nloads = loads.size();
-        int tnext_opf = -1;
+        int tnext_opf = -1 * dt;
         
         /////////////////////////////////
         //TODO - create json output files (fncsPYPOWER_isolated.py, line 154):
@@ -332,7 +332,7 @@ public class PyPower extends PyPowerBase {
                 opf_gen = (ArrayList<List<Double>>) res.get("gen");
                 
                 lmp = opf_bus.get(6).get(13);// lmp for Auction
-                lmpObject.set_lmp(lmp);
+                lmpObject.set_lmp(0.001 * lmp); // publishing $/kwh
                 lmpObject.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 
                 resp = -1.0 * Double.valueOf(""+opf_gen.get(4).get(1));
@@ -605,6 +605,8 @@ public class PyPower extends PyPowerBase {
         float q = 0f;
         
         String tok = arg.replaceAll("j VA", "");
+        tok = tok.replaceAll("i VA", "");
+        tok = tok.replaceAll(" VA", "");
         boolean bLastDigit = false;
         boolean bParsed = false;
         List vals = new ArrayList(Arrays.asList(0.0f, 0.0f));
@@ -624,8 +626,8 @@ public class PyPower extends PyPowerBase {
         }
         if(tok.contains("d")){
             vals.set(1, ((float) vals.get(1))*(Math.PI/180.0));
-            p = ((float)vals.get(0)) * ((float) Math.cos(((float)vals.get(1))));
-            q = ((float)vals.get(0)) * ((float) Math.sin(((float)vals.get(1))));
+            p = ((float)vals.get(0)) * ((float) Math.cos(((Double) vals.get(1)).floatValue()));
+            q = ((float)vals.get(0)) * ((float) Math.sin(((Double) vals.get(1)).floatValue()));
         }else if(tok.contains("r")){
             p = ((float)vals.get(0)) * ((float) Math.cos(((float)vals.get(1))));
             q = ((float)vals.get(0)) * ((float) Math.sin(((float)vals.get(1))));    

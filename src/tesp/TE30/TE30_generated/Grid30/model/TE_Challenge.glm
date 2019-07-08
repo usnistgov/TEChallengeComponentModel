@@ -5,6 +5,12 @@
 #set savefile=test.xml
 #set minimum_timestep=15
 
+clock {
+	timezone PST+8PDT;
+	starttime '2013-07-01 00:00:00';
+	stoptime '2013-07-03 00:00:00';
+}
+
 module climate;
 module market;
 module powerflow {
@@ -957,7 +963,7 @@ object house {
 	number_of_doors 2;
 	air_temperature 68.735;
 	mass_temperature 68.735;
-	heating_setpoint heating7*0.978+1.33;
+	heating_setpoint heating6*0.961+1.26;
 object ZIPload {
 	schedule_skew 350;
 	heat_fraction 0.899;
@@ -5408,8 +5414,8 @@ object meter {
   meter_power_consumption 1+15j;
   nominal_voltage 480.000000;
   bill_mode UNIFORM;
-  price 0.1142;
-  monthly_fee 25;
+  price 0.11420;
+  monthly_fee 25.00;
   bill_day 1;
   object metrics_collector {
     interval 300;
@@ -5421,8 +5427,8 @@ object load {
   parent Eplus_meter;
   phases ABCN;
   nominal_voltage 480.000000;
-  constant_power_A 25000;
-  constant_power_B 25000;
-  constant_power_C 25000;
+  constant_power_A 25 kVA;
+  constant_power_B 25 kVA;
+  constant_power_C 25 kVA;
 }
 
