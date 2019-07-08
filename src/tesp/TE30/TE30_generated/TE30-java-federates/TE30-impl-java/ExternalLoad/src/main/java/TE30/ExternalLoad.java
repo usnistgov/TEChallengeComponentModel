@@ -93,6 +93,10 @@ public class ExternalLoad extends ExternalLoadBase {
         double delta = 0.0;
         double phaseWatts = 0.0;
         double totalWatts = 0.0;
+        int period = 300; //market clearing time
+        int dt = 15; //step time
+        int tnext_rec = period;
+        int tnext_send = period;
 
         // read-in values eplus_json subscribes to from the Auction and EPlus federates
         // that is done to bypass the fncs communication in order to isolate the 
@@ -164,8 +168,6 @@ public class ExternalLoad extends ExternalLoadBase {
                 }
             }
             
-            checkReceivedSubscriptions();
-            
             // this is price response
             delta = degF_per_price * (price - base_price);
             if (delta < -max_delta_lo){
@@ -177,19 +179,23 @@ public class ExternalLoad extends ExternalLoadBase {
             phaseWatts = totalWatts / 3.0;
             
             String bill_mode = "HOURLY";
-            double monthly_fee = 0.0;
+            double monthly_fee = 25.0;
             
-            meter.set_name("Eplus_meter");
-            meter.set_bill_mode(bill_mode);
-            meter.set_monthly_fee(monthly_fee);
-            meter.set_price(price);
-            meter.updateAttributeValues(getLRC(), currentTime + this.getLookAhead());
-            
-            load.set_name("Eplus_load");
-            load.set_constant_power_A(phaseWatts);
-            load.set_constant_power_B(phaseWatts);
-            load.set_constant_power_C(phaseWatts);
-            load.updateAttributeValues(getLRC(), currentTime + this.getLookAhead());
+            if(federateTime >= tnext_send){
+            	meter.set_name("Eplus_meter");
+                meter.set_bill_mode(bill_mode);
+                meter.set_monthly_fee(monthly_fee);
+                meter.set_price(price);
+                meter.updateAttributeValues(getLRC(), currentTime + this.getLookAhead());
+                
+                load.set_name("Eplus_load");
+                load.set_constant_power_A(phaseWatts);
+                load.set_constant_power_B(phaseWatts);
+                load.set_constant_power_C(phaseWatts);
+                load.updateAttributeValues(getLRC(), currentTime + this.getLookAhead());
+                
+                tnext_send += period;
+            }
             
             //fncs::publish ("cooling_setpoint_delta", to_string(delta));
             //fncs::publish ("heating_setpoint_delta", to_string(-delta));
@@ -205,6 +211,11 @@ public class ExternalLoad extends ExternalLoadBase {
                     ""+monthly_fee,         //monthly fee
                     ""+occupants});         //occupants
             op.flush();
+            
+            if(federateTime >= tnext_rec){
+            	checkReceivedSubscriptions();
+            	tnext_rec += period;
+            }
             
             if (currentTime >= lastLogicalTime) {
                 log.debug("reached last logical time step");

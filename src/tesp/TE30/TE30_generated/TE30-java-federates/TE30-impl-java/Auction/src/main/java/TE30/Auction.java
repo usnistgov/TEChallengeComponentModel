@@ -226,6 +226,15 @@ public class Auction extends AuctionBase {
             hour_of_day = dt_now.getHour();
             
             checkReceivedSubscriptions();
+
+            if(time_granted == 0){
+            	currentTime += super.getStepSize();
+                AdvanceTimeRequest newATR = new AdvanceTimeRequest(currentTime);
+                putAdvanceTimeRequest(newATR);
+                atr.requestSyncEnd();
+                atr = newATR;
+            	continue;
+            }
             
             // set the time-of-day schedule
             for(hvac value : hvacObjs.values()){
@@ -365,7 +374,8 @@ public class Auction extends AuctionBase {
         logicalTimeScale = interaction.get_timeScale();
         lastLogicalTime = unixTimeDuration / logicalTimeScale;
         
-        dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getDefault().toZoneId());
+        //dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getDefault().toZoneId());
+        dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone("America/Los_Angeles").toZoneId());
         
         log.debug("received SimTime");
         receivedSimTime = true;
@@ -433,6 +443,8 @@ public class Auction extends AuctionBase {
         int kpos = 0;
         
         String tok = arg.replaceAll("j VA", "");
+        tok = tok.replaceAll("i VA", "");
+        tok = tok.replaceAll(" VA", "");
         boolean bLastDigit = false;
         boolean bParsed = false;
         Double[] vals = new Double[2];

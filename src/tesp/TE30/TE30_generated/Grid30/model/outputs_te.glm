@@ -169,6 +169,18 @@ object multi_recorder {
 }
 
 object multi_recorder {
+  file heating_setpoints.csv;
+  interval 15;
+  property F1_house_A5:heating_setpoint, F1_house_A8:heating_setpoint, F1_house_A9:heating_setpoint, F1_house_A11:heating_setpoint, F1_house_A12:heating_setpoint, F1_house_A13:heating_setpoint, F1_house_A15:heating_setpoint, F1_house_A16:heating_setpoint, F1_house_A25:heating_setpoint, F1_house_A26:heating_setpoint, F1_house_A28:heating_setpoint, F1_house_B0:heating_setpoint, F1_house_B3:heating_setpoint, F1_house_B4:heating_setpoint, F1_house_B6:heating_setpoint, F1_house_B7:heating_setpoint, F1_house_B19:heating_setpoint, F1_house_B20:heating_setpoint, F1_house_B22:heating_setpoint, F1_house_B23:heating_setpoint, F1_house_B24:heating_setpoint, F1_house_C1:heating_setpoint, F1_house_C2:heating_setpoint, F1_house_C10:heating_setpoint, F1_house_C14:heating_setpoint, F1_house_C17:heating_setpoint, F1_house_C18:heating_setpoint, F1_house_C21:heating_setpoint, F1_house_C27:heating_setpoint, F1_house_C29:heating_setpoint;
+}
+
+object multi_recorder {
+  file thermostat_deadband.csv;
+  interval 15;
+  property F1_house_A5:thermostat_deadband, F1_house_A8:thermostat_deadband, F1_house_A9:thermostat_deadband, F1_house_A11:thermostat_deadband, F1_house_A12:thermostat_deadband, F1_house_A13:thermostat_deadband, F1_house_A15:thermostat_deadband, F1_house_A16:thermostat_deadband, F1_house_A25:thermostat_deadband, F1_house_A26:thermostat_deadband, F1_house_A28:thermostat_deadband, F1_house_B0:thermostat_deadband, F1_house_B3:thermostat_deadband, F1_house_B4:thermostat_deadband, F1_house_B6:thermostat_deadband, F1_house_B7:thermostat_deadband, F1_house_B19:thermostat_deadband, F1_house_B20:thermostat_deadband, F1_house_B22:thermostat_deadband, F1_house_B23:thermostat_deadband, F1_house_B24:thermostat_deadband, F1_house_C1:thermostat_deadband, F1_house_C2:thermostat_deadband, F1_house_C10:thermostat_deadband, F1_house_C14:thermostat_deadband, F1_house_C17:thermostat_deadband, F1_house_C18:thermostat_deadband, F1_house_C21:thermostat_deadband, F1_house_C27:thermostat_deadband, F1_house_C29:thermostat_deadband;
+}
+
+object multi_recorder {
   file air_temperatures.csv;
   interval 15;
   property F1_house_A5:air_temperature, F1_house_A8:air_temperature, F1_house_A9:air_temperature, F1_house_A11:air_temperature, F1_house_A12:air_temperature, F1_house_A13:air_temperature, F1_house_A15:air_temperature, F1_house_A16:air_temperature, F1_house_A25:air_temperature, F1_house_A26:air_temperature, F1_house_A28:air_temperature, F1_house_B0:air_temperature, F1_house_B3:air_temperature, F1_house_B4:air_temperature, F1_house_B6:air_temperature, F1_house_B7:air_temperature, F1_house_B19:air_temperature, F1_house_B20:air_temperature, F1_house_B22:air_temperature, F1_house_B23:air_temperature, F1_house_B24:air_temperature, F1_house_C1:air_temperature, F1_house_C2:air_temperature, F1_house_C10:air_temperature, F1_house_C14:air_temperature, F1_house_C17:air_temperature, F1_house_C18:air_temperature, F1_house_C21:air_temperature, F1_house_C27:air_temperature, F1_house_C29:air_temperature;
