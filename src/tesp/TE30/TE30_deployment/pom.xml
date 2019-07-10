@@ -16,32 +16,26 @@
 
 	<dependencies>
 		
-		<dependency><!-- The depenency for the generated code-->
-			<groupId>gov.nist.hla.te</groupId>
-			<artifactId>TE30-base-java</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-		
 		<dependency><!-- The depenency for the user written code-->
-			<groupId>gov.nist.hla.te</groupId>
+			<groupId>gov.nist.hla.te.auction</groupId>
 			<artifactId>Auction</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency><!-- The depenency for the user written code-->
-			<groupId>gov.nist.hla.te</groupId>
+			<groupId>gov.nist.hla.te.externalload</groupId>
 			<artifactId>ExternalLoad</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency><!-- The depenency for the user written code-->
-			<groupId>gov.nist.hla.te</groupId>
+			<groupId>gov.nist.hla.te.pypower</groupId>
 			<artifactId>PyPower</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency><!-- The depenency for the user written code-->
-			<groupId>gov.nist.hla.te</groupId>
+			<groupId>gov.nist.hla.te.simulationtime</groupId>
 			<artifactId>SimulationTime</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
@@ -242,6 +236,7 @@
             <id>Auction</id>
             <properties>
                 <federate.name>Auction</federate.name>
+                <federate.package>gov.nist.hla.te.auction</federate.package>
                 <federate.configFile>auction.json</federate.configFile>
             </properties>
         </profile>
@@ -249,6 +244,7 @@
             <id>ExternalLoad</id>
             <properties>
                 <federate.name>ExternalLoad</federate.name>
+                <federate.package>gov.nist.hla.te.externalload</federate.package>
                 <federate.configFile>externalload.json</federate.configFile>
             </properties>
         </profile>
@@ -256,6 +252,7 @@
             <id>Grid30</id>
             <properties>
                 <federate.name>Grid30</federate.name>
+                <federate.package>gov.nist.hla.te.grid30</federate.package>
                 <federate.configFile>grid30.json</federate.configFile>
             </properties>
         </profile>
@@ -263,6 +260,7 @@
             <id>PyPower</id>
             <properties>
                 <federate.name>PyPower</federate.name>
+                <federate.package>gov.nist.hla.te.pypower</federate.package>
                 <federate.configFile>pypower.json</federate.configFile>
             </properties>
         </profile>
@@ -270,6 +268,7 @@
             <id>SimulationTime</id>
             <properties>
                 <federate.name>SimulationTime</federate.name>
+                <federate.package>gov.nist.hla.te.simulationtime</federate.package>
                 <federate.configFile>simulationtime.json</federate.configFile>
             </properties>
         </profile>
@@ -344,7 +343,7 @@
                             </systemProperties>
 
                             <classpathScope>runtime</classpathScope>
-                            <mainClass>TE30.${federate.name}</mainClass>
+                            <mainClass>${federate.package}.${federate.name}</mainClass>
 							<arguments>
                                 <argument>-configFile</argument>
                                 <argument>conf/${experiment.name}/${federate.configFile}</argument>
