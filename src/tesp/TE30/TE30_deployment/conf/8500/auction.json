@@ -1,0 +1,9 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Auction",
+  "federationId": "TE30",
+  "isLateJoiner": false,
+  "lookAhead": "0.2",
+  "stepSize": "1.0",
+  "configFileName": "/TE_Challenge_agent_dict.json"
+}

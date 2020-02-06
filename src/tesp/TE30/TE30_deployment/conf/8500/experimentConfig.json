@@ -1,0 +1,53 @@
+{
+  "federateTypesAllowed": [
+    "Auction",
+    "ExternalLoad",
+    "Grid30",
+    "PyPower",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Auction",
+      "count": 1
+    },
+    {
+      "federateType": "ExternalLoad",
+      "count": 1
+    },
+    {
+      "federateType": "Grid30",
+      "count": 1
+    },
+    {
+      "federateType": "PyPower",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Auction",
+      "count": 0
+    },
+    {
+      "federateType": "ExternalLoad",
+      "count": 0
+    },
+    {
+      "federateType": "Grid30",
+      "count": 0
+    },
+    {
+      "federateType": "PyPower",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
