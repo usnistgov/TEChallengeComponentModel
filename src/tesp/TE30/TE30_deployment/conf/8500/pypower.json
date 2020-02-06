@@ -5,5 +5,5 @@
   "isLateJoiner": false,
   "lookAhead": "0.2",
   "stepSize": "1.0",
-  "configFileName": "/te30_pp.json"
+  "configFileName": "/te30_pp_8500.json"
 }

@@ -13,7 +13,7 @@
     },
     {
       "federateType": "ExternalLoad",
-      "count": 1
+      "count": 0
     },
     {
       "federateType": "Grid30",
@@ -21,7 +21,7 @@
     },
     {
       "federateType": "PyPower",
-      "count": 0
+      "count": 1
     },
     {
       "federateType": "SimulationTime",

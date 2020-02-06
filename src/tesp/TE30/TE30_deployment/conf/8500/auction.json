@@ -5,5 +5,5 @@
   "isLateJoiner": false,
   "lookAhead": "0.2",
   "stepSize": "1.0",
-  "configFileName": "/TE_Challenge_agent_dict.json"
+  "configFileName": "/IEEE_8500_agent_dict.json"
 }
