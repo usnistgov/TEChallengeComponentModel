@@ -4,5 +4,6 @@
   "federationId": "TE30",
   "isLateJoiner": false,
   "lookAhead": "0.2",
-  "stepSize": "1.0"
+  "stepSize": "1.0",
+  "configFileName": "/te30_pp.json"
 }

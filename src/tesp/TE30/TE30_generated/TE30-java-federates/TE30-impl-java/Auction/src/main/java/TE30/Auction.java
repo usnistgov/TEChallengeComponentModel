@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.opencsv.CSVWriter;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.utils.CpswtUtils;
@@ -31,11 +30,11 @@ import org.apache.logging.log4j.Logger;
  * The Auction type of federate for the federation designed in WebGME.
  *
  */
-public class Auction extends AuctionBase {
-    private final static String config = "/TE_Challenge_agent_dict.json";
-    
+public class Auction extends AuctionBase {    
     private final static Logger log = LogManager.getLogger();
 
+    private String config;
+    
     private double currentTime = 0;
     
     private boolean receivedSimTime = false;
@@ -58,8 +57,10 @@ public class Auction extends AuctionBase {
     
     private Map<String, Meter> meters = new HashMap<String, Meter>();
 
-    public Auction(FederateConfig params) throws Exception {
+    public Auction(AuctionConfig params) throws Exception {
         super(params);
+        
+        config = params.configFileName;
     }
 
     private void checkReceivedSubscriptions() {
@@ -495,7 +496,7 @@ public class Auction extends AuctionBase {
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
-            FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
+            AuctionConfig federateConfig = federateConfigParser.parseArgs(args, AuctionConfig.class);
             Auction federate = new Auction(federateConfig);
             federate.execute();
             log.info("Done.");

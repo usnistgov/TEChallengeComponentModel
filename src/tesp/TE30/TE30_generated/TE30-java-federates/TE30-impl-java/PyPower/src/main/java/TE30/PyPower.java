@@ -39,11 +39,11 @@ import org.apache.logging.log4j.Logger;
  * The PyPower type of federate for the federation designed in WebGME.
  *
  */
-public class PyPower extends PyPowerBase {
-    private final static String casefile = "/te30_pp.json";
-    
+public class PyPower extends PyPowerBase {    
     private final static Logger log = LogManager.getLogger();
 
+    private String casefile;
+    
     private double currentTime = 0;
     
     private boolean receivedSimTime = false;
@@ -74,9 +74,10 @@ public class PyPower extends PyPowerBase {
     
     private LMP lmpObject = new LMP();
 
-    public PyPower(FederateConfig params) throws Exception {
+    public PyPower(PyPowerConfig params) throws Exception {
         super(params);
         
+        casefile = params.configFileName;
         substation.registerObject(getLRC());
         lmpObject.registerObject(getLRC());
     }
@@ -865,7 +866,7 @@ public class PyPower extends PyPowerBase {
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
-            FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
+            PyPowerConfig federateConfig = federateConfigParser.parseArgs(args, PyPowerConfig.class);
             PyPower federate = new PyPower(federateConfig);
             federate.execute();
             log.info("Done.");
