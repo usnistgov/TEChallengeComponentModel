@@ -5,8 +5,8 @@
   "isLateJoiner": false,
   "lookAhead": "0.2",
   "stepSize": "1.0",
-  "unixTimeStart": 1372662000,
-  "unixTimeStop": 1372834800,
+  "unixTimeStart": 967791600,
+  "unixTimeStop": 967878000,
   "timeScale": 15.0,
   "timeZone": "US/MD/Baltimore"
 }
