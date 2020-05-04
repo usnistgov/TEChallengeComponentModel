@@ -37,6 +37,8 @@ public class Auction extends AuctionBase {
     
     private double currentTime = 0;
     
+    private boolean ieee8500NamingScheme; // toggle between TE30 and IEEE8500 naming conventions
+
     private boolean receivedSimTime = false;
     
     private double logicalTimeScale;
@@ -61,6 +63,7 @@ public class Auction extends AuctionBase {
         super(params);
         
         config = params.configFileName;
+        ieee8500NamingScheme = params.ieee8500;
     }
 
     private void checkReceivedSubscriptions() {
@@ -395,9 +398,16 @@ public class Auction extends AuctionBase {
         // this terrible code needs to be replaced; but it can't without a serious rewrite
         // the code in execute() needs this method to modify hvacObjs
         // to modify hvacObjs its necessary to generate this key
-        String name = object.get_name(); // F1_tpm_rt_ID
-        String id = name.substring(name.lastIndexOf("_")+1); // ID
-        String key = "F1_house_" + id + "_hvac";
+        String name = object.get_name();
+        
+        String key;
+        if (ieee8500NamingScheme) {
+            // IEEE8500 meter names are used as prefixes for the house names
+            key = name + "_house_hvac";
+        } else {
+            // TE30 meter names have the format F1_tpm_rt_ID; house names have the format F1_house_ID
+            key = "F1_house_" + name.substring(name.lastIndexOf("_")+1) + "_hvac";
+        }
         
         if(object.get_measured_voltage_1() == null || object.get_measured_voltage_1().isEmpty()) {
             log.trace("skipped {} - voltage not set", key);
