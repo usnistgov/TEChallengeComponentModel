@@ -2075,46 +2075,6 @@
                 </ucef:objectDetails>
             </objectClass>
             <objectClass>
-                <name>Load</name>
-                <sharing>Subscribe</sharing>
-                <attribute>
-                    <name>constant_power_A</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_B</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>constant_power_C</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
                 <name>Meter</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
@@ -4146,7 +4106,7 @@
             </objectClass>
             <objectClass>
                 <name>Substation</name>
-                <sharing>PublishSubscribe</sharing>
+                <sharing>Publish</sharing>
                 <attribute>
                     <name>distribution_load</name>
                     <dataType>String</dataType>
@@ -4161,16 +4121,7 @@
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>positive_sequence_voltage</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Subscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                 </attribute>
