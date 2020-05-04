@@ -79,10 +79,6 @@ cd $root_directory/TE30_deployment
 xterm -fg red -bg black -l -lf $logs_directory/simulation-time-${timestamp}.log -T "Simulation Time" -geometry 140x40+360+120 -e "mvn exec:java -Dexperiment.name=8500 -P ExecJava,SimulationTime" &
 waitUntilJoined SimulationTime 1
 
-cd $root_directory/TE30_deployment
-xterm -fg cyan -bg black -l -lf $logs_directory/pypower-${timestamp}.log -T "PyPower" -geometry 140x40+540+180 -e "mvn exec:java -Dexperiment.name=8500 -P ExecJava,PyPower" &
-waitUntilJoined PyPower 1
-
 cd $root_directory/TE30_generated/Grid30
 xterm -fg white -bg black -l -lf $logs_directory/gridlabd-${timestamp}.log -T "GridLAB-D" -geometry 140x40+720+240 -e "sh run8500.sh" &
 
