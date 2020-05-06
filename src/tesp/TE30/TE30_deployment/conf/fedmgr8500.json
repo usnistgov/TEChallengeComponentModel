@@ -1,7 +1,7 @@
 {
   "federateRTIInitWaitTimeMs": 200,
   "federateType": "FederationManager",
-  "federationId": "TE30",
+  "federationId": "IEEE8500",
   "isLateJoiner": true,
   "lookAhead": 0.1,
   "stepSize": 1,

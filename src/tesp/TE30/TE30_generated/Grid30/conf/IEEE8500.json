@@ -1,6 +1,6 @@
 {
     "federateName": "Grid30",
-    "federationId": "TE30",
+    "federationId": "IEEE8500",
     "fomFilepath": "conf/IEEE8500.xml",
     "maxReconnectAttempts": 12,
     "waitReconnectMs": 5000,
