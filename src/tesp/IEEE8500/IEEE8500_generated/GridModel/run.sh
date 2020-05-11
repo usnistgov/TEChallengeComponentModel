@@ -1,5 +1,5 @@
 #!/bin/bash
-configFile=conf/GridModel.json
+configFile=conf/IEEE8500.json
 if [ $# -eq 1 ] && [ -f $1 ]; then
     configFile=$1
 fi
