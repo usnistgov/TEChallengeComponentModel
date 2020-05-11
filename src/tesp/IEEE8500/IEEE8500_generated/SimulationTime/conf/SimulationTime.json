@@ -4,5 +4,9 @@
   "federationId": "IEEE8500",
   "isLateJoiner": false,
   "lookAhead": 0.2,
-  "stepSize": 1.0
+  "stepSize": 1.0,
+  "unixTimeStart": 1372662000,
+  "unixTimeStop": 1372834800,
+  "timeScale": 300.0,
+  "timeZone": "US/MD/Baltimore"
 }

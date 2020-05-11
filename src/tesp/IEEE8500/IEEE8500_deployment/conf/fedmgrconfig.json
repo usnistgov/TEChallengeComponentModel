@@ -10,7 +10,7 @@
   "controlEndpoint": "/fedmgr",
   "federatesEndpoint": "/federates",
   "federationEndTime": 0,
-  "realTimeMode": true,
+  "realTimeMode": false,
   "fedFile": "fom/IEEE8500.fed",
   "experimentConfig": "conf/default/experimentConfig.json"
 }
