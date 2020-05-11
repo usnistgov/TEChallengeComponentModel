@@ -21,6 +21,11 @@
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency><!-- The dependency for the user written code-->
+            <groupId>gov.nist.hla.te.filereader</groupId>
+            <artifactId>FileReader</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency><!-- The dependency for the user written code-->
             <groupId>gov.nist.hla.te.simulationtime</groupId>
             <artifactId>SimulationTime</artifactId>
             <version>0.1.0-SNAPSHOT</version>
@@ -157,6 +162,7 @@
                                     <echo message="Creating folder for the execution..." />
                                     
                                     <mkdir dir="${project.basedir}/target/Auction" />
+                                    <mkdir dir="${project.basedir}/target/FileReader" />
                                     <mkdir dir="${project.basedir}/target/GridModel" />
                                     <mkdir dir="${project.basedir}/target/SimulationTime" />
                                 </tasks>
@@ -217,6 +223,14 @@
                 <federate.name>Auction</federate.name>
                 <federate.config>auction.json</federate.config>
                 <federate.package>gov.nist.hla.te.auction</federate.package>
+            </properties>
+        </profile>
+        <profile>
+            <id>FileReader</id>
+            <properties>
+                <federate.name>FileReader</federate.name>
+                <federate.config>filereader.json</federate.config>
+                <federate.package>gov.nist.hla.te.filereader</federate.package>
             </properties>
         </profile>
         <profile>

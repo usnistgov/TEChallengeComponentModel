@@ -322,6 +322,14 @@
         (parameter unixTimeStop)
       )
       )
+      (class DataReceipt reliable timestamp
+        (parameter dataSent)
+        (parameter logicalTime)
+        (parameter uniqueId)
+      )
+      (class LMP reliable timestamp
+        (parameter value)
+      )
       )
     )
   )

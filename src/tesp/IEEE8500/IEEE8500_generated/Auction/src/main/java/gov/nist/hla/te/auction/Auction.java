@@ -45,6 +45,12 @@ public class Auction extends AuctionBase {
             if (interaction instanceof SimTime) {
                 handleInteractionClass((SimTime) interaction);
             }
+            else if (interaction instanceof DataReceipt) {
+                handleInteractionClass((DataReceipt) interaction);
+            }
+            else if (interaction instanceof LMP) {
+                handleInteractionClass((LMP) interaction);
+            }
             else {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
             }
@@ -57,11 +63,11 @@ public class Auction extends AuctionBase {
             if (object instanceof Substation) {
                 handleObjectClass((Substation) object);
             }
-            else if (object instanceof House) {
-                handleObjectClass((House) object);
-            }
             else if (object instanceof Meter) {
                 handleObjectClass((Meter) object);
+            }
+            else if (object instanceof House) {
+                handleObjectClass((House) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -154,19 +160,31 @@ public class Auction extends AuctionBase {
         ///////////////////////////////////////////////////////////////
     }
 
+    private void handleInteractionClass(DataReceipt interaction) {
+        ///////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction //
+        ///////////////////////////////////////////////////////////////
+    }
+
+    private void handleInteractionClass(LMP interaction) {
+        ///////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction //
+        ///////////////////////////////////////////////////////////////
+    }
+
     private void handleObjectClass(Substation object) {
         //////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object //
         //////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(House object) {
+    private void handleObjectClass(Meter object) {
         //////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object //
         //////////////////////////////////////////////////////////
     }
 
-    private void handleObjectClass(Meter object) {
+    private void handleObjectClass(House object) {
         //////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object //
         //////////////////////////////////////////////////////////

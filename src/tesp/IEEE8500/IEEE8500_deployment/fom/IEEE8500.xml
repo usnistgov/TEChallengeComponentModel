@@ -8,7 +8,7 @@
         <name>IEEE8500</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-04-06</modificationDate>
+        <modificationDate>2020-04-11</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -259,6 +259,34 @@
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
+                </interactionClass>
+                <interactionClass>
+                    <name>DataReceipt</name>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                    <parameter> 
+                        <name>dataSent</name>
+                        <dataType>int</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>logicalTime</name>
+                        <dataType>double</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>uniqueId</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                </interactionClass>
+                <interactionClass>
+                    <name>LMP</name>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                    <parameter> 
+                        <name>value</name>
+                        <dataType>double</dataType>
+                    </parameter>
                 </interactionClass>
             </interactionClass>
         </interactionClass>

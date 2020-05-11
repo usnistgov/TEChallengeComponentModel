@@ -31,6 +31,16 @@ public class AuctionBase extends SynchronizedFederate {
         enableAsynchronousDelivery();
 
         // interaction pubsub
+        DataReceipt.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           DataReceipt.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
+        LMP.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           LMP.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
         SimTime.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
            SimTime.get_handle(),
@@ -52,14 +62,6 @@ public class AuctionBase extends SynchronizedFederate {
         House.publish_power_state();
         House.publish_thermostat_deadband();
         House.publish(getLRC());
-        House.subscribe_air_temperature();
-        House.subscribe_cooling_setpoint();
-        House.subscribe_heating_setpoint();
-        House.subscribe_hvac_load();
-        House.subscribe_name();
-        House.subscribe_power_state();
-        House.subscribe_thermostat_deadband();
-        House.subscribe(getLRC());
         Meter.subscribe_bill_mode();
         Meter.subscribe_measured_voltage_1();
         Meter.subscribe_monthly_fee();
@@ -69,6 +71,14 @@ public class AuctionBase extends SynchronizedFederate {
         Substation.subscribe_distribution_load();
         Substation.subscribe_name();
         Substation.subscribe(getLRC());
+        House.subscribe_air_temperature();
+        House.subscribe_cooling_setpoint();
+        House.subscribe_heating_setpoint();
+        House.subscribe_hvac_load();
+        House.subscribe_name();
+        House.subscribe_power_state();
+        House.subscribe_thermostat_deadband();
+        House.subscribe(getLRC());
     }
 
 

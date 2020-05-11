@@ -87,12 +87,16 @@ cd $root_directory
 xterm -fg white -bg black -l -lf $logs_directory/Auction-${timestamp}.log -T "Auction" -geometry 140x40+30+60 -e "mvn exec:java -P ExecJava,Auction" &
 waitUntilJoined Auction 1
 
+cd $root_directory
+xterm -fg white -bg black -l -lf $logs_directory/FileReader-${timestamp}.log -T "FileReader" -geometry 140x40+60+90 -e "mvn exec:java -P ExecJava,FileReader" &
+waitUntilJoined FileReader 1
+
 cd $code_directory/GridModel
-xterm -fg white -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "GridModel" -geometry 140x40+60+90 -e "sh run.sh" &
+xterm -fg white -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "GridModel" -geometry 140x40+90+120 -e "sh run.sh" &
 waitUntilJoined GridModel 1
 
 cd $root_directory
-xterm -fg white -bg black -l -lf $logs_directory/SimulationTime-${timestamp}.log -T "SimulationTime" -geometry 140x40+90+120 -e "mvn exec:java -P ExecJava,SimulationTime" &
+xterm -fg white -bg black -l -lf $logs_directory/SimulationTime-${timestamp}.log -T "SimulationTime" -geometry 140x40+120+150 -e "mvn exec:java -P ExecJava,SimulationTime" &
 waitUntilJoined SimulationTime 1
 
 # terminate the simulation
