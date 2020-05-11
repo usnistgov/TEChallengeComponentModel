@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>gov.nist.hla</groupId>
-    <artifactId>file-reader</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>FileReader</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>gov.nist.hla</groupId>
@@ -41,7 +41,7 @@
                             <transformers>
                                 <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>gov.nist.hla.samples.challengeresponse.GatewayChallenger</mainClass>
+                                    <mainClass>gov.nist.hla.FileReader</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

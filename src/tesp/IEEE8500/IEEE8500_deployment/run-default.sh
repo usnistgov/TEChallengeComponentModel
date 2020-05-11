@@ -84,15 +84,15 @@ curl -o /dev/null -s -X POST http://$fedmgr_host:$fedmgr_port/fedmgr --data '{"a
 
 # run the other federates
 cd $root_directory
-xterm -fg white -bg black -l -lf $logs_directory/Auction-${timestamp}.log -T "Auction" -geometry 140x40+30+60 -e "mvn exec:java -P ExecJava,Auction" &
+xterm -fg yellow -bg black -l -lf $logs_directory/Auction-${timestamp}.log -T "Auction" -geometry 140x40+30+60 -e "mvn exec:java -P ExecJava,Auction" &
 waitUntilJoined Auction 1
 
-cd $root_directory
-xterm -fg white -bg black -l -lf $logs_directory/FileReader-${timestamp}.log -T "FileReader" -geometry 140x40+60+90 -e "mvn exec:java -P ExecJava,FileReader" &
+cd $code_directory/FileReader
+xterm -fg green -bg black -l -lf $logs_directory/FileReader-${timestamp}.log -T "FileReader" -geometry 140x40+60+90 -e "sh run.sh" &
 waitUntilJoined FileReader 1
 
 cd $code_directory/GridModel
-xterm -fg white -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "GridModel" -geometry 140x40+90+120 -e "sh run.sh" &
+xterm -fg cyan -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "GridModel" -geometry 140x40+90+120 -e "sh run.sh" &
 waitUntilJoined GridModel 1
 
 cd $root_directory

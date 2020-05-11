@@ -21,11 +21,6 @@
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency><!-- The dependency for the user written code-->
-            <groupId>gov.nist.hla.te.filereader</groupId>
-            <artifactId>FileReader</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency><!-- The dependency for the user written code-->
             <groupId>gov.nist.hla.te.simulationtime</groupId>
             <artifactId>SimulationTime</artifactId>
             <version>0.1.0-SNAPSHOT</version>
