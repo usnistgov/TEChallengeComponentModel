@@ -264,6 +264,11 @@ public class FileReader implements GatewayCallback {
     }
     
     private void sendInteraction(String interactionClass, Map<String, String> parameters) {
+        if (!parameters.containsKey("originFed")) {
+            // this probably needs to be done in a more sane way
+            parameters.put("originFed", configuration.getFederateName());
+        }
+        
         try {
             gateway.sendInteraction(interactionClass, parameters); // as RO
         } catch (InteractionClassNotPublished e) {
