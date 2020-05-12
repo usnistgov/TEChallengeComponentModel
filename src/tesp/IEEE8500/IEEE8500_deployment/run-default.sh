@@ -83,8 +83,8 @@ printf "\n"
 curl -o /dev/null -s -X POST http://$fedmgr_host:$fedmgr_port/fedmgr --data '{"action": "START"}' -H "Content-Type: application/json"
 
 # run the other federates
-cd $root_directory
-xterm -fg yellow -bg black -l -lf $logs_directory/Auction-${timestamp}.log -T "Auction" -geometry 140x40+30+60 -e "mvn exec:java -P ExecJava,Auction" &
+cd $code_directory/Auction
+xterm -fg yellow -bg black -l -lf $logs_directory/Auction-${timestamp}.log -T "Auction" -geometry 140x40+30+60 -e "sh run.sh" &
 waitUntilJoined Auction 1
 
 cd $code_directory/FileReader
