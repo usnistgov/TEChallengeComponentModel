@@ -85,3 +85,9 @@ use the FileReader federate to feed orders into the parity system
 implement a Java federate that monitors/outputs the trades
 
 !! the Session maintains the username / party identifier - this will need to be added to the messages
+
+required decisions:
+1) how should the timestamp be handled? we'll be running a historic market simulation so the current system time is meaningless. we also do not have a simulated clock (it goes in huge discrete steps) so this value seems largely meaningless
+2) what is the liquidity flag for and how should we be using it?
+
+it looks like `timestamp` is a reserved keyword (for timestamp order messages) and can't be used for parameter names...
