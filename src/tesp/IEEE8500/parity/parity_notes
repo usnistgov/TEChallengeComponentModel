@@ -1,0 +1,87 @@
+https://github.com/paritytrading/parity/tree/master/applications/system/src/main/java/com/paritytrading/parity/system
+
+1) create OrderBooks from its constructor
+2) create OrderEntry from the books
+    this doesn't do much; it stores the books and accepts client connections on a socket
+    Session is created from the client socket and the books
+    each buyer/seller maintains an active session into the market;
+    Session is a convenience class to enter orders into the market
+3) create and run Events from OrderEntry
+
+session maintains:
+    1) list of active orders (for reference when orders are canceled)
+    2) list of orderId (to prevent duplicate orders)
+    3) order books (to enter/cancel orders)
+
+session executes:
+    automate cancel of all orders on exit
+    sanity check messages received from client
+    transfer client orders / cancels to order books
+
+data maintained for active orders:
+    orderId
+    orderNumber
+    partyId
+    book
+
+order books (main code):
+    maps each instrument (key) to a unique order book (library class)
+    each order book is bound to the order books internal event handler
+
+    ENTER ORDER
+        get the order book for the desired instrument
+        sanity checks:
+            1) does the instrument exist
+            2) is the price >= 0
+            3) is the quantity > 0
+        if not sane then order rejected
+        send order accepted to client
+        enter order into book:
+            book.enter(seqno, side, price, quantity)
+
+    CANCEL ORDER
+        cancel order from book:
+            book.cancel(orderNumber, quantity)
+    
+    ADD (event) - what triggers this? book.enter?
+        only used for reporting purposes
+
+    CANCEL (event)
+        if cancel reason is request (from client)
+            send order cancelled to client
+
+    MATCH (event)
+        there is some black magic here with order of events
+        the RESTING ORDER seems to be one that was unsatisfied in the order book
+        the INCOMING ORDER seems to be the order the triggered the match (being served now; stored as handling)
+        i suppose the match method would be called in response to the enter order; and nothing else could be called between
+
+        send order executed to both parties; do some cleanup if the resting order has no more quantity left
+
+
+events uses a selector to maintain the following connections:
+    market data (READ)
+        serves market data
+    market reporting (READ)
+        serves market reporting
+    order entry (ACCEPT)
+        spawns the new Session
+http://tutorials.jenkov.com/java-nio/selectors.html
+
+market data and market reporting maintain a list of messages of market transactions
+if the market data or market reporting is connected - it will serve these queued messages
+    Market Data = Stock Ticker
+    Market Reporting = Trade Reporter
+
+cancel reason:
+    SYSTEM or REQUEST (server or client initiated)
+
+the matching algorithm:
+https://github.com/paritytrading/parity/blob/master/libraries/match/src/main/java/com/paritytrading/parity/match/OrderBook.java
+
+the plan:
+implement the parity system application as a UCEF Java Federate
+use the FileReader federate to feed orders into the parity system
+implement a Java federate that monitors/outputs the trades
+
+!! the Session maintains the username / party identifier - this will need to be added to the messages
