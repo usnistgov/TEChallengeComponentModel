@@ -1,11 +1,14 @@
 package gov.nist.hla.parity.paritysystem;
 
+import gov.nist.hla.parity.paritysystem.exception.DuplicateInstrumentName;
 import gov.nist.hla.parity.paritysystem.rti.*;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,9 +24,18 @@ public class ParitySystem extends ParitySystemBase {
     private final static Logger log = LogManager.getLogger();
 
     private double currentTime = 0;
+    
+    private Map<String, Instrument> instruments = new HashMap<String, Instrument>();
 
-    public ParitySystem(FederateConfig params) throws Exception {
+    public ParitySystem(ParitySystemConfig params) throws Exception {
         super(params);
+        
+        for (Instrument instrument : params.instruments) {
+            if (instruments.put(instrument.getInstrumentName(), instrument) != null) {
+                log.error("multiple instruments with the name {}", instrument.getInstrumentName());
+                throw new DuplicateInstrumentName(instrument.getInstrumentName());
+            }
+        }
     }
 
     private void checkReceivedSubscriptions() {
@@ -231,8 +243,8 @@ public class ParitySystem extends ParitySystemBase {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            ParitySystemConfig federateConfig =
+                federateConfigParser.parseArgs(args, ParitySystemConfig.class);
             ParitySystem federate =
                 new ParitySystem(federateConfig);
             federate.execute();
