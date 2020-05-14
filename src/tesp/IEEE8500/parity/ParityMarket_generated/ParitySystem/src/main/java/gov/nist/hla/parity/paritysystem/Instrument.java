@@ -3,14 +3,7 @@ package gov.nist.hla.parity.paritysystem;
 import java.beans.ConstructorProperties;
 import java.util.Objects;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class Instrument {
-    private final static Logger log = LogManager.getLogger();
-    
-    private final int PARITY_INSTRUMENT_LENGTH = 8;
-    
     private final String instrumentName;
     
     private final int priceFractionalPrecision;
@@ -19,12 +12,7 @@ public class Instrument {
     
     @ConstructorProperties({"instrumentName","priceFractionalPrecision","quantityFractionalPrecision"})
     public Instrument(String instrumentName, int priceFractionalPrecision, int quantityFractionalPrecision) {
-        String truncatedName = instrumentName;
-        if (instrumentName.length() > PARITY_INSTRUMENT_LENGTH) {
-            log.warn("instrument name {} is more than {} characters and will be truncated", instrumentName, PARITY_INSTRUMENT_LENGTH);
-            truncatedName = instrumentName.substring(0, PARITY_INSTRUMENT_LENGTH);
-        }
-        this.instrumentName = truncatedName;
+        this.instrumentName = DataConversion.parseInstrumentName(instrumentName);
         this.priceFractionalPrecision = priceFractionalPrecision;
         this.quantityFractionalPrecision = quantityFractionalPrecision;
     }
