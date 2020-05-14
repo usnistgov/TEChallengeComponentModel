@@ -8,7 +8,7 @@
         <name>MarketReporting</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-04-13</modificationDate>
+        <modificationDate>2020-04-14</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
@@ -17,7 +17,7 @@
         </description>
         <poc>
             <pocType>Primary author</pocType>
-            <pocOrg>gov.nist.hla.te.parity</pocOrg>
+            <pocOrg>gov.nist.hla.parity</pocOrg>
         </poc>
     </modelIdentification>
     <interactions>
@@ -101,8 +101,8 @@
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                     <parameter> 
-                        <name>timeStamp</name>
-                        <dataType>long</dataType>
+                        <name>messageType</name>
+                        <dataType>char</dataType>
                     </parameter>
                     <interactionClass>
                         <name>OrderAdded</name>
@@ -111,6 +111,10 @@
                         <order>TimeStamp</order>
                         <parameter> 
                             <name>orderNumber</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
@@ -125,6 +129,10 @@
                         </parameter>
                         <parameter> 
                             <name>orderNumber</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
@@ -154,7 +162,11 @@
                             <dataType>char</dataType>
                         </parameter>
                         <parameter> 
-                            <name>username</name>
+                            <name>timeStamp</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>userName</name>
                             <dataType>String</dataType>
                         </parameter>
                     </interactionClass>
@@ -169,7 +181,7 @@
                         </parameter>
                         <parameter> 
                             <name>matchNumber</name>
-                            <dataType>long</dataType>
+                            <dataType>int</dataType>
                         </parameter>
                         <parameter> 
                             <name>quantity</name>
@@ -178,6 +190,20 @@
                         <parameter> 
                             <name>restingOrderNumber</name>
                             <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                    </interactionClass>
+                    <interactionClass>
+                        <name>Version</name>
+                        <sharing>Subscribe</sharing>
+                        <transportation>HLAreliable</transportation>
+                        <order>TimeStamp</order>
+                        <parameter> 
+                            <name>version</name>
+                            <dataType>int</dataType>
                         </parameter>
                     </interactionClass>
                 </interactionClass>

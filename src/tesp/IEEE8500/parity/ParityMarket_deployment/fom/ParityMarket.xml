@@ -8,7 +8,7 @@
         <name>ParityMarket</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-04-13</modificationDate>
+        <modificationDate>2020-04-14</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -16,7 +16,7 @@
         </description>
         <poc>
             <pocType>Primary author</pocType>
-            <pocOrg>gov.nist.hla.te.parity</pocOrg>
+            <pocOrg>gov.nist.hla.parity</pocOrg>
         </poc>
     </modelIdentification>
     <interactions>
@@ -100,8 +100,8 @@
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                     <parameter> 
-                        <name>timeStamp</name>
-                        <dataType>long</dataType>
+                        <name>messageType</name>
+                        <dataType>char</dataType>
                     </parameter>
                     <interactionClass>
                         <name>OrderAdded</name>
@@ -110,6 +110,10 @@
                         <order>TimeStamp</order>
                         <parameter> 
                             <name>orderNumber</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
@@ -124,6 +128,10 @@
                         </parameter>
                         <parameter> 
                             <name>orderNumber</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
@@ -153,7 +161,11 @@
                             <dataType>char</dataType>
                         </parameter>
                         <parameter> 
-                            <name>username</name>
+                            <name>timeStamp</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>userName</name>
                             <dataType>String</dataType>
                         </parameter>
                     </interactionClass>
@@ -168,7 +180,7 @@
                         </parameter>
                         <parameter> 
                             <name>matchNumber</name>
-                            <dataType>long</dataType>
+                            <dataType>int</dataType>
                         </parameter>
                         <parameter> 
                             <name>quantity</name>
@@ -178,6 +190,20 @@
                             <name>restingOrderNumber</name>
                             <dataType>long</dataType>
                         </parameter>
+                        <parameter> 
+                            <name>timeStamp</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                    </interactionClass>
+                    <interactionClass>
+                        <name>Version</name>
+                        <sharing>PublishSubscribe</sharing>
+                        <transportation>HLAreliable</transportation>
+                        <order>TimeStamp</order>
+                        <parameter> 
+                            <name>version</name>
+                            <dataType>int</dataType>
+                        </parameter>
                     </interactionClass>
                 </interactionClass>
                 <interactionClass>
@@ -186,7 +212,15 @@
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                     <parameter> 
-                        <name>username</name>
+                        <name>messageType</name>
+                        <dataType>char</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>orderId</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>userName</name>
                         <dataType>String</dataType>
                     </parameter>
                     <interactionClass>
@@ -194,10 +228,6 @@
                         <sharing>PublishSubscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>TimeStamp</order>
-                        <parameter> 
-                            <name>orderId</name>
-                            <dataType>String</dataType>
-                        </parameter>
                         <parameter> 
                             <name>quantity</name>
                             <dataType>long</dataType>
@@ -210,10 +240,6 @@
                         <order>TimeStamp</order>
                         <parameter> 
                             <name>instrument</name>
-                            <dataType>String</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>orderId</name>
                             <dataType>String</dataType>
                         </parameter>
                         <parameter> 
@@ -236,10 +262,6 @@
                         <order>TimeStamp</order>
                         <parameter> 
                             <name>instrument</name>
-                            <dataType>String</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>orderId</name>
                             <dataType>String</dataType>
                         </parameter>
                         <parameter> 
@@ -273,10 +295,6 @@
                             <dataType>long</dataType>
                         </parameter>
                         <parameter> 
-                            <name>orderId</name>
-                            <dataType>String</dataType>
-                        </parameter>
-                        <parameter> 
                             <name>reason</name>
                             <dataType>char</dataType>
                         </parameter>
@@ -296,11 +314,7 @@
                         </parameter>
                         <parameter> 
                             <name>matchNumber</name>
-                            <dataType>long</dataType>
-                        </parameter>
-                        <parameter> 
-                            <name>orderId</name>
-                            <dataType>String</dataType>
+                            <dataType>int</dataType>
                         </parameter>
                         <parameter> 
                             <name>price</name>
@@ -320,10 +334,6 @@
                         <sharing>PublishSubscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>TimeStamp</order>
-                        <parameter> 
-                            <name>orderId</name>
-                            <dataType>String</dataType>
-                        </parameter>
                         <parameter> 
                             <name>reason</name>
                             <dataType>char</dataType>

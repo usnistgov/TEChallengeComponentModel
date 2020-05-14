@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>gov.nist.hla.te.parity</groupId>
+    <groupId>gov.nist.hla.parity</groupId>
     <artifactId>ParityMarket_exec</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -16,17 +16,17 @@
 
     <dependencies>
         <dependency><!-- The dependency for the user written code-->
-            <groupId>gov.nist.hla.te.parity.marketreporting</groupId>
+            <groupId>gov.nist.hla.parity.marketreporting</groupId>
             <artifactId>MarketReporting</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency><!-- The dependency for the user written code-->
-            <groupId>gov.nist.hla.te.parity.parityclient</groupId>
+            <groupId>gov.nist.hla.parity.parityclient</groupId>
             <artifactId>ParityClient</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
         <dependency><!-- The dependency for the user written code-->
-            <groupId>gov.nist.hla.te.parity.paritysystem</groupId>
+            <groupId>gov.nist.hla.parity.paritysystem</groupId>
             <artifactId>ParitySystem</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
@@ -221,7 +221,7 @@
             <properties>
                 <federate.name>MarketReporting</federate.name>
                 <federate.config>marketreporting.json</federate.config>
-                <federate.package>gov.nist.hla.te.parity.marketreporting</federate.package>
+                <federate.package>gov.nist.hla.parity.marketreporting</federate.package>
             </properties>
         </profile>
         <profile>
@@ -229,7 +229,7 @@
             <properties>
                 <federate.name>ParityClient</federate.name>
                 <federate.config>parityclient.json</federate.config>
-                <federate.package>gov.nist.hla.te.parity.parityclient</federate.package>
+                <federate.package>gov.nist.hla.parity.parityclient</federate.package>
             </properties>
         </profile>
         <profile>
@@ -237,7 +237,7 @@
             <properties>
                 <federate.name>ParitySystem</federate.name>
                 <federate.config>paritysystem.json</federate.config>
-                <federate.package>gov.nist.hla.te.parity.paritysystem</federate.package>
+                <federate.package>gov.nist.hla.parity.paritysystem</federate.package>
             </properties>
         </profile>
         <profile>

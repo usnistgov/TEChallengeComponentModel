@@ -297,13 +297,15 @@
       )
       )
       (class ParityReporting reliable timestamp
-        (parameter timeStamp)
+        (parameter messageType)
       (class OrderAdded reliable timestamp
         (parameter orderNumber)
+        (parameter timeStamp)
       )
       (class OrderCanceled reliable timestamp
         (parameter canceledQuantity)
         (parameter orderNumber)
+        (parameter timeStamp)
       )
       (class OrderEntered reliable timestamp
         (parameter instrument)
@@ -311,31 +313,35 @@
         (parameter price)
         (parameter quantity)
         (parameter side)
-        (parameter username)
+        (parameter timeStamp)
+        (parameter userName)
       )
       (class Trade reliable timestamp
         (parameter incomingOrderNumber)
         (parameter matchNumber)
         (parameter quantity)
         (parameter restingOrderNumber)
+        (parameter timeStamp)
+      )
+      (class Version reliable timestamp
+        (parameter version)
       )
       )
       (class ParitySystem reliable timestamp
-        (parameter username)
-      (class CancelOrder reliable timestamp
+        (parameter messageType)
         (parameter orderId)
+        (parameter userName)
+      (class CancelOrder reliable timestamp
         (parameter quantity)
       )
       (class EnterOrder reliable timestamp
         (parameter instrument)
-        (parameter orderId)
         (parameter price)
         (parameter quantity)
         (parameter side)
       )
       (class OrderAccepted reliable timestamp
         (parameter instrument)
-        (parameter orderId)
         (parameter orderNumber)
         (parameter price)
         (parameter quantity)
@@ -344,20 +350,17 @@
       )
       (class OrderCanceled reliable timestamp
         (parameter canceledQuantity)
-        (parameter orderId)
         (parameter reason)
         (parameter timeStamp)
       )
       (class OrderExecuted reliable timestamp
         (parameter liquidityFlag)
         (parameter matchNumber)
-        (parameter orderId)
         (parameter price)
         (parameter quantity)
         (parameter timeStamp)
       )
       (class OrderRejected reliable timestamp
-        (parameter orderId)
         (parameter reason)
         (parameter timeStamp)
       )
