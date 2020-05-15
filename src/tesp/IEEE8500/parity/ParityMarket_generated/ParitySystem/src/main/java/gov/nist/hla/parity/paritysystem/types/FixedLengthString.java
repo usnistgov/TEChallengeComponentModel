@@ -7,12 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 // required for parity which uses fixed-length buffers
 public class FixedLengthString {
-    public final static int INSTRUMENT_NAME_LENGTH = 8;
-    
-    public final static int USER_NAME_LENGTH = 8;
-    
-    public final static int ORDER_ID_LENGTH = 16;
-    
     private final static Logger log = LogManager.getLogger();
     
     private final String value;

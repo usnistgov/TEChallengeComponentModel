@@ -3,31 +3,31 @@ package gov.nist.hla.parity.paritysystem.types;
 import java.util.Objects;
 
 public class Order {
-    private final FixedLengthString userName;
+    private final UserName userName;
     
-    private final FixedLengthString orderId;
+    private final OrderId orderId;
     
-    private final FixedLengthString instrumentName;
+    private final InstrumentName instrumentName;
 
     private final long orderNumber;
     
-    public Order(String userName, String orderId, String instrumentName, long orderNumber) {
-        this.userName = new FixedLengthString(instrumentName, FixedLengthString.USER_NAME_LENGTH);
-        this.orderId = new FixedLengthString(instrumentName, FixedLengthString.ORDER_ID_LENGTH);
-        this.instrumentName = new FixedLengthString(instrumentName, FixedLengthString.INSTRUMENT_NAME_LENGTH);
+    public Order(UserName userName, OrderId orderId, InstrumentName instrumentName, long orderNumber) {
+        this.userName = userName;
+        this.orderId = orderId;
+        this.instrumentName = instrumentName;
         this.orderNumber = orderNumber;
     }
     
-    public String getUserName() {
-        return userName.getValue();
+    public UserName getUserName() {
+        return userName;
     }
     
-    public String getOrderId() {
-        return orderId.getValue();
+    public OrderId getOrderId() {
+        return orderId;
     }
     
-    public String getInstrumentName() {
-        return instrumentName.getValue();
+    public InstrumentName getInstrumentName() {
+        return instrumentName;
     }
     
     public long getOrderNumber() {

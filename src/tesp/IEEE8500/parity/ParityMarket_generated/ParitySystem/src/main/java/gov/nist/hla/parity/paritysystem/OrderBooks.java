@@ -15,21 +15,26 @@ import gov.nist.hla.parity.paritysystem.exception.DuplicateIdentifier;
 import gov.nist.hla.parity.paritysystem.rti.CancelOrder;
 import gov.nist.hla.parity.paritysystem.rti.EnterOrder;
 import gov.nist.hla.parity.paritysystem.types.Instrument;
+import gov.nist.hla.parity.paritysystem.types.InstrumentName;
+import gov.nist.hla.parity.paritysystem.types.Party;
+import gov.nist.hla.parity.paritysystem.types.UserName;
 
 public class OrderBooks implements OrderBookListener {
     private final static Logger log = LogManager.getLogger();
 
-    private Map<String, Instrument> instruments = new HashMap<String, Instrument>();
+    private Map<InstrumentName, Instrument> instruments = new HashMap<InstrumentName, Instrument>();
 
-    private Map<String, OrderBook> books = new HashMap<String, OrderBook>();
+    private Map<InstrumentName, OrderBook> books = new HashMap<InstrumentName, OrderBook>();
+    
+    private Map<UserName, Party> clients = new HashMap<UserName, Party>();
 
     public OrderBooks(List<Instrument> instruments) {
         for (Instrument instrument : instruments) {
-            final String instrumentName = instrument.getInstrumentName();
+            final InstrumentName instrumentName = instrument.getInstrumentName();
             
             if (this.instruments.put(instrumentName, instrument) != null) {
                 log.error("multiple instruments with the name {}", instrumentName);
-                throw new DuplicateIdentifier(instrumentName);
+                throw new DuplicateIdentifier(instrumentName.getValue());
             }
             log.info("new instrument {}", instrument.toString());
             
@@ -39,9 +44,16 @@ public class OrderBooks implements OrderBookListener {
     }
     
     void enterOrder(EnterOrder message) {
+        // check username not empty
+        // check not duplicate order
+        // check for instrument
+        // check for valid price
+        // check for valid quantity
     }
     
     void cancelOrder(CancelOrder message) {
+        // check username not empty
+        // check order exists
     }
     
     @Override
