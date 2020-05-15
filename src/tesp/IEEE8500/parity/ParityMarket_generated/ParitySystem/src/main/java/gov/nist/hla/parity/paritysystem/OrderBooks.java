@@ -11,9 +11,10 @@ import com.paritytrading.parity.match.OrderBook;
 import com.paritytrading.parity.match.OrderBookListener;
 import com.paritytrading.parity.match.Side;
 
-import gov.nist.hla.parity.paritysystem.exception.DuplicateInstrumentName;
+import gov.nist.hla.parity.paritysystem.exception.DuplicateIdentifier;
 import gov.nist.hla.parity.paritysystem.rti.CancelOrder;
 import gov.nist.hla.parity.paritysystem.rti.EnterOrder;
+import gov.nist.hla.parity.paritysystem.types.Instrument;
 
 public class OrderBooks implements OrderBookListener {
     private final static Logger log = LogManager.getLogger();
@@ -28,7 +29,7 @@ public class OrderBooks implements OrderBookListener {
             
             if (this.instruments.put(instrumentName, instrument) != null) {
                 log.error("multiple instruments with the name {}", instrumentName);
-                throw new DuplicateInstrumentName(instrumentName);
+                throw new DuplicateIdentifier(instrumentName);
             }
             log.info("new instrument {}", instrument.toString());
             

@@ -1,33 +1,33 @@
-package gov.nist.hla.parity.paritysystem;
+package gov.nist.hla.parity.paritysystem.types;
 
 import java.util.Objects;
 
 public class Order {
-    private final String userName;
+    private final FixedLengthString userName;
     
-    private final String orderId;
+    private final FixedLengthString orderId;
     
-    private final String instrumentName;
+    private final FixedLengthString instrumentName;
 
     private final long orderNumber;
     
     public Order(String userName, String orderId, String instrumentName, long orderNumber) {
-        this.userName = DataConversion.parseUserName(userName);
-        this.orderId = DataConversion.parseOrderId(orderId);
-        this.instrumentName = DataConversion.parseInstrumentName(instrumentName);
+        this.userName = new FixedLengthString(instrumentName, FixedLengthString.USER_NAME_LENGTH);
+        this.orderId = new FixedLengthString(instrumentName, FixedLengthString.ORDER_ID_LENGTH);
+        this.instrumentName = new FixedLengthString(instrumentName, FixedLengthString.INSTRUMENT_NAME_LENGTH);
         this.orderNumber = orderNumber;
     }
     
     public String getUserName() {
-        return userName;
+        return userName.getValue();
     }
     
     public String getOrderId() {
-        return orderId;
+        return orderId.getValue();
     }
     
     public String getInstrumentName() {
-        return instrumentName;
+        return instrumentName.getValue();
     }
     
     public long getOrderNumber() {

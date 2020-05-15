@@ -1,10 +1,10 @@
-package gov.nist.hla.parity.paritysystem;
+package gov.nist.hla.parity.paritysystem.types;
 
 import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class Instrument {
-    private final String instrumentName;
+    private final FixedLengthString instrumentName;
     
     private final int priceFractionalPrecision;
     
@@ -12,13 +12,13 @@ public class Instrument {
     
     @ConstructorProperties({"instrumentName","priceFractionalPrecision","quantityFractionalPrecision"})
     public Instrument(String instrumentName, int priceFractionalPrecision, int quantityFractionalPrecision) {
-        this.instrumentName = DataConversion.parseInstrumentName(instrumentName);
+        this.instrumentName = new FixedLengthString(instrumentName, FixedLengthString.INSTRUMENT_NAME_LENGTH);
         this.priceFractionalPrecision = priceFractionalPrecision;
         this.quantityFractionalPrecision = quantityFractionalPrecision;
     }
     
     public String getInstrumentName() {
-        return instrumentName;
+        return instrumentName.getValue();
     }
     
     public int getPriceFractionalPrecision() {

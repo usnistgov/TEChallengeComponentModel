@@ -1,7 +1,7 @@
 package gov.nist.hla.parity.paritysystem.exception;
 
-public class DuplicateInstrumentName extends RuntimeException {
-    public DuplicateInstrumentName(String instrumentName) {
+public class DuplicateIdentifier extends RuntimeException {
+    public DuplicateIdentifier(String instrumentName) {
         super(instrumentName);
     }
 }
