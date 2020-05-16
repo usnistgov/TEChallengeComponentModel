@@ -19,7 +19,7 @@ public class ParitySystem extends ParitySystemBase {
     
     public ParitySystem(ParitySystemConfig params) throws Exception {
         super(params);
-        parity = new OrderBooks(params.instruments);
+        parity = new OrderBooks(params.instruments, this);
     }
 
     private void checkReceivedSubscriptions() {
