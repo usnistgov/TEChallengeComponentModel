@@ -8,12 +8,12 @@ import gov.nist.hla.gateway.exception.ValueNotSet;
 public class ClientConfiguration extends GatewayFederateConfig {
     private int portNumber = 1345;
     
+    private int waitTimeMs = 1000;
+    
     private int numberOfHouses = -1;
     
-    private ArrayList<String> inputFormat = null;
-    private ArrayList<String> outputFormat = null;
-    
-    private double defaultValue = 0.0;
+    private ArrayList<String> sendFormat = null;
+    private ArrayList<String> receiveFormat = null;
     
     public void setPortNumber(int portNumber) {
         if (portNumber < 0 || portNumber > 65535) {
@@ -24,6 +24,17 @@ public class ClientConfiguration extends GatewayFederateConfig {
     
     public int getPortNumber() {
         return portNumber;
+    }
+    
+    public void setWaitTimeMs(int ms) {
+        if (ms <= 0) {
+            throw new IllegalArgumentException("invalid wait time " + ms);
+        }
+        this.waitTimeMs = ms;
+    }
+    
+    public int getWaitTimeMs() {
+        return waitTimeMs;
     }
     
     public void setNumberOfHouses(int count) {
@@ -37,39 +48,31 @@ public class ClientConfiguration extends GatewayFederateConfig {
         return numberOfHouses;
     }
     
-    public void setInputFormat(ArrayList<String> format) { // what happens if length 0 ?
+    public void setSendFormat(ArrayList<String> format) { // what happens if length 0 ?
         if (format == null) {
-            throw new IllegalArgumentException("inputFormat cannot be null");
+            throw new IllegalArgumentException("SendFormat cannot be null");
         }
-        this.inputFormat = new ArrayList<String>(format);
+        this.sendFormat = new ArrayList<String>(format);
     }
     
-    public ArrayList<String> getInputFormat() {
-        if (inputFormat == null) {
-            throw new ValueNotSet("inputFormat");
+    public ArrayList<String> getSendFormat() {
+        if (sendFormat == null) {
+            throw new ValueNotSet("SendFormat");
         }
-        return inputFormat;
+        return sendFormat;
     }
     
-    public void setOutputFormat(ArrayList<String> format) { // what happens if length 0 ?
+    public void setReceiveFormat(ArrayList<String> format) { // what happens if length 0 ?
         if (format == null) {
-            throw new IllegalArgumentException("outputFormat cannot be null");
+            throw new IllegalArgumentException("ReceiveFormat cannot be null");
         }
-        this.outputFormat = new ArrayList<String>(format);
+        this.receiveFormat = new ArrayList<String>(format);
     }
     
-    public ArrayList<String> getOutputFormat() {
-        if (outputFormat == null) {
-            throw new ValueNotSet("outputFormat");
+    public ArrayList<String> getReceiveFormat() {
+        if (receiveFormat == null) {
+            throw new ValueNotSet("ReceiveFormat");
         }
-        return outputFormat;
-    }
-    
-    public void setDefaultValue(double value) {
-        this.defaultValue = value;
-    }
-    
-    public double getDefaultValue() {
-        return defaultValue;
+        return receiveFormat;
     }
 }
