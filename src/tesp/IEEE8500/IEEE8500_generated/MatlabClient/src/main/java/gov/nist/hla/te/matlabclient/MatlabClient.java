@@ -15,7 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gov.nist.hla.gateway.GatewayCallback;
 import gov.nist.hla.gateway.GatewayFederate;
+import gov.nist.hla.te.matlabclient.exception.ConfigurationException;
 import gov.nist.hla.te.matlabclient.exception.DuplicateKeyException;
+import gov.nist.hla.te.matlabclient.exception.ObjectModelException;
 import hla.rti.AttributeNotOwned;
 import hla.rti.FederateNotExecutionMember;
 import hla.rti.InvalidFederationTime;
@@ -42,7 +44,7 @@ public class MatlabClient implements GatewayCallback {
     
     Map<String, Integer> houseNameToHandle = new HashMap<String, Integer>();
     
-    private Map<String, Map<String, String>> houseToInstanceData = new HashMap<String, Map<String, String>>();
+    private Map<String, String> registeredObjectNames = new HashMap<String, String>();
     
     public static void main(String[] args)
             throws IOException {
@@ -95,50 +97,7 @@ public class MatlabClient implements GatewayCallback {
             return; // is there a better way to handle this?
         }
         
-        // fix this glorious mess
-        for (Map.Entry<String, Integer> houseEntry : houseNameToHandle.entrySet()) {
-            Map<String, Map<String, String>> classToParameters = new HashMap<String, Map<String, String>>();
-            
-            int startingIndex = houseEntry.getValue() * configuration.getReceiveFormat().size();
-            
-            for (String element : configuration.getReceiveFormat()) {
-                int offset = receiveBufferOffset.get(element);
-                int delimiterIndex = element.lastIndexOf(".");
-                final String className = element.substring(0, delimiterIndex);
-                final String attributeName = element.substring(delimiterIndex + 1);
-                final String stringValue = Double.toString(receiveBuffer[startingIndex + offset]);
-                
-                if (!classToParameters.containsKey(className)) {
-                    Map<String, String> attributes = new HashMap<String, String>();
-                    attributes.put("name", convertToGlmObjectName(className, houseEntry.getKey()));
-                    classToParameters.put(className, attributes);
-                }
-                classToParameters.get(className).put(attributeName, stringValue); // check return value
-            }
-            
-            for (Map.Entry<String, Map<String, String>> dataEntry : classToParameters.entrySet()) {
-                if (!houseToInstanceData.containsKey(houseEntry.getKey()) ) { // first time updating this house
-                    houseToInstanceData.put(houseEntry.getKey(), new HashMap<String, String>());
-                }
-                if (houseToInstanceData.get(houseEntry.getKey()).containsKey(dataEntry.getKey())) {
-                    String instanceName;
-                    try {
-                        instanceName = gateway.registerObjectInstance(dataEntry.getKey());
-                    } catch (FederateNotExecutionMember | NameNotFound | ObjectClassNotPublished e) {
-                        // oops
-                        return;
-                    }
-                    houseToInstanceData.get(houseEntry.getKey()).put(dataEntry.getKey(), instanceName);
-                }
-                final String instanceName = houseToInstanceData.get(houseEntry.getKey()).get(dataEntry.getKey());
-                try {
-                    gateway.updateObject(instanceName, dataEntry.getValue(), gateway.getTimeStamp());
-                } catch (FederateNotExecutionMember | ObjectNotKnown | NameNotFound | AttributeNotOwned
-                        | InvalidFederationTime e) {
-                    // oops
-                }
-            }
-        }
+        processReceiveBuffer();
     }
 
     public void prepareToResign() {
@@ -257,6 +216,83 @@ public class MatlabClient implements GatewayCallback {
             sendBuffer[startingIndex + offset.intValue()] = value;
             log.trace("{}={} at index {}", key, value, startingIndex + offset.intValue());
         }
+    }
+    
+    private void processReceiveBuffer() {
+        for (Map.Entry<String, Integer> houseEntry : houseNameToHandle.entrySet()) {
+            processReceiveBuffer(houseEntry.getKey(), houseEntry.getValue()); // handle each house
+        }
+    }
+    
+    private void processReceiveBuffer(String houseName, int houseHandle) {
+        Map<String, Map<String, String>> objectClassToParameters = getHouseData(houseName, houseHandle);
+        
+        for (Map.Entry<String, Map<String, String>> entry : objectClassToParameters.entrySet()) {
+            final String className = entry.getKey();
+            final String key = houseName + ":" + className;
+            
+            String instanceName = registeredObjectNames.get(key);
+            if (instanceName == null) {
+                try {
+                    instanceName = gateway.registerObjectInstance(className);
+                } catch (FederateNotExecutionMember e) {
+                    log.fatal("unhandled RTI exception", e);
+                    throw new RuntimeException(e);
+                } catch (NameNotFound e) {
+                    log.fatal("unknown object class {}", className);
+                    throw new ConfigurationException(e);
+                } catch (ObjectClassNotPublished e) {
+                    log.fatal("publications for {} incorrect in SOM", className);
+                    throw new ObjectModelException(e);
+                }
+                registeredObjectNames.put(key, instanceName);
+            }
+            
+            try {
+                gateway.updateObject(instanceName, entry.getValue(), gateway.getTimeStamp());
+            } catch (FederateNotExecutionMember | InvalidFederationTime | AttributeNotOwned | ObjectNotKnown e) {
+                log.fatal("unhandled RTI exception", e);
+                throw new RuntimeException(e);
+            } catch (NameNotFound e) {
+                log.fatal("unknown attribute for object class {} in the set {}", className, entry.getValue().keySet());
+                throw new ConfigurationException(e);
+            }
+        }
+    }
+    
+    // each house can have multiple associated HLA object instances
+    // return a map from HLA Class Name => House Attributes
+    private Map<String, Map<String, String>> getHouseData(String houseName, int houseHandle) {
+        Map<String, Map<String, String>> houseData = new HashMap<String, Map<String, String>>();
+        int startingIndex = houseHandle * configuration.getReceiveFormat().size();
+        
+        for (String attributeClassPath : configuration.getReceiveFormat()) {
+            int offset = receiveBufferOffset.get(attributeClassPath);
+            int delimiterIndex = attributeClassPath.lastIndexOf(".");
+            
+            final String className = attributeClassPath.substring(0, delimiterIndex);
+            final String attributeName = attributeClassPath.substring(delimiterIndex + 1);
+            final String stringValue = Double.toString(receiveBuffer[startingIndex + offset]);
+            
+            if (!houseData.containsKey(className)) {
+                // first entry for this HLA object class; pre-populate with name attribute
+                final String glmObjectName = convertToGlmObjectName(className, houseName);
+                if (glmObjectName == null) {
+                    log.fatal("convertToGlmObjectName({}, {}) returned null", className, houseName);
+                    throw new NullPointerException("glmObjectName");
+                }
+                
+                Map<String, String> attributes = new HashMap<String, String>();
+                attributes.put("name", glmObjectName);
+                houseData.put(className, attributes);
+            }
+            if (houseData.get(className).put(attributeName, stringValue) != null) {
+                // this should not happen because it's checked in initializeReceiveBuffer
+                log.fatal("duplicate key {} in receive format", attributeClassPath);
+                throw new DuplicateKeyException(attributeClassPath);
+            }
+        }
+        return houseData;
     }
     
     private String convertToHouseName(String className, String glmObjectName) {
