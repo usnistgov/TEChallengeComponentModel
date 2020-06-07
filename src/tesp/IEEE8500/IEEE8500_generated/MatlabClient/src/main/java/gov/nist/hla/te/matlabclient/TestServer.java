@@ -42,18 +42,20 @@ public class TestServer {
     
     private void handleClientConnection(Socket client)
             throws IOException {
-        byte[] receiveBuffer = receivedMessage(client.getInputStream());
-        double[] dataFromClient = byteToDoubleArray(receiveBuffer);
-        log.info("received {}", dataFromClient);
-        
-        double[] data = new double[SEND_BUFFER_SIZE];
-        for(int i = 0; i < data.length; i++) {
-            data[i] = Math.random();
+        while (true) {
+            byte[] receiveBuffer = receivedMessage(client.getInputStream());
+            double[] dataFromClient = byteToDoubleArray(receiveBuffer);
+            log.info("received {}", dataFromClient);
+            
+            double[] data = new double[SEND_BUFFER_SIZE];
+            for(int i = 0; i < data.length; i++) {
+                data[i] = Math.random();
+            }
+            
+            byte[] sendBuffer = doubleArrayToByte(data);
+            client.getOutputStream().write(sendBuffer);
+            log.info("responded with {}", data);
         }
-        
-        byte[] sendBuffer = doubleArrayToByte(data);
-        client.getOutputStream().write(sendBuffer);
-        log.info("responded with {}", data);
     }
 
     private byte[] receivedMessage(InputStream inputStream)

@@ -132,6 +132,7 @@ public class ClientRunnable implements Runnable {
             throws IOException {
         byte buffer[] = new byte[524288];
         
+        // needs to block until data arrives from the server !
         int numberOfBytesReceived = inputStream.read(buffer);
         
         byte bytesReceived[] = new byte[numberOfBytesReceived];

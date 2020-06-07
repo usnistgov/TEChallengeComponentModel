@@ -46,6 +46,9 @@ public class MatlabClient implements GatewayCallback {
     
     private Map<String, String> registeredObjectNames = new HashMap<String, String>();
     
+    // the existence of this map is a hack that needs to be replaced with a more appropriate solution
+    private Map<String, String> knownGlmObjectNames = new HashMap<String, String>();
+    
     public static void main(String[] args)
             throws IOException {
         if (args.length != 1) {
@@ -113,10 +116,14 @@ public class MatlabClient implements GatewayCallback {
     public void receiveObject(Double timeStep, String className, String instanceName, Map<String, String> attributes) {
         log.trace("receiveObject {} {} {} {}", timeStep, className, instanceName, attributes.toString());
         
-        final String glmObjectName = attributes.get("name");
+        String glmObjectName = knownGlmObjectNames.get(instanceName);
         if (glmObjectName == null) {
-            log.debug("skipped object update for {}:{}", className, instanceName);
-            return;
+            glmObjectName = attributes.get("name");
+            if (glmObjectName == null) {
+                log.debug("skipped object update for {}:{}", className, instanceName);
+                return;
+            }
+            knownGlmObjectNames.put(instanceName, glmObjectName);
         }
         
         final String houseName = convertToHouseName(className, glmObjectName);
@@ -207,12 +214,15 @@ public class MatlabClient implements GatewayCallback {
         
         for (Map.Entry<String, String> attributesEntry : attributes.entrySet()) {
             final String key = className + "." + attributesEntry.getKey();
-            final double value = Double.parseDouble(attributesEntry.getValue());
             
             Integer offset = sendBufferOffset.get(key);
             if (offset == null) {
                 continue; // not a relevant attribute
             }
+            
+            // do not process value until attribute relevance has been determined
+            final double value = Double.parseDouble(attributesEntry.getValue());
+
             sendBuffer[startingIndex + offset.intValue()] = value;
             log.trace("{}={} at index {}", key, value, startingIndex + offset.intValue());
         }
@@ -297,13 +307,10 @@ public class MatlabClient implements GatewayCallback {
     
     private String convertToHouseName(String className, String glmObjectName) {
         switch (className) {
-            case "House":
+            case "ObjectRoot.House":
                 return glmObjectName;
-            case "Meter":
-                // throws runtime exception if _house_hvac is not a substring
-                int suffixIndex = glmObjectName.lastIndexOf("_house_hvac");
-                log.debug("Meter suffixIndex={} for {}", suffixIndex, glmObjectName);
-                return glmObjectName.substring(0, suffixIndex);
+            case "ObjectRoot.Meter":
+                return glmObjectName + "_house";
             default:
                 log.debug("unhandled className {} in convertToHouseName", className);
                 return null;
@@ -312,10 +319,13 @@ public class MatlabClient implements GatewayCallback {
     
     private String convertToGlmObjectName(String className, String houseName) {
         switch (className) {
-            case "House":
+            case "ObjectRoot.House":
                 return houseName;
-            case "Meter":
-                return houseName + "_house_hvac";
+            case "ObjectRoot.Meter":
+                // throws runtime exception if _house is not a substring
+                int suffixIndex = houseName.lastIndexOf("_house");
+                log.debug("Meter suffixIndex={} for {}", suffixIndex, houseName);
+                return houseName.substring(0, suffixIndex);
             default:
                 log.debug("unhandled className {} in convertToGlmObjectName", className);
                 return null;
