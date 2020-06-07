@@ -48,9 +48,12 @@ public class ClientConfiguration extends GatewayFederateConfig {
         return numberOfHouses;
     }
     
-    public void setSendFormat(ArrayList<String> format) { // what happens if length 0 ?
+    public void setSendFormat(ArrayList<String> format) {
         if (format == null) {
             throw new IllegalArgumentException("SendFormat cannot be null");
+        }
+        if (format.isEmpty()) {
+            throw new IllegalArgumentException("SendFormat cannot be empty");
         }
         this.sendFormat = new ArrayList<String>(format);
     }
@@ -62,9 +65,12 @@ public class ClientConfiguration extends GatewayFederateConfig {
         return sendFormat;
     }
     
-    public void setReceiveFormat(ArrayList<String> format) { // what happens if length 0 ?
+    public void setReceiveFormat(ArrayList<String> format) {
         if (format == null) {
             throw new IllegalArgumentException("ReceiveFormat cannot be null");
+        }
+        if (format.isEmpty()) {
+            throw new IllegalArgumentException("ReceiveFormat cannot be empty");
         }
         this.receiveFormat = new ArrayList<String>(format);
     }

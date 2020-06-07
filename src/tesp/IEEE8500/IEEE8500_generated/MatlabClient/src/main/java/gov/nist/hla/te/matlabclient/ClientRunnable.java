@@ -31,17 +31,20 @@ public class ClientRunnable implements Runnable {
 
     private Thread worker;
     
-    ClientRunnable(int portNumber) {
+    public ClientRunnable(int portNumber) {
         this.portNumber = portNumber;
     }
     
     public void start() {
         worker = new Thread(this);
         worker.start();
+        log.debug("started client thread");
     }
     
     public void interrupt() {
-        if (!running.compareAndSet(true, false)) {
+        if (running.compareAndSet(true, false)) {
+            log.debug("sent interrupt signal to client thread");
+        } else {
             log.warn("unable to interrupt: client not running");
         }
     }
@@ -53,8 +56,9 @@ public class ClientRunnable implements Runnable {
             return;
         }
         
+        log.info("connecting to {}:{}", HOST, portNumber);
         try (Socket client = new Socket(HOST, portNumber)) {
-            log.info("Connected to {}:{}", HOST, portNumber);
+            log.debug("connected");
 
             while (running.get() == true) {
                 try {
@@ -64,7 +68,7 @@ public class ClientRunnable implements Runnable {
                     running.set(false);
                 }
             }
-            log.info("Disconnecting from {}:{}", HOST, portNumber);
+            log.info("disconnecting from {}:{}", HOST, portNumber);
         } catch (IOException e) {
             log.error("failed to handle client connection", e);
         }
@@ -83,22 +87,19 @@ public class ClientRunnable implements Runnable {
         }
         log.debug("...received data from GridLAB-D");
         
-        // process GridLAB-D data
+        // send data to server
         byte[] sendBuffer = null;
         synchronized (this) {
             sendBuffer = doubleArrayToByte(dataToServer);
+            log.trace("sending {}", dataToServer);
         }
-        
-        // send processed data to server
         client.getOutputStream().write(sendBuffer);
+        
 
-        // receive response from the server
+        // receive response from server
         byte[] receiveBuffer = receivedMessage(client.getInputStream());
-        
-        // process server response
         dataFromServer = byteToDoubleArray(receiveBuffer);
-        
-        // send processed response to GridLAB-D
+        log.trace("received {}", dataFromServer);
         readyToReceive.set(true);
     }
     
@@ -127,7 +128,6 @@ public class ClientRunnable implements Runnable {
         }
     }
     
-    // extract the correct number of bytes from the input stream
     private byte[] receivedMessage(InputStream inputStream)
             throws IOException {
         byte buffer[] = new byte[524288];
