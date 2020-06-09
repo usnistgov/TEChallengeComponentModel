@@ -287,8 +287,14 @@ public class FileReader implements GatewayCallback {
         
         while (nextFileData != null && nextFileData.logicalTime <= timeStep) {
             sendInteraction(nextFileData.interactionClass, nextFileData.parameters);
-            nextFileData = fileDataIterator.next();
             numberOfUpdates = numberOfUpdates + 1;
+            
+            if (fileDataIterator.hasNext()) {
+                nextFileData = fileDataIterator.next();
+            } else {
+                nextFileData = null;
+            }
+            
         }
         
         return numberOfUpdates;
