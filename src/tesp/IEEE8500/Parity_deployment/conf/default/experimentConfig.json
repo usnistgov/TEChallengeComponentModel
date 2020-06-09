@@ -1,0 +1,53 @@
+{
+  "federateTypesAllowed": [
+    "FileReader",
+    "ParityClient",
+    "ParityReporter",
+    "ParitySystem",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "FileReader",
+      "count": 1
+    },
+    {
+      "federateType": "ParityClient",
+      "count": 1
+    },
+    {
+      "federateType": "ParityReporter",
+      "count": 1
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "ParityClient",
+      "count": 0
+    },
+    {
+      "federateType": "ParityReporter",
+      "count": 0
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
