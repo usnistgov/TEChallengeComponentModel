@@ -2,7 +2,6 @@ package gov.nist.hla.te.parity.paritysystem;
 
 import gov.nist.hla.te.parity.paritysystem.rti.*;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
@@ -10,17 +9,16 @@ import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
-// Define the ParitySystem type of federate for the federation.
-
 public class ParitySystem extends ParitySystemBase {
     private final static Logger log = LogManager.getLogger();
 
+    private OrderBooks orderBooks;
+    
     private double currentTime = 0;
 
-    public ParitySystem(FederateConfig params) throws Exception {
+    public ParitySystem(ParitySystemConfig params) throws Exception {
         super(params);
+        this.orderBooks = new OrderBooks(params.instruments, this);
     }
 
     private void checkReceivedSubscriptions() {
@@ -129,8 +127,8 @@ public class ParitySystem extends ParitySystemBase {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            ParitySystemConfig federateConfig =
+                federateConfigParser.parseArgs(args, ParitySystemConfig.class);
             ParitySystem federate =
                 new ParitySystem(federateConfig);
             federate.execute();

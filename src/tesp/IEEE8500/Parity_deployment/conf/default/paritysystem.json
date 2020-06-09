@@ -4,5 +4,13 @@
   "federationId": "Parity",
   "isLateJoiner": false,
   "lookAhead": "0.2",
-  "stepSize": "1.0"
+  "stepSize": "1.0",
+  "instruments": [
+    {
+        "instrumentName": "2020-03-16T00:00:00",
+        "priceFractionalPrecision": 2,
+        "quantityFractionalPrecision": 0
+    }
+  ]
 }
+
