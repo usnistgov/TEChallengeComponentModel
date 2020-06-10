@@ -40,10 +40,6 @@ public class ParitySystem extends ParitySystemBase {
             super.disableTimeRegulation();
         }
 
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
-
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -52,10 +48,6 @@ public class ParitySystem extends ParitySystemBase {
             readyToPopulate();
             log.info("...synchronized on readyToPopulate");
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -70,34 +62,7 @@ public class ParitySystem extends ParitySystemBase {
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
-            ////////////////////////////////////////////////////////////
-            // TODO send interactions that must be sent every logical //
-            // time step below                                        //
-            ////////////////////////////////////////////////////////////
-
-            // Set the interaction's parameters.
-            //
-            //    Transaction transaction = create_Transaction();
-            //    transaction.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
-            //    transaction.set_durationInMinutes( < YOUR VALUE HERE > );
-            //    transaction.set_expireTime( < YOUR VALUE HERE > );
-            //    transaction.set_federateFilter( < YOUR VALUE HERE > );
-            //    transaction.set_matchNumber( < YOUR VALUE HERE > );
-            //    transaction.set_originFed( < YOUR VALUE HERE > );
-            //    transaction.set_partyId( < YOUR VALUE HERE > );
-            //    transaction.set_price( < YOUR VALUE HERE > );
-            //    transaction.set_quantity( < YOUR VALUE HERE > );
-            //    transaction.set_side( < YOUR VALUE HERE > );
-            //    transaction.set_sourceFed( < YOUR VALUE HERE > );
-            //    transaction.set_startTime( < YOUR VALUE HERE > );
-            //    transaction.set_tenderId( < YOUR VALUE HERE > );
-            //    transaction.sendInteraction(getLRC(), currentTime + getLookAhead());
-
             checkReceivedSubscriptions();
-
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
 
             if (!exitCondition) {
                 currentTime += super.getStepSize();
@@ -111,16 +76,11 @@ public class ParitySystem extends ParitySystemBase {
 
         // call exitGracefully to shut down federate
         exitGracefully();
-
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
     }
 
     private void handleInteractionClass(Tender interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        log.info("processing received tender...");
+        orderBooks.enterOrder(interaction);
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package gov.nist.hla.te.parity.parityreporter;
 
+import gov.nist.hla.te.parity.parityreporter.exception.InvalidTransactionException;
 import gov.nist.hla.te.parity.parityreporter.rti.*;
 
 import org.cpswt.config.FederateConfig;
@@ -7,15 +8,16 @@ import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
-// Define the ParityReporter type of federate for the federation.
-
 public class ParityReporter extends ParityReporterBase {
     private final static Logger log = LogManager.getLogger();
+    
+    private Map<Long, Trade> trades = new HashMap<Long, Trade>();
 
     private double currentTime = 0;
 
@@ -42,10 +44,6 @@ public class ParityReporter extends ParityReporterBase {
             super.disableTimeRegulation();
         }
 
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
-
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -54,10 +52,6 @@ public class ParityReporter extends ParityReporterBase {
             readyToPopulate();
             log.info("...synchronized on readyToPopulate");
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -74,10 +68,6 @@ public class ParityReporter extends ParityReporterBase {
 
             checkReceivedSubscriptions();
 
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
-
             if (!exitCondition) {
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
@@ -90,16 +80,23 @@ public class ParityReporter extends ParityReporterBase {
 
         // call exitGracefully to shut down federate
         exitGracefully();
-
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
     }
 
     private void handleInteractionClass(Transaction interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        final long matchNumber = interaction.get_matchNumber();
+        
+        try {
+            if (!trades.containsKey(matchNumber)) {
+                trades.put(matchNumber, new Trade(interaction));
+                log.debug("created new trade for match number {}", matchNumber);
+            } else {
+                Trade trade = trades.get(matchNumber);
+                trade.update(interaction);
+                log.info(trade.toString());
+            }
+        } catch (InvalidTransactionException e) {
+            log.error("failed to process transaction: {}", e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

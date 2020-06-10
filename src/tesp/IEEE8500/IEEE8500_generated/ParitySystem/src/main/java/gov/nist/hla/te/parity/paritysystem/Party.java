@@ -1,22 +1,19 @@
 package gov.nist.hla.te.parity.paritysystem;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Set;
 
 import gov.nist.hla.te.parity.paritysystem.exception.DuplicateIdentifierException;
 import gov.nist.hla.te.parity.paritysystem.rti.Tender;
 
 public class Party {
-    private final static Logger log = LogManager.getLogger();
-    
     private String partyId;
     
-    private Map<Long, Tender> tenders = new HashMap<Long, Tender>();
+    private Map<Long, Tender> currentTenders = new HashMap<Long, Tender>();
     
-    private Map<Long, Long> tenderToOrder = new HashMap<Long, Long>();
+    private Set<Long> usedTenderId = new HashSet<Long>();
     
     public Party(String partyId) {
         this.partyId = partyId;
@@ -26,20 +23,33 @@ public class Party {
         return partyId;
     }
     
-    public boolean hasTender(long tenderId) {
-        return tenders.containsKey(tenderId);
+    public boolean isKnownTender(long tenderId) {
+        return usedTenderId.contains(tenderId);
+    }
+    
+    public boolean hasOrder(long orderId) {
+        return currentTenders.containsKey(orderId);
     }
     
     public void addTender(long orderId, Tender tender) {
         final long tenderId = tender.get_tenderId();
         
-        if (tenderToOrder.containsKey(tenderId)) {
-            if (tenderToOrder.get(tenderId) != orderId) {
-                throw new DuplicateIdentifierException(Long.toString(orderId));
-            }
-            return;
+        if (currentTenders.containsKey(orderId)) {
+            throw new DuplicateIdentifierException(Long.toString(orderId));
         }
-        tenders.put(tenderId, tender);
-        tenderToOrder.put(tenderId, orderId);
+        if (isKnownTender(tenderId)) {
+            throw new DuplicateIdentifierException(Long.toString(tenderId));
+        }
+        
+        currentTenders.put(orderId, tender);
+        usedTenderId.add(tenderId);
+    }
+    
+    public Tender getTender(long orderId) {
+        return currentTenders.get(orderId);
+    }
+    
+    public Tender removeTender(long orderId) {
+        return currentTenders.remove(orderId);
     }
 }

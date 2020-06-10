@@ -271,6 +271,7 @@ public class FileReader implements GatewayCallback {
         
         try {
             gateway.sendInteraction(interactionClass, parameters); // as RO
+            log.info("sent {} as {}", interactionClass, parameters.toString());
         } catch (InteractionClassNotPublished e) {
             log.error("interaction class not published: {}", interactionClass);
             throw new FileReaderException(e);
