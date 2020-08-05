@@ -8,7 +8,7 @@
         <name>IEEE8500</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-04-11</modificationDate>
+        <modificationDate>2020-07-05</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -23,6 +23,37 @@
         <objectClass>
             <name>ObjectRoot</name>
             <sharing>Neither</sharing>
+            <objectClass>
+                <name>Climate</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>solar_direct</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>temperature</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
             <objectClass>
                 <name>House</name>
                 <sharing>PublishSubscribe</sharing>
@@ -81,6 +112,15 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
+                    <name>solar_gain</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
                     <name>thermostat_deadband</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
@@ -96,6 +136,15 @@
                 <attribute>
                     <name>bill_mode</name>
                     <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_real_energy</name>
+                    <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>PublishSubscribe</sharing>
@@ -145,6 +194,50 @@
                 <attribute>
                     <name>distribution_load</name>
                     <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
+                <name>Waterheater</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>actual_load</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
+                <name>ZIPload</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>base_power</name>
+                    <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
                     <sharing>PublishSubscribe</sharing>
@@ -287,6 +380,58 @@
                         <name>value</name>
                         <dataType>double</dataType>
                     </parameter>
+                </interactionClass>
+                <interactionClass>
+                    <name>Tender</name>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                    <parameter> 
+                        <name>durationInMinutes</name>
+                        <dataType>long</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>expireTime</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>partyId</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>price</name>
+                        <dataType>double</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>quantity</name>
+                        <dataType>double</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>side</name>
+                        <dataType>char</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>startTime</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>tenderId</name>
+                        <dataType>long</dataType>
+                    </parameter>
+                    <interactionClass>
+                        <name>Transaction</name>
+                        <sharing>PublishSubscribe</sharing>
+                        <transportation>HLAreliable</transportation>
+                        <order>TimeStamp</order>
+                        <parameter> 
+                            <name>matchNumber</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>quantity</name>
+                            <dataType>double</dataType>
+                        </parameter>
+                    </interactionClass>
                 </interactionClass>
             </interactionClass>
         </interactionClass>

@@ -48,6 +48,11 @@
         (attribute FederateHost reliable timestamp)
         (attribute FederateType reliable timestamp)
       )
+      (class Climate
+        (attribute name reliable timestamp)
+        (attribute solar_direct reliable timestamp)
+        (attribute temperature reliable timestamp)
+      )
       (class House
         (attribute air_temperature reliable timestamp)
         (attribute cooling_setpoint reliable timestamp)
@@ -55,10 +60,12 @@
         (attribute hvac_load reliable timestamp)
         (attribute name reliable timestamp)
         (attribute power_state reliable timestamp)
+        (attribute solar_gain reliable timestamp)
         (attribute thermostat_deadband reliable timestamp)
       )
       (class Meter
         (attribute bill_mode reliable timestamp)
+        (attribute measured_real_energy reliable timestamp)
         (attribute measured_voltage_1 reliable timestamp)
         (attribute monthly_fee reliable timestamp)
         (attribute name reliable timestamp)
@@ -66,6 +73,14 @@
       )
       (class Substation
         (attribute distribution_load reliable timestamp)
+        (attribute name reliable timestamp)
+      )
+      (class Waterheater
+        (attribute actual_load reliable timestamp)
+        (attribute name reliable timestamp)
+      )
+      (class ZIPload
+        (attribute base_power reliable timestamp)
         (attribute name reliable timestamp)
       )
     ) 
@@ -329,6 +344,20 @@
       )
       (class LMP reliable timestamp
         (parameter value)
+      )
+      (class Tender reliable timestamp
+        (parameter durationInMinutes)
+        (parameter expireTime)
+        (parameter partyId)
+        (parameter price)
+        (parameter quantity)
+        (parameter side)
+        (parameter startTime)
+        (parameter tenderId)
+      (class Transaction reliable timestamp
+        (parameter matchNumber)
+        (parameter quantity)
+      )
       )
       )
     )
