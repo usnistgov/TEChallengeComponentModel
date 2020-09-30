@@ -19,9 +19,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gov.nist.hla.gateway.GatewayCallback;
 import gov.nist.hla.gateway.GatewayFederate;
+import hla.rti.AttributeNotOwned;
 import hla.rti.FederateNotExecutionMember;
 import hla.rti.InteractionClassNotPublished;
 import hla.rti.NameNotFound;
+import hla.rti.ObjectAlreadyRegistered;
+import hla.rti.ObjectClassNotPublished;
+import hla.rti.ObjectNotKnown;
 
 public class FileReader implements GatewayCallback {
     private static final Logger log = LogManager.getLogger();
@@ -41,6 +45,8 @@ public class FileReader implements GatewayCallback {
     private Iterator<FileData> fileDataIterator;
     
     private FileData nextFileData = null;
+    
+    private Map<String, String> registeredObjects = new HashMap<String, String>();
     
     private boolean receivedSimTime = false;
     
@@ -160,6 +166,36 @@ public class FileReader implements GatewayCallback {
                 newData.logicalTime = parseTimeStamp(data[0]);
                 newData.interactionClass = data[1];
                 newData.parameters = new HashMap<String, String>();
+                
+                // check if the data is an object class (format ObjectRoot.Class.Path.InstanceName)
+                if (newData.interactionClass.startsWith("ObjectRoot") && !registeredObjects.containsKey(newData.interactionClass)) {
+                    int endIndex = newData.interactionClass.lastIndexOf('.');
+                    
+                    if (endIndex == -1) {
+                        log.error("bad object class format: {}", newData.interactionClass);
+                        throw new FileReaderException("failed to read input file");
+                    }
+                    if (endIndex == newData.interactionClass.length()) {
+                        log.error("no instance name: {}", newData.interactionClass);
+                        throw new FileReaderException("failed to read input file");
+                    }
+                    
+                    String objectClass = newData.interactionClass.substring(0, endIndex);
+                    String instanceName = newData.interactionClass.substring(endIndex+1);
+                    
+                    try {
+                        String uniqueId = gateway.registerObjectInstance(objectClass, instanceName);
+                        registeredObjects.put(newData.interactionClass, uniqueId);
+                    } catch (NameNotFound | ObjectClassNotPublished e) {
+                        log.error("object class not published: {}", objectClass);
+                        throw new FileReaderException(e);
+                    } catch (ObjectAlreadyRegistered e) {
+                        log.error("duplicate object instance: {}", instanceName);
+                        throw new FileReaderException(e);
+                    } catch (FederateNotExecutionMember e) {
+                        throw new FileReaderException(e);
+                    }
+                }
                 
                 for (int i = 2; i < data.length; i+=2) {
                     if (newData.parameters.containsKey(data[i])) {
@@ -283,11 +319,27 @@ public class FileReader implements GatewayCallback {
         }
     }
     
+    private void updateObject(String instanceName, Map<String, String> attributes) {
+        try {
+            gateway.updateObject(instanceName, attributes);
+            log.info("updated {} to {}", instanceName, attributes.toString());
+        } catch (NameNotFound e) {
+            log.error("invalid object structure: {} {}", instanceName, attributes.keySet().toString());
+            throw new FileReaderException(e);
+        } catch (FederateNotExecutionMember | ObjectNotKnown | AttributeNotOwned e) {
+            throw new FileReaderException(e);
+        }
+    }
+    
     private int sendUpdates(Double timeStep) {
         int numberOfUpdates = 0;
         
         while (nextFileData != null && nextFileData.logicalTime <= timeStep) {
-            sendInteraction(nextFileData.interactionClass, nextFileData.parameters);
+            if (registeredObjects.containsKey(nextFileData.interactionClass)) {
+                updateObject(registeredObjects.get(nextFileData.interactionClass), nextFileData.parameters);
+            } else {
+                sendInteraction(nextFileData.interactionClass, nextFileData.parameters);
+            }
             numberOfUpdates = numberOfUpdates + 1;
             
             if (fileDataIterator.hasNext()) {
