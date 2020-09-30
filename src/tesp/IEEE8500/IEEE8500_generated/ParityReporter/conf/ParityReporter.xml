@@ -8,7 +8,7 @@
         <name>ParityReporter</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-05-09</modificationDate>
+        <modificationDate>2020-08-30</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
@@ -20,6 +20,70 @@
             <pocOrg>gov.nist.hla.te.parity</pocOrg>
         </poc>
     </modelIdentification>
+    <objects>
+        <objectClass>
+            <name>ObjectRoot</name>
+            <sharing>Neither</sharing>
+            <objectClass>
+                <name>Meter</name>
+                <sharing>Subscribe</sharing>
+                <attribute>
+                    <name>bill_mode</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_real_energy</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_voltage_1</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>monthly_fee</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>price</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+        </objectClass>
+    </objects>
     <interactions>
         <interactionClass>
             <name>InteractionRoot</name>
@@ -93,6 +157,28 @@
                         <sharing>Subscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>TimeStamp</order>
+                    </interactionClass>
+                    <interactionClass>
+                        <name>SimTime</name>
+                        <sharing>Subscribe</sharing>
+                        <transportation>HLAreliable</transportation>
+                        <order>Receive</order>
+                        <parameter> 
+                            <name>timeScale</name>
+                            <dataType>double</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeZone</name>
+                            <dataType>String</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>unixTimeStart</name>
+                            <dataType>long</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>unixTimeStop</name>
+                            <dataType>long</dataType>
+                        </parameter>
                     </interactionClass>
                 </interactionClass>
                 <interactionClass>

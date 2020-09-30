@@ -36,8 +36,20 @@ public class ParityReporterBase extends SynchronizedFederate {
            Transaction.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
+        SimTime.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           SimTime.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
 
         // object pubsub
+        Meter.subscribe_bill_mode();
+        Meter.subscribe_measured_real_energy();
+        Meter.subscribe_measured_voltage_1();
+        Meter.subscribe_monthly_fee();
+        Meter.subscribe_name();
+        Meter.subscribe_price();
+        Meter.subscribe(getLRC());
     }
 
 

@@ -6,7 +6,9 @@ import gov.nist.hla.te.parity.parityreporter.rti.*;
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
+import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.hla.base.ObjectReflector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,11 +30,26 @@ public class ParityReporter extends ParityReporterBase {
     private void checkReceivedSubscriptions() {
         InteractionRoot interaction = null;
         while ((interaction = getNextInteractionNoWait()) != null) {
-            if (interaction instanceof Transaction) {
+            if (interaction instanceof SimTime) {
+                handleInteractionClass((SimTime) interaction);
+            }
+            else if (interaction instanceof Transaction) {
                 handleInteractionClass((Transaction) interaction);
             }
             else {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
+            }
+        }
+        
+        ObjectReflector reflector = null;
+        while ((reflector = getNextObjectReflectorNoWait()) != null) {
+            reflector.reflect();
+            ObjectRoot object = reflector.getObjectRoot();
+            if (object instanceof Meter) {
+                handleObjectClass((Meter) object);
+            }
+            else {
+                log.debug("unhandled object reflection: {}", object.getClassName());
             }
         }
     }
@@ -87,7 +104,13 @@ public class ParityReporter extends ParityReporterBase {
         // call exitGracefully to shut down federate
         exitGracefully();
     }
-
+    
+    private void handleInteractionClass(SimTime interaction) {
+        ///////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction //
+        ///////////////////////////////////////////////////////////////
+    }
+    
     private void handleInteractionClass(Transaction interaction) {
         final long matchNumber = interaction.get_matchNumber();
         
@@ -103,6 +126,12 @@ public class ParityReporter extends ParityReporterBase {
         } catch (InvalidTransactionException e) {
             log.error("failed to process transaction: {}", e.getMessage());
         }
+    }
+    
+    private void handleObjectClass(Meter object) {
+        //////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the object //
+        //////////////////////////////////////////////////////////
     }
 
     public static void main(String[] args) {

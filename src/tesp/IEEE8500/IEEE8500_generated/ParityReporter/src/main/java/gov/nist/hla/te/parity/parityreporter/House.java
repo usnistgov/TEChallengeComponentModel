@@ -103,6 +103,7 @@ public class House {
     }
     
     // assume 24 trades with 60 minute durations
+    // TODO: match quantity units to measured_real_energy units
     public void add_trade(Trade trade) {
         log.trace("add_trade {}", trade.toString());
         final int time_zone_adjustment = 0; // what should this be?
