@@ -68,6 +68,12 @@ public class ParityReporter extends ParityReporterBase {
 
             checkReceivedSubscriptions();
 
+            // TODO: external (to GLD) real time price feed
+            // TODO: somehow have reports (like daily) for the bill data
+            
+            // receive SimTime to get the seconds/logical time
+            // receive meter for measured_real_energy per meter (NEED TO ASSOCIATE METER WITH HOUSE!!!) meter_house naming scheme
+
             if (!exitCondition) {
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =

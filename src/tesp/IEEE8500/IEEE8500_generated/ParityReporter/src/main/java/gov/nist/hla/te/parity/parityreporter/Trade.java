@@ -18,6 +18,15 @@ public class Trade {
     
     private String seller = null;
     
+    // null trade (better way to handle?)
+    public Trade() {
+        this.matchNumber = -1;
+        this.price = 0;
+        this.quantity = 0;
+        this.startTime = null;
+        this.durationInMinutes = 0;
+    }
+    
     public Trade(Transaction transaction)
             throws InvalidTransactionException {
         this.matchNumber = transaction.get_matchNumber();
@@ -30,6 +39,30 @@ public class Trade {
     
     public long getMatchNumber() {
         return matchNumber;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+    
+    public double getQuantity() {
+        return quantity;
+    }
+    
+    public String getStartTime() {
+        return startTime;
+    }
+    
+    public long getDurationInMinutes() {
+        return durationInMinutes;
+    }
+    
+    public String getBuyer() {
+        return buyer;
+    }
+    
+    public String getSeller() {
+        return seller;
     }
     
     public void update(Transaction transaction) 
@@ -89,7 +122,7 @@ public class Trade {
         }
     }
     
-    void setBuyer(String partyId)
+    private void setBuyer(String partyId)
             throws InvalidTransactionException {
         if (buyer != null) {
             throw new IllegalArgumentException("buyer already set");
@@ -100,7 +133,7 @@ public class Trade {
         buyer = partyId;
     }
     
-    void setSeller(String partyId)
+    private void setSeller(String partyId)
             throws InvalidTransactionException {
         if (seller != null) {
             throw new IllegalArgumentException("seller already set");
