@@ -8,7 +8,7 @@
         <name>Parity</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-05-09</modificationDate>
+        <modificationDate>2020-08-30</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -16,9 +16,73 @@
         </description>
         <poc>
             <pocType>Primary author</pocType>
-            <pocOrg>org.webgme.guest</pocOrg>
+            <pocOrg>gov.nist.hla.te.parity</pocOrg>
         </poc>
     </modelIdentification>
+    <objects>
+        <objectClass>
+            <name>ObjectRoot</name>
+            <sharing>Neither</sharing>
+            <objectClass>
+                <name>Meter</name>
+                <sharing>PublishSubscribe</sharing>
+                <attribute>
+                    <name>bill_mode</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_real_energy</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>measured_voltage_1</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>monthly_fee</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>price</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+        </objectClass>
+    </objects>
     <interactions>
         <interactionClass>
             <name>InteractionRoot</name>

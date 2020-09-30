@@ -48,6 +48,14 @@
         (attribute FederateHost reliable timestamp)
         (attribute FederateType reliable timestamp)
       )
+      (class Meter
+        (attribute bill_mode reliable timestamp)
+        (attribute measured_real_energy reliable timestamp)
+        (attribute measured_voltage_1 reliable timestamp)
+        (attribute monthly_fee reliable timestamp)
+        (attribute name reliable timestamp)
+        (attribute price reliable timestamp)
+      )
     ) 
   )
   (interactions
