@@ -1,0 +1,12 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "SimulationTime",
+  "federationId": "IEEE8500",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0,
+  "unixTimeStart": 1499324400,
+  "unixTimeStop": 1499410800,
+  "timeScale": 60.0,
+  "timeZone": "MST7"
+}
