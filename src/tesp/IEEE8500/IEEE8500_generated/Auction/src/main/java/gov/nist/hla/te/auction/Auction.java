@@ -390,10 +390,8 @@ boolean bWantMarket = true; // set to false if no market is desired
         logicalTimeScale = interaction.get_timeScale();
         lastLogicalTime = unixTimeDuration / logicalTimeScale;
         
-        //dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getDefault().toZoneId());
-        dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone("America/Los_Angeles").toZoneId());
-        
-        log.debug("received SimTime");
+        dt_now = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        log.info("received SimTime starting at {}", dt_now.toString());
         receivedSimTime = true;
     }
 
