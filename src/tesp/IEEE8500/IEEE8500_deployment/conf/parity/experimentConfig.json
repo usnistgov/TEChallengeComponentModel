@@ -1,0 +1,71 @@
+{
+  "federateTypesAllowed": [
+    "Auction",
+    "Controller",
+    "FileReader",
+    "GridModel",
+    "ParityReporter",
+    "ParitySystem",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Auction",
+      "count": 0
+    },
+    {
+      "federateType": "Controller",
+      "count": 1
+    },
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "ParityReporter",
+      "count": 0
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Auction",
+      "count": 0
+    },
+    {
+      "federateType": "Controller",
+      "count": 0
+    },
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "ParityReporter",
+      "count": 0
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}

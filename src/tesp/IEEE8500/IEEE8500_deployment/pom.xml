@@ -285,6 +285,46 @@
             </build>
         </profile>
         <profile>
+            <id>FederationManagerParity</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.cpswt</groupId>
+                    <artifactId>fedmanager-host</artifactId>
+                    <version>${cpswt.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.5.0</version>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.cpswt.host.FederationManagerHostApp</mainClass>
+                            <classpathScope>runtime</classpathScope>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.net.preferIPv4Stack</key>
+                                    <value>true</value>
+                                </systemProperty>
+                                <systemProperty>
+                                    <key>log4j.configurationFile</key>
+                                    <value>conf/log4j2.xml</value>
+                                </systemProperty>
+                            </systemProperties>
+                            <arguments>
+                                <argument>-configFile</argument>
+                                <argument>conf/fedmgrconfig-parity.json</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>FederationManagerMatlab</id>
             <dependencies>
                 <dependency>

@@ -327,8 +327,21 @@
         (parameter logicalTime)
         (parameter uniqueId)
       )
-      (class LMP reliable timestamp
+      (class Price reliable timestamp
         (parameter value)
+      )
+      (class Tender reliable timestamp
+        (parameter durationInMinutes)
+        (parameter expireTime)
+        (parameter partyId)
+        (parameter price)
+        (parameter quantity)
+        (parameter side)
+        (parameter startTime)
+        (parameter tenderId)
+      (class Transaction reliable timestamp
+        (parameter matchNumber)
+      )
       )
       )
     )
