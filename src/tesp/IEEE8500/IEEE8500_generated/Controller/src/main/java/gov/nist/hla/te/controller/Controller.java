@@ -6,18 +6,25 @@ import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtUtils;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 
 // Define the Controller type of federate for the federation.
 
 public class Controller extends ControllerBase {
     private final static Logger log = LogManager.getLogger();
 
+    private boolean receivedSimTime = false;
+
     private double currentTime = 0;
+
+    private LocalDateTime localSimTime;
 
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
@@ -68,10 +75,16 @@ public class Controller extends ControllerBase {
             readyToPopulate();
             log.info("...synchronized on readyToPopulate");
         }
-
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+        while (!receivedSimTime) {
+            log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
+            checkReceivedSubscriptions();
+            if (!receivedSimTime) {
+                CpswtUtils.sleep(1000);
+            }
+        }
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -145,9 +158,15 @@ public class Controller extends ControllerBase {
     }
 
     private void handleInteractionClass(SimTime interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        long unixTimeDuration = interaction.get_unixTimeStop() - interaction.get_unixTimeStart();
+
+        //logicalTimeScale = interaction.get_timeScale();
+        //lastLogicalTime = unixTimeDuration / logicalTimeScale;
+
+        localSimTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        
+        log.debug("received SimTime");
+        receivedSimTime = true;
     }
 
     private void handleInteractionClass(Transaction interaction) {
