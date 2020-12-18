@@ -1,8 +1,8 @@
-"# Tucson June 23--Jul7, 2017 weather from airport observations to go with CAISO prices from same time period.",,,,,,
-# Datetime Temp(F) RH (%) solar_direct (W/sf) solar_difuse (W/sf) pressure (kPA) wind (m/s),,,,,,
-$state_name=Arizona,,,,,,
-$city_name=Tucson,,,,,,
-temperature,humidity,solar_direct,solar_diffuse,pressure,wind_speed,
+# Tucson June 23--Jul7, 2017 weather from airport observations to go with CAISO prices from same time period.
+# Datetime Temp(F) RH (%) solar_direct (W/sf) solar_difuse (W/sf) pressure (kPA) wind (m/s)
+$state_name=Arizona
+$city_name=Tucson
+temperature,humidity,solar_direct,solar_diffuse,pressure,wind_speed
 06:23:00:00:00,91.04,0.33,0,0,922.77,2.1
 06:23:01:00:00,89.96,0.34,0,0,922.89,2.6
 06:23:02:00:00,87.98,0.38,0,0,922.42,1.5
