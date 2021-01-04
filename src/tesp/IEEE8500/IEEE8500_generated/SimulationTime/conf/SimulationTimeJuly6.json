@@ -8,5 +8,6 @@
   "unixTimeStart": 1499324400,
   "unixTimeStop": 1499410800,
   "timeScale": 60.0,
-  "timeZone": "America/Phoenix"
+  "timeZone": "America/Phoenix",
+  "timeZonePosix": "MST+7MDT"
 }

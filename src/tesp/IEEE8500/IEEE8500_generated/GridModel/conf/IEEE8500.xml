@@ -4221,6 +4221,10 @@
                             <dataType>String</dataType>
                         </parameter>
                         <parameter> 
+                            <name>timeZonePosix</name>
+                            <dataType>String</dataType>
+                        </parameter>
+                        <parameter> 
                             <name>unixTimeStart</name>
                             <dataType>long</dataType>
                         </parameter>

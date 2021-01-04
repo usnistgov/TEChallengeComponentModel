@@ -43,6 +43,7 @@ public class SimulationTime extends SimulationTimeBase {
         SimTime simTime = create_SimTime();
         simTime.set_timeScale(configuration.timeScale);
         simTime.set_timeZone(configuration.timeZone);
+        simTime.set_timeZonePosix(configuration.timeZonePosix);
         simTime.set_unixTimeStart(configuration.unixTimeStart);
         simTime.set_unixTimeStop(configuration.unixTimeStop);
         simTime.sendInteraction(getLRC()); // send RO

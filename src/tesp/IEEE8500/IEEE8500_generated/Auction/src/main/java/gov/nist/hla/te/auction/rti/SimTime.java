@@ -36,6 +36,7 @@ public class SimTime extends SimulationControl {
     private static int _sourceFed_handle;
     private static int _timeScale_handle;
     private static int _timeZone_handle;
+    private static int _timeZonePosix_handle;
     private static int _unixTimeStart_handle;
     private static int _unixTimeStop_handle;
 
@@ -121,11 +122,13 @@ public class SimTime extends SimulationControl {
 
         _datamemberNames.add("timeScale");
         _datamemberNames.add("timeZone");
+        _datamemberNames.add("timeZonePosix");
         _datamemberNames.add("unixTimeStart");
         _datamemberNames.add("unixTimeStop");
 
         _datamemberTypeMap.put("timeScale", "double");
         _datamemberTypeMap.put("timeZone", "String");
+        _datamemberTypeMap.put("timeZonePosix", "String");
         _datamemberTypeMap.put("unixTimeStart", "long");
         _datamemberTypeMap.put("unixTimeStop", "long");
 
@@ -135,6 +138,7 @@ public class SimTime extends SimulationControl {
         _allDatamemberNames.add("sourceFed");
         _allDatamemberNames.add("timeScale");
         _allDatamemberNames.add("timeZone");
+        _allDatamemberNames.add("timeZonePosix");
         _allDatamemberNames.add("unixTimeStart");
         _allDatamemberNames.add("unixTimeStop");
     }
@@ -175,6 +179,7 @@ public class SimTime extends SimulationControl {
                 _sourceFed_handle = rti.getParameterHandle("sourceFed", get_handle());
                 _timeScale_handle = rti.getParameterHandle("timeScale", get_handle());
                 _timeZone_handle = rti.getParameterHandle("timeZone", get_handle());
+                _timeZonePosix_handle = rti.getParameterHandle("timeZonePosix", get_handle());
                 _unixTimeStart_handle = rti.getParameterHandle("unixTimeStart", get_handle());
                 _unixTimeStop_handle = rti.getParameterHandle("unixTimeStop", get_handle());
                 isNotInitialized = false;
@@ -199,6 +204,7 @@ public class SimTime extends SimulationControl {
         _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.sourceFed", _sourceFed_handle);
         _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.timeScale", _timeScale_handle);
         _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.timeZone", _timeZone_handle);
+        _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.timeZonePosix", _timeZonePosix_handle);
         _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.unixTimeStart", _unixTimeStart_handle);
         _datamemberNameHandleMap.put("InteractionRoot.C2WInteractionRoot.SimulationControl.SimTime.unixTimeStop", _unixTimeStop_handle);
 
@@ -208,6 +214,7 @@ public class SimTime extends SimulationControl {
         _datamemberHandleNameMap.put(_sourceFed_handle, "sourceFed");
         _datamemberHandleNameMap.put(_timeScale_handle, "timeScale");
         _datamemberHandleNameMap.put(_timeZone_handle, "timeZone");
+        _datamemberHandleNameMap.put(_timeZonePosix_handle, "timeZonePosix");
         _datamemberHandleNameMap.put(_unixTimeStart_handle, "unixTimeStart");
         _datamemberHandleNameMap.put(_unixTimeStop_handle, "unixTimeStop");
     }
@@ -425,6 +432,7 @@ public class SimTime extends SimulationControl {
         else if (datamemberHandle == _sourceFed_handle) return "sourceFed";
         else if (datamemberHandle == _timeScale_handle) return "timeScale";
         else if (datamemberHandle == _timeZone_handle) return "timeZone";
+        else if (datamemberHandle == _timeZonePosix_handle) return "timeZonePosix";
         else if (datamemberHandle == _unixTimeStart_handle) return "unixTimeStart";
         else if (datamemberHandle == _unixTimeStop_handle) return "unixTimeStop";
         else return super.getParameterName(datamemberHandle);
@@ -475,6 +483,7 @@ public class SimTime extends SimulationControl {
                 + "," + "sourceFed:" + get_sourceFed()
                 + "," + "timeScale:" + get_timeScale()
                 + "," + "timeZone:" + get_timeZone()
+                + "," + "timeZonePosix:" + get_timeZonePosix()
                 + "," + "unixTimeStart:" + get_unixTimeStart()
                 + "," + "unixTimeStop:" + get_unixTimeStop()
                 + ")";
@@ -482,6 +491,7 @@ public class SimTime extends SimulationControl {
 
     private double _timeScale = 0;
     private String _timeZone = "";
+    private String _timeZonePosix = "";
     private long _unixTimeStart = 0;
     private long _unixTimeStop = 0;
 
@@ -518,6 +528,23 @@ public class SimTime extends SimulationControl {
     */
     public String get_timeZone() {
         return _timeZone;
+    }
+    /**
+    * Set the value of the "timeZonePosix" parameter to "value" for this parameter.
+    *
+    * @param value the new value for the "timeZonePosix" parameter
+    */
+    public void set_timeZonePosix( String value ) {
+        _timeZonePosix = value;
+    }
+
+    /**
+    * Returns the value of the "timeZonePosix" parameter of this interaction.
+    *
+    * @return the value of the "timeZonePosix" parameter
+    */
+    public String get_timeZonePosix() {
+        return _timeZonePosix;
     }
     /**
     * Set the value of the "unixTimeStart" parameter to "value" for this parameter.
@@ -604,6 +631,7 @@ public class SimTime extends SimulationControl {
 
         set_timeScale( SimTime_var.get_timeScale() );
         set_timeZone( SimTime_var.get_timeZone() );
+        set_timeZonePosix( SimTime_var.get_timeZonePosix() );
         set_unixTimeStart( SimTime_var.get_unixTimeStart() );
         set_unixTimeStop( SimTime_var.get_unixTimeStop() );
     }
@@ -620,6 +648,7 @@ public class SimTime extends SimulationControl {
     public Object getParameter( String datamemberName ) {
         if ( "timeScale".equals(datamemberName) ) return new Double(get_timeScale());
         else if ( "timeZone".equals(datamemberName) ) return get_timeZone();
+        else if ( "timeZonePosix".equals(datamemberName) ) return get_timeZonePosix();
         else if ( "unixTimeStart".equals(datamemberName) ) return new Long(get_unixTimeStart());
         else if ( "unixTimeStop".equals(datamemberName) ) return new Long(get_unixTimeStop());
         else return super.getParameter( datamemberName );
@@ -629,6 +658,7 @@ public class SimTime extends SimulationControl {
         boolean retval = true;
         if ( "timeScale".equals( datamemberName) ) set_timeScale( Double.parseDouble(val) );
         else if ( "timeZone".equals( datamemberName) ) set_timeZone( val );
+        else if ( "timeZonePosix".equals( datamemberName) ) set_timeZonePosix( val );
         else if ( "unixTimeStart".equals( datamemberName) ) set_unixTimeStart( Long.parseLong(val) );
         else if ( "unixTimeStop".equals( datamemberName) ) set_unixTimeStop( Long.parseLong(val) );
         else retval = super.setParameterAux( datamemberName, val );
@@ -640,6 +670,7 @@ public class SimTime extends SimulationControl {
         boolean retval = true;
         if ( "timeScale".equals( datamemberName) ) set_timeScale( (Double)val );
         else if ( "timeZone".equals( datamemberName) ) set_timeZone( (String)val );
+        else if ( "timeZonePosix".equals( datamemberName) ) set_timeZonePosix( (String)val );
         else if ( "unixTimeStart".equals( datamemberName) ) set_unixTimeStart( (Long)val );
         else if ( "unixTimeStop".equals( datamemberName) ) set_unixTimeStop( (Long)val );
         else retval = super.setParameterAux( datamemberName, val );
@@ -653,6 +684,7 @@ public class SimTime extends SimulationControl {
             SimTime data = (SimTime)object;
             _timeScale = data._timeScale;
             _timeZone = data._timeZone;
+            _timeZonePosix = data._timeZonePosix;
             _unixTimeStart = data._unixTimeStart;
             _unixTimeStop = data._unixTimeStop;
         }

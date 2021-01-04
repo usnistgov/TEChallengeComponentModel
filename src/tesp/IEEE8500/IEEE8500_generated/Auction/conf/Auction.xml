@@ -8,7 +8,7 @@
         <name>Auction</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2020-04-11</modificationDate>
+        <modificationDate>2021-01-04</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
@@ -249,6 +249,10 @@
                         </parameter>
                         <parameter> 
                             <name>timeZone</name>
+                            <dataType>String</dataType>
+                        </parameter>
+                        <parameter> 
+                            <name>timeZonePosix</name>
                             <dataType>String</dataType>
                         </parameter>
                         <parameter> 

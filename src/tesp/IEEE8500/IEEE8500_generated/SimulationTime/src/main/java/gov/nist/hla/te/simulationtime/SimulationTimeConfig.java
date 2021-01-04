@@ -26,8 +26,14 @@ public class SimulationTimeConfig extends FederateConfig {
     public double timeScale;
     
     /**
-     * The default time zone for the federation.
+     * The default time zone for the federation (Olson/tz database ID).
      */
     @FederateParameter
     public String timeZone;
+    
+    /**
+     * The default time zone for the federation (POSIX ID).
+     */
+    @FederateParameter
+    public String timeZonePosix;
 }

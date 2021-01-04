@@ -318,6 +318,7 @@
       (class SimTime reliable receive
         (parameter timeScale)
         (parameter timeZone)
+        (parameter timeZonePosix)
         (parameter unixTimeStart)
         (parameter unixTimeStop)
       )
