@@ -13,5 +13,5 @@ sed -i -r 's/"max_capacity_reference_bid_quantity": [^,]+/"max_capacity_referenc
 
 cp IEEE_8500_agent_dict.json agent_dict_flat.json
 sed -i -r 's/"init_price": [^,]+/"init_price": 0.102/' agent_dict_flat.json
-sed -i -r 's/"init_stdev": [^,]+/"init_stdev": 0/' agent_dict_flat.json
+sed -i -r 's/"init_stdev": [^,]+/"init_stdev": 0.0/' agent_dict_flat.json
 sed -i -r 's/"max_capacity_reference_bid_quantity": [^,]+/"max_capacity_reference_bid_quantity": 50000/' agent_dict_flat.json
