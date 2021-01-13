@@ -190,6 +190,7 @@ def ProcessGLM (fileroot):
                     weekend_night_start = np.random.uniform (weekend_night_start_lo, weekend_night_start_hi)
                     weekend_night_set = np.random.uniform (weekend_night_set_lo, weekend_night_set_hi)
                     # >> use constant set points (but preserve old code so random number generation unaffected)
+                    wakeup_set = cooling_setpoint
                     daylight_set = cooling_setpoint
                     evening_set = cooling_setpoint
                     night_set = cooling_setpoint
