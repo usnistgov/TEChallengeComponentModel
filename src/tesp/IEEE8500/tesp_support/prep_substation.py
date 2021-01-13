@@ -162,6 +162,9 @@ def ProcessGLM (fileroot):
                 if lst[0] == 'cooling_system_type':
                     if (lst[1].strip(';') == 'ELECTRIC'):
                         isELECTRIC = True
+                # [tpr1] get the unmodified GLM cooling_setpoint
+                if lst[0] == 'cooling_setpoint':
+                    cooling_setpoint = float(lst[1].strip(';'))
         elif len(lst) == 1:
             if inHouses == True: 
                 inHouses = False
@@ -187,10 +190,11 @@ def ProcessGLM (fileroot):
                     weekend_night_start = np.random.uniform (weekend_night_start_lo, weekend_night_start_hi)
                     weekend_night_set = np.random.uniform (weekend_night_set_lo, weekend_night_set_hi)
                     # >> use constant set points (but preserve old code so random number generation unaffected)
-                    daylight_set = wakeup_set
-                    evening_set = wakeup_set
-                    night_set = wakeup_set
-                    weekend_day_set = weekend_night_set
+                    daylight_set = cooling_setpoint
+                    evening_set = cooling_setpoint
+                    night_set = cooling_setpoint
+                    weekend_day_set = cooling_setpoint
+                    weekend_night_set = cooling_setpoint
                     # << done with constant set points
                     deadband = np.random.uniform (deadband_lo, deadband_hi)
                     offset_limit = np.random.uniform (offset_limit_lo, offset_limit_hi)
