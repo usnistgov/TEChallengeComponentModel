@@ -65,6 +65,7 @@ public class SimulationTime extends SimulationTimeBase {
             // re-send if new federate joins
             // maybe make it a request-response ?
 
+	    log.debug("STATE: before time request");
             if (!exitCondition) {
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
@@ -73,6 +74,7 @@ public class SimulationTime extends SimulationTimeBase {
                 atr.requestSyncEnd();
                 atr = newATR;
             }
+	    log.debug("STATE: after time request");
         }
 
         // call exitGracefully to shut down federate

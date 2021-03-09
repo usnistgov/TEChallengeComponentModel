@@ -236,6 +236,7 @@ boolean bWantMarket = true; // set to false if no market is desired
                     }
                 }
             }
+	    log.debug("STATE: after LMP");
             
             if(time_granted == 0){
                 currentTime += super.getStepSize();
@@ -368,6 +369,7 @@ boolean bWantMarket = true; // set to false if no market is desired
                 break;
             }
 
+	    log.debug("STATE: before time request");
             if (!exitCondition) {
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
@@ -376,6 +378,7 @@ boolean bWantMarket = true; // set to false if no market is desired
                 atr.requestSyncEnd();
                 atr = newATR;
             }
+	    log.debug("STATE: after time request");
         }
 
         // call exitGracefully to shut down federate
