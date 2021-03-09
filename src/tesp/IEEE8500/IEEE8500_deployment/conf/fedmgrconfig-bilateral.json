@@ -1,0 +1,16 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "FederationManager",
+  "federationId": "IEEE8500",
+  "isLateJoiner": true,
+  "lookAhead": 0.1,
+  "stepSize": 1,
+  "bindHost": "0.0.0.0",
+  "port": 8083,
+  "controlEndpoint": "/fedmgr",
+  "federatesEndpoint": "/federates",
+  "federationEndTime": 0,
+  "realTimeMode": false,
+  "fedFile": "fom/IEEE8500Bilateral.fed",
+  "experimentConfig": "conf/bilateral/experimentConfig.json"
+}

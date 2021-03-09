@@ -1,0 +1,62 @@
+{
+  "federateTypesAllowed": [
+    "Controller",
+    "FileReader",
+    "GridModel",
+    "Metrics",
+    "ParitySystem",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Controller",
+      "count": 1
+    },
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 1
+    },
+    {
+      "federateType": "Metrics",
+      "count": 0
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Controller",
+      "count": 0
+    },
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "Metrics",
+      "count": 0
+    },
+    {
+      "federateType": "ParitySystem",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
