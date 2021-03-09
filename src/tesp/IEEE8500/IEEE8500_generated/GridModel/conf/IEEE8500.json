@@ -10,5 +10,5 @@
     "workingDirectory": "IEEE8500",
     "modelFilePath": "IEEE_8500.glm",
     "extraProcessCommand": "--lock",
-    "waitTimeMs": 5000
+    "waitTimeMs": 500
 }
