@@ -64,6 +64,10 @@
         (attribute name reliable timestamp)
         (attribute price reliable timestamp)
       )
+      (class Substation
+        (attribute distribution_load reliable timestamp)
+        (attribute name reliable timestamp)
+      )
       (class RealTimePrice
         (attribute price reliable timestamp)
         (attribute time reliable timestamp)
