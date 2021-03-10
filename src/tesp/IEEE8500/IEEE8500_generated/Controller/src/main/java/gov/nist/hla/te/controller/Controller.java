@@ -9,11 +9,20 @@ import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.cpswt.utils.CpswtUtils;
 
+import com.opencsv.CSVIterator;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 
 // Define the Controller type of federate for the federation.
@@ -27,13 +36,16 @@ public class Controller extends ControllerBase {
 
     private double logicalTimeScale;
 
-    private String config;
+    private ControllerConfig config;
 
     private LocalDateTime scenarioTime;
+    
+    private List<HouseData> houseData;
 
     public Controller(ControllerConfig params) throws Exception {
         super(params);
-        config = params.configFileName;
+        config = params;
+        initializeHouseData();
     }
 
     private void checkReceivedSubscriptions() {
@@ -112,7 +124,7 @@ public class Controller extends ControllerBase {
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
-            log.info("t = {} ({})", this.getCurrentTime(), scenarioTime.toString());
+            log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
             if (scenarioTime.getMinute() % 5 == 0) {
                 log.info("5 minutes elapsed");
@@ -173,6 +185,33 @@ public class Controller extends ControllerBase {
         //////////////////////////////////////////////////////////
     }
 
+    private void initializeHouseData() throws IOException {
+        this.houseData = new LinkedList<HouseData>();
+        
+        log.debug("parsing {}", config.configFileName);
+        CSVReader reader = new CSVReader(new FileReader(config.configFileName));        
+        String[] nextLine;
+        
+        try {
+            // skip the header row
+            if (reader.readNext() == null) {
+                log.error("input file {} contains no data", config.configFileName);
+                throw new IOException("bad input file");
+            }
+            
+            // read the data row by row
+            while ((nextLine = reader.readNext()) != null) {
+                HouseData nextHouseData = new HouseData(nextLine[0]);
+                for (int i = 1; i < nextLine.length; i++) {
+                    nextHouseData.add(nextLine[i]);
+                }
+                log.debug("parsed house {} with {} data points", nextLine[0], nextLine.length-1);
+            }
+        } catch (CsvValidationException e) {
+            throw new IOException(e);
+        }
+    }
+    
     private void incrementScenarioTime() {
         final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
         scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
