@@ -46,6 +46,10 @@ class HouseData {
         return setPointSchedule.peek();
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public int size() {
         return setPointSchedule.size();
     }

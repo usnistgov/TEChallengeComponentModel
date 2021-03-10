@@ -21,8 +21,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 // Define the Controller type of federate for the federation.
@@ -41,11 +43,14 @@ public class Controller extends ControllerBase {
     private LocalDateTime scenarioTime;
     
     private List<HouseData> houseData;
+    
+    private Map<String, House> houses = new HashMap<String, House>();
 
     public Controller(ControllerConfig params) throws Exception {
         super(params);
         config = params;
         initializeHouseData();
+        registerHouseObjects();
     }
 
     private void checkReceivedSubscriptions() {
@@ -127,7 +132,8 @@ public class Controller extends ControllerBase {
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
             if (scenarioTime.getMinute() % 5 == 0) {
-                log.info("5 minutes elapsed");
+                log.info("sending new set points to GridLAB-D");
+                updateSetPoints();
             }
 
             checkReceivedSubscriptions();
@@ -206,9 +212,28 @@ public class Controller extends ControllerBase {
                     nextHouseData.add(nextLine[i]);
                 }
                 log.debug("parsed house {} with {} data points", nextLine[0], nextLine.length-1);
+                houseData.add(nextHouseData);
             }
         } catch (CsvValidationException e) {
             throw new IOException(e);
+        }
+    }
+    
+    private void registerHouseObjects() {
+        for (HouseData data : houseData) {
+            House newHouse = new House();
+            newHouse.registerObject(getLRC());
+            houses.put(data.getName(), newHouse);
+        }
+    }
+    
+    private void updateSetPoints() {
+        for (HouseData data : houseData) {
+            House house = houses.get(data.getName());
+            house.set_name(data.getName());
+            house.set_cooling_setpoint(data.remove());
+            house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            log.debug("house {} set to {}", house.get_name(), house.get_cooling_setpoint());
         }
     }
     
