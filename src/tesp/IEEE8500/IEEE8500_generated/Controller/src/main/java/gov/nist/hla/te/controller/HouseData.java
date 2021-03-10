@@ -20,7 +20,7 @@ class HouseData {
         this.deadband = deadband;
     }
     
-    public boolean add(String value) {
+    public boolean add(String value) { // assumes value is in Celsius
         double valueAsDouble;
         
         if (value == null) {
@@ -32,7 +32,9 @@ class HouseData {
             throw new IllegalArgumentException();
         }
         
-        return setPointSchedule.add(valueAsDouble);
+        // convert to fahrenheit for GridLAB-D
+        final double fahrenheitValue = valueAsDouble * 1.8 + 32;
+        return setPointSchedule.add(fahrenheitValue);
     }
     
     public void add(String[] values) {
