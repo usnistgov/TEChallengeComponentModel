@@ -232,9 +232,14 @@ public class Controller extends ControllerBase {
     
     private void updateSetPoints() {
         for (HouseData data : houseData) {
+            // the values for heating setpoint and deadband are (unfortunately) required because VU object instances
+            // provide default values for uninitialized attributes. the deadband and heating setpoint values have been
+            // set to the same values as the double auction market
             House house = houses.get(data.getName());
             house.set_name(data.getName());
             house.set_cooling_setpoint(data.remove());
+            house.set_heating_setpoint(60.0);
+            house.set_thermostat_deadband(data.getDeadband());
             house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             log.debug("house {} set to {}", house.get_name(), house.get_cooling_setpoint());
         }
