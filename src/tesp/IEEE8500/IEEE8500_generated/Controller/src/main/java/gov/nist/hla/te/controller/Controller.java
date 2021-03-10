@@ -207,11 +207,14 @@ public class Controller extends ControllerBase {
             
             // read the data row by row
             while ((nextLine = reader.readNext()) != null) {
-                HouseData nextHouseData = new HouseData(nextLine[0]);
-                for (int i = 1; i < nextLine.length; i++) {
+                final String name = nextLine[0];
+                final double deadband = Double.parseDouble(nextLine[1]);
+                
+                HouseData nextHouseData = new HouseData(name, deadband);
+                for (int i = 2; i < nextLine.length; i++) {
                     nextHouseData.add(nextLine[i]);
                 }
-                log.debug("parsed house {} with {} data points", nextLine[0], nextLine.length-1);
+                log.debug("parsed house {} with {} data points", nextLine[0], nextLine.length-2);
                 houseData.add(nextHouseData);
             }
         } catch (CsvValidationException e) {

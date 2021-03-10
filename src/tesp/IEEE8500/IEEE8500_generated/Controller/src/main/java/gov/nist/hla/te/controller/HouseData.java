@@ -10,11 +10,14 @@ class HouseData {
     private final static Logger log = LogManager.getLogger();
     
     private String name;
+    
+    private double deadband;
 
     private Queue<Double> setPointSchedule = new LinkedList<Double>();
 
-    public HouseData(String name) {
+    public HouseData(String name, double deadband) {
         this.name = name;
+        this.deadband = deadband;
     }
     
     public boolean add(String value) {
@@ -48,6 +51,10 @@ class HouseData {
     
     public String getName() {
         return name;
+    }
+    
+    public double getDeadband() {
+        return deadband;
     }
     
     public int size() {
