@@ -7,20 +7,29 @@ import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 // Define the Controller type of federate for the federation.
 
 public class Controller extends ControllerBase {
     private final static Logger log = LogManager.getLogger();
 
+    private boolean receivedSimTime = false;
+
     private double currentTime = 0;
 
+    private double logicalTimeScale;
+
     private String config;
+
+    private LocalDateTime scenarioTime;
 
     public Controller(ControllerConfig params) throws Exception {
         super(params);
@@ -70,10 +79,6 @@ public class Controller extends ControllerBase {
             super.disableTimeRegulation();
         }
 
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
-
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -83,9 +88,16 @@ public class Controller extends ControllerBase {
             log.info("...synchronized on readyToPopulate");
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+        while (!receivedSimTime) {
+            log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
+            checkReceivedSubscriptions();
+            if (!receivedSimTime) {
+                CpswtUtils.sleep(1000);
+            }
+        }
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -100,47 +112,16 @@ public class Controller extends ControllerBase {
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
-            ////////////////////////////////////////////////////////////
-            // TODO send interactions that must be sent every logical //
-            // time step below                                        //
-            ////////////////////////////////////////////////////////////
+            log.info("t = {} ({})", this.getCurrentTime(), scenarioTime.toString());
 
-            // Set the interaction's parameters.
-            //
-            //    Tender tender = create_Tender();
-            //    tender.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
-            //    tender.set_durationInMinutes( < YOUR VALUE HERE > );
-            //    tender.set_expireTime( < YOUR VALUE HERE > );
-            //    tender.set_federateFilter( < YOUR VALUE HERE > );
-            //    tender.set_originFed( < YOUR VALUE HERE > );
-            //    tender.set_partyId( < YOUR VALUE HERE > );
-            //    tender.set_price( < YOUR VALUE HERE > );
-            //    tender.set_quantity( < YOUR VALUE HERE > );
-            //    tender.set_side( < YOUR VALUE HERE > );
-            //    tender.set_sourceFed( < YOUR VALUE HERE > );
-            //    tender.set_startTime( < YOUR VALUE HERE > );
-            //    tender.set_tenderId( < YOUR VALUE HERE > );
-            //    tender.sendInteraction(getLRC(), currentTime + getLookAhead());
-
-            ////////////////////////////////////////////////////////////
-            // TODO objects that must be sent every logical time step //
-            ////////////////////////////////////////////////////////////
-            //    house.set_air_temperature(<YOUR VALUE HERE >);
-            //    house.set_cooling_setpoint(<YOUR VALUE HERE >);
-            //    house.set_heating_setpoint(<YOUR VALUE HERE >);
-            //    house.set_hvac_load(<YOUR VALUE HERE >);
-            //    house.set_name(<YOUR VALUE HERE >);
-            //    house.set_power_state(<YOUR VALUE HERE >);
-            //    house.set_thermostat_deadband(<YOUR VALUE HERE >);
-            //    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+            if (scenarioTime.getMinute() % 5 == 0) {
+                log.info("5 minutes elapsed");
+            }
 
             checkReceivedSubscriptions();
 
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
-
             if (!exitCondition) {
+                incrementScenarioTime();
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
                     new AdvanceTimeRequest(currentTime);
@@ -152,16 +133,14 @@ public class Controller extends ControllerBase {
 
         // call exitGracefully to shut down federate
         exitGracefully();
-
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
     }
 
     private void handleInteractionClass(SimTime interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        logicalTimeScale = interaction.get_timeScale();
+        
+        scenarioTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        log.info("received SimTime starting at {}", scenarioTime.toString());
+        receivedSimTime = true;
     }
 
     private void handleInteractionClass(LoadForecast interaction) {
@@ -192,6 +171,11 @@ public class Controller extends ControllerBase {
         //////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the object //
         //////////////////////////////////////////////////////////
+    }
+
+    private void incrementScenarioTime() {
+        final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
+        scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
     }
 
     public static void main(String[] args) {
