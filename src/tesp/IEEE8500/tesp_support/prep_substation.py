@@ -231,13 +231,14 @@ def ProcessGLM (fileroot):
     # Write new CSV file
     csvfile = fileroot + '_house_data.csv'
     cp = open (csvfile, 'w')
-    print ('houseName,daylight_set,offset_limit,ramp', file=cp)
+    print ('houseName,daylight_set,offset_limit,ramp,deadband', file=cp)
     for key,val in controllers.items():
         houseName = str(val['houseName'])
         daylight_set = str(val['daylight_set'])
         offset_limit = str(val['offset_limit'])
         ramp = str(val['ramp'])
-        print (houseName + ',' + daylight_set + ',' + offset_limit + ',' + ramp, file=cp)
+        deadband = str(val['deadband'])
+        print (houseName + ',' + daylight_set + ',' + offset_limit + ',' + ramp + ',' + deadband, file=cp)
     cp.close ()
 
     # Write market dictionary
