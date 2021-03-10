@@ -2,7 +2,6 @@ package gov.nist.hla.te.controller;
 
 import gov.nist.hla.te.controller.rti.*;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
@@ -21,19 +20,11 @@ public class Controller extends ControllerBase {
 
     private double currentTime = 0;
 
-    ////////////////////////////////////////////////////////////////////////
-    // TODO instantiate objects that must be sent every logical time step //
-    ////////////////////////////////////////////////////////////////////////
-    // House house =
-    //     new House();
+    private String config;
 
-    public Controller(FederateConfig params) throws Exception {
+    public Controller(ControllerConfig params) throws Exception {
         super(params);
-
-        //////////////////////////////////////////////////////
-        // TODO register object instances after super(args) //
-        //////////////////////////////////////////////////////
-        // house.registerObject(getLRC());
+        config = params.configFileName;
     }
 
     private void checkReceivedSubscriptions() {
@@ -207,8 +198,8 @@ public class Controller extends ControllerBase {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            ControllerConfig federateConfig =
+                federateConfigParser.parseArgs(args, ControllerConfig.class);
             Controller federate =
                 new Controller(federateConfig);
             federate.execute();

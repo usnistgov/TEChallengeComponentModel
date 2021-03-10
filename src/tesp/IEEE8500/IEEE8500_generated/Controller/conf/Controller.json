@@ -4,5 +4,6 @@
   "federationId": "IEEE8500",
   "isLateJoiner": false,
   "lookAhead": 0.2,
-  "stepSize": 1.0
+  "stepSize": 1.0,
+  "configFileName": "conf/Forecasted_SP_July7.csv"
 }
