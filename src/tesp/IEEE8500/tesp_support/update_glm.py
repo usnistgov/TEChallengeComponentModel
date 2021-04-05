@@ -1,11 +1,12 @@
 # update_glm <glm_file> <csv_file>
 # read a GLM file and add/replace values for objects as defined in the CSV file
+# if new values are added, the indentation for those values will be wrong
 
 import csv
 import sys 
 
-current_object_name = [] # global stack
-current_object_info = [] # global stack
+current_scope_name = [] # global stack
+existing_properties = {} # global dict
 
 glm_reader = open(sys.argv[1], 'r')
 glm_writer = open(sys.argv[1] + '.modified', 'w')
@@ -70,24 +71,47 @@ def find_name(reader):
 
 # process one line from the GLM file
 # assumes the file has the following format (the same as prep_substation.py):
-#   for new object definitions, the line must start with `object <object_type>`
-#   the closing brace } must be the first non-whitespace character on its line
-#   for object properties, the line must start with `<property_name> <value>`
+#   for object definitions, the line must start with `object <object_type> {`
+#   for object properties, the line must start with `<property_name> <value>;`
+#   the opening brace must be surrounded by whitespace characters
+#   the closing brace (with optional semi-colon) must be surrounded by whitespace characters
 def process_line(line):
     lst = line.split()
 
-    if len(lst) > 1 and lst[0] == 'object' and lst[1] in glm_objects:
-        # new object of potential interest
-        name = find_name(glm_reader)
-        if name in csv_info.keys():
-            print(name)
+    if len(lst) > 1 and lst[0] == 'object':
+        # new object scope
+        if lst[1] in glm_objects:
+            current_scope_name.append(find_name(glm_reader))
+        else:
+            # irrelevant object
+            current_scope_name.append('')
         glm_writer.write(line)
-    elif len(lst) > 0 and lst[0] == '}':
-        # end object definition
+    elif lst.count('{') > 0:
+        # new (irrelevant) scope
+        current_scope_name.append('')
         glm_writer.write(line)
-    elif len(lst) > 1 and len(current_object_name) > 0:
+    elif lst.count('}') > 0 or lst.count('};') > 0:
+        # closing scope
+        name = current_scope_name.pop()
+        info = csv_info.pop(name, {})
+        # write remaining keys to file
+        for key, value in info.items():
+            if key not in existing_properties.get(name, set()):
+                glm_writer.write(key + ' ' + value + ';\n')
+        glm_writer.write(line)
+    elif len(lst) > 1 and len(current_scope_name) > 0:
         # potential object property of interest
-        glm_writer.write(line)
+        name = current_scope_name[-1]
+        info = csv_info.get(name, {})
+        value = info.get(lst[0], None)
+        if value is not None:
+            # this destroys whitespace (and maybe more)
+            glm_writer.write(lst[0] + ' ' + value + ';\n')
+            properties = existing_properties.get(name, set())
+            properties.add(lst[0])
+            existing_properties[name] = properties
+        else:
+            glm_writer.write(line)
     else:
         glm_writer.write(line)
 
