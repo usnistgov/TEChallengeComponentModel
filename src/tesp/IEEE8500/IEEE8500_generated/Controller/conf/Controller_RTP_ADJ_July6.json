@@ -1,0 +1,10 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Controller",
+  "federationId": "IEEE8500",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0,
+  "configFileName": "conf/RTP_July6_ADJ.csv",
+  "isFahrenheit": true
+}
