@@ -6,4 +6,7 @@ import org.cpswt.config.FederateParameter;
 public class ControllerConfig extends FederateConfig {
     @FederateParameter
     public String configFileName;
+
+    @FederateParameter
+    public boolean isFahrenheit;
 }

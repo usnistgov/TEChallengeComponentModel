@@ -212,7 +212,7 @@ public class Controller extends ControllerBase {
                 
                 HouseData nextHouseData = new HouseData(name, deadband);
                 for (int i = 2; i < nextLine.length; i++) {
-                    nextHouseData.add(nextLine[i]);
+                    nextHouseData.add(nextLine[i], config.isFahrenheit);
                 }
                 log.debug("parsed house {} with {} data points", nextLine[0], nextLine.length-2);
                 houseData.add(nextHouseData);
