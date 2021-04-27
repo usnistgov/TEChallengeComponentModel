@@ -81,7 +81,7 @@ xterm -fg green -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "
 waitUntilJoined GridModel 1
 
 cd $code_directory/Controller
-xterm -fg cyan -bg black -l -lf $logs_directory/Controller-${timestamp}.log -T "Controller" -geometry 140x40+90+120 -e "sh run.sh conf/Controller_RTP_July7" &
+xterm -fg cyan -bg black -l -lf $logs_directory/Controller-${timestamp}.log -T "Controller" -geometry 140x40+90+120 -e "sh run.sh conf/Controller_RTP_July7.json" &
 waitUntilJoined Controller 1
 
 # terminate the simulation
