@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +127,7 @@ public class Auction extends AuctionBase {
         
         log.trace("creating hvac objects");
         Object[] hvac_keys = ((Map<String, Object>)dict.get("controllers")).keySet().toArray();
+        String[] house_names = new String[hvac_keys.length];
         for(int i=0; i<hvac_keys.length; i++){
             String key = (String) hvac_keys[i];
             Map<String, Object> row = (Map<String, Object>)((Map<String, Object>) dict.get("controllers")).get(key);
@@ -136,6 +138,7 @@ public class Auction extends AuctionBase {
             House newHouse = new House();
             newHouse.registerObject(getLRC());
             houses.put(newHvac.get_house_name(), newHouse);
+            house_names[i] = newHvac.get_house_name();
             
             Meter newMeter = new Meter();
             newMeter.registerObject(getLRC());
@@ -172,6 +175,15 @@ public class Auction extends AuctionBase {
                 "Responsive_max_mw", "Responsive_c2", "Responsive_c1", "Responsive_deg",
                 "Clear_Price", "Clear_Type"});
         op.flush();
+
+        CSVWriter hout = new CSVWriter(new FileWriter(csvfile + "/" + "house.csv", true));
+        String[] houseCsvHeader = new String[house_names.length + 1];
+        houseCsvHeader[0] = "t[s]";
+        for(int i=0; i<house_names.length; i++){
+            houseCsvHeader[i+1] = house_names[i];
+        }
+        hout.writeNext(houseCsvHeader, true);
+        hout.flush();
         
         double AggUn = 0.0; //For Testing Purposes
         double AggRespMax = 0.0; //For Testing Purposes
@@ -315,6 +327,8 @@ public class Auction extends AuctionBase {
                 tnext_clear += period;
             }
             if(time_granted >= tnext_adjust){
+                String[] csvoutput = new String[house_names.length + 1];
+                csvoutput[0] = String.valueOf(time_granted);
                 if(bWantMarket){
                     for(hvac value : hvacObjs.values()){
                         Meter meter = meters.get(value.get_meter_name());
@@ -326,9 +340,13 @@ public class Auction extends AuctionBase {
                             house.set_name(value.get_house_name());
                             house.set_cooling_setpoint(value.setpoint);
                             //house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                            int houseIndex = Arrays.asList(house_names).indexOf(value.get_house_name());
+                            csvoutput[houseIndex+1] = String.valueOf(value.setpoint);
                         }
                     }
                 }
+                hout.writeNext(csvoutput, true);
+                hout.flush();
                 tnext_adjust += period;
             }
             
@@ -370,6 +388,7 @@ public class Auction extends AuctionBase {
         exitGracefully();
 
         op.close();
+        hout.close();
     }
 
     private void handleInteractionClass(SimTime interaction) {
