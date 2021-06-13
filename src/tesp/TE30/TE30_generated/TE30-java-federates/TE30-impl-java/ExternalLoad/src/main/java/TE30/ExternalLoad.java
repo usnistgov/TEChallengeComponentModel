@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.io.*;
+import java.net.*;
 
 import com.opencsv.CSVWriter;
 
@@ -35,6 +37,7 @@ public class ExternalLoad extends ExternalLoadBase {
     private double currentTime = 0;
     
     private boolean receivedSimTime = false;
+    private boolean receivedPrice = true;
     
     private double logicalTimeScale;
     
@@ -45,6 +48,9 @@ public class ExternalLoad extends ExternalLoadBase {
     private Meter meter = new Meter();
     
     private Load load = new Load();
+
+    public String Ipaddress = "";
+    public int PortNum = 0;
 
     public ExternalLoad(FederateConfig params) throws Exception {
         super(params);
@@ -79,6 +85,16 @@ public class ExternalLoad extends ExternalLoadBase {
         }
      }
 
+    //////////////////////////////////////////////
+    // Read IPaddress and PortNumber from Config//
+    //////////////////////////////////////////////
+
+    public ExternalLoad(InputSourceConfig params) throws Exception {
+        super(params);
+        Ipaddress = params.IP_address;
+        PortNum = params.Port_Number;
+    }
+        
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
             log.info("turning off time regulation (late joiner)");
@@ -91,12 +107,19 @@ public class ExternalLoad extends ExternalLoadBase {
         double max_delta_hi = 4.0;
         double max_delta_lo = 4.0;
         double delta = 0.0;
+        double hdelta = 0.0;
         double phaseWatts = 0.0;
         double totalWatts = 0.0;
         int period = 300; //market clearing time
         int dt = 15; //step time
         int tnext_rec = period;
         int tnext_send = period;
+
+        String header;
+        String time = "0.0";
+        String varname, value;
+        double varValue;
+
 
         // read-in values eplus_json subscribes to from the Auction and EPlus federates
         // that is done to bypass the fncs communication in order to isolate the 
@@ -110,7 +133,24 @@ public class ExternalLoad extends ExternalLoadBase {
         op.writeNext(new String[] {"t[s]","cooling_setpoint_delta","heating_setpoint_delta","power_A",
                 "power_B","power_C","bill_mode","price","monthly_fee","occupants"});
         op.flush();
+
+        /////////////////////////////////////////////
+        // Create Socket                           //
+        /////////////////////////////////////////////
+        System.out.println("IP address is "+ Ipaddress);
+        System.out.println("Port Number is "+ PortNum);
         
+        InetAddress addr = InetAddress.getByName(Ipaddress);  // the address needs to be changed
+        ServerSocket welcomeSocket = new ServerSocket(PortNum, 50, addr);  // 6789 is port number. Can be changed
+        java.net.Socket connectionSocket = welcomeSocket.accept(); // initial connection will be made at this point
+        System.out.println("connection successful");
+        log.info("connection successful");
+     
+        InputStreamReader inFromClient = new InputStreamReader(connectionSocket.getInputStream());
+        BufferedReader buffDummy = new BufferedReader(inFromClient);
+        DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+        ///////////////////////////////////////Socket
+
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -156,17 +196,40 @@ public class ExternalLoad extends ExternalLoadBase {
                     events.add(Arrays.asList(sub.get(0), sub.get(1), sub.get(2)));
                 }
             });
-            
-            for(int i=0; i<events.size(); i++){
-                String topic = events.get(i).get(1);
-                if(topic.equals("electric_demand_power")){
-                    totalWatts = Double.parseDouble(events.get(i).get(2));
-                }else if(topic.contains("occupants_")){
-                    occupants += Double.parseDouble(events.get(i).get(2));
-                }else{
-                    log.debug(events.get(i).get(2));
+
+            ///////////////// Former External Load Start /////////////////
+            //
+            // for(int i=0; i<events.size(); i++){
+            //     String topic = events.get(i).get(1);
+            //     if(topic.equals("electric_demand_power")){
+            //         totalWatts = Double.parseDouble(events.get(i).get(2));
+            //     }else if(topic.contains("occupants_")){
+            //         occupants += Double.parseDouble(events.get(i).get(2));
+            //     }else{
+            //         log.debug(events.get(i).get(2));
+            //     }
+            // }
+            ///////////////// Former External Load End  /////////////////
+
+            ///////////////// Receive Data from EP Start /////////////////
+            if (receivedPrice) {
+                if((header = buffDummy.readLine()).equals("TERMINATE")){
+                    exitCondition = true;		
+                }
+                time = buffDummy.readLine();
+                System.out.println("in loop header=" + header + " t=" + time);
+                
+                while(!(varname = buffDummy.readLine()).isEmpty()) {
+                    value = buffDummy.readLine();
+                    System.out.println("Received: " + varname + " as " + value);
+                    varValue = Double.parseDouble(value);
+
+                    if(varname.equals("FACILITY_FACILITY_TOTAL_ELECTRICITY_DEMAND_RATE")){
+                        totalWatts = varValue;
+                    }                            
                 }
             }
+            ///////////////// Receive Data from EP End /////////////////
             
             // this is price response
             delta = degF_per_price * (price - base_price);
@@ -175,6 +238,16 @@ public class ExternalLoad extends ExternalLoadBase {
             }else if(delta > max_delta_hi){
                 delta = max_delta_hi;
             }
+            hdelta = -delta;
+
+            ///////////////// Send Data to EP Start /////////////////
+            if (receivedPrice) {
+                outToClient.writeBytes("SET\r\n" + time + "\r\n"+ "fmuCOOL_SETP_DELTA\r\n" + delta + "\r\n" + "fmuHEAT_SETP_DELTA\r\n" + hdelta + "\r\n" + "\r\n");
+                System.out.println("SET\r\n" + time +  "\r\n"+ "fmuCOOL_SETP_DELTA\r\n" + delta + "\r\n" + "fmuHEAT_SETP_DELTA\r\n" + hdelta + "\r\n" + "\r\n");
+                outToClient.flush();
+                receivedPrice = false;
+            }
+            ///////////////// Send Data to EP End /////////////////
             
             phaseWatts = totalWatts / 3.0;
             
@@ -250,6 +323,7 @@ public class ExternalLoad extends ExternalLoadBase {
     private void handleObjectClass(Market object) {
         price = object.get_clearing_price();
         log.trace("new clearing price {}", price);
+        receivedPrice = true;
     }
     
     private List<List<String>> read_file(String fname, String delimiter) throws Exception
@@ -289,7 +363,7 @@ public class ExternalLoad extends ExternalLoadBase {
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser = new FederateConfigParser();
-            FederateConfig federateConfig = federateConfigParser.parseArgs(args, FederateConfig.class);
+            InputSourceConfig federateConfig = federateConfigParser.parseArgs(args, InputSourceConfig.class);
             ExternalLoad federate = new ExternalLoad(federateConfig);
             federate.execute();
             log.info("Done.");
