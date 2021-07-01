@@ -127,7 +127,7 @@ schedule heating1 {
     * 22-23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating2 {
@@ -141,7 +141,7 @@ schedule heating2 {
     * 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating3 {
@@ -153,7 +153,7 @@ schedule heating3 {
     * 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating4 {
@@ -165,7 +165,7 @@ schedule heating4 {
     * 22-23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating5 {
@@ -178,7 +178,7 @@ schedule heating5 {
     15-59 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating6 {
@@ -192,7 +192,7 @@ schedule heating6 {
     * 22-23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating7 {
@@ -204,7 +204,7 @@ schedule heating7 {
     * 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating8 {
@@ -217,7 +217,7 @@ schedule heating8 {
     30-59 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule heating9 {
@@ -229,7 +229,7 @@ schedule heating9 {
     * 23 * 1-4,11-12 * 0;
 
      //Summer
-     * * * 5-10 * -4;
+     * * * 5-10 * -10;
 }
 
 schedule cooling1 {
