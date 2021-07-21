@@ -1,0 +1,14 @@
+{
+    "federateName": "GridModel",
+    "federationId": "IEEE8500",
+    "fomFilepath": "conf/IEEE8500.xml",
+    "maxReconnectAttempts": 12,
+    "waitReconnectMs": 5000,
+    "isLateJoiner": false,
+    "stepSize": 1.0,
+    "lookAhead": 0.2,
+    "workingDirectory": "IEEE8500",
+    "modelFilePath": "IEEE_8500_July7_Restart.glm",
+    "extraProcessCommand": "--lock",
+    "waitTimeMs": 500
+}
