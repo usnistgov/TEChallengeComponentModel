@@ -126,6 +126,7 @@ def ProcessGLM (fileroot):
     inTriplexMeters = False
     endedHouse = False
     isELECTRIC = False
+    isCOMMERCIAL = False
     nAirConditioners = 0
     nControllers = 0
 
@@ -165,11 +166,19 @@ def ProcessGLM (fileroot):
                 # [tpr1] get the unmodified GLM cooling_setpoint
                 if lst[0] == 'cooling_setpoint':
                     cooling_setpoint = float(lst[1].strip(';'))
+                # [tpr1] check GROUPID for commercial buildings
+                if lst[0] == 'groupid':
+                    if lst[1].startswith("OFFICE"):
+                        isCOMMERCIAL = True
+                    if lst[1].startswith("BIGBOX"):
+                        isCOMMERCIAL = True
+                    if lst[1].startswith("STRIPMALL"):
+                        isCOMMERCIAL = True
         elif len(lst) == 1:
             if inHouses == True: 
                 inHouses = False
                 endedHouse = False
-                if isELECTRIC == True:
+                if isELECTRIC == True and isCOMMERCIAL == False:
                     nAirConditioners += 1
                     if np.random.uniform (0, 1) <= agent_participation:
                         nControllers += 1
@@ -224,7 +233,8 @@ def ProcessGLM (fileroot):
                         'bid_delay': bid_delay, 
                         'use_predictive_bidding': use_predictive_bidding, 
                         'use_override': use_override}
-                    isELECTRIC = False
+                isELECTRIC = False
+                isCOMMERCIAL = False
 
     print ('configured', nControllers, 'participating controllers for', nAirConditioners, 'air conditioners')
 
