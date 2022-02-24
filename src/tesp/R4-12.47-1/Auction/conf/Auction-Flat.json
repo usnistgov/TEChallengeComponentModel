@@ -1,0 +1,10 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Auction",
+  "federationId": "R4-12.47-1",
+  "isLateJoiner": false,
+  "lookAhead": "0.2",
+  "stepSize": "1.0",
+  "configFileName": "conf/agent_dict_flat.json",
+  "namingScheme": "FeederGenerator"
+}
