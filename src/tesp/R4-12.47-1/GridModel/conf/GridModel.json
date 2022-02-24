@@ -1,0 +1,13 @@
+{
+    "federateName": "GridModel",
+    "federationId": "R4-12.47-1",
+    "fomFilepath": "conf/GridModel.xml",
+    "maxReconnectAttempts": 12,
+    "waitReconnectMs": 5000,
+    "isLateJoiner": false,
+    "stepSize": 1.0,
+    "lookAhead": 0.2,
+    "workingDirectory": "model",
+    "modelFilePath": "model.glm",
+    "waitTimeMs": 500
+}
