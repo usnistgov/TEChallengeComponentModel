@@ -1,0 +1,12 @@
+{
+  "federateName": "FileReader",
+  "federationId": "R4-12.47-1",
+  "fomFilepath": "conf/FileReader.xml",
+  "maxReconnectAttempts": 12,
+  "waitReconnectMs": 5000,
+  "isLateJoiner": false,
+  "stepSize": 1.0,
+  "lookAhead": 0.1,
+  "inputFilePath": "conf/tou.csv",
+  "delimiter": ","
+}
