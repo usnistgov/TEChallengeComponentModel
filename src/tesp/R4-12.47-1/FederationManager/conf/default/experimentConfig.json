@@ -1,0 +1,44 @@
+{
+  "federateTypesAllowed": [
+    "Auction",
+    "FileReader",
+    "GridModel",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "Auction",
+      "count": 1
+    },
+    {
+      "federateType": "FileReader",
+      "count": 1
+    },
+    {
+      "federateType": "GridModel",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "Auction",
+      "count": 0
+    },
+    {
+      "federateType": "FileReader",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
