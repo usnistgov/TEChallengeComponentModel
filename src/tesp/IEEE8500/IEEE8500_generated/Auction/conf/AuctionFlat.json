@@ -6,5 +6,5 @@
   "lookAhead": "0.2",
   "stepSize": "1.0",
   "configFileName": "conf/agent_dict_flat.json",
-  "ieee8500": true
+  "namingConvention": "IEEE8500"
 }

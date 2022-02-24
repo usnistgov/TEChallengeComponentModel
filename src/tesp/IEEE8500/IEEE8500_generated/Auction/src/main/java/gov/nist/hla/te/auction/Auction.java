@@ -31,9 +31,13 @@ import org.apache.logging.log4j.Logger;
 public class Auction extends AuctionBase {
     private final static Logger log = LogManager.getLogger();
 
-    private double currentTime = 0;
+    private enum NamingConvention {
+        TE30,
+        IEEE8500,
+        FEEDER_GENERATOR
+    }
 
-    private boolean ieee8500NamingScheme; // toggle between TE30 and IEEE8500 naming conventions
+    private double currentTime = 0;
 
     private boolean receivedSimTime = false;
     
@@ -46,6 +50,8 @@ public class Auction extends AuctionBase {
     public int lmpExpected;
     
     private String config;
+
+    private NamingConvention namingConvention; // select {TE30, IEEE8500, FeederGenerator} naming convention
     
     private LocalDateTime dt_now;
     
@@ -60,7 +66,21 @@ public class Auction extends AuctionBase {
     public Auction(AuctionConfig params) throws Exception {
         super(params);
         config = params.configFileName;
-        ieee8500NamingScheme = params.ieee8500;
+
+        final String namingConventionString = params.namingConvention.toLowerCase();
+        if (namingConventionString.equals("te30")) {
+            namingConvention = NamingConvention.TE30;
+            log.info("using TE30 names for houses and meters");
+        } else if (namingConventionString.equals("ieee8500")) {
+            namingConvention = NamingConvention.IEEE8500;
+            log.info("using IEEE8500 names for houses and meters");
+        } else if (namingConventionString.equals("feedergenerator")) {
+            namingConvention = NamingConvention.FEEDER_GENERATOR;
+            log.info("using FeederGenerator names for houses and meters");
+        } else {
+            log.error("unknown naming convention: {}", params.namingConvention);
+            throw new IOException("bad naming convention");
+        }
     }
 
     private void checkReceivedSubscriptions() {
@@ -426,12 +446,21 @@ boolean bWantMarket = true; // set to false if no market is desired
         String name = object.get_name();
         
         String key;
-        if (ieee8500NamingScheme) {
-            // IEEE8500 meter names are used as prefixes for the house names
-            key = name + "_house_hvac";
-        } else {
-            // TE30 meter names have the format F1_tpm_rt_ID; house names have the format F1_house_ID
-            key = "F1_house_" + name.substring(name.lastIndexOf("_")+1) + "_hvac";
+        switch (namingConvention) {
+            case TE30:
+                // TE30 meter names have the format F1_tpm_rt_ID; house names have the format F1_house_ID
+                key = "F1_house_" + name.substring(name.lastIndexOf("_")+1) + "_hvac";
+                break;
+            case IEEE8500:
+                // IEEE8500 meter names are used as prefixes for the house names
+                key = name + "_house_hvac";
+                break;
+            case FEEDER_GENERATOR:
+                // FeederGenerator houses are basenode_hse_id while meters are basenode_mtr_id
+                key = name.replace("mtr", "hse") + "_hvac";
+                break;
+            default:
+                throw new RuntimeException("unreachable case in switch (namingConvention)");
         }
         
         if(object.get_measured_voltage_1() == null || object.get_measured_voltage_1().isEmpty()) {

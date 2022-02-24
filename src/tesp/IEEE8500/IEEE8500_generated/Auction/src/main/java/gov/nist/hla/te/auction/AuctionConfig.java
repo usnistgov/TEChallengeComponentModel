@@ -8,5 +8,5 @@ public class AuctionConfig extends FederateConfig {
     public String configFileName;
     
     @FederateParameter
-    public boolean ieee8500;
+    public String namingConvention;
 }
