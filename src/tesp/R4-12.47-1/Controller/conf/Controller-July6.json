@@ -1,0 +1,10 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "Controller",
+  "federationId": "R4-12.47-1",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0,
+  "configFileName": "conf/Forecasted_SP_July6.csv",
+  "isFahrenheit": true
+}

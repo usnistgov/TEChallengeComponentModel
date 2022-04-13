@@ -1,0 +1,16 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "FederationManager",
+  "federationId": "R4-12.47-1",
+  "isLateJoiner": false,
+  "lookAhead": 0.1,
+  "stepSize": 1,
+  "bindHost": "0.0.0.0",
+  "port": 8083,
+  "controlEndpoint": "/fedmgr",
+  "federatesEndpoint": "/federates",
+  "federationEndTime": 0,
+  "realTimeMode": false,
+  "fedFile": "fom/IEEE8500.fed",
+  "experimentConfig": "conf/default/experimentConfig.json"
+}
