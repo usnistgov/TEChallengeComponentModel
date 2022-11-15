@@ -2,6 +2,10 @@ package gov.nist.hla.te.flexibleresourcecontroller;
 
 import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
@@ -11,8 +15,6 @@ import org.cpswt.hla.base.AdvanceTimeRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 
 // Define the FlexibleResourceController type of federate for the federation.
 
@@ -31,8 +33,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     // House house =
     //     new House();
 
-    public FlexibleResourceController(FederateConfig params) throws Exception {
+    public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
+
+        readHouseParameters(params.houseConfigurationFile);
 
         //////////////////////////////////////////////////////
         // TODO register object instances after super(args) //
@@ -40,6 +44,35 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         // inverter.registerObject(getLRC());
         // waterheater.registerObject(getLRC());
         // house.registerObject(getLRC());
+    }
+
+    private void readHouseParameters(String filepath) {
+        log.trace("readHouseParameters( {} )", filepath);
+
+        final String delimiter = ","; // csv input file
+
+        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filepath))) {
+            String line;
+
+            // skip the header
+            line = reader.readLine();
+            if (line == null) {
+                log.error("the file {} is empty", filepath);
+                throw new BadFileFormat(filepath);
+            }
+            log.debug("house parameters header: {}", line);
+
+            // process each line of data
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(delimiter);
+
+                HouseConfiguration house = new HouseConfiguration(data);
+                // store
+            }
+        } catch (IOException e) {
+            log.error("failed to process the file {}", filepath);
+            throw new BadFileFormat(e);
+        }
     }
 
     private void checkReceivedSubscriptions() {
@@ -177,8 +210,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            FlexibleResourceControllerConfig federateConfig =
+                federateConfigParser.parseArgs(args, FlexibleResourceControllerConfig.class);
             FlexibleResourceController federate =
                 new FlexibleResourceController(federateConfig);
             federate.execute();
