@@ -1,0 +1,35 @@
+{
+  "federateTypesAllowed": [
+    "FlexibleResourceController",
+    "GridModel",
+    "SimulationTime"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "FlexibleResourceController",
+      "count": 1
+    },
+    {
+      "federateType": "GridModel",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "FlexibleResourceController",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
