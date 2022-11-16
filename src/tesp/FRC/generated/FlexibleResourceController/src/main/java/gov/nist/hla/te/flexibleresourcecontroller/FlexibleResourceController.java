@@ -313,7 +313,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 }
             }
 
-            // heat pump setpoints
+            // heat pump control
             if (scenarioTime.getMinute() % 5 == 0) { // TODO: make configurable
                 for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                     double setpoint;
@@ -341,6 +341,25 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     log.debug("house {} setpoint is {}", houseConfiguration.getID(), setpoint);
                 }
             }
+
+            // battery control
+            // foreach house
+            //  if scenarioTime.hour < 8 && scenarioTime.hour > 1 && scenarioTime.minute % ?? == 0
+            //  charge_start = LocalDateTime(CurrentDayT01:00:00).plus(house.delta)
+            //  int minutes = Duration.between(charge_start, scenarioTime).toMinutes())
+            //  if minutes > 270
+            //      POut = 0
+            //  elif minutes > 30
+            //      delta = 4.8 / 30 * ??
+            //      POut -= delta
+            //  else
+            //      delta = 4.8 / 240 * ??
+            //      POut += delta;
+            //  update POut (but do not send until Q adjust)
+            //
+            // peak_hour_mid = LocalDateTime(CurrentDay, peakHour, 30, 00)
+            // discharge_start = subtract 3 hours from peak_hour_mid
+            // discharge_end = add 3 hours to peak_hour_mid
 
             ////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop //

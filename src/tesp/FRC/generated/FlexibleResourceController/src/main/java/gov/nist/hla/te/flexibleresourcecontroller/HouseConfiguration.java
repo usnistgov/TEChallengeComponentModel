@@ -10,6 +10,7 @@ public class HouseConfiguration {
 
     private String id;
     private String waterheaterID;
+    private String batteryID;
 
     private double setpoint;
     private double lambda;
@@ -34,6 +35,7 @@ public class HouseConfiguration {
 
         String[] idParts = id.split("_hse_");
         this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
+        this.batteryID = idParts[0] + "_ibat_" + idParts[1];
 
         log.debug("house={} base_set={} peak_set={} precool_set={} precool_hours={}",
                 getID(), getSetpoint(), getPeakSetpoint(), getPrecoolSetpoint(), getPrecoolHours());
@@ -46,6 +48,10 @@ public class HouseConfiguration {
 
     public String getWaterheaterID() {
         return waterheaterID;
+    }
+
+    public String getBatteryID() {
+        return batteryID;
     }
 
     public double getSetpoint() {
