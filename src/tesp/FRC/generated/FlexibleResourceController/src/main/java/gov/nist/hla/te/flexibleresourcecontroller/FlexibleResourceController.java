@@ -295,12 +295,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 // heat pump control
                 if (currentHour >= peakWindowStart && currentHour < peakWindowEnd) {
                     if (!isPeakWindow) {
-                        log.info("started precool window at t={}", scenarioTime.toString());
+                        log.info("started peak window at t={}", scenarioTime.toString());
                         precoolHouseSet.clear();
                     }
                     isPeakWindow = true;
                 } else if (currentHour == peakWindowEnd) {
-                    log.info("ended precool window at t={}", scenarioTime.toString());
+                    log.info("ended peak window at t={}", scenarioTime.toString());
                     isPeakWindow = false;
                 } else if (currentHour < peakWindowStart) {
                     for (HouseConfiguration house : houses.values()) {

@@ -3,3 +3,4 @@
 - how should Hpp = 2+Tau/6 be rounded
 - the peak hour is not 8 and the peak window is not 7 - 10
 - need price data in single spreadsheet with ISO compliant dates
+- need some good representative houses to check
