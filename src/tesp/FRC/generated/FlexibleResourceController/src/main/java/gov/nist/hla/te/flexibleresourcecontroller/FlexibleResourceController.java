@@ -5,10 +5,14 @@ import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
 
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
@@ -16,6 +20,7 @@ import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +30,12 @@ import org.apache.logging.log4j.Logger;
 public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private final static Logger log = LogManager.getLogger();
 
+    private boolean receivedSimTime = false;
+
     private double currentTime = 0;
+
+    private double logicalTimeScale;
+    private LocalDateTime scenarioTime;
 
     private Map<String, HouseConfiguration> houses = new HashMap<String, HouseConfiguration>();
 
@@ -36,8 +46,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double peakDayAheadPrice;
 
     private int peakHour;
+
+    private boolean isPeakWindow = false;
     private int peakWindowStart;
     private int peakWindowEnd;
+
+    private Set<String> precoolHouseSet = new HashSet<String>();
 
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
@@ -165,6 +179,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         log.info("peak price window is [{},{}) with price sum of {}", peakWindowStart, peakWindowEnd, maxWindow);
     }
 
+    private void incrementScenarioTime() {
+        final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
+        scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
+    }
+
     private void checkReceivedSubscriptions() {
         InteractionRoot interaction = null;
         while ((interaction = getNextInteractionNoWait()) != null) {
@@ -216,9 +235,17 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             log.info("...synchronized on readyToPopulate");
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+
+        while (!receivedSimTime) {
+            log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
+            checkReceivedSubscriptions();
+            if (!receivedSimTime) {
+                CpswtUtils.sleep(1000);
+            }
+        }
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -232,6 +259,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
+
+            log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
             ////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step //
@@ -253,16 +282,69 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
             if (!dayAheadPriceQueue.isEmpty()) {
                 processDayAheadPrices();
-                startNewDay();
             }
 
-            // get the hour
+            if (scenarioTime.getMinute() == 0) { // new hour
+                final int currentHour = scenarioTime.getHour();
+                log.info("new hour = {}", currentHour);
+
+                if (currentHour == 0) {
+                    startNewDay(); // make sure initial condition works
+                }
+
+                // heat pump control
+                if (currentHour >= peakWindowStart && currentHour < peakWindowEnd) {
+                    if (!isPeakWindow) {
+                        log.info("started precool window at t={}", scenarioTime.toString());
+                        precoolHouseSet.clear();
+                    }
+                    isPeakWindow = true;
+                } else if (currentHour == peakWindowEnd) {
+                    log.info("ended precool window at t={}", scenarioTime.toString());
+                    isPeakWindow = false;
+                } else if (currentHour < peakWindowStart) {
+                    for (HouseConfiguration house : houses.values()) {
+                        final String id = house.getID();
+
+                        if (!precoolHouseSet.contains(id) && currentHour >= peakWindowStart - house.getPrecoolHours()) {
+                            log.debug("started precooling house {} at hour {}", id, currentHour);
+                            precoolHouseSet.add(id);
+                        }
+                    }
+                }
+            }
+
+            // heat pump setpoints
+            if (scenarioTime.getMinute() % 5 == 0) { // TODO: make configurable
+                for (HouseConfiguration house : houses.values()) {
+                    double setpoint;
+
+                    if (isPeakWindow) {
+                        setpoint = house.getPeakSetpoint();
+                    } else if (precoolHouseSet.contains(house.getID())) {
+                        setpoint = house.getPrecoolSetpoint();
+                    } else {
+                        setpoint = house.getSetpoint();
+                    }
+
+                    double priceRatio = realTimePrice / peakDayAheadPrice;
+                    if (priceRatio >= 2) {
+                        setpoint = house.getPeakSetpoint() + 1;
+                    } else if (priceRatio > 1) {
+                        double rtp_adjust = (priceRatio-1)*(house.getPeakSetpoint() - setpoint + 1);
+                        setpoint = setpoint + rtp_adjust;
+                    }
+
+                    log.debug("house {} setpoint is {}", house.getID(), setpoint);
+                }
+            }
 
             ////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop //
             ////////////////////////////////////////////////////////////////////
 
             if (!exitCondition) {
+                incrementScenarioTime();
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
                     new AdvanceTimeRequest(currentTime);
@@ -281,9 +363,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleInteractionClass(SimTime interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        logicalTimeScale = interaction.get_timeScale();
+        
+        scenarioTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        log.info("received SimTime starting at {}", scenarioTime.toString());
+        receivedSimTime = true;
     }
 
     private void handleInteractionClass(RealTimePrice interaction) {
