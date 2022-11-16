@@ -9,7 +9,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="TRACE">
+        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.FlexibleResourceController" level="TRACE" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="INFO">
             <AppenderRef ref="Console" />
         </Root>
     </Loggers>

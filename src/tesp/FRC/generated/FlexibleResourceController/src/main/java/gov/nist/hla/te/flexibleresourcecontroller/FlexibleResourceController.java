@@ -37,7 +37,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double logicalTimeScale;
     private LocalDateTime scenarioTime;
 
-    private Map<String, HouseConfiguration> houses = new HashMap<String, HouseConfiguration>();
+    private Map<String, HouseConfiguration> houseConfigurations = new HashMap<String, HouseConfiguration>();
 
     private Map<LocalDateTime, Double> dayAheadPriceQueue = new HashMap<LocalDateTime, Double>();
     private double[] dayAheadPrice = new double[24];
@@ -53,6 +53,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Set<String> precoolHouseSet = new HashSet<String>();
 
+    private Map<String, House> houses = new HashMap<String, House>();
+
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
     ////////////////////////////////////////////////////////////////////////
@@ -60,8 +62,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     //     new Inverter();
     // Waterheater waterheater =
     //     new Waterheater();
-    // House house =
-    //     new House();
 
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
@@ -84,13 +84,15 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(delimiter);
 
-                HouseConfiguration house = new HouseConfiguration(data);
-                houses.put(house.getID(), house);
+                HouseConfiguration houseConfiguration = new HouseConfiguration(data);
+                houseConfigurations.put(houseConfiguration.getID(), houseConfiguration);
 
-                // register object instances for each house
+                House house = new House();
+                house.registerObject(getLRC());
+                houses.put(houseConfiguration.getID(), house);
+
                 // inverter.registerObject(getLRC());
                 // waterheater.registerObject(getLRC());
-                // house.registerObject(getLRC());
             }
         } catch (IOException e) {
             log.error("failed to process the file {}", filepath);
@@ -274,9 +276,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             //    waterheater.set_tank_setpoint_1(<YOUR VALUE HERE >);
             //    waterheater.set_tank_setpoint_2(<YOUR VALUE HERE >);
             //    waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-            //    house.set_cooling_setpoint(<YOUR VALUE HERE >);
-            //    house.set_name(<YOUR VALUE HERE >);
-            //    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
 
             checkReceivedSubscriptions();
 
@@ -303,7 +302,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     log.info("ended peak window at t={}", scenarioTime.toString());
                     isPeakWindow = false;
                 } else if (currentHour < peakWindowStart) {
-                    for (HouseConfiguration house : houses.values()) {
+                    for (HouseConfiguration house : houseConfigurations.values()) {
                         final String id = house.getID();
 
                         if (!precoolHouseSet.contains(id) && currentHour >= peakWindowStart - house.getPrecoolHours()) {
@@ -316,26 +315,30 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
             // heat pump setpoints
             if (scenarioTime.getMinute() % 5 == 0) { // TODO: make configurable
-                for (HouseConfiguration house : houses.values()) {
+                for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                     double setpoint;
 
                     if (isPeakWindow) {
-                        setpoint = house.getPeakSetpoint();
-                    } else if (precoolHouseSet.contains(house.getID())) {
-                        setpoint = house.getPrecoolSetpoint();
+                        setpoint = houseConfiguration.getPeakSetpoint();
+                    } else if (precoolHouseSet.contains(houseConfiguration.getID())) {
+                        setpoint = houseConfiguration.getPrecoolSetpoint();
                     } else {
-                        setpoint = house.getSetpoint();
+                        setpoint = houseConfiguration.getSetpoint();
                     }
 
                     double priceRatio = realTimePrice / peakDayAheadPrice;
                     if (priceRatio >= 2) {
-                        setpoint = house.getPeakSetpoint() + 1;
+                        setpoint = houseConfiguration.getPeakSetpoint() + 1;
                     } else if (priceRatio > 1) {
-                        double rtp_adjust = (priceRatio-1)*(house.getPeakSetpoint() - setpoint + 1);
+                        double rtp_adjust = (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
                         setpoint = setpoint + rtp_adjust;
                     }
 
-                    log.debug("house {} setpoint is {}", house.getID(), setpoint);
+                    House house = houses.get(houseConfiguration.getID());
+                    house.set_name(houseConfiguration.getID());
+                    house.set_cooling_setpoint(setpoint);
+                    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    log.debug("house {} setpoint is {}", houseConfiguration.getID(), setpoint);
                 }
             }
 

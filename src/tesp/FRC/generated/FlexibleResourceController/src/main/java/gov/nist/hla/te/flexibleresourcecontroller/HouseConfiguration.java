@@ -9,6 +9,8 @@ public class HouseConfiguration {
     private final static Logger log = LogManager.getLogger();
 
     private String id;
+    private String waterheaterID;
+
     private double setpoint;
     private double lambda;
     private double tau;
@@ -30,6 +32,9 @@ public class HouseConfiguration {
         // data[8]; // ramp
         // data[9]; // deadband
 
+        String[] idParts = id.split("_hse_");
+        this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
+
         log.debug("house={} base_set={} peak_set={} precool_set={} precool_hours={}",
                 getID(), getSetpoint(), getPeakSetpoint(), getPrecoolSetpoint(), getPrecoolHours());
         log.debug("processed house configuration for {}", id);
@@ -37,6 +42,10 @@ public class HouseConfiguration {
 
     public String getID() {
         return id;
+    }
+
+    public String getWaterheaterID() {
+        return waterheaterID;
     }
 
     public double getSetpoint() {
