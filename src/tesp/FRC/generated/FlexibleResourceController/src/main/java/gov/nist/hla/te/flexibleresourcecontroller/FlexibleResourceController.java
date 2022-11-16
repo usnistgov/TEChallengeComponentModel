@@ -33,6 +33,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double[] dayAheadPrice = new double[24];
 
     private double realTimePrice;
+    private double peakDayAheadPrice;
 
     private int peakHour;
     private int peakWindowStart;
@@ -142,14 +143,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private void startNewDay() {
         // TODO: check data structures
         this.peakHour = 0;
-        double maxPrice = dayAheadPrice[0];
+        this.peakDayAheadPrice = dayAheadPrice[0];
         for (int i = 1; i < 24; i++) {
-            if (dayAheadPrice[i] > maxPrice) {
+            if (dayAheadPrice[i] > peakDayAheadPrice) {
                 this.peakHour = i;
-                maxPrice = dayAheadPrice[i];
+                this.peakDayAheadPrice = dayAheadPrice[i];
             }
         }
-        log.info("peak hour is {} with price={}", peakHour, maxPrice);
+        log.info("peak hour is {} with price={}", peakHour, peakDayAheadPrice);
 
         this.peakWindowStart = 0;
         double maxWindow = 0;
