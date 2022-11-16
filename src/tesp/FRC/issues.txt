@@ -1,0 +1,5 @@
+- model.glm has different values for upper_tank_setpoint and lower_tank_setpoint
+- waterheater setpoints do not seem to be 130 w/ delta 5 as suggested
+- how should Hpp = 2+Tau/6 be rounded
+- the peak hour is not 8 and the peak window is not 7 - 10
+- need price data in single spreadsheet with ISO compliant dates
