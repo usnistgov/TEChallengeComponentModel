@@ -5,6 +5,10 @@ import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
@@ -23,6 +27,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private double currentTime = 0;
 
+    private Map<String, HouseConfiguration> houses = new HashMap<String, HouseConfiguration>();
+
+    private Map<LocalDateTime, Double> dayAheadPriceQueue = new HashMap<LocalDateTime, Double>();
+    private double[] dayAheadPrice = new double[24];
+
+    private double realTimePrice;
+
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
     ////////////////////////////////////////////////////////////////////////
@@ -36,19 +47,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
 
-        readHouseParameters(params.houseConfigurationFile);
-
-        //////////////////////////////////////////////////////
-        // TODO register object instances after super(args) //
-        //////////////////////////////////////////////////////
-        // inverter.registerObject(getLRC());
-        // waterheater.registerObject(getLRC());
-        // house.registerObject(getLRC());
-    }
-
-    private void readHouseParameters(String filepath) {
-        log.trace("readHouseParameters( {} )", filepath);
-
+        final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
 
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filepath))) {
@@ -67,12 +66,73 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 String[] data = line.split(delimiter);
 
                 HouseConfiguration house = new HouseConfiguration(data);
-                // store
+                houses.put(house.getID(), house);
+
+                // register object instances for each house
+                // inverter.registerObject(getLRC());
+                // waterheater.registerObject(getLRC());
+                // house.registerObject(getLRC());
             }
         } catch (IOException e) {
             log.error("failed to process the file {}", filepath);
             throw new BadFileFormat(e);
         }
+    }
+
+    private void generatePlaceholderData() {
+        realTimePrice = 0.03;
+
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 0, 0), 0.0315);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 1, 0), 0.02835);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 2, 0), 0.02657);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 3, 0), 0.02653);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 4, 0), 0.02661);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 5, 0), 0.02822);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 6, 0), 0.03366);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 7, 0), 0.03205);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 8, 0), 0.02889);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 9, 0), 0.03308);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 10, 0), 0.0359);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 11, 0), 0.04092);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 12, 0), 0.04474);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 13, 0), 0.04947);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 14, 0), 0.05409);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 15, 0), 0.05977);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 16, 0), 0.06945);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 17, 0), 0.08462);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 18, 0), 0.11568);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 19, 0), 0.13442);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 20, 0), 0.06268);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 21, 0), 0.05117);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 22, 0), 0.04157);
+        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 23, 0), 0.03792);
+    }
+
+    private void processDayAheadPrices() {
+        // TODO: make atomic
+        boolean[] isSet = new boolean[24];
+        Arrays.fill(isSet, false);
+
+        for (Map.Entry<LocalDateTime, Double> entry : dayAheadPriceQueue.entrySet()) {
+            final int hour = entry.getKey().getHour();
+            final double price = entry.getValue();
+            
+            if (isSet[hour]) {
+                log.error("DAP for hour {} set multiple times", hour);
+                throw new RuntimeException("DAP");
+            }
+
+            isSet[hour] = true;
+            dayAheadPrice[hour] = price;
+            log.debug("DAP=({},{})", hour, price);
+        }
+        for (int i = 0; i < 24; i++) {
+            if (!isSet[i]) {
+                log.error("DAP for hour {} is unspecified", i);
+                throw new RuntimeException("DAP");
+            }
+        }
+        dayAheadPriceQueue.clear();
     }
 
     private void checkReceivedSubscriptions() {
@@ -115,6 +175,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         /////////////////////////////////////////////
         // TODO perform basic initialization below //
         /////////////////////////////////////////////
+        generatePlaceholderData(); // replace
 
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
@@ -160,6 +221,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
             checkReceivedSubscriptions();
 
+            if (!dayAheadPriceQueue.isEmpty()) {
+                processDayAheadPrices();
+            }
+
             ////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop //
             ////////////////////////////////////////////////////////////////////
@@ -189,15 +254,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleInteractionClass(RealTimePrice interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        // TODO: check if interaction.get_time() is a reasonable value
+        this.realTimePrice = interaction.get_value();
+        log.info("new RTP={}", realTimePrice);
     }
 
     private void handleInteractionClass(DayAheadPrice interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        final LocalDateTime time = LocalDateTime.parse(interaction.get_time());
+        final double price = interaction.get_value();
+        dayAheadPriceQueue.put(time, price);
+        log.debug("received DAP=({},{})", interaction.get_time(), price);
     }
 
     private void handleObjectClass(Meter object) {

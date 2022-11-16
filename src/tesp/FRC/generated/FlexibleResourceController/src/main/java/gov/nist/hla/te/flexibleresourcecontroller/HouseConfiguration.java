@@ -6,12 +6,14 @@ import org.apache.logging.log4j.Logger;
 public class HouseConfiguration {
     private final static Logger log = LogManager.getLogger();
 
+    private String id;
+
     HouseConfiguration(String[] data) {
         if (data == null || data.length != 10) {
             throw new RuntimeException("invalid house configuration");
         }
 
-        // data[0]; // house id
+        this.id = data[0]; // house id
         // data[1]; // cooling setpoint
         // data[2]; // mass temperature
         // data[3]; // air temperature
@@ -21,5 +23,11 @@ public class HouseConfiguration {
         // data[7]; // offset limit
         // data[8]; // ramp
         // data[9]; // deadband
+
+        log.debug("processed house configuration for {}", id);
+    }
+
+    public String getID() {
+        return id;
     }
 }
