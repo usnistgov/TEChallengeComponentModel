@@ -11,3 +11,7 @@
     - David will dig for more info
 - ramp function step size?
     - Continuous (as possible, given UCEF step size)
+- how to handle the first day
+    - RO blast of all the DAP prices
+    - boolean array[24] = false foreach hour to check if that DAP has been received
+    - auto-advance to time advancing as soon as all elements of the array are true (alternatively - just keep int counter)
