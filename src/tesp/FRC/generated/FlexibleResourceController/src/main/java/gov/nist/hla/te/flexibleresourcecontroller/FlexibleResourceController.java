@@ -34,6 +34,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private double realTimePrice;
 
+    private int peakHour;
+    private int peakWindowStart;
+    private int peakWindowEnd;
+
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
     ////////////////////////////////////////////////////////////////////////
@@ -116,7 +120,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         for (Map.Entry<LocalDateTime, Double> entry : dayAheadPriceQueue.entrySet()) {
             final int hour = entry.getKey().getHour();
             final double price = entry.getValue();
-            
+
             if (isSet[hour]) {
                 log.error("DAP for hour {} set multiple times", hour);
                 throw new RuntimeException("DAP");
@@ -133,6 +137,31 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
         }
         dayAheadPriceQueue.clear();
+    }
+
+    private void startNewDay() {
+        // TODO: check data structures
+        this.peakHour = 0;
+        double maxPrice = dayAheadPrice[0];
+        for (int i = 1; i < 24; i++) {
+            if (dayAheadPrice[i] > maxPrice) {
+                this.peakHour = i;
+                maxPrice = dayAheadPrice[i];
+            }
+        }
+        log.info("peak hour is {} with price={}", peakHour, maxPrice);
+
+        this.peakWindowStart = 0;
+        double maxWindow = 0;
+        for (int i = 0; i < 22; i++) {
+            double window = dayAheadPrice[i] + dayAheadPrice[i+1] + dayAheadPrice[i+2];
+            if (window > maxWindow) {
+                this.peakWindowStart = i;
+                maxWindow = window;
+            }
+        }
+        this.peakWindowEnd = peakWindowStart + 3;
+        log.info("peak price window is [{},{}) with price sum of {}", peakWindowStart, peakWindowEnd, maxWindow);
     }
 
     private void checkReceivedSubscriptions() {
@@ -223,7 +252,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
             if (!dayAheadPriceQueue.isEmpty()) {
                 processDayAheadPrices();
+                startNewDay();
             }
+
+            // get the hour
 
             ////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop //
