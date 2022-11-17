@@ -2,29 +2,59 @@ package gov.nist.hla.te.pricereader;
 
 import gov.nist.hla.te.pricereader.rti.*;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtUtils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.TimeZone;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 
 // Define the PriceReader type of federate for the federation.
 
 public class PriceReader extends PriceReaderBase {
     private final static Logger log = LogManager.getLogger();
 
+    private boolean receivedSimTime = false;
+    
     private double currentTime = 0;
+    private double logicalTimeScale;
 
-    public PriceReader(FederateConfig params) throws Exception {
+    private ZonedDateTime scenarioTime;
+
+    private BufferedReader dapReader;
+    private BufferedReader rtpReader;
+
+    private String dapNextLine;
+    private String rtpNextLine;
+
+    public PriceReader(PriceReaderConfig params) throws Exception {
         super(params);
+
+        log.info("opening day ahead price file at {}", params.dapFilePath);
+        dapReader = new BufferedReader(new FileReader(params.dapFilePath));
+
+        log.info("opening real time price file at {}", params.rtpFilePath);
+        rtpReader = new BufferedReader(new FileReader(params.rtpFilePath));
+    }
+
+    private void incrementScenarioTime() {
+        final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
+        scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
     }
 
     private void checkReceivedSubscriptions() {
         InteractionRoot interaction = null;
+
         while ((interaction = getNextInteractionNoWait()) != null) {
             if (interaction instanceof SimTime) {
                 handleInteractionClass((SimTime) interaction);
@@ -55,9 +85,19 @@ public class PriceReader extends PriceReaderBase {
             log.info("...synchronized on readyToPopulate");
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+        while (!receivedSimTime) {
+            log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
+            checkReceivedSubscriptions();
+            if (!receivedSimTime) {
+                CpswtUtils.sleep(1000);
+            }
+        }
+
+        // seek both buffers to current day somehow
+        seek(dapReader, scenarioTime);
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -71,6 +111,8 @@ public class PriceReader extends PriceReaderBase {
         while (!exitCondition) {
             atr.requestSyncStart();
             enteredTimeGrantedState();
+
+            log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
             ////////////////////////////////////////////////////////////
             // TODO send interactions that must be sent every logical //
@@ -103,6 +145,7 @@ public class PriceReader extends PriceReaderBase {
             ////////////////////////////////////////////////////////////////////
 
             if (!exitCondition) {
+                incrementScenarioTime();
                 currentTime += super.getStepSize();
                 AdvanceTimeRequest newATR =
                     new AdvanceTimeRequest(currentTime);
@@ -120,18 +163,33 @@ public class PriceReader extends PriceReaderBase {
         //////////////////////////////////////////////////////////////////////
     }
 
+    private String seek(BufferedReader reader, ZonedDateTime timestamp) throws IOException
+    {
+        String row;
+        while ((row = reader.readLine()) != null) {
+            String[] column = row.split(",");
+            ZonedDateTime ts = ZonedDateTime.parse(column[0]).withZoneSameInstant(timestamp.getZone());
+            if (timestamp.toLocalDate().equals(ts.toLocalDate())) {
+                log.info("{} {}", column[0], ts.toString());
+            }
+            //DateUtils.isSameDay(timestamp, LocalDateTime.parse(column[0]))
+        }
+        return row; // can be null
+    }
+
     private void handleInteractionClass(SimTime interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        logicalTimeScale = interaction.get_timeScale();
+        scenarioTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        log.info("received SimTime starting at {}", scenarioTime.toString());
+        receivedSimTime = true;
     }
 
     public static void main(String[] args) {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            PriceReaderConfig federateConfig =
+                federateConfigParser.parseArgs(args, PriceReaderConfig.class);
             PriceReader federate =
                 new PriceReader(federateConfig);
             federate.execute();

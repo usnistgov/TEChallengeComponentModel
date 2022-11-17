@@ -4,5 +4,7 @@
   "federationId": "FRC",
   "isLateJoiner": false,
   "lookAhead": 0.2,
-  "stepSize": 1.0
+  "stepSize": 1.0,
+  "dapFilePath": "conf/dap.csv",
+  "rtpFilePath": "conf/rtp.csv"
 }
