@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
@@ -95,9 +96,8 @@ public class PriceReader extends PriceReaderBase {
                 CpswtUtils.sleep(1000);
             }
         }
-
-        // seek both buffers to current day somehow
-        seek(dapReader, scenarioTime);
+        dapInitialize();
+        rtpInitialize();
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -163,18 +163,45 @@ public class PriceReader extends PriceReaderBase {
         //////////////////////////////////////////////////////////////////////
     }
 
-    private String seek(BufferedReader reader, ZonedDateTime timestamp) throws IOException
-    {
-        String row;
-        while ((row = reader.readLine()) != null) {
-            String[] column = row.split(",");
-            ZonedDateTime ts = ZonedDateTime.parse(column[0]).withZoneSameInstant(timestamp.getZone());
-            if (timestamp.toLocalDate().equals(ts.toLocalDate())) {
-                log.info("{} {}", column[0], ts.toString());
+    boolean isSameDate(ZonedDateTime a, ZonedDateTime b, ZoneId timezone) {
+        ZonedDateTime a_timezone = a.withZoneSameInstant(timezone);
+        ZonedDateTime b_timezone = b.withZoneSameInstant(timezone);
+        return a_timezone.toLocalDate().equals(b_timezone.toLocalDate());
+    }
+
+    private void dapInitialize() throws IOException {
+        while ((dapNextLine = dapReader.readLine()) != null) {
+            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
+            if (isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
+                log.debug("starting DAP from {}", dapNextLine);
+                break;
             }
-            //DateUtils.isSameDay(timestamp, LocalDateTime.parse(column[0]))
         }
-        return row; // can be null
+
+        boolean isInitialized = false;
+        while (!isInitialized && dapNextLine != null) {
+            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
+            if (!isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
+                isInitialized = true;
+                continue;
+            }
+
+            DayAheadPrice dayAheadPrice = create_DayAheadPrice();
+            dayAheadPrice.set_time(priceData[0]);
+            dayAheadPrice.set_value(Double.parseDouble(priceData[1]));
+            dayAheadPrice.sendInteraction(getLRC()); // RO
+            log.info("sent {} {}", priceData[0], priceData[1]);
+
+            dapNextLine = dapReader.readLine();
+        }
+        if (dapNextLine == null) {
+            log.error("DAP input doesn't contain data for {}", scenarioTime.toLocalDate());
+            throw new IOException("DAP data out of range");
+        }
+    }
+
+    private void rtpInitialize() {
+
     }
 
     private void handleInteractionClass(SimTime interaction) {
