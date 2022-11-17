@@ -5,141 +5,21 @@
     xmlns="http://standards.ieee.org/IEEE1516-2010" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelIdentification>
-        <name>FRC</name>
-        <type>FOM</type>
+        <name>PriceReader</name>
+        <type>SOM</type>
         <version>0.1.0</version>
         <modificationDate>2022-11-17</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
-          This file was generated from WebGME based on the
-          FRC project.
+            This file was generated from WebGME based on the federate
+            PriceReader in the FRC
+            project.
         </description>
         <poc>
             <pocType>Primary author</pocType>
             <pocOrg>gov.nist.hla.te</pocOrg>
         </poc>
     </modelIdentification>
-    <objects>
-        <objectClass>
-            <name>ObjectRoot</name>
-            <sharing>Neither</sharing>
-            <objectClass>
-                <name>House</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>cooling_setpoint</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Inverter</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>P_out</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>Q_out</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Meter</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>measured_voltage_1</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-            <objectClass>
-                <name>Waterheater</name>
-                <sharing>PublishSubscribe</sharing>
-                <attribute>
-                    <name>name</name>
-                    <dataType>String</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tank_setpoint</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tank_setpoint_1</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tank_setpoint_2</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-            </objectClass>
-        </objectClass>
-    </objects>
     <interactions>
         <interactionClass>
             <name>InteractionRoot</name>
@@ -216,7 +96,7 @@
                     </interactionClass>
                     <interactionClass>
                         <name>SimTime</name>
-                        <sharing>PublishSubscribe</sharing>
+                        <sharing>Subscribe</sharing>
                         <transportation>HLAreliable</transportation>
                         <order>Receive</order>
                         <parameter> 
@@ -243,7 +123,7 @@
                 </interactionClass>
                 <interactionClass>
                     <name>DayAheadPrice</name>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                     <parameter> 
@@ -257,7 +137,7 @@
                 </interactionClass>
                 <interactionClass>
                     <name>RealTimePrice</name>
-                    <sharing>PublishSubscribe</sharing>
+                    <sharing>Publish</sharing>
                     <transportation>HLAreliable</transportation>
                     <order>TimeStamp</order>
                     <parameter> 

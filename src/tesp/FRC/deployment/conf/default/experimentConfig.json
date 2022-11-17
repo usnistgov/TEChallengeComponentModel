@@ -2,6 +2,7 @@
   "federateTypesAllowed": [
     "FlexibleResourceController",
     "GridModel",
+    "PriceReader",
     "SimulationTime"
   ],
   "expectedFederates": [
@@ -11,6 +12,10 @@
     },
     {
       "federateType": "GridModel",
+      "count": 1
+    },
+    {
+      "federateType": "PriceReader",
       "count": 1
     },
     {
@@ -25,6 +30,10 @@
     },
     {
       "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "PriceReader",
       "count": 0
     },
     {

@@ -83,6 +83,10 @@ cd $root_directory/generated/FlexibleResourceController
 xterm -fg cyan -bg black -l -lf $logs_directory/Controller-${timestamp}.log -T "FlexibleResourceController" -geometry 140x40+90+120 -e "sh run.sh" &
 waitUntilJoined FlexibleResourceController 1
 
+cd $root_directory/generated/PriceReader
+xterm -fg white -bg black -l -lf $logs_directory/PriceReader-${timestamp}.log -T "PriceReader" -geometry 140x40+120+150 -e "sh run.sh" &
+waitUntilJoined PriceReader 1
+
 # terminate the simulation
 read -n 1 -r -s -p "Press any key to terminate the federation execution..."
 printf "\n"
