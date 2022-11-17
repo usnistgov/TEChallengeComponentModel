@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,11 +35,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double currentTime = 0;
 
     private double logicalTimeScale;
-    private LocalDateTime scenarioTime;
+    private ZonedDateTime scenarioTime;
 
     private Map<String, HouseConfiguration> houseConfigurations = new HashMap<String, HouseConfiguration>();
 
-    private Map<LocalDateTime, Double> dayAheadPriceQueue = new HashMap<LocalDateTime, Double>();
+    private Map<ZonedDateTime, Double> dayAheadPriceQueue = new HashMap<ZonedDateTime, Double>();
     private double[] dayAheadPrice = new double[24];
 
     private double realTimePrice;
@@ -100,41 +100,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         }
     }
 
-    private void generatePlaceholderData() {
-        realTimePrice = 0.03;
-
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 0, 0), 0.0315);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 1, 0), 0.02835);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 2, 0), 0.02657);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 3, 0), 0.02653);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 4, 0), 0.02661);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 5, 0), 0.02822);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 6, 0), 0.03366);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 7, 0), 0.03205);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 8, 0), 0.02889);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 9, 0), 0.03308);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 10, 0), 0.0359);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 11, 0), 0.04092);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 12, 0), 0.04474);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 13, 0), 0.04947);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 14, 0), 0.05409);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 15, 0), 0.05977);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 16, 0), 0.06945);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 17, 0), 0.08462);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 18, 0), 0.11568);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 19, 0), 0.13442);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 20, 0), 0.06268);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 21, 0), 0.05117);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 22, 0), 0.04157);
-        dayAheadPriceQueue.put(LocalDateTime.of(2022, 11, 15, 23, 0), 0.03792);
-    }
-
     private void processDayAheadPrices() {
         // TODO: make atomic
         boolean[] isSet = new boolean[24];
         Arrays.fill(isSet, false);
 
-        for (Map.Entry<LocalDateTime, Double> entry : dayAheadPriceQueue.entrySet()) {
+        for (Map.Entry<ZonedDateTime, Double> entry : dayAheadPriceQueue.entrySet()) {
             final int hour = entry.getKey().getHour();
             final double price = entry.getValue();
 
@@ -226,8 +197,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         /////////////////////////////////////////////
         // TODO perform basic initialization below //
         /////////////////////////////////////////////
-        generatePlaceholderData(); // replace
-
+        
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -345,7 +315,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             // battery control
             // foreach house
             //  if scenarioTime.hour < 8 && scenarioTime.hour > 1 && scenarioTime.minute % ?? == 0
-            //  charge_start = LocalDateTime(CurrentDayT01:00:00).plus(house.delta)
+            //  charge_start = ZonedDateTime(CurrentDayT01:00:00).plus(house.delta)
             //  int minutes = Duration.between(charge_start, scenarioTime).toMinutes())
             //  if minutes > 270
             //      POut = 0
@@ -357,7 +327,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             //      POut += delta;
             //  update POut (but do not send until Q adjust)
             //
-            // peak_hour_mid = LocalDateTime(CurrentDay, peakHour, 30, 00)
+            // peak_hour_mid = ZonedDateTime(CurrentDay, peakHour, 30, 00)
             // discharge_start = subtract 3 hours from peak_hour_mid
             // discharge_end = add 3 hours to peak_hour_mid
 
@@ -387,7 +357,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private void handleInteractionClass(SimTime interaction) {
         logicalTimeScale = interaction.get_timeScale();
         
-        scenarioTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        scenarioTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
         log.info("received SimTime starting at {}", scenarioTime.toString());
         receivedSimTime = true;
     }
@@ -399,7 +369,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleInteractionClass(DayAheadPrice interaction) {
-        final LocalDateTime time = LocalDateTime.parse(interaction.get_time());
+        final ZonedDateTime time = ZonedDateTime.parse(interaction.get_time());
         final double price = interaction.get_value();
         dayAheadPriceQueue.put(time, price);
         log.debug("received DAP=({},{})", interaction.get_time(), price);

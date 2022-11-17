@@ -11,12 +11,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +29,7 @@ public class PriceReader extends PriceReaderBase {
     private double currentTime = 0;
     private double logicalTimeScale;
 
+    private LocalDate currentDate;
     private ZonedDateTime scenarioTime;
 
     private BufferedReader dapReader;
@@ -37,6 +37,9 @@ public class PriceReader extends PriceReaderBase {
 
     private String dapNextLine;
     private String rtpNextLine;
+
+    private ZonedDateTime rtpNextTime;
+    private boolean dapSent = false;
 
     public PriceReader(PriceReaderConfig params) throws Exception {
         super(params);
@@ -72,10 +75,6 @@ public class PriceReader extends PriceReaderBase {
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
-
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
 
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
@@ -114,10 +113,54 @@ public class PriceReader extends PriceReaderBase {
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
-            ////////////////////////////////////////////////////////////
-            // TODO send interactions that must be sent every logical //
-            // time step below                                        //
-            ////////////////////////////////////////////////////////////
+            if (!currentDate.equals(scenarioTime.toLocalDate())) {
+                currentDate = scenarioTime.toLocalDate();
+                dapSent = false;
+                log.info("Start of new day: {}", currentDate.toString());
+            }
+
+            if (!dapSent && scenarioTime.getHour() > 12) {
+                while (!dapSent && dapNextLine != null) {
+                    String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
+                    if (!isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
+                        dapSent = true;
+                        continue;
+                    }
+        
+                    DayAheadPrice dayAheadPrice = create_DayAheadPrice();
+                    dayAheadPrice.set_time(priceData[0]);
+                    dayAheadPrice.set_value(Double.parseDouble(priceData[1]));
+                    dayAheadPrice.sendInteraction(getLRC(), currentTime + getLookAhead());
+                    log.info("sent {} {}", priceData[0], priceData[1]);
+        
+                    dapNextLine = dapReader.readLine();
+                }
+                if (dapNextLine == null) {
+                    log.error("DAP input doesn't contain data for {}", scenarioTime.toLocalDate());
+                    //throw new IOException("DAP data out of range");
+                }
+            }
+
+            while (rtpNextTime.isBefore(scenarioTime) && rtpNextLine != null) {
+                while ((rtpNextLine = rtpReader.readLine()) != null) {
+                    String[] priceData = rtpNextLine.split(","); // format: DateTime,RTP
+                    
+                    if (ZonedDateTime.parse(priceData[0]).isAfter(scenarioTime)) {
+                        RealTimePrice realTimePrice = create_RealTimePrice();
+                        realTimePrice.set_time(priceData[0]);
+                        realTimePrice.set_value(Double.parseDouble(priceData[1]));
+                        realTimePrice.sendInteraction(getLRC()); // RO
+                        log.info("sent RTP = {} {}", priceData[0], priceData[1]);
+                        break;
+                    }
+        
+                    rtpNextTime = ZonedDateTime.parse(priceData[0]); // must be here don't ask
+                }
+            }
+            if (rtpNextLine == null) {
+                log.error("RTP input doesn't contain data for {}", scenarioTime.toLocalDate());
+                //throw new IOException("DAP data out of range");
+            }
 
             // Set the interaction's parameters.
             //
@@ -129,20 +172,8 @@ public class PriceReader extends PriceReaderBase {
             //    realTimePrice.set_time( < YOUR VALUE HERE > );
             //    realTimePrice.set_value( < YOUR VALUE HERE > );
             //    realTimePrice.sendInteraction(getLRC(), currentTime + getLookAhead());
-            //    DayAheadPrice dayAheadPrice = create_DayAheadPrice();
-            //    dayAheadPrice.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
-            //    dayAheadPrice.set_federateFilter( < YOUR VALUE HERE > );
-            //    dayAheadPrice.set_originFed( < YOUR VALUE HERE > );
-            //    dayAheadPrice.set_sourceFed( < YOUR VALUE HERE > );
-            //    dayAheadPrice.set_time( < YOUR VALUE HERE > );
-            //    dayAheadPrice.set_value( < YOUR VALUE HERE > );
-            //    dayAheadPrice.sendInteraction(getLRC(), currentTime + getLookAhead());
 
             checkReceivedSubscriptions();
-
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
 
             if (!exitCondition) {
                 incrementScenarioTime();
@@ -158,9 +189,8 @@ public class PriceReader extends PriceReaderBase {
         // call exitGracefully to shut down federate
         exitGracefully();
 
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
+        dapReader.close();
+        rtpReader.close();
     }
 
     boolean isSameDate(ZonedDateTime a, ZonedDateTime b, ZoneId timezone) {
@@ -200,13 +230,27 @@ public class PriceReader extends PriceReaderBase {
         }
     }
 
-    private void rtpInitialize() {
+    private void rtpInitialize() throws IOException { // doesn't work if input file hs no values <= scenarioTime
+        while ((rtpNextLine = rtpReader.readLine()) != null) {
+            String[] priceData = rtpNextLine.split(","); // format: DateTime,RTP
+            
+            if (ZonedDateTime.parse(priceData[0]).isAfter(scenarioTime)) {
+                RealTimePrice realTimePrice = create_RealTimePrice();
+                realTimePrice.set_time(priceData[0]);
+                realTimePrice.set_value(Double.parseDouble(priceData[1]));
+                realTimePrice.sendInteraction(getLRC()); // RO
+                log.info("sent RTP = {} {}", priceData[0], priceData[1]);
+                break;
+            }
 
+            rtpNextTime = ZonedDateTime.parse(priceData[0]); // must be here don't ask
+        }
     }
 
     private void handleInteractionClass(SimTime interaction) {
         logicalTimeScale = interaction.get_timeScale();
         scenarioTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        currentDate = scenarioTime.toLocalDate();
         log.info("received SimTime starting at {}", scenarioTime.toString());
         receivedSimTime = true;
     }
