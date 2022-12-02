@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
@@ -29,8 +28,8 @@ public class PriceReader extends PriceReaderBase {
     private double currentTime = 0;
     private double logicalTimeScale;
 
-    private LocalDate currentDate;
     private ZonedDateTime scenarioTime;
+    private LocalDate localDate = null;
 
     private BufferedReader dapReader;
     private BufferedReader rtpReader;
@@ -39,7 +38,6 @@ public class PriceReader extends PriceReaderBase {
     private String rtpNextLine;
 
     private ZonedDateTime rtpNextTime;
-    private boolean dapSent = false;
 
     public PriceReader(PriceReaderConfig params) throws Exception {
         super(params);
@@ -95,8 +93,7 @@ public class PriceReader extends PriceReaderBase {
                 CpswtUtils.sleep(1000);
             }
         }
-        dapInitialize();
-        rtpInitialize();
+        initializePriceData();
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -113,54 +110,13 @@ public class PriceReader extends PriceReaderBase {
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
-            if (!currentDate.equals(scenarioTime.toLocalDate())) {
-                currentDate = scenarioTime.toLocalDate();
-                dapSent = false;
-                log.info("Start of new day: {}", currentDate.toString());
+            if (currentTime == 0 || !localDate.equals(scenarioTime.toLocalDate())) {
+                localDate = scenarioTime.toLocalDate();
+                log.info("Start of new day: {}", localDate.toString());
+                sendDayAheadPrices(localDate.plusDays(1), currentTime + getLookAhead());
             }
 
-            if (!dapSent && scenarioTime.getHour() > 12) {
-                while (!dapSent && dapNextLine != null) {
-                    String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
-                    if (!isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
-                        dapSent = true;
-                        continue;
-                    }
-        
-                    DayAheadPrice dayAheadPrice = create_DayAheadPrice();
-                    dayAheadPrice.set_time(priceData[0]);
-                    dayAheadPrice.set_value(Double.parseDouble(priceData[1]));
-                    dayAheadPrice.sendInteraction(getLRC(), currentTime + getLookAhead());
-                    log.info("sent {} {}", priceData[0], priceData[1]);
-        
-                    dapNextLine = dapReader.readLine();
-                }
-                if (dapNextLine == null) {
-                    log.error("DAP input doesn't contain data for {}", scenarioTime.toLocalDate());
-                    //throw new IOException("DAP data out of range");
-                }
-            }
-
-            while (rtpNextTime.isBefore(scenarioTime) && rtpNextLine != null) {
-                while ((rtpNextLine = rtpReader.readLine()) != null) {
-                    String[] priceData = rtpNextLine.split(","); // format: DateTime,RTP
-                    
-                    if (ZonedDateTime.parse(priceData[0]).isAfter(scenarioTime)) {
-                        RealTimePrice realTimePrice = create_RealTimePrice();
-                        realTimePrice.set_time(priceData[0]);
-                        realTimePrice.set_value(Double.parseDouble(priceData[1]));
-                        realTimePrice.sendInteraction(getLRC()); // RO
-                        log.info("sent RTP = {} {}", priceData[0], priceData[1]);
-                        break;
-                    }
-        
-                    rtpNextTime = ZonedDateTime.parse(priceData[0]); // must be here don't ask
-                }
-            }
-            if (rtpNextLine == null) {
-                log.error("RTP input doesn't contain data for {}", scenarioTime.toLocalDate());
-                //throw new IOException("DAP data out of range");
-            }
+            sendRealTimePrice(currentTime + getLookAhead());
 
             // Set the interaction's parameters.
             //
@@ -192,67 +148,124 @@ public class PriceReader extends PriceReaderBase {
         dapReader.close();
         rtpReader.close();
     }
-
-    boolean isSameDate(ZonedDateTime a, ZonedDateTime b, ZoneId timezone) {
-        ZonedDateTime a_timezone = a.withZoneSameInstant(timezone);
-        ZonedDateTime b_timezone = b.withZoneSameInstant(timezone);
-        return a_timezone.toLocalDate().equals(b_timezone.toLocalDate());
+    
+    private ZonedDateTime convertToScenarioTimeZone(String date) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(date);
+        return zonedDateTime.withZoneSameInstant(scenarioTime.getZone());
     }
 
-    private void dapInitialize() throws IOException {
-        while ((dapNextLine = dapReader.readLine()) != null) {
-            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
-            if (isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
-                log.debug("starting DAP from {}", dapNextLine);
-                break;
-            }
-        }
+    private void dapAdvanceToDate(LocalDate targetDate) throws IOException {
+        boolean foundTargetDate = false;
 
-        boolean isInitialized = false;
-        while (!isInitialized && dapNextLine != null) {
-            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
-            if (!isSameDate(ZonedDateTime.parse(priceData[0]), scenarioTime, scenarioTime.getZone())) {
-                isInitialized = true;
-                continue;
+        while (!foundTargetDate) {
+            if (dapNextLine == null ){
+                log.error("ran out of day ahead price data");
+                return; // TODO: propogate error
             }
 
-            DayAheadPrice dayAheadPrice = create_DayAheadPrice();
-            dayAheadPrice.set_time(priceData[0]);
-            dayAheadPrice.set_value(Double.parseDouble(priceData[1]));
-            dayAheadPrice.sendInteraction(getLRC()); // RO
-            log.info("sent {} {}", priceData[0], priceData[1]);
+            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
+            LocalDate priceDate = convertToScenarioTimeZone(priceData[0]).toLocalDate();
 
-            dapNextLine = dapReader.readLine();
-        }
-        if (dapNextLine == null) {
-            log.error("DAP input doesn't contain data for {}", scenarioTime.toLocalDate());
-            throw new IOException("DAP data out of range");
+            if (priceDate.equals(targetDate)) {
+                foundTargetDate = true;
+            } else {
+                dapNextLine = dapReader.readLine();
+            }
         }
     }
 
-    private void rtpInitialize() throws IOException { // doesn't work if input file hs no values <= scenarioTime
-        while ((rtpNextLine = rtpReader.readLine()) != null) {
+    // assumes dapNextLine is for the targetDate
+    // use dapAdvanceToDate to move to a targetDate
+    void sendDayAheadPrices(LocalDate targetDate, double logicalTime) throws IOException {
+        boolean afterTargetDate = false;
+
+        while (!afterTargetDate) {
+            if (dapNextLine == null ){
+                log.error("ran out of day ahead price data");
+                return; // TODO: propogate error
+            }
+
+            String[] priceData = dapNextLine.split(","); // format: DateTime,DAP
+            ZonedDateTime priceTime = convertToScenarioTimeZone(priceData[0]);
+
+            if (!priceTime.toLocalDate().equals(targetDate)) {
+                afterTargetDate = true;
+            } else {
+                DayAheadPrice dayAheadPrice = create_DayAheadPrice();
+                dayAheadPrice.set_time(priceTime.toString());
+                dayAheadPrice.set_value(Double.parseDouble(priceData[1]));
+                if (logicalTime > 0) {
+                    dayAheadPrice.sendInteraction(getLRC(), logicalTime);
+                } else {
+                    dayAheadPrice.sendInteraction(getLRC()); // RO
+                }
+                log.info("sent {} {}", priceTime.toString(), priceData[1]);
+
+                dapNextLine = dapReader.readLine();
+            }
+        }
+    }
+
+    private void sendRealTimePrice(double logicalTime) throws IOException {
+        boolean foundMostRecent = false;
+
+        String mostRecentTime = null;
+        String mostRecentPrice = null;
+
+        while (!foundMostRecent) {
+            if (rtpNextLine == null ){
+                log.error("ran out of real time price data");
+                return; // TODO: propogate error
+            }
             String[] priceData = rtpNextLine.split(","); // format: DateTime,RTP
-            
-            if (ZonedDateTime.parse(priceData[0]).isAfter(scenarioTime)) {
-                RealTimePrice realTimePrice = create_RealTimePrice();
-                realTimePrice.set_time(priceData[0]);
-                realTimePrice.set_value(Double.parseDouble(priceData[1]));
-                realTimePrice.sendInteraction(getLRC()); // RO
-                log.info("sent RTP = {} {}", priceData[0], priceData[1]);
-                break;
-            }
 
-            rtpNextTime = ZonedDateTime.parse(priceData[0]); // must be here don't ask
+            if (ZonedDateTime.parse(priceData[0]).isAfter(scenarioTime)) {
+                foundMostRecent = true;
+            } else {
+                mostRecentTime = convertToScenarioTimeZone(priceData[0]).toString();
+                mostRecentPrice = priceData[1];
+                rtpNextLine = rtpReader.readLine();
+            }
         }
+
+        if (mostRecentTime == null) {
+            log.debug("no new real time updates to price");
+        } else {
+            RealTimePrice realTimePrice = create_RealTimePrice();
+            realTimePrice.set_time(mostRecentTime);
+            realTimePrice.set_value(Double.parseDouble(mostRecentPrice));
+            if (logicalTime > 0) {
+                realTimePrice.sendInteraction(getLRC(), logicalTime);
+            } else {
+                realTimePrice.sendInteraction(getLRC()); // RO
+            }
+            log.info("sent RTP = {} {}", mostRecentTime, mostRecentPrice);
+        }
+    }
+
+    private void initializePriceData() throws IOException {
+        log.debug("reading first line of day ahead prices...");
+        dapNextLine = dapReader.readLine();
+        dapAdvanceToDate(scenarioTime.toLocalDate());
+        sendDayAheadPrices(scenarioTime.toLocalDate(), 0);
+
+        log.debug("reading first line of real time prices...");
+        rtpNextLine = rtpReader.readLine();
+        sendRealTimePrice(0);
     }
 
     private void handleInteractionClass(SimTime interaction) {
+        if (receivedSimTime) { // prevent localDate overwrite
+            log.debug("dropped duplicate SimTime interaction");
+            return;
+        }
+
         logicalTimeScale = interaction.get_timeScale();
         scenarioTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
-        currentDate = scenarioTime.toLocalDate();
-        log.info("received SimTime starting at {}", scenarioTime.toString());
+        localDate = scenarioTime.toLocalDate();
         receivedSimTime = true;
+
+        log.info("received SimTime starting at {}", scenarioTime.toString());
     }
 
     public static void main(String[] args) {

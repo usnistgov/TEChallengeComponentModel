@@ -326,7 +326,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     house.set_name(houseConfiguration.getID());
                     house.set_cooling_setpoint(setpoint);
                     house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                    log.debug("house {} setpoint is {}", houseConfiguration.getID(), setpoint);
+                    log.trace("house {} setpoint is {}", houseConfiguration.getID(), setpoint);
                 }
             }
 
