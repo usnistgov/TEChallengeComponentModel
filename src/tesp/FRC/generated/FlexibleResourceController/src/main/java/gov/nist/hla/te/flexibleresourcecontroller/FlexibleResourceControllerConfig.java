@@ -6,4 +6,7 @@ import org.cpswt.config.FederateParameter;
 public class FlexibleResourceControllerConfig extends FederateConfig {
     @FederateParameter
     public String houseConfigurationFile;
+
+    @FederateParameter
+    public boolean heatPumpRtpAdjust;
 }

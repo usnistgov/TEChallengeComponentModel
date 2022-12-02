@@ -3,7 +3,6 @@ package gov.nist.hla.te.flexibleresourcecontroller;
 import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -14,7 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.base.ObjectReflector;
 import org.cpswt.hla.ObjectRoot;
@@ -31,6 +29,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private final static Logger log = LogManager.getLogger();
 
     private boolean receivedSimTime = false;
+    private boolean receivedInitialPrices = false;
 
     private double currentTime = 0;
 
@@ -55,6 +54,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, House> houses = new HashMap<String, House>();
 
+    private boolean heatPumpRtpAdjust;
+
     ////////////////////////////////////////////////////////////////////////
     // TODO instantiate objects that must be sent every logical time step //
     ////////////////////////////////////////////////////////////////////////
@@ -65,6 +66,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
+
+        heatPumpRtpAdjust = params.heatPumpRtpAdjust;
 
         final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
@@ -187,6 +190,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         }
     }
 
+    private boolean receivedDayAheadPrices() {
+        return dayAheadPriceQueue.size() == 24; // this should check the hours as well
+    }
+
     private void execute() throws Exception {
         if(super.isLateJoiner()) {
             log.info("turning off time regulation (late joiner)");
@@ -207,17 +214,24 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             log.info("...synchronized on readyToPopulate");
         }
 
-
-        while (!receivedSimTime) {
-            log.info("waiting to receive SimTime...");
+        while (!receivedSimTime || !receivedInitialPrices) {
+            if (!receivedSimTime) {
+                log.info("waiting to receive SimTime...");
+            } else {
+                log.info("waiting to receive initial prices...");
+            }
             synchronized (lrc) {
                 lrc.tick();
             }
             checkReceivedSubscriptions();
-            if (!receivedSimTime) {
+            receivedInitialPrices = receivedDayAheadPrices();
+            if (!receivedSimTime || !receivedInitialPrices) {
                 CpswtUtils.sleep(1000);
             }
         }
+
+        processDayAheadPrices();
+        startNewDay();
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -257,8 +271,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 final int currentHour = scenarioTime.getHour();
                 log.info("new hour = {}", currentHour);
 
-                if (currentHour == 0) {
-                    startNewDay(); // make sure initial condition works
+                if (currentHour == 0 && currentTime > 0) {
+                    // prevent double execution if midnight start
+                    // should make this instead based on current stored day
+                    startNewDay();
                 }
 
                 // heat pump control
@@ -296,12 +312,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         setpoint = houseConfiguration.getSetpoint();
                     }
 
-                    double priceRatio = realTimePrice / peakDayAheadPrice;
-                    if (priceRatio >= 2) {
-                        setpoint = houseConfiguration.getPeakSetpoint() + 1;
-                    } else if (priceRatio > 1) {
-                        double rtp_adjust = (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
-                        setpoint = setpoint + rtp_adjust;
+                    if (heatPumpRtpAdjust) {
+                        double priceRatio = realTimePrice / peakDayAheadPrice;
+                        if (priceRatio >= 2) {
+                            setpoint = houseConfiguration.getPeakSetpoint() + 1;
+                        } else if (priceRatio > 1) {
+                            double rtp_adjust = (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
+                            setpoint = setpoint + rtp_adjust;
+                        }
                     }
 
                     House house = houses.get(houseConfiguration.getID());

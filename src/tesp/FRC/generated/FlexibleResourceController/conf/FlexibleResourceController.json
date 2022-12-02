@@ -5,5 +5,6 @@
   "isLateJoiner": false,
   "lookAhead": 0.2,
   "stepSize": 1.0,
-  "houseConfigurationFile": "conf/houseParameters.csv"
+  "houseConfigurationFile": "conf/houseParameters.csv",
+  "heatPumpRtpAdjust": true
 }
