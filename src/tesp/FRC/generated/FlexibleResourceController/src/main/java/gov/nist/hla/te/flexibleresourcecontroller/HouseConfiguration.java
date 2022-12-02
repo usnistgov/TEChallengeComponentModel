@@ -67,6 +67,6 @@ public class HouseConfiguration {
     }
 
     public int getPrecoolHours() {
-        return 2 + (int)Math.ceil(tau/6); // should this be ceiling?
+        return 2 + (int)Math.round(tau/6); // should this be ceiling?
     }
 }

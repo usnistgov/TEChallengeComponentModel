@@ -9,7 +9,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="gov.nist.hla.gridlabd.GridLabDFederate" level="DEBUG" additivity="false">
+        <Logger name="gov.nist.hla.gridlabd.GridLabDFederate" level="INFO" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
         <Root level="INFO">
