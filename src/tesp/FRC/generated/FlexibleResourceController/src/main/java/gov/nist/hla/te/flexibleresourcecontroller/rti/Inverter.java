@@ -32,8 +32,8 @@ public class Inverter extends ObjectRoot {
     */
     public Inverter() {}
 
-    private static int _P_out_handle;
-    private static int _Q_out_handle;
+    private static int _P_Out_handle;
+    private static int _Q_Out_handle;
     private static int _name_handle;
 
     private static boolean _isInitialized = false;
@@ -119,16 +119,16 @@ public class Inverter extends ObjectRoot {
         _datamemberClassNameSetMap.put("ObjectRoot.Inverter", _datamemberNames);
         _allDatamemberClassNameSetMap.put("ObjectRoot.Inverter", _allDatamemberNames);
 
-        _datamemberNames.add("P_out");
-        _datamemberNames.add("Q_out");
+        _datamemberNames.add("P_Out");
+        _datamemberNames.add("Q_Out");
         _datamemberNames.add("name");
 
-        _datamemberTypeMap.put("P_out", "double");
-        _datamemberTypeMap.put("Q_out", "double");
+        _datamemberTypeMap.put("P_Out", "double");
+        _datamemberTypeMap.put("Q_Out", "double");
         _datamemberTypeMap.put("name", "String");
 
-        _allDatamemberNames.add("P_out");
-        _allDatamemberNames.add("Q_out");
+        _allDatamemberNames.add("P_Out");
+        _allDatamemberNames.add("Q_Out");
         _allDatamemberNames.add("name");
 
         _classNamePublishAttributeNameMap.put("ObjectRoot.Inverter", _publishAttributeNameSet);
@@ -165,8 +165,8 @@ public class Inverter extends ObjectRoot {
         isNotInitialized = true;
         while(isNotInitialized) {
             try {
-                _P_out_handle = rti.getAttributeHandle("P_out", get_handle());
-                _Q_out_handle = rti.getAttributeHandle("Q_out", get_handle());
+                _P_Out_handle = rti.getAttributeHandle("P_Out", get_handle());
+                _Q_Out_handle = rti.getAttributeHandle("Q_Out", get_handle());
                 _name_handle = rti.getAttributeHandle("name", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
@@ -184,12 +184,12 @@ public class Inverter extends ObjectRoot {
             }
         }
 
-        _datamemberNameHandleMap.put("ObjectRoot.Inverter.P_out", _P_out_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.Inverter.Q_out", _Q_out_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Inverter.P_Out", _P_Out_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Inverter.Q_Out", _Q_Out_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Inverter.name", _name_handle);
 
-        _datamemberHandleNameMap.put(_P_out_handle, "P_out");
-        _datamemberHandleNameMap.put(_Q_out_handle, "Q_out");
+        _datamemberHandleNameMap.put(_P_Out_handle, "P_Out");
+        _datamemberHandleNameMap.put(_Q_Out_handle, "Q_Out");
         _datamemberHandleNameMap.put(_name_handle, "name");
     }
 
@@ -420,8 +420,8 @@ public class Inverter extends ObjectRoot {
 
     @Override
     public String getAttributeName(int datamemberHandle) {
-        if (datamemberHandle == _P_out_handle) return "P_out";
-        else if (datamemberHandle == _Q_out_handle) return "Q_out";
+        if (datamemberHandle == _P_Out_handle) return "P_Out";
+        else if (datamemberHandle == _Q_Out_handle) return "Q_Out";
         else if (datamemberHandle == _name_handle) return "name";
         else return super.getAttributeName(datamemberHandle);
     }
@@ -465,107 +465,107 @@ public class Inverter extends ObjectRoot {
     @Override
     public String toString() {
         return getClass().getName() + "("
-                + "P_out:" + get_P_out()
-                + "," + "Q_out:" + get_Q_out()
+                + "P_Out:" + get_P_Out()
+                + "," + "Q_Out:" + get_Q_Out()
                 + "," + "name:" + get_name()
                 + ")";
     }
 
 
     /**
-    * Publishes the "P_out" attribute of the attribute's containing object
+    * Publishes the "P_Out" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "P_out" attribute for publication.
+    * Note:  This method only marks the "P_Out" attribute for publication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void publish_P_out() {
-        _publishAttributeNameSet.add( "P_out" );
+    public static void publish_P_Out() {
+        _publishAttributeNameSet.add( "P_Out" );
     }
 
     /**
-    * Unpublishes the "P_out" attribute of the attribute's containing object
+    * Unpublishes the "P_Out" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "P_out" attribute for unpublication.
+    * Note:  This method only marks the "P_Out" attribute for unpublication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void unpublish_P_out() {
-        _publishAttributeNameSet.remove( "P_out" );
+    public static void unpublish_P_Out() {
+        _publishAttributeNameSet.remove( "P_Out" );
     }
 
     /**
-    * Subscribes a federate to the "P_out" attribute of the attribute's
+    * Subscribes a federate to the "P_Out" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "P_out" attribute for subscription.
+    * Note:  This method only marks the "P_Out" attribute for subscription.
     * To actually subscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void subscribe_P_out() {
-        _subscribeAttributeNameSet.add( "P_out" );
+    public static void subscribe_P_Out() {
+        _subscribeAttributeNameSet.add( "P_Out" );
     }
 
     /**
-    * Unsubscribes a federate from the "P_out" attribute of the attribute's
+    * Unsubscribes a federate from the "P_Out" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "P_out" attribute for unsubscription.
+    * Note:  This method only marks the "P_Out" attribute for unsubscription.
     * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void unsubscribe_P_out() {
-        _subscribeAttributeNameSet.remove( "P_out" );
+    public static void unsubscribe_P_Out() {
+        _subscribeAttributeNameSet.remove( "P_Out" );
     }
 
     /**
-    * Publishes the "Q_out" attribute of the attribute's containing object
+    * Publishes the "Q_Out" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "Q_out" attribute for publication.
+    * Note:  This method only marks the "Q_Out" attribute for publication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void publish_Q_out() {
-        _publishAttributeNameSet.add( "Q_out" );
+    public static void publish_Q_Out() {
+        _publishAttributeNameSet.add( "Q_Out" );
     }
 
     /**
-    * Unpublishes the "Q_out" attribute of the attribute's containing object
+    * Unpublishes the "Q_Out" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "Q_out" attribute for unpublication.
+    * Note:  This method only marks the "Q_Out" attribute for unpublication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void unpublish_Q_out() {
-        _publishAttributeNameSet.remove( "Q_out" );
+    public static void unpublish_Q_Out() {
+        _publishAttributeNameSet.remove( "Q_Out" );
     }
 
     /**
-    * Subscribes a federate to the "Q_out" attribute of the attribute's
+    * Subscribes a federate to the "Q_Out" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "Q_out" attribute for subscription.
+    * Note:  This method only marks the "Q_Out" attribute for subscription.
     * To actually subscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void subscribe_Q_out() {
-        _subscribeAttributeNameSet.add( "Q_out" );
+    public static void subscribe_Q_Out() {
+        _subscribeAttributeNameSet.add( "Q_Out" );
     }
 
     /**
-    * Unsubscribes a federate from the "Q_out" attribute of the attribute's
+    * Unsubscribes a federate from the "Q_Out" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "Q_out" attribute for unsubscription.
+    * Note:  This method only marks the "Q_Out" attribute for unsubscription.
     * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void unsubscribe_Q_out() {
-        _subscribeAttributeNameSet.remove( "Q_out" );
+    public static void unsubscribe_Q_Out() {
+        _subscribeAttributeNameSet.remove( "Q_Out" );
     }
 
     /**
@@ -616,66 +616,66 @@ public class Inverter extends ObjectRoot {
         _subscribeAttributeNameSet.remove( "name" );
     }
 
-    protected Attribute< Double > _P_out =
+    protected Attribute< Double > _P_Out =
             new Attribute< Double >(  new Double( 0 )  );
 
     /**
-    * Set the value of the "P_out" attribute to "value" for this object.
+    * Set the value of the "P_Out" attribute to "value" for this object.
     *
-    * @param value the new value for the "P_out" attribute
+    * @param value the new value for the "P_Out" attribute
     */
-    public void set_P_out( double value ) {
-        _P_out.setValue( value );
-        _P_out.setTime( getTime() );
+    public void set_P_Out( double value ) {
+        _P_Out.setValue( value );
+        _P_Out.setTime( getTime() );
     }
 
     /**
-    * Returns the value of the "P_out" attribute of this object.
+    * Returns the value of the "P_Out" attribute of this object.
     *
-    * @return the value of the "P_out" attribute
+    * @return the value of the "P_Out" attribute
     */
-    public double get_P_out() {
-        return _P_out.getValue();
+    public double get_P_Out() {
+        return _P_Out.getValue();
     }
 
     /**
-    * Returns the current timestamp of the "P_out" attribute of this object.
+    * Returns the current timestamp of the "P_Out" attribute of this object.
     *
-    * @return the current timestamp of the "P_out" attribute
+    * @return the current timestamp of the "P_Out" attribute
     */
-    public double get_P_out_time() {
-        return _P_out.getTime();
+    public double get_P_Out_time() {
+        return _P_Out.getTime();
     }
 
-    protected Attribute< Double > _Q_out =
+    protected Attribute< Double > _Q_Out =
             new Attribute< Double >(  new Double( 0 )  );
 
     /**
-    * Set the value of the "Q_out" attribute to "value" for this object.
+    * Set the value of the "Q_Out" attribute to "value" for this object.
     *
-    * @param value the new value for the "Q_out" attribute
+    * @param value the new value for the "Q_Out" attribute
     */
-    public void set_Q_out( double value ) {
-        _Q_out.setValue( value );
-        _Q_out.setTime( getTime() );
+    public void set_Q_Out( double value ) {
+        _Q_Out.setValue( value );
+        _Q_Out.setTime( getTime() );
     }
 
     /**
-    * Returns the value of the "Q_out" attribute of this object.
+    * Returns the value of the "Q_Out" attribute of this object.
     *
-    * @return the value of the "Q_out" attribute
+    * @return the value of the "Q_Out" attribute
     */
-    public double get_Q_out() {
-        return _Q_out.getValue();
+    public double get_Q_Out() {
+        return _Q_Out.getValue();
     }
 
     /**
-    * Returns the current timestamp of the "Q_out" attribute of this object.
+    * Returns the current timestamp of the "Q_Out" attribute of this object.
     *
-    * @return the current timestamp of the "Q_out" attribute
+    * @return the current timestamp of the "Q_Out" attribute
     */
-    public double get_Q_out_time() {
-        return _Q_out.getTime();
+    public double get_Q_Out_time() {
+        return _Q_Out.getTime();
     }
 
     protected Attribute< String > _name =
@@ -757,8 +757,8 @@ public class Inverter extends ObjectRoot {
     public Inverter( Inverter Inverter_var ) {
         super( Inverter_var );
 
-        set_P_out( Inverter_var.get_P_out() );
-        set_Q_out( Inverter_var.get_Q_out() );
+        set_P_Out( Inverter_var.get_P_Out() );
+        set_Q_Out( Inverter_var.get_Q_Out() );
         set_name( Inverter_var.get_name() );
     }
 
@@ -772,16 +772,16 @@ public class Inverter extends ObjectRoot {
     * for this object
     */
     public Object getAttribute( String datamemberName ) {
-        if ( "P_out".equals(datamemberName) ) return new Double(get_P_out());
-        else if ( "Q_out".equals(datamemberName) ) return new Double(get_Q_out());
+        if ( "P_Out".equals(datamemberName) ) return new Double(get_P_Out());
+        else if ( "Q_Out".equals(datamemberName) ) return new Double(get_Q_Out());
         else if ( "name".equals(datamemberName) ) return get_name();
         else return super.getAttribute( datamemberName );
     }
 
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "P_out".equals( datamemberName) ) set_P_out( Double.parseDouble(val) );
-        else if ( "Q_out".equals( datamemberName) ) set_Q_out( Double.parseDouble(val) );
+        if ( "P_Out".equals( datamemberName) ) set_P_Out( Double.parseDouble(val) );
+        else if ( "Q_Out".equals( datamemberName) ) set_Q_Out( Double.parseDouble(val) );
         else if ( "name".equals( datamemberName) ) set_name( val );
         else retval = super.setAttributeAux( datamemberName, val );
 
@@ -790,8 +790,8 @@ public class Inverter extends ObjectRoot {
 
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "P_out".equals( datamemberName) ) set_P_out( (Double)val );
-        else if ( "Q_out".equals( datamemberName) ) set_Q_out( (Double)val );
+        if ( "P_Out".equals( datamemberName) ) set_P_Out( (Double)val );
+        else if ( "Q_Out".equals( datamemberName) ) set_Q_Out( (Double)val );
         else if ( "name".equals( datamemberName) ) set_name( (String)val );
         else retval = super.setAttributeAux( datamemberName, val );
 
@@ -802,14 +802,14 @@ public class Inverter extends ObjectRoot {
     protected SuppliedAttributes createSuppliedDatamembers(boolean force) {
         SuppliedAttributes datamembers = _factory.createSuppliedAttributes();
  
-        if (_publishAttributeNameSet.contains("P_out") && _P_out.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("P_out"), getAttribute("P_out").toString().getBytes() );
-            _P_out.setHasBeenUpdated();
+        if (_publishAttributeNameSet.contains("P_Out") && _P_Out.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("P_Out"), getAttribute("P_Out").toString().getBytes() );
+            _P_Out.setHasBeenUpdated();
         }
 
-        if (_publishAttributeNameSet.contains("Q_out") && _Q_out.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("Q_out"), getAttribute("Q_out").toString().getBytes() );
-            _Q_out.setHasBeenUpdated();
+        if (_publishAttributeNameSet.contains("Q_Out") && _Q_Out.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("Q_Out"), getAttribute("Q_Out").toString().getBytes() );
+            _Q_Out.setHasBeenUpdated();
         }
 
         if (_publishAttributeNameSet.contains("name") && _name.shouldBeUpdated(force)) {
@@ -824,8 +824,8 @@ public class Inverter extends ObjectRoot {
         super.copyFrom( object );
         if ( object instanceof Inverter ) {
             Inverter data = (Inverter)object;
-            _P_out = data._P_out;
-            _Q_out = data._Q_out;
+            _P_Out = data._P_Out;
+            _Q_Out = data._Q_Out;
             _name = data._name;
         }
     }

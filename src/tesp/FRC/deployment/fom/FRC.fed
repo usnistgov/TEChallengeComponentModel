@@ -53,8 +53,8 @@
         (attribute name reliable timestamp)
       )
       (class Inverter
-        (attribute P_out reliable timestamp)
-        (attribute Q_out reliable timestamp)
+        (attribute P_Out reliable timestamp)
+        (attribute Q_Out reliable timestamp)
         (attribute name reliable timestamp)
       )
       (class Meter

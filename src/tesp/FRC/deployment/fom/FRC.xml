@@ -8,7 +8,7 @@
         <name>FRC</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2022-11-17</modificationDate>
+        <modificationDate>2022-12-21</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -49,7 +49,7 @@
                 <name>Inverter</name>
                 <sharing>PublishSubscribe</sharing>
                 <attribute>
-                    <name>P_out</name>
+                    <name>P_Out</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
@@ -58,7 +58,7 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
-                    <name>Q_out</name>
+                    <name>Q_Out</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>

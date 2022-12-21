@@ -48,10 +48,6 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
 
         // object pubsub
-        Inverter.publish_P_out();
-        Inverter.publish_Q_out();
-        Inverter.publish_name();
-        Inverter.publish(getLRC());
         Waterheater.publish_name();
         Waterheater.publish_tank_setpoint();
         Waterheater.publish_tank_setpoint_1();
@@ -60,6 +56,10 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
         House.publish_cooling_setpoint();
         House.publish_name();
         House.publish(getLRC());
+        Inverter.publish_P_Out();
+        Inverter.publish_Q_Out();
+        Inverter.publish_name();
+        Inverter.publish(getLRC());
         Meter.subscribe_measured_voltage_1();
         Meter.subscribe_name();
         Meter.subscribe(getLRC());
