@@ -17,8 +17,10 @@ public class HouseConfiguration {
     private double tau;
     private double offsetLimit;
 
+    private int minuteDelay;
+
     HouseConfiguration(String[] data) {
-        if (data == null || data.length != 10) {
+        if (data == null || data.length != 11) {
             throw new RuntimeException("invalid house configuration");
         }
 
@@ -32,6 +34,7 @@ public class HouseConfiguration {
         this.offsetLimit = Double.parseDouble(data[7]); // offset limit
         // data[8]; // ramp
         // data[9]; // deadband
+        this.minuteDelay = Integer.parseInt(data[10]);
 
         String[] idParts = id.split("_hse_");
         this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
@@ -67,6 +70,10 @@ public class HouseConfiguration {
     }
 
     public int getPrecoolHours() {
-        return 2 + (int)Math.round(tau/6); // should this be ceiling?
+        return 2 + (int)Math.round(tau/6);
+    }
+
+    public int getMinuteDelay() {
+        return minuteDelay;
     }
 }

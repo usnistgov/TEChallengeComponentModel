@@ -4,7 +4,9 @@ import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,6 +56,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Set<String> precoolHouseSet = new HashSet<String>();
 
     private Map<String, House> houses = new HashMap<String, House>();
+    private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -102,7 +105,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 house.registerObject(getLRC());
                 houses.put(houseConfiguration.getID(), house);
 
-                // inverter.registerObject(getLRC());
+                // TODO: check if the house has a battery
+                Inverter inverter = new Inverter();
+                inverter.registerObject(getLRC());
+                inverters.put(houseConfiguration.getBatteryID(), inverter);
+
                 // waterheater.registerObject(getLRC());
             }
         } catch (IOException e) {
@@ -259,10 +266,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             ////////////////////////////////////////////////////////////
             // TODO objects that must be sent every logical time step //
             ////////////////////////////////////////////////////////////
-            //    inverter.set_P_out(<YOUR VALUE HERE >);
-            //    inverter.set_Q_out(<YOUR VALUE HERE >);
-            //    inverter.set_name(<YOUR VALUE HERE >);
-            //    inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
             //    waterheater.set_name(<YOUR VALUE HERE >);
             //    waterheater.set_tank_setpoint(<YOUR VALUE HERE >);
             //    waterheater.set_tank_setpoint_1(<YOUR VALUE HERE >);
@@ -347,20 +350,36 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
 
             // battery control
+            // TODO: determine if house has battery ?
+            // TODO: what happens if a simulation starts mid-charge?
+            ZonedDateTime chargeStartTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(1,0), scenarioTime.getZone());
+            for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+                String id = houseConfiguration.getBatteryID();
+                double p_out = inverters.get(id).get_P_Out();
+
+                if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
+                    ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
+                    long minutesElapsed = Duration.between(actualStartTime, scenarioTime).toMinutes();
+
+                    if (minutesElapsed < 0 || minutesElapsed >= 270) {
+                        p_out = 0;
+                    } else if (minutesElapsed >= 30) { // ramp down
+                        double deltaPerSecond = 4.8/240/60; // 4.8 kW change over 240 minutes
+                        p_out += deltaPerSecond * logicalTimeScale;
+                    } else { // ramp up
+                        double deltaPerSecond = 4.8/30/60; // 4.8 kW change over 30 minutes
+                        p_out -= deltaPerSecond * logicalTimeScale;
+                    }
+                }
+                
+                Inverter inverter = inverters.get(id);
+                inverter.set_name(id);
+                inverter.set_P_Out(p_out);
+                inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                log.info("id={} p={}", id, p_out);
+            }
+
             // foreach house
-            //  if scenarioTime.hour < 8 && scenarioTime.hour > 1 && scenarioTime.minute % ?? == 0
-            //  charge_start = ZonedDateTime(CurrentDayT01:00:00).plus(house.delta)
-            //  int minutes = Duration.between(charge_start, scenarioTime).toMinutes())
-            //  if minutes > 270
-            //      POut = 0
-            //  elif minutes > 30
-            //      delta = 4.8 / 30 * ??
-            //      POut -= delta
-            //  else
-            //      delta = 4.8 / 240 * ??
-            //      POut += delta;
-            //  update POut (but do not send until Q adjust)
-            //
             // peak_hour_mid = ZonedDateTime(CurrentDay, peakHour, 30, 00)
             // discharge_start = subtract 3 hours from peak_hour_mid
             // discharge_end = add 3 hours to peak_hour_mid
