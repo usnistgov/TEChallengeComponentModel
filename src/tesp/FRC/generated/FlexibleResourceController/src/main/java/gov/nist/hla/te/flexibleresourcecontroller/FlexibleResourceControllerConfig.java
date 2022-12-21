@@ -8,5 +8,10 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     public String houseConfigurationFile;
 
     @FederateParameter
-    public boolean heatPumpRtpAdjust;
+    public HeatPump heatPump;
+
+    public class HeatPump {
+        public boolean isControlled;
+        public boolean useRtpAdjust;
+    }
 }

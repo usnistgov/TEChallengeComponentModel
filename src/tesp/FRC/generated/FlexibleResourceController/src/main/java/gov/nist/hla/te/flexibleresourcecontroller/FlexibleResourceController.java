@@ -30,6 +30,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private boolean receivedSimTime = false;
     private boolean receivedInitialPrices = false;
+    private boolean firstTimeStep = true;
 
     private double currentTime = 0;
 
@@ -54,6 +55,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, House> houses = new HashMap<String, House>();
 
+    private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
 
     ////////////////////////////////////////////////////////////////////////
@@ -67,7 +69,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
 
-        heatPumpRtpAdjust = params.heatPumpRtpAdjust;
+        heatPumpActive = params.heatPump.isControlled;
+        heatPumpRtpAdjust = params.heatPump.useRtpAdjust;
+        if (heatPumpActive && heatPumpRtpAdjust) {
+            log.info("will control heat pump using real time adjustments");
+        } else if (heatPumpActive) {
+            log.info("will control heat pump using only day ahead values");
+        }
 
         final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
@@ -300,7 +308,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
 
             // heat pump control
-            if (scenarioTime.getMinute() % 5 == 0) { // TODO: make configurable
+            if (heatPumpActive) {
                 for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                     double setpoint;
 
@@ -328,6 +336,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                     log.trace("house {} setpoint is {}", houseConfiguration.getID(), setpoint);
                 }
+            } else if (firstTimeStep) {
+                for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+                    House house = houses.get(houseConfiguration.getID());
+                    house.set_name(houseConfiguration.getID());
+                    house.set_cooling_setpoint(houseConfiguration.getSetpoint());
+                    house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    log.trace("house {} setpoint is {}", houseConfiguration.getID(), houseConfiguration.getSetpoint());
+                }
             }
 
             // battery control
@@ -352,6 +368,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             ////////////////////////////////////////////////////////////////////
             // TODO break here if ready to resign and break out of while loop //
             ////////////////////////////////////////////////////////////////////
+
+            firstTimeStep = false;
 
             if (!exitCondition) {
                 incrementScenarioTime();
