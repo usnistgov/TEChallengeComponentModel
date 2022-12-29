@@ -30,6 +30,13 @@ import org.apache.logging.log4j.Logger;
 public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private final static Logger log = LogManager.getLogger();
 
+    // IEEE 1547 Cat.B default values for Volt Var
+    private final static double Q_SET = 0.44;
+    private final static double V_MIN = 0.92;
+    private final static double V_LO  = 0.98;
+    private final static double V_HI  = 1.02;
+    private final static double V_MAX = 1.08;
+
     private boolean receivedSimTime = false;
     private boolean receivedInitialPrices = false;
     private boolean firstTimeStep = true;
@@ -57,6 +64,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, House> houses = new HashMap<String, House>();
     private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
+    private Map<String, Double> voltages = new HashMap<String, Double>();
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -356,6 +364,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                 String id = houseConfiguration.getBatteryID();
                 double p_out = inverters.get(id).get_P_Out();
+                double q_out = 0;
 
                 if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
                     ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
@@ -370,23 +379,44 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         double deltaPerSecond = 4.8/30/60; // 4.8 kW change over 30 minutes
                         p_out -= deltaPerSecond * logicalTimeScale;
                     }
+                } else { // discharge possible
+                    // TODO: discharge incl real time adjust
                 }
-                
+
+                // Volt Var
+                if (voltages.containsKey(houseConfiguration.getMeterID())) {
+                    double voltage = voltages.get(houseConfiguration.getMeterID());
+                    double v_pu = voltage / 120.0; // 120 = nominal voltage
+                    double q_pu = 0;
+
+                    if (V_LO <= v_pu && v_pu <= V_HI) {
+                        q_pu = 0;
+                    } else if (V_MIN <= v_pu && v_pu < V_LO) {
+                        q_pu = Q_SET * (1 - (v_pu - V_MIN)/(V_LO - V_MIN));
+                    } else if (V_HI < v_pu && v_pu <= V_MAX) {
+                        q_pu = -Q_SET * (1 - (V_MAX - v_pu)/(V_MAX - V_HI));
+                    } else if (v_pu < V_MIN) {
+                        q_pu = Q_SET;
+                    } else if (v_pu > V_MAX) {
+                        q_pu = -Q_SET;
+                    }
+                    q_out = q_pu * 5000; // volts
+                } else {
+                    log.warn("no meter voltage available for {}", houseConfiguration.getMeterID());
+                }
+
                 Inverter inverter = inverters.get(id);
                 inverter.set_name(id);
                 inverter.set_P_Out(p_out);
+                inverter.set_Q_Out(q_out);
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                log.debug("id={} p={}", id, p_out);
+                log.debug("id={} p={} q={}", id, p_out, q_out);
             }
 
             // foreach house
             // peak_hour_mid = ZonedDateTime(CurrentDay, peakHour, 30, 00)
             // discharge_start = subtract 3 hours from peak_hour_mid
             // discharge_end = add 3 hours to peak_hour_mid
-
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
 
             firstTimeStep = false;
 
@@ -403,10 +433,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         // call exitGracefully to shut down federate
         exitGracefully();
-
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
     }
 
     private void handleInteractionClass(SimTime interaction) {
@@ -441,8 +467,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             double complexPart = Double.parseDouble(complexParts[1]);
             double voltageMagnitude = Math.sqrt(realPart * realPart + complexPart * complexPart);
 
+            voltages.put(name, voltageMagnitude);
             log.trace("magnitude={} for {}", voltageMagnitude, voltageComplex);
-            // TODO: associate with house for use in execute loop
         } else {
             log.warn("received unusable voltage for meter {}: {}", name, voltageComplex);
         }
