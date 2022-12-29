@@ -16,11 +16,12 @@ public class HouseConfiguration {
     private double lambda;
     private double tau;
     private double offsetLimit;
+    private double waterheater_setpoint;
 
     private int minuteDelay;
 
     HouseConfiguration(String[] data) {
-        if (data == null || data.length != 11) {
+        if (data == null || data.length != 12) {
             throw new RuntimeException("invalid house configuration");
         }
 
@@ -35,6 +36,7 @@ public class HouseConfiguration {
         // data[8]; // ramp
         // data[9]; // deadband
         this.minuteDelay = Integer.parseInt(data[10]);
+        this.waterheater_setpoint = Double.parseDouble(data[11]);
 
         String[] idParts = id.split("_hse_");
         this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
@@ -59,6 +61,10 @@ public class HouseConfiguration {
 
     public double getSetpoint() {
         return setpoint;
+    }
+
+    public double getWaterheaterSetpoint() {
+        return waterheater_setpoint;
     }
 
     public double getPeakSetpoint() {
