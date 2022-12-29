@@ -376,7 +376,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.set_name(id);
                 inverter.set_P_Out(p_out);
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                log.info("id={} p={}", id, p_out);
+                log.debug("id={} p={}", id, p_out);
             }
 
             // foreach house
@@ -431,8 +431,21 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleObjectClass(Meter object) {
-        object.get_name();
-        object.get_voltage_1();
+        final String name = object.get_name();
+        final String voltageComplex = object.get_voltage_1();
+        
+        if (voltageComplex != null && !voltageComplex.isEmpty()) { // format: +123+456j V // either + can be -
+            String complexParts[] = voltageComplex.substring(1, voltageComplex.indexOf('j')).split("[-+]");
+
+            double realPart = Double.parseDouble(complexParts[0]);
+            double complexPart = Double.parseDouble(complexParts[1]);
+            double voltageMagnitude = Math.sqrt(realPart * realPart + complexPart * complexPart);
+
+            log.trace("magnitude={} for {}", voltageMagnitude, voltageComplex);
+            // TODO: associate with house for use in execute loop
+        } else {
+            log.warn("received unusable voltage for meter {}: {}", name, voltageComplex);
+        }
     }
 
     public static void main(String[] args) {
