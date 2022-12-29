@@ -64,6 +64,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, House> houses = new HashMap<String, House>();
     private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
+    private Map<String, Waterheater> waterheaters = new HashMap<String, Waterheater>();
     private Map<String, Double> voltages = new HashMap<String, Double>();
 
     private boolean heatPumpActive;
@@ -118,7 +119,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.registerObject(getLRC());
                 inverters.put(houseConfiguration.getBatteryID(), inverter);
 
-                // waterheater.registerObject(getLRC());
+                Waterheater waterheater = new Waterheater();
+                waterheater.registerObject(getLRC());
+                waterheaters.put(houseConfiguration.getWaterHeaterID(), waterheater);
             }
         } catch (IOException e) {
             log.error("failed to process the file {}", filepath);
@@ -223,10 +226,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             currentTime = super.getLBTS() - super.getLookAhead();
             super.disableTimeRegulation();
         }
-
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
         
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
@@ -270,15 +269,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             enteredTimeGrantedState();
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
-
-            ////////////////////////////////////////////////////////////
-            // TODO objects that must be sent every logical time step //
-            ////////////////////////////////////////////////////////////
-            //    waterheater.set_name(<YOUR VALUE HERE >);
-            //    waterheater.set_tank_setpoint(<YOUR VALUE HERE >);
-            //    waterheater.set_tank_setpoint_1(<YOUR VALUE HERE >);
-            //    waterheater.set_tank_setpoint_2(<YOUR VALUE HERE >);
-            //    waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
 
             checkReceivedSubscriptions();
 
@@ -354,6 +344,45 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     house.set_cooling_setpoint(houseConfiguration.getSetpoint());
                     house.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                     log.trace("house {} setpoint is {}", houseConfiguration.getID(), houseConfiguration.getSetpoint());
+                }
+            }
+
+            // waterheater control
+            ZonedDateTime morningSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(2,0), scenarioTime.getZone());
+            ZonedDateTime afternoonSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(12,0), scenarioTime.getZone());
+            for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+                ZonedDateTime morningSwitchTimeAdjusted = morningSwitchTime.plusMinutes(houseConfiguration.getMinuteDelay());
+                ZonedDateTime afternoonSwitchTimeAdjusted = afternoonSwitchTime; // should this also plusMinutes?
+
+                double tank_setpoint = 0;
+                boolean new_setpoint = false;
+
+                // TODO: move the initial value outside of the loop
+                boolean isMorning = scenarioTime.isAfter(morningSwitchTimeAdjusted) && scenarioTime.isBefore(afternoonSwitchTimeAdjusted);
+                if (scenarioTime.isEqual(morningSwitchTimeAdjusted) || (currentTime == 0 && isMorning)) {
+                    tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
+                    new_setpoint = true;
+                }
+
+                boolean isAfternoon = scenarioTime.isBefore(morningSwitchTimeAdjusted) || scenarioTime.isAfter(afternoonSwitchTimeAdjusted);
+                if (scenarioTime.isEqual(afternoonSwitchTimeAdjusted) || (currentTime == 0 && isAfternoon)) {
+                    tank_setpoint = houseConfiguration.getWaterHeaterSetpointMin();
+                    new_setpoint = true;
+                }
+
+                double priceRatio = realTimePrice / peakDayAheadPrice;
+                if (priceRatio > 2) {
+                    tank_setpoint = 0;
+                    new_setpoint = true;
+                }
+
+                if (new_setpoint) {
+                    Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
+                    waterheater.set_name(houseConfiguration.getWaterHeaterID());
+                    waterheater.set_tank_setpoint(tank_setpoint);
+                    waterheater.set_tank_setpoint_1(tank_setpoint);
+                    waterheater.set_tank_setpoint_2(tank_setpoint);
+                    waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 }
             }
 

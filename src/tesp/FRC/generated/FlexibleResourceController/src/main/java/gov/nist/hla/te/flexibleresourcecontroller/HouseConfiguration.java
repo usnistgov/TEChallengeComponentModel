@@ -53,7 +53,7 @@ public class HouseConfiguration {
         return id;
     }
 
-    public String getWaterheaterID() {
+    public String getWaterHeaterID() {
         return waterheaterID;
     }
 
@@ -69,8 +69,12 @@ public class HouseConfiguration {
         return setpoint;
     }
 
-    public double getWaterheaterSetpoint() {
+    public double getWaterHeaterSetpointMax() {
         return waterheater_setpoint;
+    }
+
+    public double getWaterHeaterSetpointMin() {
+        return 120 - (1 - lambda) * 20;
     }
 
     public double getPeakSetpoint() {
