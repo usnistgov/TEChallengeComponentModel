@@ -431,9 +431,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleObjectClass(Meter object) {
-        //////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the object //
-        //////////////////////////////////////////////////////////
+        object.get_name();
+        object.get_voltage_1();
     }
 
     public static void main(String[] args) {

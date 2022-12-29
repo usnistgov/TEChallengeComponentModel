@@ -60,7 +60,7 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
         Inverter.publish_Q_Out();
         Inverter.publish_name();
         Inverter.publish(getLRC());
-        Meter.subscribe_measured_voltage_1();
+        Meter.subscribe_voltage_1();
         Meter.subscribe_name();
         Meter.subscribe(getLRC());
     }

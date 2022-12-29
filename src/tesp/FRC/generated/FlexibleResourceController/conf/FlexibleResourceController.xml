@@ -8,7 +8,7 @@
         <name>FlexibleResourceController</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2022-12-21</modificationDate>
+        <modificationDate>2022-12-29</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
@@ -81,7 +81,7 @@
                 <name>Meter</name>
                 <sharing>Subscribe</sharing>
                 <attribute>
-                    <name>measured_voltage_1</name>
+                    <name>name</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
@@ -90,7 +90,7 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
-                    <name>name</name>
+                    <name>voltage_1</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>

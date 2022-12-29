@@ -83,7 +83,7 @@
                 <name>Meter</name>
                 <sharing>Publish</sharing>
                 <attribute>
-                    <name>measured_voltage_1</name>
+                    <name>voltage_1</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
