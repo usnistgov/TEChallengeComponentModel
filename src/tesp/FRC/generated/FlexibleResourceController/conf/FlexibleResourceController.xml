@@ -103,6 +103,15 @@
                 <name>Waterheater</name>
                 <sharing>Publish</sharing>
                 <attribute>
+                    <name>lower_tank_setpoint</name>
+                    <dataType>double</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Publish</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
                     <name>name</name>
                     <dataType>String</dataType>
                     <updateType>NA</updateType>
@@ -121,16 +130,7 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
-                    <name>tank_setpoint_1</name>
-                    <dataType>double</dataType>
-                    <updateType>NA</updateType>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>Publish</sharing>
-                    <transportation>HLAreliable</transportation>
-                    <order>TimeStamp</order>
-                </attribute>
-                <attribute>
-                    <name>tank_setpoint_2</name>
+                    <name>upper_tank_setpoint</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>

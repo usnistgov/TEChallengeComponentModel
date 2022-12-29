@@ -32,10 +32,10 @@ public class Waterheater extends ObjectRoot {
     */
     public Waterheater() {}
 
+    private static int _lower_tank_setpoint_handle;
     private static int _name_handle;
     private static int _tank_setpoint_handle;
-    private static int _tank_setpoint_1_handle;
-    private static int _tank_setpoint_2_handle;
+    private static int _upper_tank_setpoint_handle;
 
     private static boolean _isInitialized = false;
 
@@ -120,20 +120,20 @@ public class Waterheater extends ObjectRoot {
         _datamemberClassNameSetMap.put("ObjectRoot.Waterheater", _datamemberNames);
         _allDatamemberClassNameSetMap.put("ObjectRoot.Waterheater", _allDatamemberNames);
 
+        _datamemberNames.add("lower_tank_setpoint");
         _datamemberNames.add("name");
         _datamemberNames.add("tank_setpoint");
-        _datamemberNames.add("tank_setpoint_1");
-        _datamemberNames.add("tank_setpoint_2");
+        _datamemberNames.add("upper_tank_setpoint");
 
+        _datamemberTypeMap.put("lower_tank_setpoint", "double");
         _datamemberTypeMap.put("name", "String");
         _datamemberTypeMap.put("tank_setpoint", "double");
-        _datamemberTypeMap.put("tank_setpoint_1", "double");
-        _datamemberTypeMap.put("tank_setpoint_2", "double");
+        _datamemberTypeMap.put("upper_tank_setpoint", "double");
 
+        _allDatamemberNames.add("lower_tank_setpoint");
         _allDatamemberNames.add("name");
         _allDatamemberNames.add("tank_setpoint");
-        _allDatamemberNames.add("tank_setpoint_1");
-        _allDatamemberNames.add("tank_setpoint_2");
+        _allDatamemberNames.add("upper_tank_setpoint");
 
         _classNamePublishAttributeNameMap.put("ObjectRoot.Waterheater", _publishAttributeNameSet);
         _classNameSubscribeAttributeNameMap.put("ObjectRoot.Waterheater", _subscribeAttributeNameSet);
@@ -169,10 +169,10 @@ public class Waterheater extends ObjectRoot {
         isNotInitialized = true;
         while(isNotInitialized) {
             try {
+                _lower_tank_setpoint_handle = rti.getAttributeHandle("lower_tank_setpoint", get_handle());
                 _name_handle = rti.getAttributeHandle("name", get_handle());
                 _tank_setpoint_handle = rti.getAttributeHandle("tank_setpoint", get_handle());
-                _tank_setpoint_1_handle = rti.getAttributeHandle("tank_setpoint_1", get_handle());
-                _tank_setpoint_2_handle = rti.getAttributeHandle("tank_setpoint_2", get_handle());
+                _upper_tank_setpoint_handle = rti.getAttributeHandle("upper_tank_setpoint", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -189,15 +189,15 @@ public class Waterheater extends ObjectRoot {
             }
         }
 
+        _datamemberNameHandleMap.put("ObjectRoot.Waterheater.lower_tank_setpoint", _lower_tank_setpoint_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Waterheater.name", _name_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Waterheater.tank_setpoint", _tank_setpoint_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.Waterheater.tank_setpoint_1", _tank_setpoint_1_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.Waterheater.tank_setpoint_2", _tank_setpoint_2_handle);
+        _datamemberNameHandleMap.put("ObjectRoot.Waterheater.upper_tank_setpoint", _upper_tank_setpoint_handle);
 
+        _datamemberHandleNameMap.put(_lower_tank_setpoint_handle, "lower_tank_setpoint");
         _datamemberHandleNameMap.put(_name_handle, "name");
         _datamemberHandleNameMap.put(_tank_setpoint_handle, "tank_setpoint");
-        _datamemberHandleNameMap.put(_tank_setpoint_1_handle, "tank_setpoint_1");
-        _datamemberHandleNameMap.put(_tank_setpoint_2_handle, "tank_setpoint_2");
+        _datamemberHandleNameMap.put(_upper_tank_setpoint_handle, "upper_tank_setpoint");
     }
 
     private static boolean _isPublished = false;
@@ -427,10 +427,10 @@ public class Waterheater extends ObjectRoot {
 
     @Override
     public String getAttributeName(int datamemberHandle) {
-        if (datamemberHandle == _name_handle) return "name";
+        if (datamemberHandle == _lower_tank_setpoint_handle) return "lower_tank_setpoint";
+        else if (datamemberHandle == _name_handle) return "name";
         else if (datamemberHandle == _tank_setpoint_handle) return "tank_setpoint";
-        else if (datamemberHandle == _tank_setpoint_1_handle) return "tank_setpoint_1";
-        else if (datamemberHandle == _tank_setpoint_2_handle) return "tank_setpoint_2";
+        else if (datamemberHandle == _upper_tank_setpoint_handle) return "upper_tank_setpoint";
         else return super.getAttributeName(datamemberHandle);
     }
 
@@ -473,13 +473,61 @@ public class Waterheater extends ObjectRoot {
     @Override
     public String toString() {
         return getClass().getName() + "("
-                + "name:" + get_name()
+                + "lower_tank_setpoint:" + get_lower_tank_setpoint()
+                + "," + "name:" + get_name()
                 + "," + "tank_setpoint:" + get_tank_setpoint()
-                + "," + "tank_setpoint_1:" + get_tank_setpoint_1()
-                + "," + "tank_setpoint_2:" + get_tank_setpoint_2()
+                + "," + "upper_tank_setpoint:" + get_upper_tank_setpoint()
                 + ")";
     }
 
+
+    /**
+    * Publishes the "lower_tank_setpoint" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "lower_tank_setpoint" attribute for publication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void publish_lower_tank_setpoint() {
+        _publishAttributeNameSet.add( "lower_tank_setpoint" );
+    }
+
+    /**
+    * Unpublishes the "lower_tank_setpoint" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "lower_tank_setpoint" attribute for unpublication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void unpublish_lower_tank_setpoint() {
+        _publishAttributeNameSet.remove( "lower_tank_setpoint" );
+    }
+
+    /**
+    * Subscribes a federate to the "lower_tank_setpoint" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "lower_tank_setpoint" attribute for subscription.
+    * To actually subscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void subscribe_lower_tank_setpoint() {
+        _subscribeAttributeNameSet.add( "lower_tank_setpoint" );
+    }
+
+    /**
+    * Unsubscribes a federate from the "lower_tank_setpoint" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "lower_tank_setpoint" attribute for unsubscription.
+    * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void unsubscribe_lower_tank_setpoint() {
+        _subscribeAttributeNameSet.remove( "lower_tank_setpoint" );
+    }
 
     /**
     * Publishes the "name" attribute of the attribute's containing object
@@ -578,99 +626,82 @@ public class Waterheater extends ObjectRoot {
     }
 
     /**
-    * Publishes the "tank_setpoint_1" attribute of the attribute's containing object
+    * Publishes the "upper_tank_setpoint" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "tank_setpoint_1" attribute for publication.
+    * Note:  This method only marks the "upper_tank_setpoint" attribute for publication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void publish_tank_setpoint_1() {
-        _publishAttributeNameSet.add( "tank_setpoint_1" );
+    public static void publish_upper_tank_setpoint() {
+        _publishAttributeNameSet.add( "upper_tank_setpoint" );
     }
 
     /**
-    * Unpublishes the "tank_setpoint_1" attribute of the attribute's containing object
+    * Unpublishes the "upper_tank_setpoint" attribute of the attribute's containing object
     * class for a federate.
-    * Note:  This method only marks the "tank_setpoint_1" attribute for unpublication.
+    * Note:  This method only marks the "upper_tank_setpoint" attribute for unpublication.
     * To actually publish the attribute, the federate must (re)publish its containing
     * object class.
     * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
     */
-    public static void unpublish_tank_setpoint_1() {
-        _publishAttributeNameSet.remove( "tank_setpoint_1" );
+    public static void unpublish_upper_tank_setpoint() {
+        _publishAttributeNameSet.remove( "upper_tank_setpoint" );
     }
 
     /**
-    * Subscribes a federate to the "tank_setpoint_1" attribute of the attribute's
+    * Subscribes a federate to the "upper_tank_setpoint" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "tank_setpoint_1" attribute for subscription.
+    * Note:  This method only marks the "upper_tank_setpoint" attribute for subscription.
     * To actually subscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void subscribe_tank_setpoint_1() {
-        _subscribeAttributeNameSet.add( "tank_setpoint_1" );
+    public static void subscribe_upper_tank_setpoint() {
+        _subscribeAttributeNameSet.add( "upper_tank_setpoint" );
     }
 
     /**
-    * Unsubscribes a federate from the "tank_setpoint_1" attribute of the attribute's
+    * Unsubscribes a federate from the "upper_tank_setpoint" attribute of the attribute's
     * containing object class.
-    * Note:  This method only marks the "tank_setpoint_1" attribute for unsubscription.
+    * Note:  This method only marks the "upper_tank_setpoint" attribute for unsubscription.
     * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
     * containing object class.
     * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
     */
-    public static void unsubscribe_tank_setpoint_1() {
-        _subscribeAttributeNameSet.remove( "tank_setpoint_1" );
+    public static void unsubscribe_upper_tank_setpoint() {
+        _subscribeAttributeNameSet.remove( "upper_tank_setpoint" );
+    }
+
+    protected Attribute< Double > _lower_tank_setpoint =
+            new Attribute< Double >(  new Double( 0 )  );
+
+    /**
+    * Set the value of the "lower_tank_setpoint" attribute to "value" for this object.
+    *
+    * @param value the new value for the "lower_tank_setpoint" attribute
+    */
+    public void set_lower_tank_setpoint( double value ) {
+        _lower_tank_setpoint.setValue( value );
+        _lower_tank_setpoint.setTime( getTime() );
     }
 
     /**
-    * Publishes the "tank_setpoint_2" attribute of the attribute's containing object
-    * class for a federate.
-    * Note:  This method only marks the "tank_setpoint_2" attribute for publication.
-    * To actually publish the attribute, the federate must (re)publish its containing
-    * object class.
-    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    * Returns the value of the "lower_tank_setpoint" attribute of this object.
+    *
+    * @return the value of the "lower_tank_setpoint" attribute
     */
-    public static void publish_tank_setpoint_2() {
-        _publishAttributeNameSet.add( "tank_setpoint_2" );
+    public double get_lower_tank_setpoint() {
+        return _lower_tank_setpoint.getValue();
     }
 
     /**
-    * Unpublishes the "tank_setpoint_2" attribute of the attribute's containing object
-    * class for a federate.
-    * Note:  This method only marks the "tank_setpoint_2" attribute for unpublication.
-    * To actually publish the attribute, the federate must (re)publish its containing
-    * object class.
-    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    * Returns the current timestamp of the "lower_tank_setpoint" attribute of this object.
+    *
+    * @return the current timestamp of the "lower_tank_setpoint" attribute
     */
-    public static void unpublish_tank_setpoint_2() {
-        _publishAttributeNameSet.remove( "tank_setpoint_2" );
-    }
-
-    /**
-    * Subscribes a federate to the "tank_setpoint_2" attribute of the attribute's
-    * containing object class.
-    * Note:  This method only marks the "tank_setpoint_2" attribute for subscription.
-    * To actually subscribe to the attribute, the federate must (re)subscribe to its
-    * containing object class.
-    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
-    */
-    public static void subscribe_tank_setpoint_2() {
-        _subscribeAttributeNameSet.add( "tank_setpoint_2" );
-    }
-
-    /**
-    * Unsubscribes a federate from the "tank_setpoint_2" attribute of the attribute's
-    * containing object class.
-    * Note:  This method only marks the "tank_setpoint_2" attribute for unsubscription.
-    * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
-    * containing object class.
-    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
-    */
-    public static void unsubscribe_tank_setpoint_2() {
-        _subscribeAttributeNameSet.remove( "tank_setpoint_2" );
+    public double get_lower_tank_setpoint_time() {
+        return _lower_tank_setpoint.getTime();
     }
 
     protected Attribute< String > _name =
@@ -735,66 +766,35 @@ public class Waterheater extends ObjectRoot {
         return _tank_setpoint.getTime();
     }
 
-    protected Attribute< Double > _tank_setpoint_1 =
+    protected Attribute< Double > _upper_tank_setpoint =
             new Attribute< Double >(  new Double( 0 )  );
 
     /**
-    * Set the value of the "tank_setpoint_1" attribute to "value" for this object.
+    * Set the value of the "upper_tank_setpoint" attribute to "value" for this object.
     *
-    * @param value the new value for the "tank_setpoint_1" attribute
+    * @param value the new value for the "upper_tank_setpoint" attribute
     */
-    public void set_tank_setpoint_1( double value ) {
-        _tank_setpoint_1.setValue( value );
-        _tank_setpoint_1.setTime( getTime() );
+    public void set_upper_tank_setpoint( double value ) {
+        _upper_tank_setpoint.setValue( value );
+        _upper_tank_setpoint.setTime( getTime() );
     }
 
     /**
-    * Returns the value of the "tank_setpoint_1" attribute of this object.
+    * Returns the value of the "upper_tank_setpoint" attribute of this object.
     *
-    * @return the value of the "tank_setpoint_1" attribute
+    * @return the value of the "upper_tank_setpoint" attribute
     */
-    public double get_tank_setpoint_1() {
-        return _tank_setpoint_1.getValue();
+    public double get_upper_tank_setpoint() {
+        return _upper_tank_setpoint.getValue();
     }
 
     /**
-    * Returns the current timestamp of the "tank_setpoint_1" attribute of this object.
+    * Returns the current timestamp of the "upper_tank_setpoint" attribute of this object.
     *
-    * @return the current timestamp of the "tank_setpoint_1" attribute
+    * @return the current timestamp of the "upper_tank_setpoint" attribute
     */
-    public double get_tank_setpoint_1_time() {
-        return _tank_setpoint_1.getTime();
-    }
-
-    protected Attribute< Double > _tank_setpoint_2 =
-            new Attribute< Double >(  new Double( 0 )  );
-
-    /**
-    * Set the value of the "tank_setpoint_2" attribute to "value" for this object.
-    *
-    * @param value the new value for the "tank_setpoint_2" attribute
-    */
-    public void set_tank_setpoint_2( double value ) {
-        _tank_setpoint_2.setValue( value );
-        _tank_setpoint_2.setTime( getTime() );
-    }
-
-    /**
-    * Returns the value of the "tank_setpoint_2" attribute of this object.
-    *
-    * @return the value of the "tank_setpoint_2" attribute
-    */
-    public double get_tank_setpoint_2() {
-        return _tank_setpoint_2.getValue();
-    }
-
-    /**
-    * Returns the current timestamp of the "tank_setpoint_2" attribute of this object.
-    *
-    * @return the current timestamp of the "tank_setpoint_2" attribute
-    */
-    public double get_tank_setpoint_2_time() {
-        return _tank_setpoint_2.getTime();
+    public double get_upper_tank_setpoint_time() {
+        return _upper_tank_setpoint.getTime();
     }
 
     protected Waterheater( ReflectedAttributes datamemberMap, boolean initFlag ) {
@@ -845,10 +845,10 @@ public class Waterheater extends ObjectRoot {
     public Waterheater( Waterheater Waterheater_var ) {
         super( Waterheater_var );
 
+        set_lower_tank_setpoint( Waterheater_var.get_lower_tank_setpoint() );
         set_name( Waterheater_var.get_name() );
         set_tank_setpoint( Waterheater_var.get_tank_setpoint() );
-        set_tank_setpoint_1( Waterheater_var.get_tank_setpoint_1() );
-        set_tank_setpoint_2( Waterheater_var.get_tank_setpoint_2() );
+        set_upper_tank_setpoint( Waterheater_var.get_upper_tank_setpoint() );
     }
 
     /**
@@ -861,19 +861,19 @@ public class Waterheater extends ObjectRoot {
     * for this object
     */
     public Object getAttribute( String datamemberName ) {
-        if ( "name".equals(datamemberName) ) return get_name();
+        if ( "lower_tank_setpoint".equals(datamemberName) ) return new Double(get_lower_tank_setpoint());
+        else if ( "name".equals(datamemberName) ) return get_name();
         else if ( "tank_setpoint".equals(datamemberName) ) return new Double(get_tank_setpoint());
-        else if ( "tank_setpoint_1".equals(datamemberName) ) return new Double(get_tank_setpoint_1());
-        else if ( "tank_setpoint_2".equals(datamemberName) ) return new Double(get_tank_setpoint_2());
+        else if ( "upper_tank_setpoint".equals(datamemberName) ) return new Double(get_upper_tank_setpoint());
         else return super.getAttribute( datamemberName );
     }
 
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "name".equals( datamemberName) ) set_name( val );
+        if ( "lower_tank_setpoint".equals( datamemberName) ) set_lower_tank_setpoint( Double.parseDouble(val) );
+        else if ( "name".equals( datamemberName) ) set_name( val );
         else if ( "tank_setpoint".equals( datamemberName) ) set_tank_setpoint( Double.parseDouble(val) );
-        else if ( "tank_setpoint_1".equals( datamemberName) ) set_tank_setpoint_1( Double.parseDouble(val) );
-        else if ( "tank_setpoint_2".equals( datamemberName) ) set_tank_setpoint_2( Double.parseDouble(val) );
+        else if ( "upper_tank_setpoint".equals( datamemberName) ) set_upper_tank_setpoint( Double.parseDouble(val) );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -881,10 +881,10 @@ public class Waterheater extends ObjectRoot {
 
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "name".equals( datamemberName) ) set_name( (String)val );
+        if ( "lower_tank_setpoint".equals( datamemberName) ) set_lower_tank_setpoint( (Double)val );
+        else if ( "name".equals( datamemberName) ) set_name( (String)val );
         else if ( "tank_setpoint".equals( datamemberName) ) set_tank_setpoint( (Double)val );
-        else if ( "tank_setpoint_1".equals( datamemberName) ) set_tank_setpoint_1( (Double)val );
-        else if ( "tank_setpoint_2".equals( datamemberName) ) set_tank_setpoint_2( (Double)val );
+        else if ( "upper_tank_setpoint".equals( datamemberName) ) set_upper_tank_setpoint( (Double)val );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -894,6 +894,11 @@ public class Waterheater extends ObjectRoot {
     protected SuppliedAttributes createSuppliedDatamembers(boolean force) {
         SuppliedAttributes datamembers = _factory.createSuppliedAttributes();
  
+        if (_publishAttributeNameSet.contains("lower_tank_setpoint") && _lower_tank_setpoint.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("lower_tank_setpoint"), getAttribute("lower_tank_setpoint").toString().getBytes() );
+            _lower_tank_setpoint.setHasBeenUpdated();
+        }
+
         if (_publishAttributeNameSet.contains("name") && _name.shouldBeUpdated(force)) {
             datamembers.add( getAttributeHandle("name"), getAttribute("name").toString().getBytes() );
             _name.setHasBeenUpdated();
@@ -904,14 +909,9 @@ public class Waterheater extends ObjectRoot {
             _tank_setpoint.setHasBeenUpdated();
         }
 
-        if (_publishAttributeNameSet.contains("tank_setpoint_1") && _tank_setpoint_1.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("tank_setpoint_1"), getAttribute("tank_setpoint_1").toString().getBytes() );
-            _tank_setpoint_1.setHasBeenUpdated();
-        }
-
-        if (_publishAttributeNameSet.contains("tank_setpoint_2") && _tank_setpoint_2.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("tank_setpoint_2"), getAttribute("tank_setpoint_2").toString().getBytes() );
-            _tank_setpoint_2.setHasBeenUpdated();
+        if (_publishAttributeNameSet.contains("upper_tank_setpoint") && _upper_tank_setpoint.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("upper_tank_setpoint"), getAttribute("upper_tank_setpoint").toString().getBytes() );
+            _upper_tank_setpoint.setHasBeenUpdated();
         }
 
         return datamembers;
@@ -921,10 +921,10 @@ public class Waterheater extends ObjectRoot {
         super.copyFrom( object );
         if ( object instanceof Waterheater ) {
             Waterheater data = (Waterheater)object;
+            _lower_tank_setpoint = data._lower_tank_setpoint;
             _name = data._name;
             _tank_setpoint = data._tank_setpoint;
-            _tank_setpoint_1 = data._tank_setpoint_1;
-            _tank_setpoint_2 = data._tank_setpoint_2;
+            _upper_tank_setpoint = data._upper_tank_setpoint;
         }
     }
 }

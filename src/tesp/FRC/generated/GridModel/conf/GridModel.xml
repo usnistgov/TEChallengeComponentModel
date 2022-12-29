@@ -650,7 +650,7 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
-                    <name>tank_setpoint_1</name>
+                    <name>lower_tank_setpoint</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>
@@ -659,7 +659,7 @@
                     <order>TimeStamp</order>
                 </attribute>
                 <attribute>
-                    <name>tank_setpoint_2</name>
+                    <name>upper_tank_setpoint</name>
                     <dataType>double</dataType>
                     <updateType>NA</updateType>
                     <ownership>NoTransfer</ownership>

@@ -372,7 +372,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
                 double priceRatio = realTimePrice / peakDayAheadPrice;
                 if (priceRatio > 2) {
-                    tank_setpoint = 0;
+                    tank_setpoint = 90; // GLD lower bound
                     new_setpoint = true;
                 }
 
@@ -380,8 +380,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
                     waterheater.set_name(houseConfiguration.getWaterHeaterID());
                     waterheater.set_tank_setpoint(tank_setpoint);
-                    waterheater.set_tank_setpoint_1(tank_setpoint);
-                    waterheater.set_tank_setpoint_2(tank_setpoint);
+                    waterheater.set_lower_tank_setpoint(tank_setpoint);
+                    waterheater.set_upper_tank_setpoint(tank_setpoint);
                     waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 }
             }

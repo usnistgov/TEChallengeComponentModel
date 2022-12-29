@@ -62,10 +62,10 @@
         (attribute voltage_1 reliable timestamp)
       )
       (class Waterheater
+        (attribute lower_tank_setpoint reliable timestamp)
         (attribute name reliable timestamp)
         (attribute tank_setpoint reliable timestamp)
-        (attribute tank_setpoint_1 reliable timestamp)
-        (attribute tank_setpoint_2 reliable timestamp)
+        (attribute upper_tank_setpoint reliable timestamp)
       )
     ) 
   )
