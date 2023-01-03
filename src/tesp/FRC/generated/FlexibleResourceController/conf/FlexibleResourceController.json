@@ -6,8 +6,17 @@
   "lookAhead": 0.2,
   "stepSize": 1.0,
   "houseConfigurationFile": "conf/houseParameters.csv",
-  "heatPump" : {
+  "heatPump": {
     "isControlled": true,
+    "useRtpAdjust": true
+  },
+  "waterHeater": {
+    "isControlled": true,
+    "useRtpAdjust": true
+  },
+  "battery": {
+    "isControlledReal": true,
+    "isControlledReactive": true,
     "useRtpAdjust": true
   }
 }

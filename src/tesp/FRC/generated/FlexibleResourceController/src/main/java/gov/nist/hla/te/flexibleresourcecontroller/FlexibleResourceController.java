@@ -70,24 +70,58 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
 
-    ////////////////////////////////////////////////////////////////////////
-    // TODO instantiate objects that must be sent every logical time step //
-    ////////////////////////////////////////////////////////////////////////
-    // Inverter inverter =
-    //     new Inverter();
-    // Waterheater waterheater =
-    //     new Waterheater();
+    private boolean waterHeaterActive;
+    private boolean waterHeaterRtpAdjust;
+
+    private boolean batteryActiveReal;
+    private boolean batteryActiveReactive;
+    private boolean batteryRtpAdjust;
 
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
 
+        String status;
+
         heatPumpActive = params.heatPump.isControlled;
         heatPumpRtpAdjust = params.heatPump.useRtpAdjust;
-        if (heatPumpActive && heatPumpRtpAdjust) {
-            log.info("will control heat pump using real time adjustments");
-        } else if (heatPumpActive) {
-            log.info("will control heat pump using only day ahead values");
+
+        if (!heatPumpActive) {
+            status = "OFFLINE";
+        } else if (!heatPumpRtpAdjust) {
+            status = "DAY_AHEAD";
+        } else {
+            status = "REAL_TIME";
         }
+        log.info("heat pump control is {}", status);
+
+        waterHeaterActive = params.waterHeater.isControlled;
+        waterHeaterRtpAdjust = params.waterHeater.useRtpAdjust;
+
+        if (!waterHeaterActive) {
+            status = "OFFLINE";
+        } else if (!waterHeaterRtpAdjust) {
+            status = "DAY_AHEAD";
+        } else {
+            status = "REAL_TIME";
+        }
+        log.info("water heater control is {}", status);
+
+        batteryActiveReal = params.battery.isControlledReal;
+        batteryActiveReactive = params.battery.isControlledReactive;
+        batteryRtpAdjust = params.battery.useRtpAdjust;
+
+        if (!batteryActiveReal) {
+            status = "OFFLINE";
+        } else if (!batteryRtpAdjust) {
+            status = "DAY_AHEAD";
+        } else {
+            status = "REAL_TIME";
+        }
+        if (batteryActiveReactive) {
+            status = status + " with reactive power control";
+        }
+        log.info("battery control is {}", status);
+
 
         final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
@@ -459,13 +493,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 log.debug("id={} p={} q={}", id, p_out, q_out);
             }
-
-
-
-            // foreach house
-            // peak_hour_mid = ZonedDateTime(CurrentDay, peakHour, 30, 00)
-            // discharge_start = subtract 3 hours from peak_hour_mid
-            // discharge_end = add 3 hours to peak_hour_mid
 
             firstTimeStep = false;
 
