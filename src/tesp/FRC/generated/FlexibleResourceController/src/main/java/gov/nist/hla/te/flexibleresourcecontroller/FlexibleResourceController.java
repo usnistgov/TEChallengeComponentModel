@@ -422,6 +422,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     }
 
                     // RTP Adjust
+                    double priceRatio = realTimePrice / peakDayAheadPrice;
+                    if (1 < priceRatio && priceRatio < 2) {
+                        p_out = p_out + (priceRatio - 1)*(5000 - p_out);
+                    } else if (priceRatio >= 2) {
+                        p_out = 5000;
+                    }
                 }
 
                 // Volt Var
