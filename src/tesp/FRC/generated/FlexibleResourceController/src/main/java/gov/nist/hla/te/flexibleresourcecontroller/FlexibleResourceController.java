@@ -390,26 +390,38 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             // TODO: determine if house has battery ?
             // TODO: what happens if a simulation starts mid-charge?
             ZonedDateTime chargeStartTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(1,0), scenarioTime.getZone());
+            ZonedDateTime dischargePeakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
             for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                 String id = houseConfiguration.getBatteryID();
-                double p_out = inverters.get(id).get_P_Out();
+                double p_out = 0;
                 double q_out = 0;
 
                 if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
                     ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
-                    long minutesElapsed = Duration.between(actualStartTime, scenarioTime).toMinutes();
+                    long elapsedMinutes = Duration.between(actualStartTime, scenarioTime).toMinutes();
 
-                    if (minutesElapsed < 0 || minutesElapsed >= 270) {
+                    if (elapsedMinutes < 0 || elapsedMinutes >= 270) {
                         p_out = 0;
-                    } else if (minutesElapsed >= 30) { // ramp down
-                        double deltaPerSecond = 4.8/240/60; // 4.8 kW change over 240 minutes
-                        p_out += deltaPerSecond * logicalTimeScale;
+                    } else if (elapsedMinutes >= 30) { // ramp down
+                        final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
+                        p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
                     } else { // ramp up
-                        double deltaPerSecond = 4.8/30/60; // 4.8 kW change over 30 minutes
-                        p_out -= deltaPerSecond * logicalTimeScale;
+                        final double deltaPerMinute = 4800.0/30; // 4.8 kW change over 30 minutes
+                        p_out = -(elapsedMinutes * deltaPerMinute);
                     }
                 } else { // discharge possible
-                    // TODO: discharge incl real time adjust
+                    final double deltaPerMinute = 3600.0/180; // 3.6 kW change over 180 minutes
+                    long elapsedMinutes = Duration.between(scenarioTime, dischargePeakTime).toMinutes();
+
+                    if (elapsedMinutes == 0) { // peak
+                        p_out = 3600;
+                    } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
+                        p_out = elapsedMinutes * deltaPerMinute;
+                    } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
+                        p_out = 3600 + elapsedMinutes * deltaPerMinute;
+                    }
+
+                    // RTP Adjust
                 }
 
                 // Volt Var
@@ -441,6 +453,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 log.debug("id={} p={} q={}", id, p_out, q_out);
             }
+
+
 
             // foreach house
             // peak_hour_mid = ZonedDateTime(CurrentDay, peakHour, 30, 00)
