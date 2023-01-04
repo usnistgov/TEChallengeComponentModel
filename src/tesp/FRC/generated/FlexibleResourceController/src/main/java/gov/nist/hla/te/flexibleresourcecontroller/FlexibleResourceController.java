@@ -382,41 +382,45 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
 
             // waterheater control
-            ZonedDateTime morningSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(2,0), scenarioTime.getZone());
-            ZonedDateTime afternoonSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(12,0), scenarioTime.getZone());
-            for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
-                ZonedDateTime morningSwitchTimeAdjusted = morningSwitchTime.plusMinutes(houseConfiguration.getMinuteDelay());
-                ZonedDateTime afternoonSwitchTimeAdjusted = afternoonSwitchTime; // should this also plusMinutes?
+            if (waterHeaterActive) {
+                ZonedDateTime morningSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(2,0), scenarioTime.getZone());
+                ZonedDateTime afternoonSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(12,0), scenarioTime.getZone());
+                for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+                    ZonedDateTime morningSwitchTimeAdjusted = morningSwitchTime.plusMinutes(houseConfiguration.getMinuteDelay());
+                    ZonedDateTime afternoonSwitchTimeAdjusted = afternoonSwitchTime; // should this also plusMinutes?
 
-                double tank_setpoint = 0;
-                boolean new_setpoint = false;
+                    double tank_setpoint = 0;
+                    boolean new_setpoint = false;
 
-                // TODO: move the initial value outside of the loop
-                boolean isMorning = scenarioTime.isAfter(morningSwitchTimeAdjusted) && scenarioTime.isBefore(afternoonSwitchTimeAdjusted);
-                if (scenarioTime.isEqual(morningSwitchTimeAdjusted) || (currentTime == 0 && isMorning)) {
-                    tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
-                    new_setpoint = true;
-                }
+                    // TODO: move the initial value outside of the loop
+                    boolean isMorning = scenarioTime.isAfter(morningSwitchTimeAdjusted) && scenarioTime.isBefore(afternoonSwitchTimeAdjusted);
+                    if (scenarioTime.isEqual(morningSwitchTimeAdjusted) || (currentTime == 0 && isMorning)) {
+                        tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
+                        new_setpoint = true;
+                    }
 
-                boolean isAfternoon = scenarioTime.isBefore(morningSwitchTimeAdjusted) || scenarioTime.isAfter(afternoonSwitchTimeAdjusted);
-                if (scenarioTime.isEqual(afternoonSwitchTimeAdjusted) || (currentTime == 0 && isAfternoon)) {
-                    tank_setpoint = houseConfiguration.getWaterHeaterSetpointMin();
-                    new_setpoint = true;
-                }
+                    boolean isAfternoon = scenarioTime.isBefore(morningSwitchTimeAdjusted) || scenarioTime.isAfter(afternoonSwitchTimeAdjusted);
+                    if (scenarioTime.isEqual(afternoonSwitchTimeAdjusted) || (currentTime == 0 && isAfternoon)) {
+                        tank_setpoint = houseConfiguration.getWaterHeaterSetpointMin();
+                        new_setpoint = true;
+                    }
 
-                double priceRatio = realTimePrice / peakDayAheadPrice;
-                if (priceRatio > 2) {
-                    tank_setpoint = 90; // GLD lower bound
-                    new_setpoint = true;
-                }
+                    if (waterHeaterRtpAdjust) {
+                        double priceRatio = realTimePrice / peakDayAheadPrice;
+                        if (priceRatio > 2) {
+                            tank_setpoint = 90; // GLD lower bound
+                            new_setpoint = true;
+                        }
+                    }
 
-                if (new_setpoint) {
-                    Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
-                    waterheater.set_name(houseConfiguration.getWaterHeaterID());
-                    waterheater.set_tank_setpoint(tank_setpoint);
-                    waterheater.set_lower_tank_setpoint(tank_setpoint);
-                    waterheater.set_upper_tank_setpoint(tank_setpoint);
-                    waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    if (new_setpoint) {
+                        Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
+                        waterheater.set_name(houseConfiguration.getWaterHeaterID());
+                        waterheater.set_tank_setpoint(tank_setpoint);
+                        waterheater.set_lower_tank_setpoint(tank_setpoint);
+                        waterheater.set_upper_tank_setpoint(tank_setpoint);
+                        waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                    }
                 }
             }
 
@@ -430,62 +434,69 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 double p_out = 0;
                 double q_out = 0;
 
-                if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
-                    ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
-                    long elapsedMinutes = Duration.between(actualStartTime, scenarioTime).toMinutes();
+                if (batteryActiveReal) {
+                    if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
+                        ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
+                        long elapsedMinutes = Duration.between(actualStartTime, scenarioTime).toMinutes();
 
-                    if (elapsedMinutes < 0 || elapsedMinutes >= 270) {
-                        p_out = 0;
-                    } else if (elapsedMinutes >= 30) { // ramp down
-                        final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
-                        p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
-                    } else { // ramp up
-                        final double deltaPerMinute = 4800.0/30; // 4.8 kW change over 30 minutes
-                        p_out = -(elapsedMinutes * deltaPerMinute);
-                    }
-                } else { // discharge possible
-                    final double deltaPerMinute = 3600.0/180; // 3.6 kW change over 180 minutes
-                    long elapsedMinutes = Duration.between(scenarioTime, dischargePeakTime).toMinutes();
+                        if (elapsedMinutes < 0 || elapsedMinutes >= 270) {
+                            p_out = 0;
+                        } else if (elapsedMinutes >= 30) { // ramp down
+                            final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
+                            p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
+                        } else { // ramp up
+                            final double deltaPerMinute = 4800.0/30; // 4.8 kW change over 30 minutes
+                            p_out = -(elapsedMinutes * deltaPerMinute);
+                        }
+                    } else { // discharge possible
+                        final double deltaPerMinute = 3600.0/180; // 3.6 kW change over 180 minutes
+                        long elapsedMinutes = Duration.between(scenarioTime, dischargePeakTime).toMinutes();
 
-                    if (elapsedMinutes == 0) { // peak
-                        p_out = 3600;
-                    } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
-                        p_out = elapsedMinutes * deltaPerMinute;
-                    } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
-                        p_out = 3600 + elapsedMinutes * deltaPerMinute;
-                    }
+                        if (elapsedMinutes == 0) { // peak
+                            p_out = 3600;
+                        } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
+                            p_out = elapsedMinutes * deltaPerMinute;
+                        } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
+                            p_out = 3600 + elapsedMinutes * deltaPerMinute;
+                        }
 
-                    // RTP Adjust
-                    double priceRatio = realTimePrice / peakDayAheadPrice;
-                    if (1 < priceRatio && priceRatio < 2) {
-                        p_out = p_out + (priceRatio - 1)*(5000 - p_out);
-                    } else if (priceRatio >= 2) {
-                        p_out = 5000;
+                        // RTP Adjust
+                        if (batteryRtpAdjust) {
+                            double priceRatio = realTimePrice / peakDayAheadPrice;
+                            if (1 < priceRatio && priceRatio < 2) {
+                                p_out = p_out + (priceRatio - 1)*(5000 - p_out);
+                            } else if (priceRatio >= 2) {
+                                p_out = 5000;
+                            }
+                        }
                     }
                 }
 
                 // Volt Var
-                if (voltages.containsKey(houseConfiguration.getMeterID())) {
-                    double voltage = voltages.get(houseConfiguration.getMeterID());
-                    double v_pu = voltage / 120.0; // 120 = nominal voltage
-                    double q_pu = 0;
+                if (batteryActiveReactive) {
+                    if (voltages.containsKey(houseConfiguration.getMeterID())) {
+                        double voltage = voltages.get(houseConfiguration.getMeterID());
+                        double v_pu = voltage / 120.0; // 120 = nominal voltage
+                        double q_pu = 0;
 
-                    if (V_LO <= v_pu && v_pu <= V_HI) {
-                        q_pu = 0;
-                    } else if (V_MIN <= v_pu && v_pu < V_LO) {
-                        q_pu = Q_SET * (1 - (v_pu - V_MIN)/(V_LO - V_MIN));
-                    } else if (V_HI < v_pu && v_pu <= V_MAX) {
-                        q_pu = -Q_SET * (1 - (V_MAX - v_pu)/(V_MAX - V_HI));
-                    } else if (v_pu < V_MIN) {
-                        q_pu = Q_SET;
-                    } else if (v_pu > V_MAX) {
-                        q_pu = -Q_SET;
+                        if (V_LO <= v_pu && v_pu <= V_HI) {
+                            q_pu = 0;
+                        } else if (V_MIN <= v_pu && v_pu < V_LO) {
+                            q_pu = Q_SET * (1 - (v_pu - V_MIN)/(V_LO - V_MIN));
+                        } else if (V_HI < v_pu && v_pu <= V_MAX) {
+                            q_pu = -Q_SET * (1 - (V_MAX - v_pu)/(V_MAX - V_HI));
+                        } else if (v_pu < V_MIN) {
+                            q_pu = Q_SET;
+                        } else if (v_pu > V_MAX) {
+                            q_pu = -Q_SET;
+                        }
+                        q_out = q_pu * 5000; // volts
+                    } else {
+                        log.warn("no meter voltage available for {}", houseConfiguration.getMeterID());
                     }
-                    q_out = q_pu * 5000; // volts
-                } else {
-                    log.warn("no meter voltage available for {}", houseConfiguration.getMeterID());
                 }
 
+                // TODO: should this be prevented if real or reactive are disabled?
                 Inverter inverter = inverters.get(id);
                 inverter.set_name(id);
                 inverter.set_P_Out(p_out);
