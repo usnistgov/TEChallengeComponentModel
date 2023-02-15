@@ -10,9 +10,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.cpswt.config.FederateConfigParser;
@@ -55,12 +53,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double peakDayAheadPrice;
 
     private int peakHour;
-
-    private boolean isPeakWindow = false;
-    private int peakWindowStart;
-    private int peakWindowEnd;
-
-    private Set<String> precoolHouseSet = new HashSet<String>();
+    private ZonedDateTime peakTime;
 
     private Map<String, House> houses = new HashMap<String, House>();
     private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
@@ -201,18 +194,19 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
         }
         log.info("peak hour is {} with price={}", peakHour, peakDayAheadPrice);
+        peakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
 
-        this.peakWindowStart = 0;
-        double maxWindow = 0;
-        for (int i = 0; i < 22; i++) {
-            double window = dayAheadPrice[i] + dayAheadPrice[i+1] + dayAheadPrice[i+2];
-            if (window > maxWindow) {
-                this.peakWindowStart = i;
-                maxWindow = window;
-            }
-        }
-        this.peakWindowEnd = peakWindowStart + 3;
-        log.info("peak price window is [{},{}) with price sum of {}", peakWindowStart, peakWindowEnd, maxWindow);
+        // this.peakWindowStart = 0;
+        // double maxWindow = 0;
+        // for (int i = 0; i < 22; i++) {
+        //     double window = dayAheadPrice[i] + dayAheadPrice[i+1] + dayAheadPrice[i+2];
+        //     if (window > maxWindow) {
+        //         this.peakWindowStart = i;
+        //         maxWindow = window;
+        //     }
+        // }
+        // this.peakWindowEnd = peakWindowStart + 3;
+        // log.info("peak price window is [{},{}) with price sum of {}", peakWindowStart, peakWindowEnd, maxWindow);
     }
 
     private void incrementScenarioTime() {
@@ -319,27 +313,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     // should make this instead based on current stored day
                     startNewDay();
                 }
-
-                // heat pump control
-                if (currentHour >= peakWindowStart && currentHour < peakWindowEnd) {
-                    if (!isPeakWindow) {
-                        log.info("started peak window at t={}", scenarioTime.toString());
-                        precoolHouseSet.clear();
-                    }
-                    isPeakWindow = true;
-                } else if (currentHour == peakWindowEnd) {
-                    log.info("ended peak window at t={}", scenarioTime.toString());
-                    isPeakWindow = false;
-                } else if (currentHour < peakWindowStart) {
-                    for (HouseConfiguration house : houseConfigurations.values()) {
-                        final String id = house.getID();
-
-                        if (!precoolHouseSet.contains(id) && currentHour >= peakWindowStart - house.getPrecoolHours()) {
-                            log.debug("started precooling house {} at hour {}", id, currentHour);
-                            precoolHouseSet.add(id);
-                        }
-                    }
-                }
             }
 
             // heat pump control
@@ -347,21 +320,30 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                     double setpoint;
 
-                    if (isPeakWindow) {
-                        setpoint = houseConfiguration.getPeakSetpoint();
-                    } else if (precoolHouseSet.contains(houseConfiguration.getID())) {
-                        setpoint = houseConfiguration.getPrecoolSetpoint();
-                    } else {
+                    double peak_width = 0.75 * houseConfiguration.getPrecoolMinutes();
+                    ZonedDateTime peak_start = peakTime.minusMinutes((int)(peak_width/2));
+                    ZonedDateTime peak_end = peakTime.plusMinutes((int)(peak_width/2));
+                    ZonedDateTime precool_start = peak_start.minusMinutes(houseConfiguration.getPrecoolMinutes());
+
+                    if (scenarioTime.isBefore(precool_start) || scenarioTime.isAfter(peak_end)) {
                         setpoint = houseConfiguration.getSetpoint();
+                    } else if (scenarioTime.isBefore(peak_start)) {
+                        setpoint = houseConfiguration.getPrecoolSetpoint();
+                        log.debug("HEATPUMP {} PRECOOL @ {}", houseConfiguration.getID(), setpoint);
+                    } else {
+                        setpoint = houseConfiguration.getPeakSetpoint();
+                        log.debug("HEATPUMP {} PEAK @ {}", houseConfiguration.getID(), setpoint);
                     }
 
                     if (heatPumpRtpAdjust) {
                         double priceRatio = realTimePrice / peakDayAheadPrice;
                         if (priceRatio >= 2) {
                             setpoint = houseConfiguration.getPeakSetpoint() + 1;
+                            log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
                         } else if (priceRatio > 1) {
                             double rtp_adjust = (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
                             setpoint = setpoint + rtp_adjust;
+                            log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
                         }
                     }
 
@@ -386,41 +368,30 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 ZonedDateTime morningSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(2,0), scenarioTime.getZone());
                 ZonedDateTime afternoonSwitchTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(12,0), scenarioTime.getZone());
                 for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+                    double tank_setpoint;
+
                     ZonedDateTime morningSwitchTimeAdjusted = morningSwitchTime.plusMinutes(houseConfiguration.getMinuteDelay());
                     ZonedDateTime afternoonSwitchTimeAdjusted = afternoonSwitchTime; // should this also plusMinutes?
 
-                    double tank_setpoint = 0;
-                    boolean new_setpoint = false;
-
-                    // TODO: move the initial value outside of the loop
-                    boolean isMorning = scenarioTime.isAfter(morningSwitchTimeAdjusted) && scenarioTime.isBefore(afternoonSwitchTimeAdjusted);
-                    if (scenarioTime.isEqual(morningSwitchTimeAdjusted) || (currentTime == 0 && isMorning)) {
-                        tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
-                        new_setpoint = true;
-                    }
-
-                    boolean isAfternoon = scenarioTime.isBefore(morningSwitchTimeAdjusted) || scenarioTime.isAfter(afternoonSwitchTimeAdjusted);
-                    if (scenarioTime.isEqual(afternoonSwitchTimeAdjusted) || (currentTime == 0 && isAfternoon)) {
+                    if (scenarioTime.isBefore(morningSwitchTimeAdjusted) || scenarioTime.isAfter(afternoonSwitchTimeAdjusted)) {
                         tank_setpoint = houseConfiguration.getWaterHeaterSetpointMin();
-                        new_setpoint = true;
+                    } else {
+                        tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
                     }
 
                     if (waterHeaterRtpAdjust) {
                         double priceRatio = realTimePrice / peakDayAheadPrice;
                         if (priceRatio > 2) {
                             tank_setpoint = 90; // GLD lower bound
-                            new_setpoint = true;
                         }
                     }
 
-                    if (new_setpoint) {
-                        Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
-                        waterheater.set_name(houseConfiguration.getWaterHeaterID());
-                        waterheater.set_tank_setpoint(tank_setpoint);
-                        waterheater.set_lower_tank_setpoint(tank_setpoint);
-                        waterheater.set_upper_tank_setpoint(tank_setpoint);
-                        waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                    }
+                    Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
+                    waterheater.set_name(houseConfiguration.getWaterHeaterID());
+                    waterheater.set_tank_setpoint(tank_setpoint);
+                    waterheater.set_lower_tank_setpoint(tank_setpoint);
+                    waterheater.set_upper_tank_setpoint(tank_setpoint);
+                    waterheater.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 }
             }
 
@@ -455,7 +426,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (elapsedMinutes == 0) { // peak
                             p_out = 3600;
                         } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
-                            p_out = elapsedMinutes * deltaPerMinute;
+                            p_out = (180 - elapsedMinutes) * deltaPerMinute;
                         } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
                             p_out = 3600 + elapsedMinutes * deltaPerMinute;
                         }

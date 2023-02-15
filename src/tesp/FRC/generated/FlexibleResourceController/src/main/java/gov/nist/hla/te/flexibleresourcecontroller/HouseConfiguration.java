@@ -74,7 +74,7 @@ public class HouseConfiguration {
     }
 
     public double getWaterHeaterSetpointMin() {
-        return 120 - (1 - lambda) * 20;
+        return waterheater_setpoint - (1 - lambda) * 20;
     }
 
     public double getPeakSetpoint() {
@@ -87,6 +87,10 @@ public class HouseConfiguration {
 
     public int getPrecoolHours() {
         return 2 + (int)Math.round(tau/6);
+    }
+
+    public int getPrecoolMinutes() {
+        return (int)Math.round(60 * (2 + tau/6));
     }
 
     public int getMinuteDelay() {
