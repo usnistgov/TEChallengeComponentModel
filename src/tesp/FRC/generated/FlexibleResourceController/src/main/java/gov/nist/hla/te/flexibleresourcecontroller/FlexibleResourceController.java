@@ -545,14 +545,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private void handleObjectClass(Meter object) {
         final String name = object.get_name();
-        final String voltageComplex = object.get_voltage_1();
+        final String voltageComplex = object.get_measured_voltage_1();
         
         if (voltageComplex != null && !voltageComplex.isEmpty()) { // format: +123+456j V // either + can be -
-            String complexParts[] = voltageComplex.substring(1, voltageComplex.indexOf('j')).split("[-+]");
+            // String complexParts[] = voltageComplex.substring(1, voltageComplex.indexOf('j')).split("[-+]");
 
-            double realPart = Double.parseDouble(complexParts[0]);
-            double complexPart = Double.parseDouble(complexParts[1]);
-            double voltageMagnitude = Math.sqrt(realPart * realPart + complexPart * complexPart);
+            // double realPart = Double.parseDouble(complexParts[0]);
+            // double complexPart = Double.parseDouble(complexParts[1]);
+            // double voltageMagnitude = Math.sqrt(realPart * realPart + complexPart * complexPart);
+
+            double voltageMagnitude = Double.parseDouble(voltageComplex.substring(1).split("[-+]")[0]);
 
             voltages.put(name, voltageMagnitude);
             log.trace("magnitude={} for {}", voltageMagnitude, voltageComplex);

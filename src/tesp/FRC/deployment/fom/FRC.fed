@@ -58,8 +58,8 @@
         (attribute name reliable timestamp)
       )
       (class Meter
+        (attribute measured_voltage_1 reliable timestamp)
         (attribute name reliable timestamp)
-        (attribute voltage_1 reliable timestamp)
       )
       (class Waterheater
         (attribute lower_tank_setpoint reliable timestamp)

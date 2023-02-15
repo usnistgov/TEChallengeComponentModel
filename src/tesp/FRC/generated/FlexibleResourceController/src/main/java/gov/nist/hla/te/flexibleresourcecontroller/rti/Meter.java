@@ -32,8 +32,8 @@ public class Meter extends ObjectRoot {
     */
     public Meter() {}
 
+    private static int _measured_voltage_1_handle;
     private static int _name_handle;
-    private static int _voltage_1_handle;
 
     private static boolean _isInitialized = false;
 
@@ -118,14 +118,14 @@ public class Meter extends ObjectRoot {
         _datamemberClassNameSetMap.put("ObjectRoot.Meter", _datamemberNames);
         _allDatamemberClassNameSetMap.put("ObjectRoot.Meter", _allDatamemberNames);
 
+        _datamemberNames.add("measured_voltage_1");
         _datamemberNames.add("name");
-        _datamemberNames.add("voltage_1");
 
+        _datamemberTypeMap.put("measured_voltage_1", "String");
         _datamemberTypeMap.put("name", "String");
-        _datamemberTypeMap.put("voltage_1", "String");
 
+        _allDatamemberNames.add("measured_voltage_1");
         _allDatamemberNames.add("name");
-        _allDatamemberNames.add("voltage_1");
 
         _classNamePublishAttributeNameMap.put("ObjectRoot.Meter", _publishAttributeNameSet);
         _classNameSubscribeAttributeNameMap.put("ObjectRoot.Meter", _subscribeAttributeNameSet);
@@ -161,8 +161,8 @@ public class Meter extends ObjectRoot {
         isNotInitialized = true;
         while(isNotInitialized) {
             try {
+                _measured_voltage_1_handle = rti.getAttributeHandle("measured_voltage_1", get_handle());
                 _name_handle = rti.getAttributeHandle("name", get_handle());
-                _voltage_1_handle = rti.getAttributeHandle("voltage_1", get_handle());
                 isNotInitialized = false;
             } catch (FederateNotExecutionMember e) {
                 logger.error("could not initialize: Federate Not Execution Member", e);
@@ -179,11 +179,11 @@ public class Meter extends ObjectRoot {
             }
         }
 
+        _datamemberNameHandleMap.put("ObjectRoot.Meter.measured_voltage_1", _measured_voltage_1_handle);
         _datamemberNameHandleMap.put("ObjectRoot.Meter.name", _name_handle);
-        _datamemberNameHandleMap.put("ObjectRoot.Meter.voltage_1", _voltage_1_handle);
 
+        _datamemberHandleNameMap.put(_measured_voltage_1_handle, "measured_voltage_1");
         _datamemberHandleNameMap.put(_name_handle, "name");
-        _datamemberHandleNameMap.put(_voltage_1_handle, "voltage_1");
     }
 
     private static boolean _isPublished = false;
@@ -413,8 +413,8 @@ public class Meter extends ObjectRoot {
 
     @Override
     public String getAttributeName(int datamemberHandle) {
-        if (datamemberHandle == _name_handle) return "name";
-        else if (datamemberHandle == _voltage_1_handle) return "voltage_1";
+        if (datamemberHandle == _measured_voltage_1_handle) return "measured_voltage_1";
+        else if (datamemberHandle == _name_handle) return "name";
         else return super.getAttributeName(datamemberHandle);
     }
 
@@ -457,11 +457,59 @@ public class Meter extends ObjectRoot {
     @Override
     public String toString() {
         return getClass().getName() + "("
-                + "name:" + get_name()
-                + "," + "voltage_1:" + get_voltage_1()
+                + "measured_voltage_1:" + get_measured_voltage_1()
+                + "," + "name:" + get_name()
                 + ")";
     }
 
+
+    /**
+    * Publishes the "measured_voltage_1" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "measured_voltage_1" attribute for publication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void publish_measured_voltage_1() {
+        _publishAttributeNameSet.add( "measured_voltage_1" );
+    }
+
+    /**
+    * Unpublishes the "measured_voltage_1" attribute of the attribute's containing object
+    * class for a federate.
+    * Note:  This method only marks the "measured_voltage_1" attribute for unpublication.
+    * To actually publish the attribute, the federate must (re)publish its containing
+    * object class.
+    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    */
+    public static void unpublish_measured_voltage_1() {
+        _publishAttributeNameSet.remove( "measured_voltage_1" );
+    }
+
+    /**
+    * Subscribes a federate to the "measured_voltage_1" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "measured_voltage_1" attribute for subscription.
+    * To actually subscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void subscribe_measured_voltage_1() {
+        _subscribeAttributeNameSet.add( "measured_voltage_1" );
+    }
+
+    /**
+    * Unsubscribes a federate from the "measured_voltage_1" attribute of the attribute's
+    * containing object class.
+    * Note:  This method only marks the "measured_voltage_1" attribute for unsubscription.
+    * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
+    * containing object class.
+    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    */
+    public static void unsubscribe_measured_voltage_1() {
+        _subscribeAttributeNameSet.remove( "measured_voltage_1" );
+    }
 
     /**
     * Publishes the "name" attribute of the attribute's containing object
@@ -511,52 +559,35 @@ public class Meter extends ObjectRoot {
         _subscribeAttributeNameSet.remove( "name" );
     }
 
+    protected Attribute< String > _measured_voltage_1 =
+            new Attribute< String >(  new String( "" )  );
+
     /**
-    * Publishes the "voltage_1" attribute of the attribute's containing object
-    * class for a federate.
-    * Note:  This method only marks the "voltage_1" attribute for publication.
-    * To actually publish the attribute, the federate must (re)publish its containing
-    * object class.
-    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    * Set the value of the "measured_voltage_1" attribute to "value" for this object.
+    *
+    * @param value the new value for the "measured_voltage_1" attribute
     */
-    public static void publish_voltage_1() {
-        _publishAttributeNameSet.add( "voltage_1" );
+    public void set_measured_voltage_1( String value ) {
+        _measured_voltage_1.setValue( value );
+        _measured_voltage_1.setTime( getTime() );
     }
 
     /**
-    * Unpublishes the "voltage_1" attribute of the attribute's containing object
-    * class for a federate.
-    * Note:  This method only marks the "voltage_1" attribute for unpublication.
-    * To actually publish the attribute, the federate must (re)publish its containing
-    * object class.
-    * (using &lt;objectClassName&gt;.publish( RTIambassador rti ) ).
+    * Returns the value of the "measured_voltage_1" attribute of this object.
+    *
+    * @return the value of the "measured_voltage_1" attribute
     */
-    public static void unpublish_voltage_1() {
-        _publishAttributeNameSet.remove( "voltage_1" );
+    public String get_measured_voltage_1() {
+        return _measured_voltage_1.getValue();
     }
 
     /**
-    * Subscribes a federate to the "voltage_1" attribute of the attribute's
-    * containing object class.
-    * Note:  This method only marks the "voltage_1" attribute for subscription.
-    * To actually subscribe to the attribute, the federate must (re)subscribe to its
-    * containing object class.
-    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
+    * Returns the current timestamp of the "measured_voltage_1" attribute of this object.
+    *
+    * @return the current timestamp of the "measured_voltage_1" attribute
     */
-    public static void subscribe_voltage_1() {
-        _subscribeAttributeNameSet.add( "voltage_1" );
-    }
-
-    /**
-    * Unsubscribes a federate from the "voltage_1" attribute of the attribute's
-    * containing object class.
-    * Note:  This method only marks the "voltage_1" attribute for unsubscription.
-    * To actually unsubscribe to the attribute, the federate must (re)subscribe to its
-    * containing object class.
-    * (using &lt;objectClassName&gt;.subscribe( RTIambassador rti ) ).
-    */
-    public static void unsubscribe_voltage_1() {
-        _subscribeAttributeNameSet.remove( "voltage_1" );
+    public double get_measured_voltage_1_time() {
+        return _measured_voltage_1.getTime();
     }
 
     protected Attribute< String > _name =
@@ -588,37 +619,6 @@ public class Meter extends ObjectRoot {
     */
     public double get_name_time() {
         return _name.getTime();
-    }
-
-    protected Attribute< String > _voltage_1 =
-            new Attribute< String >(  new String( "" )  );
-
-    /**
-    * Set the value of the "voltage_1" attribute to "value" for this object.
-    *
-    * @param value the new value for the "voltage_1" attribute
-    */
-    public void set_voltage_1( String value ) {
-        _voltage_1.setValue( value );
-        _voltage_1.setTime( getTime() );
-    }
-
-    /**
-    * Returns the value of the "voltage_1" attribute of this object.
-    *
-    * @return the value of the "voltage_1" attribute
-    */
-    public String get_voltage_1() {
-        return _voltage_1.getValue();
-    }
-
-    /**
-    * Returns the current timestamp of the "voltage_1" attribute of this object.
-    *
-    * @return the current timestamp of the "voltage_1" attribute
-    */
-    public double get_voltage_1_time() {
-        return _voltage_1.getTime();
     }
 
     protected Meter( ReflectedAttributes datamemberMap, boolean initFlag ) {
@@ -669,8 +669,8 @@ public class Meter extends ObjectRoot {
     public Meter( Meter Meter_var ) {
         super( Meter_var );
 
+        set_measured_voltage_1( Meter_var.get_measured_voltage_1() );
         set_name( Meter_var.get_name() );
-        set_voltage_1( Meter_var.get_voltage_1() );
     }
 
     /**
@@ -683,15 +683,15 @@ public class Meter extends ObjectRoot {
     * for this object
     */
     public Object getAttribute( String datamemberName ) {
-        if ( "name".equals(datamemberName) ) return get_name();
-        else if ( "voltage_1".equals(datamemberName) ) return get_voltage_1();
+        if ( "measured_voltage_1".equals(datamemberName) ) return get_measured_voltage_1();
+        else if ( "name".equals(datamemberName) ) return get_name();
         else return super.getAttribute( datamemberName );
     }
 
     protected boolean setAttributeAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "name".equals( datamemberName) ) set_name( val );
-        else if ( "voltage_1".equals( datamemberName) ) set_voltage_1( val );
+        if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( val );
+        else if ( "name".equals( datamemberName) ) set_name( val );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -699,8 +699,8 @@ public class Meter extends ObjectRoot {
 
     protected boolean setAttributeAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "name".equals( datamemberName) ) set_name( (String)val );
-        else if ( "voltage_1".equals( datamemberName) ) set_voltage_1( (String)val );
+        if ( "measured_voltage_1".equals( datamemberName) ) set_measured_voltage_1( (String)val );
+        else if ( "name".equals( datamemberName) ) set_name( (String)val );
         else retval = super.setAttributeAux( datamemberName, val );
 
         return retval;
@@ -710,14 +710,14 @@ public class Meter extends ObjectRoot {
     protected SuppliedAttributes createSuppliedDatamembers(boolean force) {
         SuppliedAttributes datamembers = _factory.createSuppliedAttributes();
  
+        if (_publishAttributeNameSet.contains("measured_voltage_1") && _measured_voltage_1.shouldBeUpdated(force)) {
+            datamembers.add( getAttributeHandle("measured_voltage_1"), getAttribute("measured_voltage_1").toString().getBytes() );
+            _measured_voltage_1.setHasBeenUpdated();
+        }
+
         if (_publishAttributeNameSet.contains("name") && _name.shouldBeUpdated(force)) {
             datamembers.add( getAttributeHandle("name"), getAttribute("name").toString().getBytes() );
             _name.setHasBeenUpdated();
-        }
-
-        if (_publishAttributeNameSet.contains("voltage_1") && _voltage_1.shouldBeUpdated(force)) {
-            datamembers.add( getAttributeHandle("voltage_1"), getAttribute("voltage_1").toString().getBytes() );
-            _voltage_1.setHasBeenUpdated();
         }
 
         return datamembers;
@@ -727,8 +727,8 @@ public class Meter extends ObjectRoot {
         super.copyFrom( object );
         if ( object instanceof Meter ) {
             Meter data = (Meter)object;
+            _measured_voltage_1 = data._measured_voltage_1;
             _name = data._name;
-            _voltage_1 = data._voltage_1;
         }
     }
 }
