@@ -383,6 +383,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         double priceRatio = realTimePrice / peakDayAheadPrice;
                         if (priceRatio > 2) {
                             tank_setpoint = 90; // GLD lower bound
+                            log.debug("WATERHEATER {} ADJUST @ {}", houseConfiguration.getID(), tank_setpoint);
                         }
                     }
 
@@ -415,9 +416,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         } else if (elapsedMinutes >= 30) { // ramp down
                             final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
                             p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
+                            log.debug("BATTERY {} CHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else { // ramp up
                             final double deltaPerMinute = 4800.0/30; // 4.8 kW change over 30 minutes
                             p_out = -(elapsedMinutes * deltaPerMinute);
+                            log.debug("BATTERY {} CHARGE @ {}", houseConfiguration.getID(), p_out);
                         }
                     } else { // discharge possible
                         final double deltaPerMinute = 3600.0/180; // 3.6 kW change over 180 minutes
@@ -425,10 +428,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
                         if (elapsedMinutes == 0) { // peak
                             p_out = 3600;
+                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
                             p_out = (180 - elapsedMinutes) * deltaPerMinute;
+                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
                             p_out = 3600 + elapsedMinutes * deltaPerMinute;
+                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         }
 
                         // RTP Adjust
@@ -436,8 +442,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             double priceRatio = realTimePrice / peakDayAheadPrice;
                             if (1 < priceRatio && priceRatio < 2) {
                                 p_out = p_out + (priceRatio - 1)*(5000 - p_out);
+                                log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
                             } else if (priceRatio >= 2) {
                                 p_out = 5000;
+                                log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
                             }
                         }
                     }
@@ -473,7 +481,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.set_P_Out(p_out);
                 inverter.set_Q_Out(q_out);
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                log.debug("id={} p={} q={}", id, p_out, q_out);
+                log.trace("id={} p={} q={}", id, p_out, q_out);
             }
 
             firstTimeStep = false;
