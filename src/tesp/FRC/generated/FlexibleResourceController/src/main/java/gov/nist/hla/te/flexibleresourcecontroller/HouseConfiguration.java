@@ -70,7 +70,7 @@ public class HouseConfiguration {
     }
 
     public double getWaterHeaterSetpointMax() {
-        return waterheater_setpoint;
+        return waterheater_setpoint + 5;
     }
 
     public double getWaterHeaterSetpointMin() {
