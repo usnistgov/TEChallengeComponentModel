@@ -30,5 +30,11 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
         public boolean isControlledReal;
         public boolean isControlledReactive;
         public boolean useRtpAdjust;
+        // IEEE 1547 Cat.B default values for Volt Var
+        public double q_set = 0.44;
+        public double v_min = 0.92;
+        public double v_lo  = 0.98;
+        public double v_hi  = 1.02;
+        public double v_max = 1.08;
     }
 }

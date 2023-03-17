@@ -28,13 +28,6 @@ import org.apache.logging.log4j.Logger;
 public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private final static Logger log = LogManager.getLogger();
 
-    // IEEE 1547 Cat.B default values for Volt Var
-    private final static double Q_SET = 0.44;
-    private final static double V_MIN = 0.92;
-    private final static double V_LO  = 0.98;
-    private final static double V_HI  = 1.02;
-    private final static double V_MAX = 1.08;
-
     private boolean receivedSimTime = false;
     private boolean receivedInitialPrices = false;
     private boolean firstTimeStep = true;
@@ -70,6 +63,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private boolean batteryActiveReactive;
     private boolean batteryRtpAdjust;
 
+    private double q_set;
+    private double v_min;
+    private double v_lo;
+    private double v_hi;
+    private double v_max;
+
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
 
@@ -103,6 +102,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         batteryActiveReactive = params.battery.isControlledReactive;
         batteryRtpAdjust = params.battery.useRtpAdjust;
 
+        q_set = params.battery.q_set;
+        v_min = params.battery.v_min;
+        v_lo  = params.battery.v_lo;
+        v_hi  = params.battery.v_hi;
+        v_max = params.battery.v_max;
+
         if (!batteryActiveReal) {
             status = "OFFLINE";
         } else if (!batteryRtpAdjust) {
@@ -115,6 +120,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         }
         log.info("battery control is {}", status);
 
+        if (batteryActiveReactive) {
+            log.info("VOLT-VAR Qset = {} Vmin = {} Vlo = {} Vhi = {} Vmax = {}", q_set, v_min, v_lo, v_hi, v_max);
+        }
 
         final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
@@ -458,18 +466,19 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         double v_pu = voltage / 120.0; // 120 = nominal voltage
                         double q_pu = 0;
 
-                        if (V_LO <= v_pu && v_pu <= V_HI) {
+                        if (v_lo <= v_pu && v_pu <= v_hi) {
                             q_pu = 0;
-                        } else if (V_MIN <= v_pu && v_pu < V_LO) {
-                            q_pu = Q_SET * (1 - (v_pu - V_MIN)/(V_LO - V_MIN));
-                        } else if (V_HI < v_pu && v_pu <= V_MAX) {
-                            q_pu = -Q_SET * (1 - (V_MAX - v_pu)/(V_MAX - V_HI));
-                        } else if (v_pu < V_MIN) {
-                            q_pu = Q_SET;
-                        } else if (v_pu > V_MAX) {
-                            q_pu = -Q_SET;
+                        } else if (v_min <= v_pu && v_pu < v_lo) {
+                            q_pu = q_set * (1 - (v_pu - v_min)/(v_lo - v_min));
+                        } else if (v_hi < v_pu && v_pu <= v_max) {
+                            q_pu = -q_set * (1 - (v_max - v_pu)/(v_max - v_hi));
+                        } else if (v_pu < v_min) {
+                            q_pu = q_set;
+                        } else if (v_pu > v_max) {
+                            q_pu = -q_set;
                         }
                         q_out = q_pu * 5000; // volts
+                        log.trace("INVERTER {} : V = {} v_pu = {} q_pu = {} q_out = {}", houseConfiguration.getBatteryID(), voltage, v_pu, q_pu, q_out);
                     } else {
                         log.warn("no meter voltage available for {}", houseConfiguration.getMeterID());
                     }

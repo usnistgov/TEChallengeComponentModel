@@ -17,6 +17,7 @@
   "battery": {
     "isControlledReal": true,
     "isControlledReactive": true,
-    "useRtpAdjust": true
+    "useRtpAdjust": true,
+    "q_set": 0.44
   }
 }
