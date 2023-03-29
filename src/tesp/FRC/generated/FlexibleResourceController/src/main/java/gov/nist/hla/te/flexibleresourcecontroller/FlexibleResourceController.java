@@ -484,6 +484,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     }
                 }
 
+                if (Math.sqrt(p_out * p_out + q_out * q_out) > 5000) {
+                    double newPOut = Math.sqrt(5000 * 5000 - q_out * q_out);
+
+                    log.info("PQ Request Magnitude > 5000 : p_out reduced from {} to {} for INVERTER {}", p_out, newPOut, id);
+                    p_out = newPOut;
+                }
+
                 // TODO: should this be prevented if real or reactive are disabled?
                 Inverter inverter = inverters.get(id);
                 inverter.set_name(id);
