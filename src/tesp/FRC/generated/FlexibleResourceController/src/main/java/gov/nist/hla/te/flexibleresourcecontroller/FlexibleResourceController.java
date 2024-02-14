@@ -29,6 +29,16 @@ import org.apache.commons.math3.distribution.LogNormalDistribution;
 // Define the FlexibleResourceController type of federate for the federation.
 
 public class FlexibleResourceController extends FlexibleResourceControllerBase {
+    class VehicleChargeProfile {
+        public double charge_amount;
+        public double ramp_up_rate;
+        public double ramp_down_rate;
+        public double max_charge_rate;
+        public double ramp_up_minutes;
+        public double ramp_down_minutes;
+        public double max_charge_minutes;
+    }
+
     private final static Logger log = LogManager.getLogger();
 
     private boolean receivedSimTime = false;
@@ -54,8 +64,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Map<String, House> houses = new HashMap<String, House>();
     private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
     private Map<String, Waterheater> waterheaters = new HashMap<String, Waterheater>();
-    private Map<String, Double> voltages = new HashMap<String, Double>();
     private Map<String, Inverter> vehicles = new HashMap<String, Inverter>(); // represented as inverters
+    private Map<String, Double> voltages = new HashMap<String, Double>();
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -77,6 +87,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private double evChargeCoefficient;
     private LogNormalDistribution evChargeDistribution;
+    private Map<String, VehicleChargeProfile> vehicleChargeProfiles = new HashMap<String, VehicleChargeProfile>();
+
     private Random random = new Random();
 
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
@@ -248,6 +260,62 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         // log.info("peak price window is [{},{}) with price sum of {}", peakWindowStart, peakWindowEnd, maxWindow);
     }
 
+    private void resetVehicles() {
+        for (String vehicleID : vehicles.keySet()) {
+
+            VehicleChargeProfile profile = new VehicleChargeProfile();
+            profile.charge_amount = generateChargeAmount();
+            profile.ramp_up_rate = 21.6; // kW/h
+            profile.ramp_down_rate = 3.6; // kW/h
+            profile.max_charge_rate = 7.2; // kW/h
+
+            final double ramp_up_amount = (profile.max_charge_rate * (profile.max_charge_rate / profile.ramp_up_rate)) / 2;        
+            final double ramp_down_amount = (profile.max_charge_rate * (profile.max_charge_rate / profile.ramp_down_rate)) / 2;
+
+            if (profile.charge_amount < ramp_up_amount) {
+                profile.ramp_up_minutes = 60 * Math.sqrt(2 * profile.charge_amount / profile.ramp_up_rate);
+                profile.ramp_down_minutes = 0;
+                profile.max_charge_minutes = 0;
+            } else if (profile.charge_amount < ramp_up_amount + ramp_down_amount) {
+                profile.ramp_up_minutes = 60 * profile.max_charge_rate / profile.ramp_up_rate;
+
+                double a = profile.ramp_down_rate / 2;
+                double b = -profile.max_charge_rate;
+                double c = profile.charge_amount - ramp_up_amount;
+
+                double t1 = (-b + Math.sqrt(b*b - 4*a*c))/(2*a);
+                double t2 = (-b - Math.sqrt(b*b - 4*a*c))/(2*a);
+
+                if (t1 > 0) {
+                    profile.ramp_down_minutes = 60 * t1;
+                } else if (t2 > 0) {
+                    profile.ramp_down_minutes = 60 * t2;
+                } else {
+                    // oops
+                }
+
+                profile.max_charge_minutes = 0;
+            } else {
+                profile.ramp_up_minutes = 60 * profile.max_charge_rate / profile.ramp_up_rate;
+                profile.ramp_down_minutes = 60 * profile.max_charge_rate / profile.ramp_down_rate;
+                profile.max_charge_minutes = 60 * (profile.charge_amount - ramp_up_amount - ramp_down_amount) / profile.max_charge_rate;
+            }
+
+            final double charge_duration = profile.ramp_up_minutes + profile.ramp_down_minutes + profile.max_charge_minutes;
+
+            double r = random.nextDouble();
+            if (r < 0.25) {
+                // DAY CHARGE
+            } else if (r < 0.85) {
+                // EVENING CHARGE
+            } else {
+                // NIGHT CHARGE
+            }
+
+            log.info("profile {} {} {} {}", profile.charge_amount, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
+        }
+    }
+
     private void incrementScenarioTime() {
         final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
         scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
@@ -355,6 +423,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     // prevent double execution if midnight start
                     // should make this instead based on current stored day
                     startNewDay();
+                }
+
+                if (currentHour == 8) {
+                    resetVehicles();
                 }
             }
 
