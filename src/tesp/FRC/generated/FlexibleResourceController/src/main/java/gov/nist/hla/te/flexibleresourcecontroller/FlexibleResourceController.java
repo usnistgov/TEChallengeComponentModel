@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.TimeZone;
 
 import org.cpswt.config.FederateConfigParser;
@@ -22,6 +23,8 @@ import org.cpswt.utils.CpswtUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import org.apache.commons.math3.distribution.LogNormalDistribution;
 
 // Define the FlexibleResourceController type of federate for the federation.
 
@@ -52,6 +55,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Map<String, Inverter> inverters = new HashMap<String, Inverter>();
     private Map<String, Waterheater> waterheaters = new HashMap<String, Waterheater>();
     private Map<String, Double> voltages = new HashMap<String, Double>();
+    private Map<String, Inverter> vehicles = new HashMap<String, Inverter>(); // represented as inverters
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -63,11 +67,17 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private boolean batteryActiveReactive;
     private boolean batteryRtpAdjust;
 
+    private boolean electricVehicleActive;
+
     private double q_set;
     private double v_min;
     private double v_lo;
     private double v_hi;
     private double v_max;
+
+    private double evChargeCoefficient;
+    private LogNormalDistribution evChargeDistribution;
+    private Random random = new Random();
 
     public FlexibleResourceController(FlexibleResourceControllerConfig params) throws Exception {
         super(params);
@@ -157,11 +167,32 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 Waterheater waterheater = new Waterheater();
                 waterheater.registerObject(getLRC());
                 waterheaters.put(houseConfiguration.getWaterHeaterID(), waterheater);
+
+                // TODO: better method to find vehicles
+                if (houseConfiguration.hasVehicle()) {
+                    Inverter vehicle = new Inverter();
+                    vehicle.registerObject(getLRC());
+                    vehicles.put(houseConfiguration.getVehicleID(), vehicle);
+                    log.debug("registered electric vehicle {}", houseConfiguration.getVehicleID());
+                }
             }
         } catch (IOException e) {
             log.error("failed to process the file {}", filepath);
             throw new BadFileFormat(e);
         }
+
+        double mu = params.electricVehicle.distributionMean;
+        double sigma = params.electricVehicle.distributionStdDev;
+        evChargeCoefficient = params.electricVehicle.distributionCoefficient;
+        evChargeDistribution = new LogNormalDistribution(mu, sigma);
+
+        electricVehicleActive = !vehicles.isEmpty();
+        if (electricVehicleActive) {
+            status = "BASELINE";
+        } else {
+            status = "DISABLED";
+        }
+        log.info("electric vehicle charging is {}", status);
     }
 
     private void processDayAheadPrices() {
@@ -254,6 +285,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private boolean receivedDayAheadPrices() {
         return dayAheadPriceQueue.size() == 24; // this should check the hours as well
+    }
+
+    private double generateChargeAmount() { // uses p in [0, 1) which may affect results
+        return evChargeCoefficient * evChargeDistribution.inverseCumulativeProbability(random.nextDouble());
     }
 
     private void execute() throws Exception {

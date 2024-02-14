@@ -12,6 +12,7 @@ public class HouseConfiguration {
     private String waterheaterID;
     private String batteryID;
     private String meterID;
+    private String evID;
 
     private double setpoint;
     private double lambda;
@@ -21,8 +22,10 @@ public class HouseConfiguration {
 
     private int minuteDelay;
 
+    private boolean hasElectricVehicle;
+
     HouseConfiguration(String[] data) {
-        if (data == null || data.length != 12) {
+        if (data == null || data.length != 13) {
             throw new RuntimeException("invalid house configuration");
         }
 
@@ -38,11 +41,13 @@ public class HouseConfiguration {
         // data[9]; // deadband
         this.minuteDelay = Integer.parseInt(data[10]);
         this.waterheater_setpoint = Double.parseDouble(data[11]);
+        this.hasElectricVehicle = Boolean.parseBoolean(data[12]);
 
         String[] idParts = id.split("_hse_");
         this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
         this.batteryID = idParts[0] + "_ibat_" + idParts[1];
         this.meterID = idParts[0] + "_mtr_" + idParts[1];
+        this.evID = idParts[0] + "_iev_" + idParts[1]; // this may not exist in GridLAB-D
 
         log.debug("house={} base_set={} peak_set={} precool_set={} precool_hours={}",
                 getID(), getSetpoint(), getPeakSetpoint(), getPrecoolSetpoint(), getPrecoolHours());
@@ -63,6 +68,13 @@ public class HouseConfiguration {
 
     public String getMeterID() {
         return meterID;
+    }
+    
+    public String getVehicleID() {
+        if (hasVehicle()) {
+            return evID;
+        }
+        return null;
     }
 
     public double getSetpoint() {
@@ -95,5 +107,9 @@ public class HouseConfiguration {
 
     public int getMinuteDelay() {
         return minuteDelay;
+    }
+
+    public boolean hasVehicle() {
+        return hasElectricVehicle;
     }
 }

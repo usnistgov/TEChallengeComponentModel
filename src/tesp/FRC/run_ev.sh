@@ -80,7 +80,7 @@ xterm -fg green -bg black -l -lf $logs_directory/GridModel-${timestamp}.log -T "
 waitUntilJoined GridModel 1
 
 cd $root_directory/generated/FlexibleResourceController
-xterm -fg cyan -bg black -l -lf $logs_directory/Controller-${timestamp}.log -T "FlexibleResourceController" -geometry 140x40+90+120 -e "sh run.sh" &
+xterm -fg cyan -bg black -l -lf $logs_directory/Controller-${timestamp}.log -T "FlexibleResourceController" -geometry 140x40+90+120 -e "sh run.sh conf/FlexibleResourceControllerEV.json" &
 waitUntilJoined FlexibleResourceController 1
 
 cd $root_directory/generated/PriceReader

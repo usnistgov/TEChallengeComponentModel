@@ -16,6 +16,9 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     @FederateParameter
     public Battery battery;
 
+    @FederateParameter
+    public ElectricVehicle electricVehicle;
+
     public class HeatPump {
         public boolean isControlled;
         public boolean useRtpAdjust;
@@ -36,5 +39,11 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
         public double v_lo  = 0.98;
         public double v_hi  = 1.02;
         public double v_max = 1.08;
+    }
+
+    public class ElectricVehicle {
+        public double distributionCoefficient = 3.75;
+        public double distributionMean = 0.9;
+        public double distributionStdDev = 1.1;
     }
 }
