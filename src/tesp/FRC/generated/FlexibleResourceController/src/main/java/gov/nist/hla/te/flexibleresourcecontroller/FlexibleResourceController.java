@@ -34,7 +34,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         public double ramp_up_rate;
         public double ramp_down_rate;
-        public double max_charge_rate;
+        public double max_charge_output;
 
         public int ramp_up_minutes;
         public int ramp_down_minutes;
@@ -274,10 +274,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             profile.charge_amount = generateChargeAmount();
             profile.ramp_up_rate = 21.6; // kW/h
             profile.ramp_down_rate = 3.6; // kW/h
-            profile.max_charge_rate = 7.2; // kW/h
+            profile.max_charge_output = 7.2; // kW
 
-            final double ramp_up_amount = (profile.max_charge_rate * (profile.max_charge_rate / profile.ramp_up_rate)) / 2;        
-            final double ramp_down_amount = (profile.max_charge_rate * (profile.max_charge_rate / profile.ramp_down_rate)) / 2;
+            final double ramp_up_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_up_rate)) / 2;        
+            final double ramp_down_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_down_rate)) / 2;
 
             double ramp_up_minutes = 0;
             double ramp_down_minutes = 0;
@@ -288,18 +288,18 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 ramp_down_minutes = 0;
                 max_charge_minutes = 0;
             } else if (profile.charge_amount < ramp_up_amount + ramp_down_amount) {
-                ramp_up_minutes = 60 * profile.max_charge_rate / profile.ramp_up_rate;
+                ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
 
                 double a = profile.ramp_down_rate / 2;
-                double b = -profile.max_charge_rate;
+                double b = -profile.max_charge_output;
                 double c = profile.charge_amount - ramp_up_amount;
 
                 double t1 = (-b + Math.sqrt(b*b - 4*a*c))/(2*a);
                 double t2 = (-b - Math.sqrt(b*b - 4*a*c))/(2*a);
 
-                if (t1 > 0) {
+                if (t1 > 0 && (t2 < 0 || t1 < t2)) {
                     ramp_down_minutes = 60 * t1;
-                } else if (t2 > 0) {
+                } if (t2 > 0) {
                     ramp_down_minutes = 60 * t2;
                 } else {
                     // oops
@@ -307,9 +307,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
                 max_charge_minutes = 0;
             } else {
-                ramp_up_minutes = 60 * profile.max_charge_rate / profile.ramp_up_rate;
-                ramp_down_minutes = 60 * profile.max_charge_rate / profile.ramp_down_rate;
-                max_charge_minutes = 60 * (profile.charge_amount - ramp_up_amount - ramp_down_amount) / profile.max_charge_rate;
+                ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
+                ramp_down_minutes = 60 * profile.max_charge_output / profile.ramp_down_rate;
+                max_charge_minutes = 60 * (profile.charge_amount - ramp_up_amount - ramp_down_amount) / profile.max_charge_output;
             }
 
             // TODO - fix the charge amount to match the rounded values
@@ -663,11 +663,15 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
                     p_out = 0;
                 } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
-                    // p_out = 
+                    p_out = -1000 * (profile.ramp_up_rate / 60 * elapsedMinutes);
+                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
                 } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
-                    // p_out = 
+                    p_out = -1000 * (profile.max_charge_output);
+                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
                 } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes + profile.ramp_down_minutes) { // ramp down window
-                    // p_out = 
+                    final long relevantMinutes = elapsedMinutes - profile.max_charge_minutes - profile.ramp_up_minutes;
+                    p_out = -1000 * (profile.max_charge_output - profile.ramp_down_rate / 60 * relevantMinutes);
+                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
                 } else { // should be unreachable
                     log.warn("unexpected condition in electric vehicle control");
                 }
