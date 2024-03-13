@@ -265,6 +265,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void resetVehicles() {
+        vehicleChargeProfiles.clear();
+        log.debug("cleared existing vehicle charge profiles");
+
         for (String vehicleID : vehicles.keySet()) {
 
             VehicleChargeProfile profile = new VehicleChargeProfile();
@@ -348,7 +351,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 }
             }
 
-            log.info("EV_PROFILE t={} ramp_up={} ramp_down={} max={}", profile.charge_start_time, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
+            log.info("EV_PROFILE {} t={} ramp_up={} ramp_down={} max={}", vehicleID, profile.charge_start_time, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
+            vehicleChargeProfiles.put(vehicleID, profile);
         }
     }
 
@@ -644,6 +648,35 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 inverter.set_Q_Out(q_out);
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
                 log.trace("id={} p={} q={}", id, p_out, q_out);
+            }
+
+            // electric vehicle control
+            for (Map.Entry<String, VehicleChargeProfile> entry : vehicleChargeProfiles.entrySet()) {
+                final String id = entry.getKey();
+                final VehicleChargeProfile profile = entry.getValue();
+                
+                final int charge_duration = profile.ramp_up_minutes + profile.ramp_down_minutes + profile.max_charge_minutes;
+                final long elapsedMinutes = Duration.between(profile.charge_start_time, scenarioTime).toMinutes();
+                
+                double p_out = 0;
+
+                if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
+                    p_out = 0;
+                } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
+                    // p_out = 
+                } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
+                    // p_out = 
+                } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes + profile.ramp_down_minutes) { // ramp down window
+                    // p_out = 
+                } else { // should be unreachable
+                    log.warn("unexpected condition in electric vehicle control");
+                }
+
+                Inverter inverter = vehicles.get(id);
+                inverter.set_name(id);
+                inverter.set_P_Out(p_out);
+                inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
+                log.trace("id={} p={}", id, p_out);
             }
 
             firstTimeStep = false;
