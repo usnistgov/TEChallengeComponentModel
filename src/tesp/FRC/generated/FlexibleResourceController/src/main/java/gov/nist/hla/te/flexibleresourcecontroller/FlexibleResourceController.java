@@ -351,7 +351,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 }
             }
 
-            log.info("EV_PROFILE {} t={} ramp_up={} ramp_down={} max={}", vehicleID, profile.charge_start_time, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
+            log.info("EV_PROFILE {} t={} amount={} ramp_up={} ramp_down={} max={}", vehicleID, profile.charge_start_time, profile.charge_amount, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
             vehicleChargeProfiles.put(vehicleID, profile);
         }
     }
@@ -434,6 +434,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         processDayAheadPrices();
         startNewDay();
         resetVehicles(); // OK if this is called twice (starting hour = 8)
+
+        // update charge profiles to reflect overnight charges from prior day
+        if (scenarioTime.getHour() < 8) {
+            for (Map.Entry<String, VehicleChargeProfile> entry : vehicleChargeProfiles.entrySet()) {
+                VehicleChargeProfile modifiedProfile = entry.getValue();
+                modifiedProfile.charge_start_time = modifiedProfile.charge_start_time.minusDays(1);
+                entry.setValue(modifiedProfile);
+                log.info("EV_PROFILE {} UPDATED t={}", entry.getKey(), modifiedProfile.charge_start_time);
+            }
+        }
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
