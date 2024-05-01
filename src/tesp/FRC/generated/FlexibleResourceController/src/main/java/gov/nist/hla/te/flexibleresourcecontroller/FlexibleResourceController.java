@@ -82,6 +82,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private boolean batteryRtpAdjust;
 
     private boolean electricVehicleActive;
+    private boolean electricVehicleUseDap;
 
     private double q_set;
     private double v_min;
@@ -204,11 +205,21 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         electricVehicleActive = !vehicles.isEmpty();
         if (electricVehicleActive) {
-            status = "BASELINE";
+            if (params.electricVehicle.useDayAheadPrice) {
+                electricVehicleUseDap = true;
+                status = "DAP RESPONSIVE";
+            } else {
+                status = "BASELINE";
+            }
         } else {
             status = "DISABLED";
         }
         log.info("electric vehicle charging is {}", status);
+
+        if (params.electricVehicle.seed != 0) {
+            random.setSeed(params.electricVehicle.seed);
+            log.info("using seed {} for random number generation", params.electricVehicle.seed);
+        }
     }
 
     private void processDayAheadPrices() {
@@ -269,85 +280,122 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         log.debug("cleared existing vehicle charge profiles");
 
         for (String vehicleID : vehicles.keySet()) {
+            double chargeAmount = generateChargeAmount();
+            double chargeTimeProbability = random.nextDouble();
+            double chargeOffsetMultiplier = random.nextDouble();
 
             VehicleChargeProfile profile = new VehicleChargeProfile();
-            profile.charge_amount = generateChargeAmount();
-            profile.ramp_up_rate = 21.6; // kW/h
-            profile.ramp_down_rate = 3.6; // kW/h
-            profile.max_charge_output = 7.2; // kW
+            profile.charge_amount = chargeAmount;
+            
+            if (electricVehicleUseDap) { // dap responsive
+                if (chargeTimeProbability < 0.25) { // DAY CHARGE
+                    if (chargeAmount > 43.2) {
+                        chargeAmount = 43.2;
+                    }
+                    profile.ramp_up_minutes = 60;
+                    profile.ramp_down_minutes = 60;
+                    profile.max_charge_minutes = 300;
 
-            final double ramp_up_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_up_rate)) / 2;        
-            final double ramp_down_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_down_rate)) / 2;
+                    profile.ramp_up_rate = chargeAmount / 6; // kW/h
+                    profile.ramp_down_rate = chargeAmount / 6; // kW/h
+                    profile.max_charge_output = chargeAmount / 6; // kW
 
-            double ramp_up_minutes = 0;
-            double ramp_down_minutes = 0;
-            double max_charge_minutes = 0;
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(9,0), scenarioTime.getZone());
+                } else { // NIGHT CHARGE
+                    if (chargeAmount > 54) {
+                        chargeAmount = 54;
+                    }
+                    profile.ramp_up_minutes = 180;
+                    profile.ramp_down_minutes = 0;
+                    profile.max_charge_minutes = 360;
 
-            if (profile.charge_amount < ramp_up_amount) {
-                ramp_up_minutes = 60 * Math.sqrt(2 * profile.charge_amount / profile.ramp_up_rate);
-                ramp_down_minutes = 0;
-                max_charge_minutes = 0;
-            } else if (profile.charge_amount < ramp_up_amount + ramp_down_amount) {
-                ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
+                    profile.ramp_up_rate = chargeAmount / 22.5; // kW/h
+                    profile.ramp_down_rate = 0; // kW/h
+                    profile.max_charge_output = chargeAmount / 7.5; // kW
 
-                double a = profile.ramp_down_rate / 2;
-                double b = -profile.max_charge_output;
-                double c = profile.charge_amount - ramp_up_amount;
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(22,0), scenarioTime.getZone());
+                }
+            } else { // baseline
+                profile.ramp_up_rate = 21.6; // kW/h
+                profile.ramp_down_rate = 3.6; // kW/h
+                profile.max_charge_output = 7.2; // kW
 
-                double t1 = (-b + Math.sqrt(b*b - 4*a*c))/(2*a);
-                double t2 = (-b - Math.sqrt(b*b - 4*a*c))/(2*a);
+                final double ramp_up_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_up_rate)) / 2;        
+                final double ramp_down_amount = (profile.max_charge_output * (profile.max_charge_output / profile.ramp_down_rate)) / 2;
 
-                if (t1 > 0 && (t2 < 0 || t1 < t2)) {
-                    ramp_down_minutes = 60 * t1;
-                } if (t2 > 0) {
-                    ramp_down_minutes = 60 * t2;
+                double ramp_up_minutes = 0;
+                double ramp_down_minutes = 0;
+                double max_charge_minutes = 0;
+
+                if (profile.charge_amount < ramp_up_amount) {
+                    ramp_up_minutes = 60 * Math.sqrt(2 * profile.charge_amount / profile.ramp_up_rate);
+                    ramp_down_minutes = 0;
+                    max_charge_minutes = 0;
+                } else if (profile.charge_amount < ramp_up_amount + ramp_down_amount) {
+                    ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
+
+                    double a = profile.ramp_down_rate / 2;
+                    double b = -profile.max_charge_output;
+                    double c = profile.charge_amount - ramp_up_amount;
+
+                    double t1 = (-b + Math.sqrt(b*b - 4*a*c))/(2*a);
+                    double t2 = (-b - Math.sqrt(b*b - 4*a*c))/(2*a);
+
+                    if (t1 > 0 && (t2 < 0 || t1 < t2)) {
+                        ramp_down_minutes = 60 * t1;
+                    } if (t2 > 0) {
+                        ramp_down_minutes = 60 * t2;
+                    } else {
+                        // oops
+                    }
+
+                    max_charge_minutes = 0;
                 } else {
-                    // oops
+                    ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
+                    ramp_down_minutes = 60 * profile.max_charge_output / profile.ramp_down_rate;
+                    max_charge_minutes = 60 * (profile.charge_amount - ramp_up_amount - ramp_down_amount) / profile.max_charge_output;
                 }
 
-                max_charge_minutes = 0;
-            } else {
-                ramp_up_minutes = 60 * profile.max_charge_output / profile.ramp_up_rate;
-                ramp_down_minutes = 60 * profile.max_charge_output / profile.ramp_down_rate;
-                max_charge_minutes = 60 * (profile.charge_amount - ramp_up_amount - ramp_down_amount) / profile.max_charge_output;
-            }
+                // TODO - fix the charge amount to match the rounded values
+                profile.ramp_up_minutes = (int)Math.ceil(ramp_up_minutes);
+                profile.ramp_down_minutes = (int)Math.ceil(ramp_down_minutes);
+                profile.max_charge_minutes = (int)Math.ceil(max_charge_minutes);
+                final int charge_duration = profile.ramp_up_minutes + profile.ramp_down_minutes + profile.max_charge_minutes;
 
-            // TODO - fix the charge amount to match the rounded values
-            profile.ramp_up_minutes = (int)Math.ceil(ramp_up_minutes);
-            profile.ramp_down_minutes = (int)Math.ceil(ramp_down_minutes);
-            profile.max_charge_minutes = (int)Math.ceil(max_charge_minutes);
-            final int charge_duration = profile.ramp_up_minutes + profile.ramp_down_minutes + profile.max_charge_minutes;
+                if (chargeTimeProbability < 0.25) { // DAY CHARGE
+                    final int max_minutes = 7 * 60; // [10:00, 17:00) Window
 
-            double r = random.nextDouble();
-            if (r < 0.25) { // DAY CHARGE
-                final int max_minutes = 7 * 60; // [10:00, 17:00) Window
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(10,0), scenarioTime.getZone());
+                    if (charge_duration > max_minutes) {
+                        profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
+                    } else if (charge_duration < max_minutes) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    }
+                } else if (chargeTimeProbability < 0.85) { // EVENING CHARGE
+                    final int max_minutes = 14 * 60; // [17:00, 7:00) Window Possible
+                    final int max_minutes_preferred = 6 * 60; // [17:00, 23:00) Window Preferred
 
-                profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(10,0), scenarioTime.getZone());
-                if (charge_duration > max_minutes) {
-                    profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
-                } else if (charge_duration < max_minutes) {
-                    profile.charge_start_time = profile.charge_start_time.plusMinutes(random.nextInt(max_minutes - charge_duration));
-                }
-            } else if (r < 0.85) { // EVENING CHARGE
-                final int max_minutes = 14 * 60; // [17:00, 7:00) Window Possible
-                final int max_minutes_preferred = 6 * 60; // [17:00, 23:00) Window Preferred
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(17,0), scenarioTime.getZone());
+                    if (charge_duration > max_minutes) {
+                        profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
+                    } else if (charge_duration > max_minutes_preferred && charge_duration < max_minutes) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    } else if (charge_duration < max_minutes_preferred) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes_preferred - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    }
+                } else { // NIGHT CHARGE
+                    final int max_minutes = 8 * 60; // [23:00, 7:00) Window
 
-                profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(17,0), scenarioTime.getZone());
-                if (charge_duration > max_minutes) {
-                    profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
-                } else if (charge_duration > max_minutes_preferred && charge_duration < max_minutes) {
-                    profile.charge_start_time = profile.charge_start_time.plusMinutes(random.nextInt(max_minutes - charge_duration));
-                } else if (charge_duration < max_minutes_preferred) {
-                    profile.charge_start_time = profile.charge_start_time.plusMinutes(random.nextInt(max_minutes_preferred - charge_duration));
-                }
-            } else { // NIGHT CHARGE
-                final int max_minutes = 8 * 60; // [23:00, 7:00) Window
-
-                profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(23,0), scenarioTime.getZone());
-                if (charge_duration > max_minutes) {
-                    profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
-                } else if (charge_duration < max_minutes) {
-                    profile.charge_start_time = profile.charge_start_time.plusMinutes(random.nextInt(max_minutes - charge_duration));
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(23,0), scenarioTime.getZone());
+                    if (charge_duration > max_minutes) {
+                        profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
+                    } else if (charge_duration < max_minutes) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    }
                 }
             }
 

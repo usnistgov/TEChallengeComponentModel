@@ -42,8 +42,10 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     }
 
     public class ElectricVehicle {
+        public boolean useDayAheadPrice;
         public double distributionCoefficient = 3.75;
         public double distributionMean = 0.9;
         public double distributionStdDev = 1.1;
+        public long seed = 0;
     }
 }
