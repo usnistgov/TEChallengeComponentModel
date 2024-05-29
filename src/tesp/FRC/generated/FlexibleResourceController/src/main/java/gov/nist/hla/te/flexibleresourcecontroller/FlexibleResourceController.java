@@ -306,12 +306,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         chargeAmount = 54;
                     }
                     profile.ramp_up_minutes = 180;
-                    profile.ramp_down_minutes = 0;
-                    profile.max_charge_minutes = 360;
+                    profile.ramp_down_minutes = 60;
+                    profile.max_charge_minutes = 300;
 
-                    profile.ramp_up_rate = chargeAmount / 22.5; // kW/h
-                    profile.ramp_down_rate = 0; // kW/h
-                    profile.max_charge_output = chargeAmount / 7.5; // kW
+                    profile.ramp_up_rate = (chargeAmount / 7) / 3; // kW/h
+                    profile.ramp_down_rate = (chargeAmount / 7); // kW/h
+                    profile.max_charge_output = chargeAmount / 7; // kW
 
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(22,0), scenarioTime.getZone());
                 }
