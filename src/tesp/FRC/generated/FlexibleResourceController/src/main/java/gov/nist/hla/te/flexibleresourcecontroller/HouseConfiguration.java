@@ -13,6 +13,7 @@ public class HouseConfiguration {
     private String batteryID;
     private String meterID;
     private String evID;
+    private String transformerID;
 
     private double setpoint;
     private double lambda;
@@ -43,11 +44,14 @@ public class HouseConfiguration {
         this.waterheater_setpoint = Double.parseDouble(data[11]);
         this.hasElectricVehicle = Boolean.parseBoolean(data[12]);
 
-        String[] idParts = id.split("_hse_");
+        String[] idParts = id.split("_hse_"); // triplex node ID
         this.waterheaterID = idParts[0] + "_wh_" + idParts[1]; // need to be able to deactive this
         this.batteryID = idParts[0] + "_ibat_" + idParts[1];
         this.meterID = idParts[0] + "_mtr_" + idParts[1];
         this.evID = idParts[0] + "_iev_" + idParts[1]; // this may not exist in GridLAB-D
+
+        String[] nodeParts = idParts[0].split("_tn_"); // triplex node prefex and suffix
+        this.transformerID = nodeParts[0] + "_xfmr_" + nodeParts[1]; // this may not be published by GridLAB-D
 
         log.debug("house={} base_set={} peak_set={} precool_set={} precool_hours={}",
                 getID(), getSetpoint(), getPeakSetpoint(), getPrecoolSetpoint(), getPrecoolHours());
@@ -75,6 +79,10 @@ public class HouseConfiguration {
             return evID;
         }
         return null;
+    }
+
+    public String getTransformerID() {
+        return transformerID;
     }
 
     public double getSetpoint() {

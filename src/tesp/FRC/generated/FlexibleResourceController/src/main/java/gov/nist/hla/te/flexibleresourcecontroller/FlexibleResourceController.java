@@ -70,6 +70,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Map<String, Waterheater> waterheaters = new HashMap<String, Waterheater>();
     private Map<String, Inverter> vehicles = new HashMap<String, Inverter>(); // represented as inverters
     private Map<String, Double> voltages = new HashMap<String, Double>();
+    private Map<String, Double> transformers = new HashMap<String, Double>();
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -551,6 +552,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         log.debug("HEATPUMP {} PEAK @ {}", houseConfiguration.getID(), setpoint);
                     }
 
+                    String transformer = houseConfiguration.getTransformerID();
+                    if (transformers.containsKey(transformer)) {
+                        // found
+                    }
+
                     if (heatPumpRtpAdjust) {
                         double priceRatio = realTimePrice / peakDayAheadPrice;
                         if (priceRatio >= 2) {
@@ -802,7 +808,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleObjectClass(Transformer object) {
-        log.warn("received: " + object.get_name() + " " + object.get_power_in());
+        final String name = object.get_name();
+        final String powerComplex = object.get_power_in();
+
+        if (powerComplex != null && !powerComplex.isEmpty()) { // format: +123+456j V where either + can be -
+            String complexParts[] = powerComplex.substring(1, powerComplex.indexOf('j')).split("[-+]");
+            transformers.put(name, Double.parseDouble(complexParts[0])); // real power in
+            log.trace("magnitude={} for {}", complexParts[0], powerComplex);
+        } else {
+            log.warn("received unusable power_in for transformer {}: {}", name, powerComplex);
+        }
     }
 
     public static void main(String[] args) {
