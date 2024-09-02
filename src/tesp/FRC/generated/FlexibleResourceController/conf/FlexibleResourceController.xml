@@ -100,6 +100,28 @@
                 </attribute>
             </objectClass>
             <objectClass>
+                <name>Transformer</name>
+                <sharing>Subscribe</sharing>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>power_in</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+            </objectClass>
+            <objectClass>
                 <name>Waterheater</name>
                 <sharing>Publish</sharing>
                 <attribute>

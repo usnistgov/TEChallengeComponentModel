@@ -432,6 +432,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             ObjectRoot object = reflector.getObjectRoot();
             if (object instanceof Meter) {
                 handleObjectClass((Meter) object);
+            } else if (object instanceof Transformer) {
+                handleObjectClass((Transformer) object);
             }
             else {
                 log.debug("unhandled object reflection: {}", object.getClassName());
@@ -797,6 +799,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         } else {
             log.warn("received unusable voltage for meter {}: {}", name, voltageComplex);
         }
+    }
+
+    private void handleObjectClass(Transformer object) {
+        log.warn("received: " + object.get_name() + " " + object.get_power_in());
     }
 
     public static void main(String[] args) {

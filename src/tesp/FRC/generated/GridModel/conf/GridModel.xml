@@ -629,6 +629,34 @@
                 </ucef:objectDetails>
             </objectClass>
             <objectClass>
+                <name>Transformer</name>
+                <sharing>Publish</sharing>
+                <attribute>
+                    <name>name</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Publish</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                <attribute>
+                    <name>power_in</name>
+                    <dataType>String</dataType>
+                    <updateType>NA</updateType>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>Publish</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                </attribute>
+                 <ucef:objectDetails>
+                    <ucef:publishedObjects>
+                        <ucef:objectName>R4_12_47_1_xfmr_122</ucef:objectName>
+                        <ucef:objectName>R4_12_47_1_xfmr_123</ucef:objectName>
+                    </ucef:publishedObjects>
+                </ucef:objectDetails>
+            </objectClass>
+            <objectClass>
                 <name>Waterheater</name>
                 <sharing>Subscribe</sharing>
                 <attribute>

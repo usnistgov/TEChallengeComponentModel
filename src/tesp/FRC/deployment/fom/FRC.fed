@@ -61,6 +61,10 @@
         (attribute measured_voltage_1 reliable timestamp)
         (attribute name reliable timestamp)
       )
+      (class Transformer
+        (attribute name reliable timestamp)
+        (attribute power_in reliable timestamp)
+      )
       (class Waterheater
         (attribute lower_tank_setpoint reliable timestamp)
         (attribute name reliable timestamp)
