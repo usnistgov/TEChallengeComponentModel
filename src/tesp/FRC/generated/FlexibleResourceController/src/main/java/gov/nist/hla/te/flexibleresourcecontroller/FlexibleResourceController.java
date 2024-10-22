@@ -70,7 +70,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Map<String, Waterheater> waterheaters = new HashMap<String, Waterheater>();
     private Map<String, Inverter> vehicles = new HashMap<String, Inverter>(); // represented as inverters
     private Map<String, Double> voltages = new HashMap<String, Double>();
-    private Map<String, Double> transformers = new HashMap<String, Double>();
+
+    private String transformerConfigurationFile;
+    private Map<String, TransformerDetails> transformers = new HashMap<String, TransformerDetails>();
+
+    private boolean useCongestionControl;
 
     private boolean heatPumpActive;
     private boolean heatPumpRtpAdjust;
@@ -102,11 +106,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         String status;
 
+        useCongestionControl = params.useCongestionDynamicPrice;
         heatPumpActive = params.heatPump.isControlled;
         heatPumpRtpAdjust = params.heatPump.useRtpAdjust;
 
         if (!heatPumpActive) {
             status = "OFFLINE";
+        } else if (useCongestionControl) {
+            status = "CONGESTION_DYNAMIC_PRICE";
         } else if (!heatPumpRtpAdjust) {
             status = "DAY_AHEAD";
         } else {
@@ -119,6 +126,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         if (!waterHeaterActive) {
             status = "OFFLINE";
+        } else if (useCongestionControl) {
+            status = "CONGESTION_DYNAMIC_PRICE";
         } else if (!waterHeaterRtpAdjust) {
             status = "DAY_AHEAD";
         } else {
@@ -138,6 +147,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         if (!batteryActiveReal) {
             status = "OFFLINE";
+        } else if (useCongestionControl) {
+            status = "CONGESTION_DYNAMIC_PRICE";
         } else if (!batteryRtpAdjust) {
             status = "DAY_AHEAD";
         } else {
@@ -199,11 +210,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             throw new BadFileFormat(e);
         }
 
+        transformerConfigurationFile = params.transformerConfigurationFile;
+
         double mu = params.electricVehicle.distributionMean;
         double sigma = params.electricVehicle.distributionStdDev;
         evChargeCoefficient = params.electricVehicle.distributionCoefficient;
         evChargeDistribution = new LogNormalDistribution(mu, sigma);
 
+        // TODO : ADJUST FOR CDP!
         electricVehicleActive = !vehicles.isEmpty();
         if (electricVehicleActive) {
             if (params.electricVehicle.useDayAheadPrice) {
@@ -221,6 +235,39 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             random.setSeed(params.electricVehicle.seed);
             log.info("using seed {} for random number generation", params.electricVehicle.seed);
         }
+    }
+
+    // assumptions:
+    //  initializeTransformers is called after SimTime is received
+    //  logicalTimeScale doesn't change after initializeTransformers is called
+    private void initializeTransformers() {
+        final String filepath = transformerConfigurationFile;
+        final String delimiter = ","; // csv input file
+
+        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filepath))) {
+            String line;
+
+            // skip the header
+            line = reader.readLine();
+            if (line == null) {
+                log.error("the file {} is empty", filepath);
+                throw new BadFileFormat(filepath);
+            }
+            log.debug("transformer configuration header: {}", line);
+
+            // process each line of data
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(delimiter);
+
+                TransformerDetails transformer = new TransformerDetails(data, logicalTimeScale);
+                transformers.put(transformer.getName(), transformer);
+                log.trace("initialized transformer: {}", transformer.getName());
+            }
+        } catch (IOException e) {
+            log.error("failed to process the file {}", filepath);
+            throw new BadFileFormat(e);
+        }
+        log.info("initialized {} transformers", transformers.size());
     }
 
     private void processDayAheadPrices() {
@@ -482,6 +529,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
         }
 
+        initializeTransformers(); // does this lose the first power value ?
         processDayAheadPrices();
         startNewDay();
         resetVehicles(); // OK if this is called twice (starting hour = 8)
@@ -531,6 +579,20 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     resetVehicles();
                 }
             }
+            
+            // need a transformer class that has:
+            //  transformer capacity
+            //      get the configuration string value from GLD
+            //      substring based on last _ in string
+            //      convert p to decimal point
+            //      convert to float
+            //      remember kW
+            //  list of historic real power flows (maintains last 15 as a list)
+            //  function to return m_price
+
+            // discover transformers when configuration is first published
+            //  add to lists thru this method, rather than iterate over houses
+            // map as STRING name to TRANSFORMER class
 
             // heat pump control
             if (heatPumpActive) {
@@ -557,7 +619,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         // found
                     }
 
-                    if (heatPumpRtpAdjust) {
+                    if (useCongestionControl) {
+                        //double cdp = calculateCongestionDynamicPrice
+                        // congestion control if available
+                    } else if (heatPumpRtpAdjust) {
                         double priceRatio = realTimePrice / peakDayAheadPrice;
                         if (priceRatio >= 2) {
                             setpoint = houseConfiguration.getPeakSetpoint() + 1;
@@ -813,8 +878,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         if (powerComplex != null && !powerComplex.isEmpty()) { // format: +123+456j V where either + can be -
             String complexParts[] = powerComplex.substring(1, powerComplex.indexOf('j')).split("[-+]");
-            transformers.put(name, Double.parseDouble(complexParts[0])); // real power in
-            log.trace("magnitude={} for {}", complexParts[0], powerComplex);
+
+            if (transformers.containsKey(name)) {
+                transformers.get(name).setRealPower(Double.parseDouble(complexParts[0]));
+                log.trace("set {} real_power to {} ({})", name, complexParts[0], powerComplex);
+            } else {
+                log.warn("received update for unknown transformer {}", name);
+            }
         } else {
             log.warn("received unusable power_in for transformer {}: {}", name, powerComplex);
         }

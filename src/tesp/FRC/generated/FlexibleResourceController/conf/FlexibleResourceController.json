@@ -6,6 +6,8 @@
   "lookAhead": 0.2,
   "stepSize": 1.0,
   "houseConfigurationFile": "conf/houseParameters.csv",
+  "transformerConfigurationFile": "conf/transformers.csv",
+  "useCongestionDynamicPrice": false,
   "heatPump": {
     "isControlled": true,
     "useRtpAdjust": true

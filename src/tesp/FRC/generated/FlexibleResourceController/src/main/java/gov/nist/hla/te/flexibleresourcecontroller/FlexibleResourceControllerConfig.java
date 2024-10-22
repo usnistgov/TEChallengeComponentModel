@@ -8,6 +8,9 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     public String houseConfigurationFile;
 
     @FederateParameter
+    public String transformerConfigurationFile;
+
+    @FederateParameter
     public HeatPump heatPump;
 
     @FederateParameter
@@ -18,6 +21,9 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
 
     @FederateParameter
     public ElectricVehicle electricVehicle;
+
+    @FederateParameter
+    public boolean useCongestionDynamicPrice;
 
     public class HeatPump {
         public boolean isControlled;
