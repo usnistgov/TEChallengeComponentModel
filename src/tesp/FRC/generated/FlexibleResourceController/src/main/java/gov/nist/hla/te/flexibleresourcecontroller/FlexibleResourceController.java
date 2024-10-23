@@ -579,20 +579,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     resetVehicles();
                 }
             }
-            
-            // need a transformer class that has:
-            //  transformer capacity
-            //      get the configuration string value from GLD
-            //      substring based on last _ in string
-            //      convert p to decimal point
-            //      convert to float
-            //      remember kW
-            //  list of historic real power flows (maintains last 15 as a list)
-            //  function to return m_price
-
-            // discover transformers when configuration is first published
-            //  add to lists thru this method, rather than iterate over houses
-            // map as STRING name to TRANSFORMER class
 
             // heat pump control
             if (heatPumpActive) {
@@ -614,24 +600,27 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         log.debug("HEATPUMP {} PEAK @ {}", houseConfiguration.getID(), setpoint);
                     }
 
-                    String transformer = houseConfiguration.getTransformerID();
-                    if (transformers.containsKey(transformer)) {
-                        // found
-                    }
+                    double priceRatio = 0;
 
                     if (useCongestionControl) {
-                        //double cdp = calculateCongestionDynamicPrice
-                        // congestion control if available
-                    } else if (heatPumpRtpAdjust) {
-                        double priceRatio = realTimePrice / peakDayAheadPrice;
-                        if (priceRatio >= 2) {
-                            setpoint = houseConfiguration.getPeakSetpoint() + 1;
-                            log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
-                        } else if (priceRatio > 1) {
-                            double rtp_adjust = (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
-                            setpoint = setpoint + rtp_adjust;
-                            log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
+                        final double dap = dayAheadPrice[scenarioTime.getHour()];
+                        if (transformers.containsKey(houseConfiguration.getTransformerID())) {
+                            final double cdp = transformers.get(houseConfiguration.getTransformerID()).getMPrice() * dap;
+                            priceRatio = cdp / peakDayAheadPrice;
+                            log.debug("{} = {} / {}", priceRatio, cdp, peakDayAheadPrice);
+                        } else {
+                            log.warn("failed to calculate CDP: transformer {} does not exist", houseConfiguration.getTransformerID());
                         }
+                    } else if (heatPumpRtpAdjust) {
+                        priceRatio = realTimePrice / peakDayAheadPrice;
+                    }
+
+                    if (priceRatio >= 2) {
+                        setpoint = houseConfiguration.getPeakSetpoint() + 1;
+                        log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
+                    } else if (priceRatio > 1) {
+                        setpoint = setpoint + (priceRatio-1)*(houseConfiguration.getPeakSetpoint() - setpoint + 1);
+                        log.debug("HEATPUMP {} ADJUST @ {}", houseConfiguration.getID(), setpoint);
                     }
 
                     House house = houses.get(houseConfiguration.getID());
@@ -666,12 +655,23 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         tank_setpoint = houseConfiguration.getWaterHeaterSetpointMax();
                     }
 
-                    if (waterHeaterRtpAdjust) {
-                        double priceRatio = realTimePrice / peakDayAheadPrice;
-                        if (priceRatio > 2) {
-                            tank_setpoint = 90; // GLD lower bound
-                            log.debug("WATERHEATER {} ADJUST @ {}", houseConfiguration.getID(), tank_setpoint);
+                    double priceRatio = 0;
+
+                    if (useCongestionControl) {
+                        final double dap = dayAheadPrice[scenarioTime.getHour()];
+                        if (transformers.containsKey(houseConfiguration.getTransformerID())) {
+                            final double cdp = transformers.get(houseConfiguration.getTransformerID()).getMPrice() * dap;
+                            priceRatio = cdp / peakDayAheadPrice;
+                        } else {
+                            log.warn("failed to calculate CDP: transformer {} does not exist", houseConfiguration.getTransformerID());
                         }
+                    } else if (waterHeaterRtpAdjust) {
+                        priceRatio = realTimePrice / peakDayAheadPrice;
+                    }
+
+                    if (priceRatio > 2) {
+                        tank_setpoint = 90; // GLD lower bound
+                        log.debug("WATERHEATER {} ADJUST @ {}", houseConfiguration.getID(), tank_setpoint);
                     }
 
                     Waterheater waterheater = waterheaters.get(houseConfiguration.getWaterHeaterID());
