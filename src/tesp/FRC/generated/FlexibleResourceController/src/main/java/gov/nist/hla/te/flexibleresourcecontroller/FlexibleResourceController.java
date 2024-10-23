@@ -26,6 +26,11 @@ import org.apache.logging.log4j.Logger;
 
 import org.apache.commons.math3.distribution.LogNormalDistribution;
 
+// battery discharge relevance
+// evening start time (22 vs 23)
+// duration in minutes of the 'pause'
+// what does it mean 'the day window is extended if necessary' ?
+
 // Define the FlexibleResourceController type of federate for the federation.
 
 public class FlexibleResourceController extends FlexibleResourceControllerBase {
@@ -41,6 +46,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         public int max_charge_minutes;
 
         public ZonedDateTime charge_start_time;
+        public ZonedDateTime charge_end_time;
+    }
+
+    enum ChargeState {
+        BASELINE,
+        CONGESTION,
+        NO_CONGESTION
     }
 
     private final static Logger log = LogManager.getLogger();
@@ -98,6 +110,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double evChargeCoefficient;
     private LogNormalDistribution evChargeDistribution;
     private Map<String, VehicleChargeProfile> vehicleChargeProfiles = new HashMap<String, VehicleChargeProfile>();
+    private Map<String, Double> vehicleCharge = new HashMap<String, Double>();
+    private Map<String, ChargeState> vehicleChargeState = new HashMap<String, ChargeState>();
 
     private Random random = new Random();
 
@@ -324,6 +338,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void resetVehicles() {
+        vehicleCharge.clear();
+        vehicleChargeState.clear();
         vehicleChargeProfiles.clear();
         log.debug("cleared existing vehicle charge profiles");
 
@@ -335,7 +351,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             VehicleChargeProfile profile = new VehicleChargeProfile();
             profile.charge_amount = chargeAmount;
             
-            if (electricVehicleUseDap) { // dap responsive
+            if (electricVehicleUseDap && !useCongestionControl) { // dap responsive
                 if (chargeTimeProbability < 0.25) { // DAY CHARGE
                     if (chargeAmount > 43.2) {
                         chargeAmount = 43.2;
@@ -348,6 +364,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     profile.ramp_down_rate = chargeAmount / 6; // kW/h
                     profile.max_charge_output = chargeAmount / 6; // kW
 
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(16,0), scenarioTime.getZone());
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(9,0), scenarioTime.getZone());
                 } else { // NIGHT CHARGE
                     if (chargeAmount > 54) {
@@ -361,9 +378,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     profile.ramp_down_rate = (chargeAmount / 7); // kW/h
                     profile.max_charge_output = chargeAmount / 7; // kW
 
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate().plusDays(1), LocalTime.of(7,0), scenarioTime.getZone());
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(22,0), scenarioTime.getZone());
                 }
-            } else { // baseline
+            } else { // baseline or CDP Responsive
                 profile.ramp_up_rate = 21.6; // kW/h
                 profile.ramp_down_rate = 3.6; // kW/h
                 profile.max_charge_output = 7.2; // kW
@@ -413,6 +431,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 if (chargeTimeProbability < 0.25) { // DAY CHARGE
                     final int max_minutes = 7 * 60; // [10:00, 17:00) Window
 
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(17,0), scenarioTime.getZone());
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(10,0), scenarioTime.getZone());
                     if (charge_duration > max_minutes) {
                         profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
@@ -420,11 +439,27 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes - charge_duration));
                         profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
                     }
-                } else if (chargeTimeProbability < 0.85) { // EVENING CHARGE
+                } else if (chargeTimeProbability < 0.85 && !useCongestionControl) { // EVENING CHARGE for baseline
                     final int max_minutes = 14 * 60; // [17:00, 7:00) Window Possible
                     final int max_minutes_preferred = 6 * 60; // [17:00, 23:00) Window Preferred
 
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate().plusDays(1), LocalTime.of(7,0), scenarioTime.getZone());
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(17,0), scenarioTime.getZone());
+                    if (charge_duration > max_minutes) {
+                        profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
+                    } else if (charge_duration > max_minutes_preferred && charge_duration < max_minutes) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    } else if (charge_duration < max_minutes_preferred) {
+                        long chargeOffset = Math.round(chargeOffsetMultiplier * (max_minutes_preferred - charge_duration));
+                        profile.charge_start_time = profile.charge_start_time.plusMinutes(chargeOffset);
+                    }
+                } else if (chargeTimeProbability < 0.85) { // EVENING CHARGE for CDP
+                    final int max_minutes = 9 * 60; // [22:00, 7:00) Window Possible
+                    final int max_minutes_preferred = 1 * 60; // [22:00, 23:00) Window Preferred
+
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate().plusDays(1), LocalTime.of(7,0), scenarioTime.getZone());
+                    profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(22,0), scenarioTime.getZone());
                     if (charge_duration > max_minutes) {
                         profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
                     } else if (charge_duration > max_minutes_preferred && charge_duration < max_minutes) {
@@ -437,6 +472,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 } else { // NIGHT CHARGE
                     final int max_minutes = 8 * 60; // [23:00, 7:00) Window
 
+                    profile.charge_end_time = ZonedDateTime.of(scenarioTime.toLocalDate().plusDays(1), LocalTime.of(7,0), scenarioTime.getZone());
                     profile.charge_start_time = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(23,0), scenarioTime.getZone());
                     if (charge_duration > max_minutes) {
                         profile.max_charge_minutes = max_minutes - profile.ramp_up_minutes - profile.ramp_down_minutes;
@@ -449,6 +485,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
             log.info("EV_PROFILE {} t={} amount={} ramp_up={} ramp_down={} max={}", vehicleID, profile.charge_start_time, profile.charge_amount, profile.ramp_up_minutes, profile.ramp_down_minutes, profile.max_charge_minutes);
             vehicleChargeProfiles.put(vehicleID, profile);
+            vehicleChargeState.put(vehicleID, ChargeState.BASELINE);
+            vehicleCharge.put(vehicleID, 0.0);
         }
     }
 
@@ -607,7 +645,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (transformers.containsKey(houseConfiguration.getTransformerID())) {
                             final double cdp = transformers.get(houseConfiguration.getTransformerID()).getMPrice() * dap;
                             priceRatio = cdp / peakDayAheadPrice;
-                            log.debug("{} = {} / {}", priceRatio, cdp, peakDayAheadPrice);
                         } else {
                             log.warn("failed to calculate CDP: transformer {} does not exist", houseConfiguration.getTransformerID());
                         }
@@ -788,30 +825,60 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 
                 final int charge_duration = profile.ramp_up_minutes + profile.ramp_down_minutes + profile.max_charge_minutes;
                 final long elapsedMinutes = Duration.between(profile.charge_start_time, scenarioTime).toMinutes();
-                
-                double p_out = 0;
-
-                if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
-                    p_out = 0;
-                } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
-                    p_out = -1000 * (profile.ramp_up_rate / 60 * elapsedMinutes);
-                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
-                } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
-                    p_out = -1000 * (profile.max_charge_output);
-                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
-                } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes + profile.ramp_down_minutes) { // ramp down window
-                    final long relevantMinutes = elapsedMinutes - profile.max_charge_minutes - profile.ramp_up_minutes;
-                    p_out = -1000 * (profile.max_charge_output - profile.ramp_down_rate / 60 * relevantMinutes);
-                    log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
-                } else { // should be unreachable
-                    log.warn("unexpected condition in electric vehicle control");
-                }
 
                 Inverter inverter = vehicles.get(id);
+                double p_out = 0;
+
+                if (useCongestionControl) {
+                    final String houseID = HouseConfiguration.getHouseFromVehicle(id);
+                    final String transformerID = houseConfigurations.get(houseID).getTransformerID();
+
+                    final double lambda = houseConfigurations.get(houseID).getLambda();
+                    final double mPrice = transformers.get(transformerID).getMPrice();
+
+                    final double lastPOut = inverter.get_P_Out();
+
+                    if (elapsedMinutes < 0 || scenarioTime.isAfter(profile.charge_end_time)) {
+                        p_out = 0;
+                    } else if (vehicleCharge.get(id) >= profile.charge_amount) { //kWh
+                        p_out = 0;
+                    } else if (mPrice > 1 + lambda / 2) {
+                        p_out = lastPOut * (1 + lambda / 2) / mPrice;
+                        vehicleChargeState.put(id, ChargeState.CONGESTION);
+                    } else if (vehicleChargeState.get(id) == ChargeState.CONGESTION) {
+                        p_out = lastPOut; // different from document (1 minute pause instead of 5 minute pause)
+                        vehicleChargeState.put(id, ChargeState.NO_CONGESTION);
+                    } else if (vehicleChargeState.get(id) == ChargeState.NO_CONGESTION && lastPOut < 1000 * profile.max_charge_output) {
+                        p_out = Math.min(lastPOut + 600, 1000 * profile.max_charge_output); // W
+                    }
+                }
+
+                if (vehicleChargeState.get(id) == ChargeState.BASELINE) {
+                    if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
+                        p_out = 0;
+                    } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
+                        p_out = -1000 * (profile.ramp_up_rate / 60 * elapsedMinutes);
+                        log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
+                    } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
+                        p_out = -1000 * (profile.max_charge_output);
+                        log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
+                    } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes + profile.ramp_down_minutes) { // ramp down window
+                        final long relevantMinutes = elapsedMinutes - profile.max_charge_minutes - profile.ramp_up_minutes;
+                        p_out = -1000 * (profile.max_charge_output - profile.ramp_down_rate / 60 * relevantMinutes);
+                        log.info("VEHICLE {} CHARGE @ {} W", id, p_out);
+                    } else { // should be unreachable
+                        log.warn("unexpected condition in electric vehicle control");
+                    }
+                }
+
+                // calculate total charge (effective next time step)
+                double charge_delta = (-p_out / 1000) * logicalTimeScale / 3600; // kWh
+                vehicleCharge.put(id, vehicleCharge.get(id) + charge_delta);
+                
                 inverter.set_name(id);
                 inverter.set_P_Out(p_out);
                 inverter.updateAttributeValues(getLRC(), currentTime + getLookAhead());
-                log.trace("id={} p={}", id, p_out);
+                log.trace("id={} p={} charge={}", id, p_out, vehicleCharge.get(id));
             }
 
             firstTimeStep = false;

@@ -25,6 +25,11 @@ public class HouseConfiguration {
 
     private boolean hasElectricVehicle;
 
+    public static String getHouseFromVehicle(String vehicleID) {
+        String[] idParts = vehicleID.split("_iev_");
+        return idParts[0] + "_hse_" + idParts[1];
+    }
+
     HouseConfiguration(String[] data) {
         if (data == null || data.length != 13) {
             throw new RuntimeException("invalid house configuration");
@@ -87,6 +92,10 @@ public class HouseConfiguration {
 
     public double getSetpoint() {
         return setpoint;
+    }
+
+    public double getLambda() {
+        return lambda;
     }
 
     public double getWaterHeaterSetpointMax() {
