@@ -61,7 +61,7 @@ class TransformerDetails {
     private void update() {
         double mFlow = getRealPowerAverage() / capacity;
 
-        if (mFlow >= 0.75) {
+        if (mFlow > 0.75) {
             mPrice = Math.pow(mFlow, 3.074) / 2 + 0.7935;
         } else if (mFlow >= -0.75) {
             mPrice = 1;
