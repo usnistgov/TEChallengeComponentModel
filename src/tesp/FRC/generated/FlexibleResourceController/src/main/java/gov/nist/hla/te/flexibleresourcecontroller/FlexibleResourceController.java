@@ -105,8 +105,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double evChargeCoefficient;
     private LogNormalDistribution evChargeDistribution;
     private Map<String, VehicleChargeProfile> vehicleChargeProfiles = new HashMap<String, VehicleChargeProfile>();
+
     private Map<String, Double> vehicleCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> vehicleChargeState = new HashMap<String, ChargeState>();
+
+    private Map<String, Double> batteryCharge = new HashMap<String, Double>();
+    private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
 
     private Random random = new Random();
 
@@ -320,6 +324,15 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         }
         log.info("peak hour is {} with price={}", peakHour, peakDayAheadPrice);
         peakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
+
+        // reset battery state (only relevant to charging from 1 a.m. to 12 p.m.)
+        for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
+            String id = houseConfiguration.getBatteryID();
+            batteryCharge.put(id, 0.0);
+            batteryChargeState.put(id, ChargeState.BASELINE);
+        }
+
+        // reset batteries somehow ??
 
         // this.peakWindowStart = 0;
         // double maxWindow = 0;
@@ -709,51 +722,83 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             ZonedDateTime dischargePeakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
             for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
                 String id = houseConfiguration.getBatteryID();
+
+                Inverter inverter = inverters.get(id);
+
                 double p_out = 0;
                 double q_out = 0;
 
                 if (batteryActiveReal) {
-                    if (scenarioTime.getHour() >= 1 && scenarioTime.getHour() < 8) { // charge window (negative p_out values)
+                    boolean isDischargePossible = false;
+
+                    final double lambda = houseConfiguration.getLambda();
+                    final double mPrice = transformers.get(houseConfiguration.getTransformerID()).getMPrice();
+
+                    if (batteryChargeState.get(id) == ChargeState.BASELINE) {
                         ZonedDateTime actualStartTime = chargeStartTime.plusMinutes(houseConfiguration.getMinuteDelay());
                         long elapsedMinutes = Duration.between(actualStartTime, scenarioTime).toMinutes();
 
-                        if (elapsedMinutes < 0 || elapsedMinutes >= 270) {
+                        if (elapsedMinutes < 0 || elapsedMinutes >= 270) { // outside charge window
                             p_out = 0;
+                            isDischargePossible = true;
+                        } else if (useCongestionControl && (mPrice > 1 + lambda / 2)) { // switch to congestion control
+                            p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
+                            batteryChargeState.put(id, ChargeState.CONGESTION);
                         } else if (elapsedMinutes >= 30) { // ramp down
                             final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
                             p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
-                            log.debug("BATTERY {} CHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else { // ramp up
                             final double deltaPerMinute = 4800.0/30; // 4.8 kW change over 30 minutes
                             p_out = -(elapsedMinutes * deltaPerMinute);
-                            log.debug("BATTERY {} CHARGE @ {}", houseConfiguration.getID(), p_out);
                         }
-                    } else { // discharge possible
+                    } else {
+                        if (scenarioTime.getHour() >= 10 || batteryCharge.get(id) >= 10.8) { //kWh
+                            p_out = 0;
+                            isDischargePossible = true;
+                        } else if (mPrice > 1 + lambda / 2) {
+                            p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
+                            batteryChargeState.put(id, ChargeState.CONGESTION);
+                        } else if (batteryChargeState.get(id) == ChargeState.CONGESTION) {
+                            p_out = inverter.get_P_Out();
+                            batteryChargeState.put(id, ChargeState.NO_CONGESTION);
+                        } else if (-inverter.get_P_Out() < 5000) {
+                            p_out = -Math.min(-inverter.get_P_Out() + 100, 5000); // W
+                        }
+                    }
+
+                    if (isDischargePossible) {
                         final double deltaPerMinute = 3600.0/180; // 3.6 kW change over 180 minutes
                         long elapsedMinutes = Duration.between(scenarioTime, dischargePeakTime).toMinutes();
 
                         if (elapsedMinutes == 0) { // peak
                             p_out = 3600;
-                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else if (elapsedMinutes > 0 && elapsedMinutes <= 180) { // ramp up
                             p_out = (180 - elapsedMinutes) * deltaPerMinute;
-                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         } else if (elapsedMinutes < 0 && elapsedMinutes >= -180) { // ramp down
                             p_out = 3600 + elapsedMinutes * deltaPerMinute;
-                            log.debug("BATTERY {} DISCHARGE @ {}", houseConfiguration.getID(), p_out);
                         }
 
-                        // RTP Adjust
-                        if (batteryRtpAdjust) {
-                            double priceRatio = realTimePrice / peakDayAheadPrice;
-                            if (1 < priceRatio && priceRatio < 2) {
-                                p_out = p_out + (priceRatio - 1)*(5000 - p_out);
-                                log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
-                            } else if (priceRatio >= 2) {
-                                p_out = 5000;
-                                log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
+                        double priceRatio = 0;
+
+                        if (useCongestionControl) {
+                            final double dap = dayAheadPrice[scenarioTime.getHour()];
+                            if (transformers.containsKey(houseConfiguration.getTransformerID())) {
+                                final double cdp = transformers.get(houseConfiguration.getTransformerID()).getMPrice() * dap;
+                                priceRatio = cdp / peakDayAheadPrice;
+                            } else {
+                                log.warn("failed to calculate CDP: transformer {} does not exist", houseConfiguration.getTransformerID());
                             }
+                        } else if (batteryRtpAdjust) {
+                            priceRatio = realTimePrice / peakDayAheadPrice;
                         }
+
+                        if (priceRatio >= 2) {
+                            p_out = 5000;
+                            log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
+                        } else if (priceRatio > 1) {
+                            p_out = p_out + (priceRatio - 1)*(5000 - p_out);
+                            log.debug("BATTERY {} ADJUST @ {}", houseConfiguration.getID(), p_out);
+                        } 
                     }
                 }
 
@@ -791,8 +836,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     p_out = newPOut;
                 }
 
+                if (p_out < 0) {
+                    // calculate total charge (effective next time step)
+                    double charge_delta = (-p_out / 1000) * logicalTimeScale / 3600; // kWh
+                    batteryCharge.put(id, batteryCharge.get(id) + charge_delta);
+                    log.debug("BATTERY {}: P_OUT = {} W, TOTAL_CHARGE = {} kWh", houseConfiguration.getID(), p_out, batteryCharge.get(id));
+                } else if (p_out > 0) {
+                    log.debug("BATTERY {}: P_OUT = {} W", houseConfiguration.getID(), p_out);
+                }
+
                 // TODO: should this be prevented if real or reactive are disabled?
-                Inverter inverter = inverters.get(id);
                 inverter.set_name(id);
                 inverter.set_P_Out(p_out);
                 inverter.set_Q_Out(q_out);
@@ -842,16 +895,15 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     } else if (vehicleChargeState.get(id) == ChargeState.CONGESTION) {
                         p_out = inverter.get_P_Out();
                         vehicleChargeState.put(id, ChargeState.NO_CONGESTION);
-                    } else if (inverter.get_P_Out() < 1000 * profile.max_charge_output) {
-                        p_out = Math.min(inverter.get_P_Out() + 200, 1000 * profile.max_charge_output); // W
+                    } else if (-inverter.get_P_Out() < 1000 * profile.max_charge_output) {
+                        p_out = -Math.min(-inverter.get_P_Out() + 200, 1000 * profile.max_charge_output); // W
                     }
                 }
 
-                // calculate total charge (effective next time step)
-                double charge_delta = (-p_out / 1000) * logicalTimeScale / 3600; // kWh
-                vehicleCharge.put(id, vehicleCharge.get(id) + charge_delta);
-
-                if (p_out != 0) {
+                if (p_out < 0) {
+                    // calculate total charge (effective next time step)
+                    double charge_delta = (-p_out / 1000) * logicalTimeScale / 3600; // kWh
+                    vehicleCharge.put(id, vehicleCharge.get(id) + charge_delta);
                     log.info("VEHICLE {}: P_OUT = {} W, TOTAL_CHARGE = {} kWh", id, p_out, vehicleCharge.get(id));
                 }
                 
