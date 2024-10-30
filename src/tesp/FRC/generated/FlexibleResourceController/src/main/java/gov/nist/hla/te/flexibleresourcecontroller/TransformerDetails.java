@@ -70,6 +70,8 @@ class TransformerDetails {
         } else {
             mPrice = 0;
         }
+
+        log.debug("TRANSFORMER {}: mFlow = {}, mPrice = {}, realPower = {}", name, mFlow, mPrice, realPowerHistory.getLast());
     }
 
     private double getRealPowerAverage() {

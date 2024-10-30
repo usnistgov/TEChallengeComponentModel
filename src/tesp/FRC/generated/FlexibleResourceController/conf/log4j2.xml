@@ -12,6 +12,9 @@
         <Logger name="gov.nist.hla.te.flexibleresourcecontroller.FlexibleResourceController" level="DEBUG" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
+        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.TransformerDetails" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
         <Root level="INFO">
             <AppenderRef ref="Console" />
         </Root>
