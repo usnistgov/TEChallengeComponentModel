@@ -572,8 +572,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             for (Map.Entry<String, VehicleChargeProfile> entry : vehicleChargeProfiles.entrySet()) {
                 VehicleChargeProfile modifiedProfile = entry.getValue();
                 modifiedProfile.charge_start_time = modifiedProfile.charge_start_time.minusDays(1);
+                modifiedProfile.charge_end_time = modifiedProfile.charge_end_time.minusDays(1);
                 entry.setValue(modifiedProfile);
-                log.info("EV_PROFILE {} UPDATED t={}", entry.getKey(), modifiedProfile.charge_start_time);
+                log.info("EV_PROFILE {} UPDATED t_start={} t_end={}", entry.getKey(), modifiedProfile.charge_start_time, modifiedProfile.charge_end_time);
             }
         }
 
@@ -761,7 +762,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         } else if (batteryChargeState.get(id) == ChargeState.CONGESTION) {
                             p_out = inverter.get_P_Out();
                             batteryChargeState.put(id, ChargeState.NO_CONGESTION);
-                        } else if (-inverter.get_P_Out() < 5000) {
+                        } else {
                             p_out = -Math.min(-inverter.get_P_Out() + 100, 5000); // W
                         }
                     }
@@ -895,7 +896,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     } else if (vehicleChargeState.get(id) == ChargeState.CONGESTION) {
                         p_out = inverter.get_P_Out();
                         vehicleChargeState.put(id, ChargeState.NO_CONGESTION);
-                    } else if (-inverter.get_P_Out() < 1000 * profile.max_charge_output) {
+                    } else {
                         p_out = -Math.min(-inverter.get_P_Out() + 200, 1000 * profile.max_charge_output); // W
                     }
                 }
