@@ -23,7 +23,15 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     public ElectricVehicle electricVehicle;
 
     @FederateParameter
-    public boolean useCongestionDynamicPrice;
+    public CongestionDynamicPrice congestionDynamicPrice;
+
+    public class CongestionDynamicPrice {  
+        public boolean useCongestionDynamicPrice;
+        public double backoffCoefficient;
+        public double perMinuteIncrease;
+        public long minutesBetweenUpdates;
+        public long minutesAveragePower;
+    }
 
     public class HeatPump {
         public boolean isControlled;

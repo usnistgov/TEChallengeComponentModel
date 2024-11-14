@@ -7,7 +7,6 @@
   "stepSize": 1.0,
   "houseConfigurationFile": "conf/houseParametersEV.csv",
   "transformerConfigurationFile": "conf/transformers.csv",
-  "useCongestionDynamicPrice": true,
   "heatPump": {
     "isControlled": true,
     "useRtpAdjust": true
@@ -24,6 +23,13 @@
   },
   "electricVehicle": {
     "useDayAheadPrice": true,
-    "seed": 0
+    "seed": 1
+  },
+  "congestionDynamicPrice": {
+    "useCongestionDynamicPrice": true,
+    "backoffCoefficient": 5.0,
+    "perMinuteIncrease": 0.1,
+    "minutesBetweenUpdates": 5,
+    "minutesAveragePower": 5
   }
 }

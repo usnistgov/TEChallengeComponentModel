@@ -18,8 +18,8 @@ class TransformerDetails {
     private double mPrice;
 
     // timescale = number of seconds per 1 logical time
-    TransformerDetails(String[] data, double timeScale) {
-        final int secondsOfHistory = 15 * 60;
+    TransformerDetails(String[] data, long minutes, double timeScale) {
+        final long secondsOfHistory = minutes * 60;
 
         if (data == null || data.length != 2) {
             throw new RuntimeException("invalid transformer configuration");

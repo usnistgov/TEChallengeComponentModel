@@ -102,15 +102,22 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double v_hi;
     private double v_max;
 
+    private long cdp_n_avg;
+    private long cdp_n_check;
+    private double cdp_n_backoff;
+    private double cdp_pmi;
+
     private double evChargeCoefficient;
     private LogNormalDistribution evChargeDistribution;
     private Map<String, VehicleChargeProfile> vehicleChargeProfiles = new HashMap<String, VehicleChargeProfile>();
 
     private Map<String, Double> vehicleCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> vehicleChargeState = new HashMap<String, ChargeState>();
+    private Map<String, ZonedDateTime> vehicleCongestionStart = new HashMap<String, ZonedDateTime>();
 
     private Map<String, Double> batteryCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
+    private Map<String, ZonedDateTime> batteryCongestionStart = new HashMap<String, ZonedDateTime>();
 
     private Random random = new Random();
 
@@ -119,7 +126,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
         String status;
 
-        useCongestionControl = params.useCongestionDynamicPrice;
+        useCongestionControl = params.congestionDynamicPrice.useCongestionDynamicPrice;
+        cdp_n_avg = params.congestionDynamicPrice.minutesAveragePower;
+        cdp_n_check = params.congestionDynamicPrice.minutesBetweenUpdates;
+        cdp_n_backoff = params.congestionDynamicPrice.backoffCoefficient;
+        cdp_pmi = params.congestionDynamicPrice.perMinuteIncrease;
+
         heatPumpActive = params.heatPump.isControlled;
         heatPumpRtpAdjust = params.heatPump.useRtpAdjust;
 
@@ -274,7 +286,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(delimiter);
 
-                TransformerDetails transformer = new TransformerDetails(data, logicalTimeScale);
+                TransformerDetails transformer = new TransformerDetails(data, cdp_n_avg, logicalTimeScale);
                 transformers.put(transformer.getName(), transformer);
                 log.trace("initialized transformer: {}", transformer.getName());
             }
@@ -330,6 +342,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             String id = houseConfiguration.getBatteryID();
             batteryCharge.put(id, 0.0);
             batteryChargeState.put(id, ChargeState.BASELINE);
+            batteryCongestionStart.clear();
         }
 
         // reset batteries somehow ??
@@ -351,6 +364,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         vehicleCharge.clear();
         vehicleChargeState.clear();
         vehicleChargeProfiles.clear();
+        vehicleCongestionStart.clear();
         log.debug("cleared existing vehicle charge profiles");
 
         for (String vehicleID : vehicles.keySet()) {
@@ -743,8 +757,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             p_out = 0;
                             isDischargePossible = true;
                         } else if (useCongestionControl && (mPrice > 1 + lambda / 2)) { // switch to congestion control
-                            p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
+                            double e = 1 - (1 + lambda / 2) / mPrice;
+                            p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
                             batteryChargeState.put(id, ChargeState.CONGESTION);
+                            batteryCongestionStart.put(id, scenarioTime);
                         } else if (elapsedMinutes >= 30) { // ramp down
                             final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
                             p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
@@ -756,14 +772,20 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (scenarioTime.getHour() >= 10 || batteryCharge.get(id) >= 10.8) { //kWh
                             p_out = 0;
                             isDischargePossible = true;
-                        } else if (mPrice > 1 + lambda / 2) {
-                            p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
-                            batteryChargeState.put(id, ChargeState.CONGESTION);
-                        } else if (batteryChargeState.get(id) == ChargeState.CONGESTION) {
-                            p_out = inverter.get_P_Out();
-                            batteryChargeState.put(id, ChargeState.NO_CONGESTION);
+                        } else if (Duration.between(scenarioTime, batteryCongestionStart.get(id)).toMinutes() % cdp_n_check == 0) {
+                            if (mPrice > 1 + lambda / 2) {
+                                double e = 1 - (1 + lambda / 2) / mPrice;
+                                p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
+                                batteryChargeState.put(id, ChargeState.CONGESTION);
+                            } else if (batteryChargeState.get(id) == ChargeState.CONGESTION) {
+                                p_out = inverter.get_P_Out();
+                                batteryChargeState.put(id, ChargeState.NO_CONGESTION);
+                            } else {
+                                double kw_increase = cdp_n_check * cdp_pmi;
+                                p_out = -Math.min(-inverter.get_P_Out() + 1000 * kw_increase, 5000); // W
+                            }
                         } else {
-                            p_out = -Math.min(-inverter.get_P_Out() + 100, 5000); // W
+                            p_out = inverter.get_P_Out();
                         }
                     }
 
@@ -875,8 +897,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
                         p_out = 0;
                     } else if (useCongestionControl && (mPrice > 1 + lambda / 2)) { // switch to congestion control
-                        p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
+                        double e = 1 - (1 + lambda / 2) / mPrice;
+                        p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
                         vehicleChargeState.put(id, ChargeState.CONGESTION);
+                        vehicleCongestionStart.put(id, scenarioTime);
                     } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
                         p_out = -1000 * (profile.ramp_up_rate / 60 * elapsedMinutes);
                     } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
@@ -890,14 +914,20 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 } else {
                     if (scenarioTime.isAfter(profile.charge_end_time) || vehicleCharge.get(id) >= profile.charge_amount) { //kWh
                         p_out = 0;
-                    } else if (mPrice > 1 + lambda / 2) {
-                        p_out = inverter.get_P_Out() * (1 + lambda / 2) / mPrice;
-                        vehicleChargeState.put(id, ChargeState.CONGESTION);
-                    } else if (vehicleChargeState.get(id) == ChargeState.CONGESTION) {
-                        p_out = inverter.get_P_Out();
-                        vehicleChargeState.put(id, ChargeState.NO_CONGESTION);
+                    } else if (Duration.between(scenarioTime, vehicleCongestionStart.get(id)).toMinutes() % cdp_n_check == 0) {                    
+                        if (mPrice > 1 + lambda / 2) {
+                            double e = 1 - (1 + lambda / 2) / mPrice;
+                            p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
+                            vehicleChargeState.put(id, ChargeState.CONGESTION);
+                        } else if (vehicleChargeState.get(id) == ChargeState.CONGESTION) {
+                            p_out = inverter.get_P_Out();
+                            vehicleChargeState.put(id, ChargeState.NO_CONGESTION);
+                        } else {
+                            double kw_increase = cdp_n_check * cdp_pmi;
+                            p_out = -Math.min(-inverter.get_P_Out() + 1000 * kw_increase, 1000 * profile.max_charge_output); // W
+                        }
                     } else {
-                        p_out = -Math.min(-inverter.get_P_Out() + 200, 1000 * profile.max_charge_output); // W
+                        p_out = inverter.get_P_Out();
                     }
                 }
 
