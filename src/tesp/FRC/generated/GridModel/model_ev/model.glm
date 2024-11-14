@@ -7671,7 +7671,7 @@ object transformer {
   phases AS;
   from R4_12_47_1_node_196;
   to R4_12_47_1_tn_123;
-  configuration XF1_POLETOP_AS_50;
+  configuration XF1_POLETOP_AS_25;
 }
 object transformer {
   name R4_12_47_1_xfmr_124;
