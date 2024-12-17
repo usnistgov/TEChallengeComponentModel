@@ -3,6 +3,13 @@ package gov.nist.hla.te.flexibleresourcecontroller;
 import java.lang.Math;
 import java.util.LinkedList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,10 +18,13 @@ class TransformerDetails {
 
     private LinkedList<Double> realPowerHistory = new LinkedList<Double>();
 
+    private File csvFilePath;
+
     private String name;
     private double capacity;
     private int historySize;
 
+    private double mFlow;
     private double mPrice;
 
     // timescale = number of seconds per 1 logical time
@@ -35,6 +45,15 @@ class TransformerDetails {
 
         if (historySize == 0) {
             log.warn("historySize calculated as 0 ({} / {})", secondsOfHistory, timeScale);
+        }
+
+        this.csvFilePath = new File("output" + File.separator + name + ".csv");
+        this.csvFilePath.getParentFile().mkdir();
+
+        try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath), CSVFormat.EXCEL)) {
+            printer.printRecord("timestamp", "mFlow","mPrice", "CDP");
+        } catch (IOException exception) {
+            log.error("Failed to write file: {}", exception.toString());
         }
     }
     
@@ -58,8 +77,16 @@ class TransformerDetails {
         return mPrice;
     }
 
+    public void writeOutput(String time, double dap) {
+        try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath, true), CSVFormat.EXCEL)) {
+            printer.printRecord(time, this.mFlow, this.mPrice, this.mPrice * dap);
+        } catch (IOException exception) {
+            log.error("Failed to write file: {}", exception.toString());
+        }
+    }
+
     private void update() {
-        double mFlow = getRealPowerAverage() / capacity;
+        mFlow = getRealPowerAverage() / capacity;
 
         if (mFlow > 0.75) {
             mPrice = Math.pow(mFlow, 3.074) / 2 + 0.7935;

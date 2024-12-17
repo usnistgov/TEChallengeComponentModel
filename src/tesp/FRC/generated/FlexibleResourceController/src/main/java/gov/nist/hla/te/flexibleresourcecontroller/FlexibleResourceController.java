@@ -21,6 +21,9 @@ import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.cpswt.utils.CpswtUtils;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,6 +63,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private double logicalTimeScale;
     private ZonedDateTime scenarioTime;
+    private ZonedDateTime scenarioStartTime;
 
     private Map<String, HouseConfiguration> houseConfigurations = new HashMap<String, HouseConfiguration>();
 
@@ -113,11 +117,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, Double> vehicleCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> vehicleChargeState = new HashMap<String, ChargeState>();
-    private Map<String, ZonedDateTime> vehicleCongestionStart = new HashMap<String, ZonedDateTime>();
 
     private Map<String, Double> batteryCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
-    private Map<String, ZonedDateTime> batteryCongestionStart = new HashMap<String, ZonedDateTime>();
 
     private Random random = new Random();
 
@@ -342,7 +344,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             String id = houseConfiguration.getBatteryID();
             batteryCharge.put(id, 0.0);
             batteryChargeState.put(id, ChargeState.BASELINE);
-            batteryCongestionStart.clear();
         }
 
         // reset batteries somehow ??
@@ -364,7 +365,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         vehicleCharge.clear();
         vehicleChargeState.clear();
         vehicleChargeProfiles.clear();
-        vehicleCongestionStart.clear();
         log.debug("cleared existing vehicle charge profiles");
 
         for (String vehicleID : vehicles.keySet()) {
@@ -733,6 +733,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             // battery control
             // TODO: determine if house has battery ?
             // TODO: what happens if a simulation starts mid-charge?
+            boolean checkForCongestion = (Duration.between(scenarioTime, scenarioStartTime).toMinutes() % cdp_n_check == 0);
             ZonedDateTime chargeStartTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(1,0), scenarioTime.getZone());
             ZonedDateTime dischargePeakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
             for (HouseConfiguration houseConfiguration : houseConfigurations.values()) {
@@ -756,11 +757,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (elapsedMinutes < 0 || elapsedMinutes >= 270) { // outside charge window
                             p_out = 0;
                             isDischargePossible = true;
-                        } else if (useCongestionControl && (mPrice > 1 + lambda / 2)) { // switch to congestion control
+                        } else if (useCongestionControl && checkForCongestion && (mPrice > 1 + lambda / 2)) { // switch to congestion control
                             double e = 1 - (1 + lambda / 2) / mPrice;
                             p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
                             batteryChargeState.put(id, ChargeState.CONGESTION);
-                            batteryCongestionStart.put(id, scenarioTime);
                         } else if (elapsedMinutes >= 30) { // ramp down
                             final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
                             p_out = -(4800 - (elapsedMinutes - 30) * deltaPerMinute);
@@ -772,7 +772,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (scenarioTime.getHour() >= 10 || batteryCharge.get(id) >= 10.8) { //kWh
                             p_out = 0;
                             isDischargePossible = true;
-                        } else if (Duration.between(scenarioTime, batteryCongestionStart.get(id)).toMinutes() % cdp_n_check == 0) {
+                        } else if (checkForCongestion) {
                             if (mPrice > 1 + lambda / 2) {
                                 double e = 1 - (1 + lambda / 2) / mPrice;
                                 p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
@@ -896,11 +896,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                if (vehicleChargeState.get(id) == ChargeState.BASELINE) {
                     if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
                         p_out = 0;
-                    } else if (useCongestionControl && (mPrice > 1 + lambda / 2)) { // switch to congestion control
+                    } else if (useCongestionControl && checkForCongestion && (mPrice > 1 + lambda / 2)) { // switch to congestion control
                         double e = 1 - (1 + lambda / 2) / mPrice;
                         p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
                         vehicleChargeState.put(id, ChargeState.CONGESTION);
-                        vehicleCongestionStart.put(id, scenarioTime);
                     } else if (elapsedMinutes < profile.ramp_up_minutes) { // ramp up window
                         p_out = -1000 * (profile.ramp_up_rate / 60 * elapsedMinutes);
                     } else if (elapsedMinutes < profile.ramp_up_minutes + profile.max_charge_minutes) { // constant charge window
@@ -914,7 +913,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 } else {
                     if (scenarioTime.isAfter(profile.charge_end_time) || vehicleCharge.get(id) >= profile.charge_amount) { //kWh
                         p_out = 0;
-                    } else if (Duration.between(scenarioTime, vehicleCongestionStart.get(id)).toMinutes() % cdp_n_check == 0) {                    
+                    } else if (checkForCongestion) {                    
                         if (mPrice > 1 + lambda / 2) {
                             double e = 1 - (1 + lambda / 2) / mPrice;
                             p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
@@ -944,6 +943,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 log.trace("id={} p={} charge={}", id, p_out, vehicleCharge.get(id));
             }
 
+            for (TransformerDetails transformer : transformers.values()) {
+                transformer.writeOutput(scenarioTime.toString(), dayAheadPrice[scenarioTime.getHour()]);
+            }
+
             firstTimeStep = false;
 
             if (!exitCondition) {
@@ -964,8 +967,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private void handleInteractionClass(SimTime interaction) {
         logicalTimeScale = interaction.get_timeScale();
         
-        scenarioTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
-        log.info("received SimTime starting at {}", scenarioTime.toString());
+        scenarioStartTime = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        log.info("received SimTime starting at {}", scenarioStartTime.toString());
+        scenarioTime = scenarioStartTime;
         receivedSimTime = true;
     }
 
