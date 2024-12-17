@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
@@ -373,6 +374,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         vehicleChargeProfiles.clear();
         log.debug("cleared existing vehicle charge profiles");
 
+        boolean firstDay = false;
+        if (csvFilePath == null) {
+            firstDay = true;
+        }
+
         for (String vehicleID : vehicles.keySet()) {
             double chargeAmount = generateChargeAmount();
             double chargeTimeProbability = random.nextDouble();
@@ -508,13 +514,19 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 csvFilePath.getParentFile().mkdir();
 
                 try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath), CSVFormat.EXCEL)) {
-                    printer.printRecord("timestamp", "start time", "charge amount");
+                    printer.printRecord("inverter", "start date", "start time", "charge amount");
                 } catch (IOException exception) {
                     log.error("Failed to write file: {}", exception.toString());
                 }
             }
             try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath, true), CSVFormat.EXCEL)) {
-                printer.printRecord(scenarioTime.toString(), profile.charge_start_time, profile.charge_amount);
+                LocalDate date = profile.charge_start_time.toLocalDate();
+                LocalTime time = profile.charge_start_time.toLocalTime();
+
+                if (firstDay && scenarioTime.getHour() < 8) { // adjust start time
+                    date = date.minusDays(1);
+                }
+                printer.printRecord(vehicleID, date.toString(), time.toString(), profile.charge_amount);
             } catch (IOException exception) {
                 log.error("Failed to write file: {}", exception.toString());
             }
