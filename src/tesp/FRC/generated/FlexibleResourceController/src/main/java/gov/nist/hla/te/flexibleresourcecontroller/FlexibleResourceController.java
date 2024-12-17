@@ -21,6 +21,10 @@ import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.cpswt.utils.CpswtUtils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
@@ -120,6 +124,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, Double> batteryCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
+
+    private File csvFilePath = null;
 
     private Random random = new Random();
 
@@ -496,6 +502,22 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             vehicleChargeProfiles.put(vehicleID, profile);
             vehicleChargeState.put(vehicleID, ChargeState.BASELINE);
             vehicleCharge.put(vehicleID, 0.0);
+
+            if (csvFilePath == null) {
+                csvFilePath = new File("output" + File.separator + "ev_profiles.csv");
+                csvFilePath.getParentFile().mkdir();
+
+                try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath), CSVFormat.EXCEL)) {
+                    printer.printRecord("timestamp", "start time", "charge amount");
+                } catch (IOException exception) {
+                    log.error("Failed to write file: {}", exception.toString());
+                }
+            }
+            try (CSVPrinter printer = new CSVPrinter(new FileWriter(csvFilePath, true), CSVFormat.EXCEL)) {
+                printer.printRecord(scenarioTime.toString(), profile.charge_start_time, profile.charge_amount);
+            } catch (IOException exception) {
+                log.error("Failed to write file: {}", exception.toString());
+            }
         }
     }
 
