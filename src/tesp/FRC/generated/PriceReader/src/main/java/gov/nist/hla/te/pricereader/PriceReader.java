@@ -110,10 +110,10 @@ public class PriceReader extends PriceReaderBase {
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
-            if (currentTime == 0 || !localDate.equals(scenarioTime.toLocalDate())) {
+            if (!localDate.equals(scenarioTime.toLocalDate())) {
                 localDate = scenarioTime.toLocalDate();
                 log.info("Start of new day: {}", localDate.toString());
-                sendDayAheadPrices(localDate.plusDays(1), currentTime + getLookAhead());
+                sendDayAheadPrices(localDate, currentTime + getLookAhead());
             }
 
             sendRealTimePrice(currentTime + getLookAhead());
