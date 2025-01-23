@@ -809,7 +809,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             p_out = -(elapsedMinutes * deltaPerMinute);
                         }
                     } else {
-                        if (scenarioTime.getHour() >= 10 || batteryCharge.get(id) >= 10.8) { //kWh
+                        if (scenarioTime.getHour() >= 12 || batteryCharge.get(id) >= 10.8) { //kWh
                             p_out = 0;
                             isDischargePossible = true;
                         } else if (checkForCongestion) {
