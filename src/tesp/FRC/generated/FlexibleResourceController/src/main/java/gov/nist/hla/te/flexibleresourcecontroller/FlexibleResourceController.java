@@ -76,6 +76,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double[] dayAheadPrice = new double[24];
 
     private double realTimePrice;
+    private double minDayAheadPrice;
     private double peakDayAheadPrice;
 
     private int peakHour;
@@ -336,13 +337,18 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private void startNewDay() {
         // TODO: check data structures
         this.peakHour = 0;
+        this.minDayAheadPrice = dayAheadPrice[0];
         this.peakDayAheadPrice = dayAheadPrice[0];
         for (int i = 1; i < 24; i++) {
+            if (dayAheadPrice[i] < minDayAheadPrice) {
+                this.minDayAheadPrice = dayAheadPrice[i];
+            }
             if (dayAheadPrice[i] > peakDayAheadPrice) {
                 this.peakHour = i;
                 this.peakDayAheadPrice = dayAheadPrice[i];
             }
         }
+        log.info("minimum day ahead price is {}", minDayAheadPrice);
         log.info("peak hour is {} with price={}", peakHour, peakDayAheadPrice);
         peakTime = ZonedDateTime.of(scenarioTime.toLocalDate(), LocalTime.of(peakHour,30), scenarioTime.getZone());
 
@@ -817,6 +823,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             } else {
                                 double kw_increase = cdp_n_check * cdp_pmi;
                                 p_out = -Math.min(-inverter.get_P_Out() + 1000 * kw_increase, 5000); // W
+                            }
+
+                            final double cdp = mPrice * dayAheadPrice[scenarioTime.getHour()];
+                            double p_adjust = (cdp - minDayAheadPrice) / (peakDayAheadPrice - minDayAheadPrice);
+                            if (p_adjust > 0.5) {
+                                p_out = 0;
+                                log.info("set p_out=0 for p_adjust={}", p_adjust);
+                            } else if (p_adjust >= 0.25) {
+                                p_out = p_out * (1 - (p_adjust - 0.25) / 0.25);
+                                log.info("set p_out={} for p_adjust={}", p_out, p_adjust);
                             }
                         } else {
                             p_out = inverter.get_P_Out();
