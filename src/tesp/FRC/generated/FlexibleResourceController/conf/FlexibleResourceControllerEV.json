@@ -19,7 +19,9 @@
     "isControlledReal": true,
     "isControlledReactive": true,
     "useRtpAdjust": true,
-    "q_set": 0.44
+    "q_set": 0.44,
+    "priceDifferentialEcon": 0.03,
+    "priceDifferentialRange": 0.01
   },
   "electricVehicle": {
     "useDayAheadPrice": true,

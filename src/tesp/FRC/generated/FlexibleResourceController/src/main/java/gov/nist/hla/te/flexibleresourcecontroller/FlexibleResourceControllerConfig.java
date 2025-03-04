@@ -53,6 +53,8 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
         public double v_lo  = 0.98;
         public double v_hi  = 1.02;
         public double v_max = 1.08;
+        public double priceDifferentialEcon = 0.03;
+        public double priceDifferentialRange = 0.01;
     }
 
     public class ElectricVehicle {

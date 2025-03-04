@@ -117,6 +117,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private double cdp_n_backoff;
     private double cdp_pmi;
 
+    private double priceDifEcon;
+    private double priceDifRange;
+
     private double evChargeCoefficient;
     private LogNormalDistribution evChargeDistribution;
     private Map<String, VehicleChargeProfile> vehicleChargeProfiles = new HashMap<String, VehicleChargeProfile>();
@@ -141,6 +144,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         cdp_n_check = params.congestionDynamicPrice.minutesBetweenUpdates;
         cdp_n_backoff = params.congestionDynamicPrice.backoffCoefficient;
         cdp_pmi = params.congestionDynamicPrice.perMinuteIncrease;
+
+        priceDifEcon = params.battery.priceDifferentialEcon;
+        priceDifRange = params.battery.priceDifferentialRange;
 
         heatPumpActive = params.heatPump.isControlled;
         heatPumpRtpAdjust = params.heatPump.useRtpAdjust;
@@ -797,9 +803,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                         if (elapsedMinutes < 0 || elapsedMinutes >= 270) { // outside charge window
                             p_out = 0;
                             isDischargePossible = true;
-                        } else if (useCongestionControl && checkForCongestion && (mPrice > 1 + lambda / 2)) { // switch to congestion control
-                            double e = 1 - (1 + lambda / 2) / mPrice;
-                            p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
+                        } else if (useCongestionControl && checkForCongestion && (mPrice > 1)) { // switch to congestion control
+                            double b = cdp_n_backoff * (1 - (1 / mPrice));
+                            p_out = (1 - b) * inverter.get_P_Out();
                             batteryChargeState.put(id, ChargeState.CONGESTION);
                         } else if (elapsedMinutes >= 30) { // ramp down
                             final double deltaPerMinute = 4800.0/240; // 4.8 kW change over 240 minutes
@@ -813,9 +819,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             p_out = 0;
                             isDischargePossible = true;
                         } else if (checkForCongestion) {
-                            if (mPrice > 1 + lambda / 2) {
-                                double e = 1 - (1 + lambda / 2) / mPrice;
-                                p_out = (1 - cdp_n_backoff * e) * inverter.get_P_Out();
+                            if (mPrice > 1) {
+                                double b = cdp_n_backoff * (1 - (1 / mPrice));
+                                p_out = (1 - b) * inverter.get_P_Out();
                                 batteryChargeState.put(id, ChargeState.CONGESTION);
                             } else if (batteryChargeState.get(id) == ChargeState.CONGESTION) {
                                 p_out = inverter.get_P_Out();
@@ -826,14 +832,14 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                             }
 
                             final double cdp = mPrice * dayAheadPrice[scenarioTime.getHour()];
-                            double p_adjust = (cdp - minDayAheadPrice) / (peakDayAheadPrice - minDayAheadPrice);
-                            if (p_adjust > 0.5) {
+                            final double price_differential = peakDayAheadPrice - cdp;
+
+                            if (price_differential <= priceDifEcon) {
                                 p_out = 0;
-                                log.info("set p_out=0 for p_adjust={}", p_adjust);
-                            } else if (p_adjust >= 0.25) {
-                                p_out = p_out * (1 - (p_adjust - 0.25) / 0.25);
-                                log.info("set p_out={} for p_adjust={}", p_out, p_adjust);
+                            } else if (price_differential < priceDifEcon + priceDifRange) {
+                                p_out = p_out * ((price_differential - priceDifEcon) / priceDifRange);
                             }
+                            log.info("set p_out={} for price_differential={}", p_out, price_differential);
                         } else {
                             p_out = inverter.get_P_Out();
                         }
