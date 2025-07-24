@@ -1,0 +1,8 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "MarketAgent",
+  "federationId": "TE_Market",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0
+}

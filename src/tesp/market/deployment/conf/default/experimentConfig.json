@@ -1,0 +1,35 @@
+{
+  "federateTypesAllowed": [
+    "MarketAgent",
+    "SimulationTime",
+    "UserAgent"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "MarketAgent",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    },
+    {
+      "federateType": "UserAgent",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "MarketAgent",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    },
+    {
+      "federateType": "UserAgent",
+      "count": 0
+    }
+  ]
+}
