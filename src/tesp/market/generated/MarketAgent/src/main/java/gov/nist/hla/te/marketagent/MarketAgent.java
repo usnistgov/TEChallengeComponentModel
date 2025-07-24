@@ -6,21 +6,33 @@ import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
+import org.cpswt.utils.CpswtUtils;
+
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
-// Define the MarketAgent type of federate for the federation.
-
 public class MarketAgent extends MarketAgentBase {
     private final static Logger log = LogManager.getLogger();
 
+    private boolean receivedSimTime = false;
+    
     private double currentTime = 0;
+    private double logicalTimeScale;
+
+    private ZonedDateTime scenarioTime;
+    private ZonedDateTime scenarioTimeStop;
 
     public MarketAgent(FederateConfig params) throws Exception {
         super(params);
+    }
+
+    private void incrementScenarioTime() {
+        final double scenarioTimeDelta = this.getStepSize() * logicalTimeScale;
+        scenarioTime = scenarioTime.plusSeconds((long)scenarioTimeDelta);
     }
 
     private void checkReceivedSubscriptions() {
@@ -45,10 +57,6 @@ public class MarketAgent extends MarketAgentBase {
             super.disableTimeRegulation();
         }
 
-        /////////////////////////////////////////////
-        // TODO perform basic initialization below //
-        /////////////////////////////////////////////
-
         AdvanceTimeRequest atr = new AdvanceTimeRequest(currentTime);
         putAdvanceTimeRequest(atr);
 
@@ -58,9 +66,16 @@ public class MarketAgent extends MarketAgentBase {
             log.info("...synchronized on readyToPopulate");
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        // TODO perform initialization that depends on other federates below //
-        ///////////////////////////////////////////////////////////////////////
+        while (!receivedSimTime) {
+            log.info("waiting to receive SimTime...");
+            synchronized (lrc) {
+                lrc.tick();
+            }
+            checkReceivedSubscriptions();
+            if (!receivedSimTime) {
+                CpswtUtils.sleep(1000);
+            }
+        }
 
         if(!super.isLateJoiner()) {
             log.info("waiting on readyToRun...");
@@ -75,64 +90,28 @@ public class MarketAgent extends MarketAgentBase {
             atr.requestSyncStart();
             enteredTimeGrantedState();
 
-            ////////////////////////////////////////////////////////////
-            // TODO send interactions that must be sent every logical //
-            // time step below                                        //
-            ////////////////////////////////////////////////////////////
-
-            // Set the interaction's parameters.
-            //
-            //    Quote quote = create_Quote();
-            //    quote.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
-            //    quote.set_counterPartyId( < YOUR VALUE HERE > );
-            //    quote.set_federateFilter( < YOUR VALUE HERE > );
-            //    quote.set_id( < YOUR VALUE HERE > );
-            //    quote.set_interval( < YOUR VALUE HERE > );
-            //    quote.set_marketId( < YOUR VALUE HERE > );
-            //    quote.set_originFed( < YOUR VALUE HERE > );
-            //    quote.set_partyId( < YOUR VALUE HERE > );
-            //    quote.set_price( < YOUR VALUE HERE > );
-            //    quote.set_quantity( < YOUR VALUE HERE > );
-            //    quote.set_side( < YOUR VALUE HERE > );
-            //    quote.set_sourceFed( < YOUR VALUE HERE > );
-            //    quote.sendInteraction(getLRC(), currentTime + getLookAhead());
-            //    Transaction transaction = create_Transaction();
-            //    transaction.set_actualLogicalGenerationTime( < YOUR VALUE HERE > );
-            //    transaction.set_counterPartyId( < YOUR VALUE HERE > );
-            //    transaction.set_federateFilter( < YOUR VALUE HERE > );
-            //    transaction.set_id( < YOUR VALUE HERE > );
-            //    transaction.set_interval( < YOUR VALUE HERE > );
-            //    transaction.set_marketId( < YOUR VALUE HERE > );
-            //    transaction.set_originFed( < YOUR VALUE HERE > );
-            //    transaction.set_partyId( < YOUR VALUE HERE > );
-            //    transaction.set_price( < YOUR VALUE HERE > );
-            //    transaction.set_quantity( < YOUR VALUE HERE > );
-            //    transaction.set_side( < YOUR VALUE HERE > );
-            //    transaction.set_sourceFed( < YOUR VALUE HERE > );
-            //    transaction.sendInteraction(getLRC(), currentTime + getLookAhead());
+            log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
             checkReceivedSubscriptions();
 
-            ////////////////////////////////////////////////////////////////////
-            // TODO break here if ready to resign and break out of while loop //
-            ////////////////////////////////////////////////////////////////////
-
             if (!exitCondition) {
+                incrementScenarioTime();
                 currentTime += super.getStepSize();
-                AdvanceTimeRequest newATR =
-                    new AdvanceTimeRequest(currentTime);
-                putAdvanceTimeRequest(newATR);
-                atr.requestSyncEnd();
-                atr = newATR;
+
+                if (scenarioTime.isBefore(scenarioTimeStop)) {
+                    AdvanceTimeRequest newATR =
+                        new AdvanceTimeRequest(currentTime);
+                    putAdvanceTimeRequest(newATR);
+                    atr.requestSyncEnd();
+                    atr = newATR;
+                } else {
+                    exitCondition = true;
+                    log.info("Reached stop time of {}", scenarioTimeStop.toString());
+                }
             }
         }
 
-        // call exitGracefully to shut down federate
         exitGracefully();
-
-        //////////////////////////////////////////////////////////////////////
-        // TODO Perform whatever cleanups are needed before exiting the app //
-        //////////////////////////////////////////////////////////////////////
     }
 
     private void handleInteractionClass(Tender interaction) {
@@ -142,9 +121,17 @@ public class MarketAgent extends MarketAgentBase {
     }
 
     private void handleInteractionClass(SimTime interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        if (receivedSimTime) {
+            log.debug("dropped duplicate SimTime interaction");
+            return;
+        }
+
+        logicalTimeScale    = interaction.get_timeScale();
+        scenarioTime        = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStart()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        scenarioTimeStop    = ZonedDateTime.ofInstant(Instant.ofEpochSecond(interaction.get_unixTimeStop()), TimeZone.getTimeZone(interaction.get_timeZone()).toZoneId());
+        receivedSimTime     = true;
+
+        log.info("received SimTime starting at {}", scenarioTime.toString());
     }
 
     public static void main(String[] args) {

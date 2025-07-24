@@ -7,7 +7,7 @@
   "stepSize": 1.0,
   "unixTimeStart": 1499299200,
   "unixTimeStop": 1499472000,
-  "timeScale": 60.0,
+  "timeScale": 900.0,
   "timeZone": "America/Phoenix",
   "timeZonePosix": "MST7"
 }
