@@ -10,6 +10,10 @@ import org.cpswt.utils.CpswtUtils;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +29,9 @@ public class UserAgent extends UserAgentBase {
 
     private ZonedDateTime scenarioTime;
     private ZonedDateTime scenarioTimeStop;
+    
+    private Set<String> activeMarkets = new HashSet<String>();
+    private Map<String, Agent> agents = new HashMap<String, Agent>();
 
     public UserAgent(FederateConfig params) throws Exception {
         super(params);
@@ -98,7 +105,11 @@ public class UserAgent extends UserAgentBase {
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
-            checkReceivedSubscriptions();
+            do {
+                checkReceivedSubscriptions();
+            } while (!activeMarkets.isEmpty());
+
+            // TODO: csv output
 
             if (!exitCondition) {
                 incrementScenarioTime();
@@ -127,15 +138,29 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        final String marketId = interaction.get_marketId();
+        final String priceString = interaction.get_price();
+        final String quantityString = interaction.get_quantity();
+
+        final boolean isBuyQuote = (interaction.get_side() == 'b');
+
+        if (activeMarkets.add(marketId)) {
+            log.info("Detected new market {}", marketId);
+        }
+
+        for (Agent a : agents.values()) {
+            String tenderQuantity = a.handleQuote(marketId, priceString, quantityString, isBuyQuote);
+        }
     }
 
     private void handleInteractionClass(MarketClosed interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        final String marketId = interaction.get_marketId();
+
+        if (activeMarkets.remove(marketId)) {
+            log.info("Processed MarketClosed for {}", marketId);
+        } else {
+            log.warn("MarketClosed received for unknown market {}", marketId);
+        }
     }
 
     private void handleInteractionClass(SimTime interaction) {
