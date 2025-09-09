@@ -42,6 +42,7 @@ class HouseAgent implements Agent {
     public String handleQuote(String priceString, String quantityString, boolean isBuyQuote) {
         if (loadForecast.isEmpty()) {
             log.warn("{} cannot handle quote due to missing load forecast data", agentId);
+            return "";
         }
 
         String desiredQuantity = "";
@@ -74,17 +75,14 @@ class HouseAgent implements Agent {
             log.warn("{} cannot handle transaction due to missing load forecast data", agentId);
             return;
         }
-        if (isBuyTransaction) {
-            return;
-        }
 
         String[] quantities = quantityString.split(" ");
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
             if (isBuyTransaction) {
-                transactedAmount[i] -= Double.parseDouble(quantities[i]);   
+                transactedAmount[i] += Double.parseDouble(quantities[i]);   
             } else {
-                transactedAmount[i] += Double.parseDouble(quantities[i]);
+                transactedAmount[i] -= Double.parseDouble(quantities[i]);
             }
         }
     }

@@ -238,7 +238,7 @@ public class MarketAgent extends MarketAgentBase {
                     synchronized (lrc) {
                         lrc.tick();
                     }
-                    CpswtUtils.sleep(100);
+                    CpswtUtils.sleep(200);
                 }
             } while (marketRound > 0);
 
@@ -283,7 +283,6 @@ public class MarketAgent extends MarketAgentBase {
         transaction.set_quantity(interaction.get_quantity());
         transaction.sendInteraction(getLRC());
         ///
-            log.warn("received unexpected tender with id {}", tenderId);
 
         if (pendingTenders.isEmpty()) {
             handleRoundEnd();
@@ -299,9 +298,11 @@ public class MarketAgent extends MarketAgentBase {
 
         if (marketUpdated) {
             sendQuotes();
+            marketRound += 1;
             readyToClear = false;
         } else {
             if (readyToClear) {
+                log.info("market closed");
                 for (MarketInfo market : marketInfo.values()) {
                     MarketClosed closed = create_MarketClosed();
                     closed.set_marketId(market.getId());
@@ -312,6 +313,8 @@ public class MarketAgent extends MarketAgentBase {
                 readyToClear = false;
                 marketRound = 0;
             } else {
+                sendQuotes();
+                marketRound += 1;
                 readyToClear = true;
             }
         }
@@ -381,6 +384,7 @@ public class MarketAgent extends MarketAgentBase {
     }
 
     private void sendQuotes() {
+        log.info("round {}", marketRound);
         resetPendingTenders();
 
         for (MarketInfo market : marketInfo.values()) {
@@ -432,8 +436,8 @@ public class MarketAgent extends MarketAgentBase {
                 buyQuote.set_price(buyPrice);
                 buyQuote.set_quantity(buyQuantity);
                 buyQuote.sendInteraction(getLRC());
-                log.debug("buy price: {}", buyPrice);
-                log.debug("buy quantity: {}", buyQuantity);
+                log.info("{} sent buy quote with quantity {}", market.getId(), buyQuantity);
+                log.info("{} sent buy quote with price {}", market.getId(), buyPrice);
             }
 
             Quote sellQuote = create_Quote();
@@ -446,8 +450,8 @@ public class MarketAgent extends MarketAgentBase {
             sellQuote.set_price(sellPrice);
             sellQuote.set_quantity(sellQuantity);
             sellQuote.sendInteraction(getLRC());
-            log.debug("sell price: {}", sellPrice);
-            log.debug("sell quantity: {}", sellQuantity);
+            log.info("{} sent sell quote with quantity {}", market.getId(), sellQuantity);
+            log.info("{} sent sell quote with price {}", market.getId(), sellPrice);
         }
     }
 

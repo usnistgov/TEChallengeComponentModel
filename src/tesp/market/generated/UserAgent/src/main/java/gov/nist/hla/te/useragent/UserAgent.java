@@ -135,6 +135,9 @@ public class UserAgent extends UserAgentBase {
 
             log.info("t = {} / {}", this.getCurrentTime(), scenarioTime.toString());
 
+            CpswtUtils.sleep(800); // temporary fix for race condition
+            lrc.tick();
+
             do {
                 checkReceivedSubscriptions();
                 if (!activeMarkets.isEmpty()) {
@@ -144,6 +147,8 @@ public class UserAgent extends UserAgentBase {
                     CpswtUtils.sleep(100);
                 }
             } while (!activeMarkets.isEmpty());
+
+            log.debug("thru");
 
             if (isMarketRunning) {
                 for (Agent a : agents.values()) {
@@ -174,6 +179,7 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
+        log.debug("received quote");
         final String marketId = interaction.get_marketId();
         final String priceString = interaction.get_price();
         final String quantityString = interaction.get_quantity();
@@ -200,7 +206,7 @@ public class UserAgent extends UserAgentBase {
                     tender.set_price(priceString);
                     tender.set_quantity(tenderQuantity);
                     tender.sendInteraction(getLRC());
-                    log.debug("{} sent {} tender for {}", a.getAgentId(), tenderSide, tenderQuantity);
+                    log.info("{} sent {} tender for {}", a.getAgentId(), tenderSide, tenderQuantity);
                 }
             }
         }
@@ -212,6 +218,7 @@ public class UserAgent extends UserAgentBase {
         if (agent != null) {
             final boolean isBuyQuote = (interaction.get_side() == 'b');
             agent.handleTransaction(interaction.get_price(), interaction.get_quantity(), isBuyQuote);
+            log.info("{} received {} transaction for {}", agent.getAgentId(), interaction.get_side(), interaction.get_quantity());
         } else {
             log.warn("no user agent {}", interaction.get_counterPartyId());
         }
