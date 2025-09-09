@@ -43,9 +43,7 @@ class HouseAgent implements Agent {
         if (loadForecast.isEmpty()) {
             log.warn("{} cannot handle quote due to missing load forecast data", agentId);
         }
-        if (isBuyQuote) {
-            return "";
-        }
+
         String desiredQuantity = "";
 
         String[] receivedQuantity = quantityString.split(" ");
@@ -53,10 +51,14 @@ class HouseAgent implements Agent {
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
             Double quantity = loadForecast.get(i) - transactedAmount[i]; // possible rounding errors ?
 
+            if ((isBuyQuote && quantity > 0) || (!isBuyQuote && quantity < 0)) {
+                quantity = 0.0;
+            }
+            if (isBuyQuote) {
+                quantity = Math.abs(quantity);
+            }
             if (quantity > Double.parseDouble(receivedQuantity[i])) {
                 quantity = Double.parseDouble(receivedQuantity[i]); // can tender.quantity exceed quote.quantity ?
-            } else if (quantity < 0) {
-                quantity = 0.0;
             }
             
             if (i > 0) {
@@ -79,11 +81,10 @@ class HouseAgent implements Agent {
         String[] quantities = quantityString.split(" ");
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            transactedAmount[i] += Double.parseDouble(quantities[i]);
-            final Double quantityDifference = loadForecast.get(i) - transactedAmount[i]; // possible rounding errors ?
-
-            if (quantityDifference > 0) {
-                log.info("{} still requires {} kWh for slot {} after transactions", agentId, quantityDifference, i);
+            if (isBuyTransaction) {
+                transactedAmount[i] -= Double.parseDouble(quantities[i]);   
+            } else {
+                transactedAmount[i] += Double.parseDouble(quantities[i]);
             }
         }
     }
