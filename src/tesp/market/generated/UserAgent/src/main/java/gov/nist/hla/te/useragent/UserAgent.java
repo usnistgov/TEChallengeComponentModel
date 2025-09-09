@@ -32,36 +32,36 @@ public class UserAgent extends UserAgentBase {
 
     private ZonedDateTime scenarioTime;
     private ZonedDateTime scenarioTimeStop;
-
-    private boolean isMarketRunning = false;
     
     private Set<String> activeMarkets = new HashSet<String>();
     private Map<String, Agent> agents = new HashMap<String, Agent>();
 
+    private boolean isMarketRunning = false;
+
     public UserAgent(UserAgentConfig params) throws Exception {
         super(params);
         
-        Map<String, ArrayList<Double>> map = new HashMap<String, ArrayList<Double>>();
+        Map<String, ArrayList<Double>> loadForecastData = new HashMap<String, ArrayList<Double>>();
 
         log.info("reading configuration file at {}", params.inputFilePath);
         BufferedReader fileReader = new BufferedReader(new FileReader(params.inputFilePath));
 
         String[] header = fileReader.readLine().split(",");
-        for (String id : header) {
-            map.put(id, new ArrayList<Double>());
+        for (String houseId : header) {
+            loadForecastData.put(houseId, new ArrayList<Double>());
         }
 
         String line = fileReader.readLine();
         while (line != null) {
             String[] data = line.split(",");
             for (int i = 0; i < data.length; i++) {
-                map.get(header[i]).add(Double.parseDouble(data[i]));
+                loadForecastData.get(header[i]).add(Double.parseDouble(data[i]));
             }
             line = fileReader.readLine();
         }
         fileReader.close();
 
-        for (Map.Entry<String, ArrayList<Double>> entry : map.entrySet()) {
+        for (Map.Entry<String, ArrayList<Double>> entry : loadForecastData.entrySet()) {
             agents.put(entry.getKey(), new HouseAgent(entry.getKey(), entry.getValue()));
             log.info("initialized House TEUA {}", entry.getKey());
         }
@@ -137,6 +137,12 @@ public class UserAgent extends UserAgentBase {
 
             do {
                 checkReceivedSubscriptions();
+                if (!activeMarkets.isEmpty()) {
+                    synchronized (lrc) {
+                        lrc.tick();
+                    }
+                    CpswtUtils.sleep(100);
+                }
             } while (!activeMarkets.isEmpty());
 
             if (isMarketRunning) {
@@ -167,34 +173,55 @@ public class UserAgent extends UserAgentBase {
         exitGracefully();
     }
 
-    private void handleInteractionClass(Transaction interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
-    }
-
     private void handleInteractionClass(Quote interaction) {
         final String marketId = interaction.get_marketId();
         final String priceString = interaction.get_price();
         final String quantityString = interaction.get_quantity();
-
         final boolean isBuyQuote = (interaction.get_side() == 'b');
 
         if (activeMarkets.add(marketId)) {
+            isMarketRunning = true;
             log.info("Detected new market {}", marketId);
         }
 
         for (Agent a : agents.values()) {
-            String tenderQuantity = a.handleQuote(marketId, priceString, quantityString, isBuyQuote);
+            if (a.getTransformerId().equals(marketId)) {
+                String tenderQuantity = a.handleQuote(priceString, quantityString, isBuyQuote);
+                char tenderSide = (isBuyQuote ? 's' : 'b');
+
+                if (!tenderQuantity.isEmpty()) {
+                    Tender tender = create_Tender();
+                    tender.set_marketId(marketId);
+                    tender.set_id(interaction.get_id());
+                    tender.set_partyId(a.getAgentId());
+                    tender.set_counterPartyId(interaction.get_partyId());
+                    tender.set_side(tenderSide);
+                    tender.set_interval(scenarioTime.toString());
+                    tender.set_price(priceString);
+                    tender.set_quantity(tenderQuantity);
+                    tender.sendInteraction(getLRC());
+                    log.debug("{} sent {} tender for {}", a.getAgentId(), tenderSide, tenderQuantity);
+                }
+            }
         }
-        isMarketRunning = true;
+    }
+
+    private void handleInteractionClass(Transaction interaction) {
+        Agent agent = agents.get(interaction.get_counterPartyId());
+
+        if (agent != null) {
+            final boolean isBuyQuote = (interaction.get_side() == 'b');
+            agent.handleTransaction(interaction.get_price(), interaction.get_quantity(), isBuyQuote);
+        } else {
+            log.warn("no user agent {}", interaction.get_counterPartyId());
+        }
     }
 
     private void handleInteractionClass(MarketClosed interaction) {
         final String marketId = interaction.get_marketId();
 
         if (activeMarkets.remove(marketId)) {
-            log.info("Processed MarketClosed for {}", marketId);
+            log.info("Processed MarketClosed for market {}", marketId);
         } else {
             log.warn("MarketClosed received for unknown market {}", marketId);
         }

@@ -1,7 +1,9 @@
 package gov.nist.hla.te.useragent;
 
 interface Agent {
+    String getAgentId();
+    String getTransformerId();
+    String handleQuote(String priceString, String quantityString, boolean isBuyQuote);
+    void handleTransaction(String priceString, String quantityString, boolean isBuyTransaction);
     void closeMarket();
-    String handleQuote(String marketId, String price, String quantity, boolean isBuyQuote);
-    String handleTransaction(String marketId, String price, String quantity, boolean isBuyQuote);
 }
