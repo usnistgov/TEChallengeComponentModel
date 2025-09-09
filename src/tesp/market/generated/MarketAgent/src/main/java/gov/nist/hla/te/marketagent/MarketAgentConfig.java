@@ -9,4 +9,7 @@ public class MarketAgentConfig extends FederateConfig {
 
     @FederateParameter
     public String transformerFilePath;
+
+    @FederateParameter
+    public String[] userAgents;
 }
