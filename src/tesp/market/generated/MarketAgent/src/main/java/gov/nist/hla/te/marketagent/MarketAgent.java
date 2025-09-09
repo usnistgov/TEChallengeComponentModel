@@ -148,7 +148,7 @@ public class MarketAgent extends MarketAgentBase {
 
             if ((scenarioTime.getHour() == 17 && scenarioTime.getMinute() == 0) || !marketInitialized) {
                 startNextMarket();
-                sendQuotes("R4_12_47_1_xfmr_123");
+                sendQuotes("R4_12_47_1_xfmr_123", 0);
                 marketInitialized = true;
             }
 
@@ -252,7 +252,12 @@ public class MarketAgent extends MarketAgentBase {
         return powerFlow / marketInfo.get(marketId).capacity;
     }
 
-    private void sendQuotes(String marketId) {
+    private void sendQuotes(String marketId, int round) {
+        String buyPrice = "";
+        String buyQuantity = "";
+        String sellPrice = "";
+        String sellQuantity = "";
+
         for (int interval = 0; interval < 24; interval++) {
             double mFlow = getTransformerFlow(marketId, interval);
 
@@ -262,21 +267,51 @@ public class MarketAgent extends MarketAgentBase {
             if (sellIndex == steps.length) {
                 // infinite sell ?
             } else  {
-                double sellPrice = mPrice[sellIndex] * dayAheadPrice[interval];
-                double sellQuantity = Math.abs(steps[sellIndex] - mFlow) * marketInfo.get(marketId).capacity;
-                log.debug("{} sell {} for {}", interval, sellQuantity, sellPrice);
-                // send quote
+                double price = mPrice[sellIndex] * dayAheadPrice[interval];
+                double quantity = Math.abs(steps[sellIndex] - mFlow) * marketInfo.get(marketId).capacity;
+                buyPrice = buyPrice + " " + String.format("%.4f", price);
+                buyQuantity = buyQuantity + " " + String.format("%.4f", quantity);
             }
 
             if (sellIndex == 0) {
                 // no buy ?
             } else {
-                double buyPrice = mPrice[sellIndex-1] * dayAheadPrice[interval];
-                double buyQuantity = Math.abs(mFlow - steps[sellIndex-1]) * marketInfo.get(marketId).capacity;
-                log.debug("{} buy {} for {}", interval, buyQuantity, buyPrice);
-                // send quote
+                double price = mPrice[sellIndex-1] * dayAheadPrice[interval];
+                double quantity = Math.abs(mFlow - steps[sellIndex-1]) * marketInfo.get(marketId).capacity;
+                sellPrice = sellPrice + " " + String.format("%.4f", price);
+                sellQuantity = sellQuantity + " " + String.format("%.4f", quantity);
             }
         }
+
+        buyPrice = buyPrice.substring(1);
+        buyQuantity = buyQuantity.substring(1);
+        Quote buyQuote = create_Quote();
+        buyQuote.set_marketId(marketId);
+        buyQuote.set_id(Integer.toString(round));
+        buyQuote.set_partyId("utility");
+        buyQuote.set_counterPartyId(marketId);
+        buyQuote.set_side('b');
+        buyQuote.set_interval(scenarioTime.toString());
+        buyQuote.set_price(buyPrice);
+        buyQuote.set_quantity(buyQuantity);
+        buyQuote.sendInteraction(getLRC());
+        log.debug("buy price: {}", buyPrice);
+        log.debug("buy quantity: {}", buyQuantity);
+
+        sellPrice = sellPrice.substring(1);
+        sellQuantity = sellQuantity.substring(1);
+        Quote sellQuote = create_Quote();
+        sellQuote.set_marketId(marketId);
+        sellQuote.set_id(Integer.toString(round));
+        sellQuote.set_partyId("utility");
+        sellQuote.set_counterPartyId(marketId);
+        sellQuote.set_side('s');
+        sellQuote.set_interval(scenarioTime.toString());
+        sellQuote.set_price(sellPrice);
+        sellQuote.set_quantity(sellQuantity);
+        sellQuote.sendInteraction(getLRC());
+        log.debug("sell price: {}", sellPrice);
+        log.debug("sell quantity: {}", sellQuantity);
     }
 
     public static void main(String[] args) {

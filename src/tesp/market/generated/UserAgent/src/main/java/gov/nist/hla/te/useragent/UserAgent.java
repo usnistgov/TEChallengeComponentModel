@@ -2,14 +2,17 @@ package gov.nist.hla.te.useragent;
 
 import gov.nist.hla.te.useragent.rti.*;
 
-import org.cpswt.config.FederateConfig;
 import org.cpswt.config.FederateConfigParser;
 import org.cpswt.hla.InteractionRoot;
 import org.cpswt.hla.base.AdvanceTimeRequest;
 import org.cpswt.utils.CpswtUtils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -29,12 +32,39 @@ public class UserAgent extends UserAgentBase {
 
     private ZonedDateTime scenarioTime;
     private ZonedDateTime scenarioTimeStop;
+
+    private boolean isMarketRunning = false;
     
     private Set<String> activeMarkets = new HashSet<String>();
     private Map<String, Agent> agents = new HashMap<String, Agent>();
 
-    public UserAgent(FederateConfig params) throws Exception {
+    public UserAgent(UserAgentConfig params) throws Exception {
         super(params);
+        
+        Map<String, ArrayList<Double>> map = new HashMap<String, ArrayList<Double>>();
+
+        log.info("reading configuration file at {}", params.inputFilePath);
+        BufferedReader fileReader = new BufferedReader(new FileReader(params.inputFilePath));
+
+        String[] header = fileReader.readLine().split(",");
+        for (String id : header) {
+            map.put(id, new ArrayList<Double>());
+        }
+
+        String line = fileReader.readLine();
+        while (line != null) {
+            String[] data = line.split(",");
+            for (int i = 0; i < data.length; i++) {
+                map.get(header[i]).add(Double.parseDouble(data[i]));
+            }
+            line = fileReader.readLine();
+        }
+        fileReader.close();
+
+        for (Map.Entry<String, ArrayList<Double>> entry : map.entrySet()) {
+            agents.put(entry.getKey(), new HouseAgent(entry.getKey(), entry.getValue()));
+            log.info("initialized House TEUA {}", entry.getKey());
+        }
     }
 
     private void incrementScenarioTime() {
@@ -109,7 +139,13 @@ public class UserAgent extends UserAgentBase {
                 checkReceivedSubscriptions();
             } while (!activeMarkets.isEmpty());
 
-            // TODO: csv output
+            if (isMarketRunning) {
+                for (Agent a : agents.values()) {
+                    a.closeMarket();
+                    // TODO: csv output
+                }
+                isMarketRunning = false;
+            }
 
             if (!exitCondition) {
                 incrementScenarioTime();
@@ -151,6 +187,7 @@ public class UserAgent extends UserAgentBase {
         for (Agent a : agents.values()) {
             String tenderQuantity = a.handleQuote(marketId, priceString, quantityString, isBuyQuote);
         }
+        isMarketRunning = true;
     }
 
     private void handleInteractionClass(MarketClosed interaction) {
@@ -181,8 +218,8 @@ public class UserAgent extends UserAgentBase {
         try {
             FederateConfigParser federateConfigParser =
                 new FederateConfigParser();
-            FederateConfig federateConfig =
-                federateConfigParser.parseArgs(args, FederateConfig.class);
+            UserAgentConfig federateConfig =
+                federateConfigParser.parseArgs(args, UserAgentConfig.class);
             UserAgent federate =
                 new UserAgent(federateConfig);
             federate.execute();
