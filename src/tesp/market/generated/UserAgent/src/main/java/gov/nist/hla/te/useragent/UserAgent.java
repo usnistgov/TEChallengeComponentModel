@@ -47,6 +47,9 @@ public class UserAgent extends UserAgentBase {
             else if (interaction instanceof SimTime) {
                 handleInteractionClass((SimTime) interaction);
             }
+            else if (interaction instanceof MarketClosed) {
+                handleInteractionClass((MarketClosed) interaction);
+            }
             else {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
             }
@@ -124,6 +127,12 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
+        ///////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction //
+        ///////////////////////////////////////////////////////////////
+    }
+
+    private void handleInteractionClass(MarketClosed interaction) {
         ///////////////////////////////////////////////////////////////
         // TODO implement how to handle reception of the interaction //
         ///////////////////////////////////////////////////////////////

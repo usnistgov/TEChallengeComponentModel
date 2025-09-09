@@ -31,6 +31,7 @@ public class MarketAgentBase extends SynchronizedFederate {
         enableAsynchronousDelivery();
 
         // interaction pubsub
+        MarketClosed.publish(getLRC());
         Quote.publish(getLRC());
         Transaction.publish(getLRC());
         Tender.subscribe(getLRC());
@@ -47,6 +48,12 @@ public class MarketAgentBase extends SynchronizedFederate {
         // object pubsub
     }
 
+    public MarketClosed create_MarketClosed() {
+        MarketClosed interaction = new MarketClosed();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
     public Quote create_Quote() {
         Quote interaction = new Quote();
         interaction.set_sourceFed(getFederateId());

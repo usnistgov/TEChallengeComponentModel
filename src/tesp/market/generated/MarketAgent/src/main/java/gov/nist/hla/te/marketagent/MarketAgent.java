@@ -24,6 +24,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MarketAgent extends MarketAgentBase {
+    public class MarketInfo {
+        public double capacity;
+    }
+
     private final static Logger log = LogManager.getLogger();
 
     private boolean receivedSimTime = false;
@@ -38,7 +42,7 @@ public class MarketAgent extends MarketAgentBase {
     private String fileReaderNextLine;
 
     private Double[] dayAheadPrice = new Double[24];
-    private Map<String, Double> capacity = new HashMap<String, Double>();
+    private Map<String, MarketInfo> marketInfo = new HashMap<String, MarketInfo>();
 
     private static final double[] steps  = {-1.25, -1.00, -0.75, 0.75,  0.93,  1.08,  1.22,  1.35,  1.48,  1.61,  1.74,  1.87,  2.00};
     private static final double[] mPrice = {0.250, 0.750, 1.000, 1.090, 1.304, 1.565, 1.877, 2.250, 2.701, 3.239, 3.870, 4.602, 5.000};
@@ -65,10 +69,14 @@ public class MarketAgent extends MarketAgentBase {
                 endOfFile = true;
             } else {
                 String[] data = nextLine.split(",");
-                if (capacity.containsKey(data[0])) {
+                if (marketInfo.containsKey(data[0])) {
                     log.warn("multiple transformers defined with id = {}", data[0]);
                 }
-                capacity.put(data[0], Double.parseDouble(data[1]));
+
+                MarketInfo market = new MarketInfo();
+                market.capacity = Double.parseDouble(data[1]);
+
+                marketInfo.put(data[0], market);
                 log.info("initialized new market with id = {}", data[0]);
             }
         }
@@ -241,7 +249,7 @@ public class MarketAgent extends MarketAgentBase {
 
         // calculate powerFlow for settled transactions
 
-        return powerFlow / capacity.get(marketId);
+        return powerFlow / marketInfo.get(marketId).capacity;
     }
 
     private void sendQuotes(String marketId) {
@@ -255,7 +263,7 @@ public class MarketAgent extends MarketAgentBase {
                 // infinite sell ?
             } else  {
                 double sellPrice = mPrice[sellIndex] * dayAheadPrice[interval];
-                double sellQuantity = Math.abs(steps[sellIndex] - mFlow) * capacity.get(marketId);
+                double sellQuantity = Math.abs(steps[sellIndex] - mFlow) * marketInfo.get(marketId).capacity;
                 log.debug("{} sell {} for {}", interval, sellQuantity, sellPrice);
                 // send quote
             }
@@ -264,7 +272,7 @@ public class MarketAgent extends MarketAgentBase {
                 // no buy ?
             } else {
                 double buyPrice = mPrice[sellIndex-1] * dayAheadPrice[interval];
-                double buyQuantity = Math.abs(mFlow - steps[sellIndex-1]) * capacity.get(marketId);
+                double buyQuantity = Math.abs(mFlow - steps[sellIndex-1]) * marketInfo.get(marketId).capacity;
                 log.debug("{} buy {} for {}", interval, buyQuantity, buyPrice);
                 // send quote
             }

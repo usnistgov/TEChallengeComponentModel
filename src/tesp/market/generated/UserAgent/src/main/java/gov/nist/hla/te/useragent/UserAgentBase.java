@@ -37,6 +37,11 @@ public class UserAgentBase extends SynchronizedFederate {
            SimTime.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
+        MarketClosed.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           MarketClosed.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
         Quote.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
            Quote.get_handle(),

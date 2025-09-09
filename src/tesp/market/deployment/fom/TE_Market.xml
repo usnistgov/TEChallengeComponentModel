@@ -8,7 +8,7 @@
         <name>TE_Market</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2025-07-24</modificationDate>
+        <modificationDate>2025-09-09</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -46,6 +46,24 @@
                     <name>sourceFed</name>
                     <dataType>String</dataType>
                 </parameter>
+                <interactionClass>
+                    <name>MarketClosed</name>
+                    <sharing>PublishSubscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                    <parameter> 
+                        <name>id</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>interval</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>marketId</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                </interactionClass>
                 <interactionClass>
                     <name>MarketInteraction</name>
                     <sharing>Neither</sharing>

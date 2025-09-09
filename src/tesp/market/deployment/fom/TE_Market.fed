@@ -261,6 +261,11 @@
         (parameter federateFilter)
         (parameter originFed)
         (parameter sourceFed)
+      (class MarketClosed reliable timestamp
+        (parameter id)
+        (parameter interval)
+        (parameter marketId)
+      )
       (class MarketInteraction reliable timestamp
         (parameter counterPartyId)
         (parameter id)
