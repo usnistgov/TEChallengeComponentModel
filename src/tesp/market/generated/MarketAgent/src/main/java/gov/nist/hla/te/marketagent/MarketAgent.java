@@ -60,7 +60,7 @@ public class MarketAgent extends MarketAgentBase {
         }
 
         public double getTransformerFlow(int slot) {
-            return (buyTotal[slot] - sellTotal[slot]) / capacity;
+            return (sellTotal[slot] - buyTotal[slot]) / capacity;
         }
 
         public void updateQuote(String buyQuantity, String sellQuantity) {
@@ -185,8 +185,9 @@ public class MarketAgent extends MarketAgentBase {
     private boolean readyToClear = false;
     private Set<String> pendingTenders = new HashSet<String>();
 
-    private static final double[] steps  = {-1.25, -1.00, -0.75, 0.75,  0.93,  1.08,  1.22,  1.35,  1.48,  1.61,  1.74,  1.87,  2.00};
-    private static final double[] mPrice = {0.250, 0.750, 1.000, 1.090, 1.304, 1.565, 1.877, 2.250, 2.701, 3.239, 3.870, 4.602, 5.000};
+
+    private static final double[] steps  = {2.00,  1.87,  1.74,  1.61,  1.48,  1.35,  1.22,  1.08,  0.93,  0.75, -0.75, -1.00, -1.25};
+    private static final double[] mPrice = {5.000, 4.602, 3.870, 3.239, 2.701, 2.250, 1.877, 1.565, 1.304, 1.090, 1.000, 0.750, 0.250};
 
     public MarketAgent(MarketAgentConfig params) throws Exception {
         super(params);
@@ -466,47 +467,58 @@ public class MarketAgent extends MarketAgentBase {
 
                 double mFlow = market.getTransformerFlow(slot);
 
-                int risingIndex;
-                for (risingIndex = 0; risingIndex < steps.length && mFlow >= steps[risingIndex]; risingIndex++);
+                int sellIndex;
+                final double tolerance = 1e-4;
+                for (sellIndex = 0; sellIndex < steps.length && steps[sellIndex] - tolerance > mFlow; sellIndex++);
 
-                if (risingIndex == steps.length) {
-                    log.error("cannot generate buy quote for mFlow = {}", mFlow);
-                    validBuyQuote = false;
-                } else {
-                    buyPrice += String.format("%.4f", mPrice[risingIndex] * dayAheadPrice[slot]);
-                    buyQuantity += String.format("%.4f", Math.abs(steps[risingIndex] - mFlow) * market.getCapacity());
-                }
-
-                int leftIndex = risingIndex - 1;
-                if (mFlow == steps[risingIndex-1]) {
-                    leftIndex = risingIndex - 2;
-                }
-
-                if (leftIndex < 0) {
+                // TODO - swap array sequence
+                if (sellIndex == steps.length) {
+                    buyPrice += "0.0000";
+                    buyQuantity += "0.0"; // should this have a quantity ? possible convergence error
                     sellPrice += "0.0000";
-                    sellQuantity += "10.0"; // TODO: how to indicate infinite ?
+                    sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex] - mFlow) * market.getCapacity());
+                } else if (steps[sellIndex] + tolerance < mFlow) {
+                    log.info("{} < {}", steps[sellIndex], mFlow);
+                    buyPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
+                    buyQuantity += String.format("%.4f", Math.abs(mFlow - steps[sellIndex]) * market.getCapacity());
+                    sellPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
+                    if (sellIndex == 0) {
+                        sellQuantity += "10.0"; // should this be a different quantity ?
+                    } else {
+                        sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex-1] - mFlow) * market.getCapacity());
+                    }
                 } else {
-                    sellPrice += String.format("%.4f", mPrice[leftIndex] * dayAheadPrice[slot]);
-                    sellQuantity += String.format("%.4f", Math.abs(mFlow - steps[leftIndex]) * market.getCapacity());
+                    log.info("{} ~= {}", steps[sellIndex], mFlow);
+                    if (sellIndex == steps.length - 1) {
+                        buyPrice += "0.0000";
+                        buyQuantity += "0.0"; // should this have a quantity ? possible convergence error
+                    } else {
+                        buyPrice += String.format("%.4f", mPrice[sellIndex+1] * dayAheadPrice[slot]);
+                        buyQuantity += String.format("%.4f", Math.abs(mFlow - steps[sellIndex+1]) * market.getCapacity());
+                    }
+                    sellPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
+                    if (sellIndex == 0) {
+                        sellQuantity += "10.0"; // should this be a different quantity ?
+                    } else {
+                        sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex-1] - mFlow) * market.getCapacity());
+                    }
                 }
             }
 
             market.updateQuote(buyQuantity, sellQuantity);
 
-            if (validBuyQuote) {
-                Quote buyQuote = create_Quote();
-                buyQuote.set_marketId(market.getId());
-                buyQuote.set_id(Integer.toString(marketRound));
-                buyQuote.set_partyId("utility");
-                buyQuote.set_counterPartyId(market.getId());
-                buyQuote.set_side('b');
-                buyQuote.set_interval(scenarioTime.toString());
-                buyQuote.set_price(buyPrice);
-                buyQuote.set_quantity(buyQuantity);
-                buyQuote.sendInteraction(getLRC());
-                log.info("{} sent buy quote with quantity {}", market.getId(), buyQuantity);
-                log.info("{} sent buy quote with price {}", market.getId(), buyPrice);
-            }
+            Quote buyQuote = create_Quote();
+            buyQuote.set_marketId(market.getId());
+            buyQuote.set_id(Integer.toString(marketRound));
+            buyQuote.set_partyId("utility");
+            buyQuote.set_counterPartyId(market.getId());
+            buyQuote.set_side('b');
+            buyQuote.set_interval(scenarioTime.toString());
+            buyQuote.set_price(buyPrice);
+            buyQuote.set_quantity(buyQuantity);
+            buyQuote.sendInteraction(getLRC());
+            log.info("{} sent buy quote with quantity {}", market.getId(), buyQuantity);
+            log.info("{} sent buy quote with price {}", market.getId(), buyPrice);
 
             Quote sellQuote = create_Quote();
             sellQuote.set_marketId(market.getId());

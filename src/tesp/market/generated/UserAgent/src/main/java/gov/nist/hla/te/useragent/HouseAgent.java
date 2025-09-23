@@ -59,7 +59,7 @@ class HouseAgent implements Agent {
                 quantity = Math.abs(quantity);
             }
             if (quantity > Double.parseDouble(receivedQuantity[i])) {
-                quantity = Double.parseDouble(receivedQuantity[i]); // can tender.quantity exceed quote.quantity ?
+                quantity = Double.parseDouble(receivedQuantity[i]);
             }
             
             if (i > 0) {
@@ -80,9 +80,9 @@ class HouseAgent implements Agent {
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
             if (isBuyTransaction) {
-                transactedAmount[i] += Double.parseDouble(quantities[i]);   
+                transactedAmount[i] -= Double.parseDouble(quantities[i]);   
             } else {
-                transactedAmount[i] -= Double.parseDouble(quantities[i]);
+                transactedAmount[i] += Double.parseDouble(quantities[i]);
             }
         }
     }

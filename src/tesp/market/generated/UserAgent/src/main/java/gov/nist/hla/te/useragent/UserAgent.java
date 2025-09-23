@@ -193,7 +193,6 @@ public class UserAgent extends UserAgentBase {
         for (Agent a : agents.values()) {
             if (a.getTransformerId().equals(marketId)) {
                 String tenderQuantity = a.handleQuote(priceString, quantityString, isBuyQuote);
-                char tenderSide = (isBuyQuote ? 's' : 'b');
 
                 if (!tenderQuantity.isEmpty()) {
                     Tender tender = create_Tender();
@@ -201,12 +200,12 @@ public class UserAgent extends UserAgentBase {
                     tender.set_id(interaction.get_id());
                     tender.set_partyId(a.getAgentId());
                     tender.set_counterPartyId(interaction.get_partyId());
-                    tender.set_side(tenderSide);
+                    tender.set_side(interaction.get_side());
                     tender.set_interval(scenarioTime.toString());
                     tender.set_price(priceString);
                     tender.set_quantity(tenderQuantity);
                     tender.sendInteraction(getLRC());
-                    log.info("{} sent {} tender for {}", a.getAgentId(), tenderSide, tenderQuantity);
+                    log.info("{} sent {} tender for {}", a.getAgentId(), interaction.get_side(), tenderQuantity);
                 }
             }
         }
