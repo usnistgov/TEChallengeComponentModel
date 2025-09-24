@@ -148,8 +148,6 @@ public class UserAgent extends UserAgentBase {
                 }
             } while (!activeMarkets.isEmpty());
 
-            log.debug("thru");
-
             if (isMarketRunning) {
                 for (Agent a : agents.values()) {
                     a.closeMarket();
@@ -179,7 +177,6 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
-        log.debug("received quote");
         final String marketId = interaction.get_marketId();
         final String priceString = interaction.get_price();
         final String quantityString = interaction.get_quantity();

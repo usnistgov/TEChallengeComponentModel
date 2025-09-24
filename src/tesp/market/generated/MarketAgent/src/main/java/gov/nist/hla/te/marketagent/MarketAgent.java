@@ -136,7 +136,7 @@ public class MarketAgent extends MarketAgentBase {
                 if (nonZero) {
                     transaction.set_quantity(newQuantity);
                     transaction.sendInteraction(agent.getLRC());
-                    log.debug("transaction for {} with quantity {}", transaction.get_counterPartyId(), newQuantity);
+                    log.info("transaction for {} with quantity {}", transaction.get_counterPartyId(), newQuantity);
                 }
             }
             pendingTransactions.clear();
@@ -478,7 +478,6 @@ public class MarketAgent extends MarketAgentBase {
                     sellPrice += "0.0000";
                     sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex] - mFlow) * market.getCapacity());
                 } else if (steps[sellIndex] + tolerance < mFlow) {
-                    log.info("{} < {}", steps[sellIndex], mFlow);
                     buyPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
                     buyQuantity += String.format("%.4f", Math.abs(mFlow - steps[sellIndex]) * market.getCapacity());
                     sellPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
@@ -488,7 +487,6 @@ public class MarketAgent extends MarketAgentBase {
                         sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex-1] - mFlow) * market.getCapacity());
                     }
                 } else {
-                    log.info("{} ~= {}", steps[sellIndex], mFlow);
                     if (sellIndex == steps.length - 1) {
                         buyPrice += "0.0000";
                         buyQuantity += "0.0"; // should this have a quantity ? possible convergence error
