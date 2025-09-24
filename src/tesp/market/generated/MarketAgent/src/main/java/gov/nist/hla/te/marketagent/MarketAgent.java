@@ -474,7 +474,7 @@ public class MarketAgent extends MarketAgentBase {
                 // TODO - swap array sequence
                 if (sellIndex == steps.length) {
                     buyPrice += "0.0000";
-                    buyQuantity += "0.0"; // should this have a quantity ? possible convergence error
+                    buyQuantity += String.format("%.4f", 2 * market.getCapacity());
                     sellPrice += "0.0000";
                     sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex] - mFlow) * market.getCapacity());
                 } else if (steps[sellIndex] + tolerance < mFlow) {
@@ -482,21 +482,21 @@ public class MarketAgent extends MarketAgentBase {
                     buyQuantity += String.format("%.4f", Math.abs(mFlow - steps[sellIndex]) * market.getCapacity());
                     sellPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
                     if (sellIndex == 0) {
-                        sellQuantity += "10.0"; // should this be a different quantity ?
+                        sellQuantity += String.format("%.4f", 2 * market.getCapacity());
                     } else {
                         sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex-1] - mFlow) * market.getCapacity());
                     }
                 } else {
                     if (sellIndex == steps.length - 1) {
                         buyPrice += "0.0000";
-                        buyQuantity += "0.0"; // should this have a quantity ? possible convergence error
+                        buyQuantity += String.format("%.4f", 2 * market.getCapacity());
                     } else {
                         buyPrice += String.format("%.4f", mPrice[sellIndex+1] * dayAheadPrice[slot]);
                         buyQuantity += String.format("%.4f", Math.abs(mFlow - steps[sellIndex+1]) * market.getCapacity());
                     }
                     sellPrice += String.format("%.4f", mPrice[sellIndex] * dayAheadPrice[slot]);
                     if (sellIndex == 0) {
-                        sellQuantity += "10.0"; // should this be a different quantity ?
+                        sellQuantity += String.format("%.4f", 2 * market.getCapacity());
                     } else {
                         sellQuantity += String.format("%.4f", Math.abs(steps[sellIndex-1] - mFlow) * market.getCapacity());
                     }
