@@ -47,7 +47,7 @@ class VehicleAgent implements Agent {
     }
 
     public String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
-        if (Integer.parseInt(id) < 1 || isBuyQuote) { // ignore first round of quotes
+        if (Integer.parseInt(id) < 2 || isBuyQuote) { // ignore first round of quotes
             String zeroQuantity = "";
             for (int i = 0; i < INTERVAL_LENGTH; i++) {
                 if (i > 0) {
