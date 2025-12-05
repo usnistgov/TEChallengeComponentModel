@@ -6,4 +6,13 @@ import org.cpswt.config.FederateParameter;
 public class UserAgentConfig extends FederateConfig {
     @FederateParameter
     public String inputFilePath;
+
+    @FederateParameter
+    public ElectricVehicle electricVehicle;
+
+    public class ElectricVehicle {
+        public double distributionCoefficient = 3.75;
+        public double distributionMean = 0.9;
+        public double distributionStdDev = 1.1;
+    }
 }

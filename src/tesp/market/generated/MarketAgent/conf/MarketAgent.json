@@ -12,6 +12,11 @@
     "R4_12_47_1_xfmr_123:House-1",
     "R4_12_47_1_xfmr_123:House-2",
     "R4_12_47_1_xfmr_123:House-3",
-    "R4_12_47_1_xfmr_123:House-4"
+    "R4_12_47_1_xfmr_123:House-4",
+    "R4_12_47_1_xfmr_122:House-1-vehicle",
+    "R4_12_47_1_xfmr_123:House-1-vehicle",
+    "R4_12_47_1_xfmr_123:House-2-vehicle",
+    "R4_12_47_1_xfmr_123:House-3-vehicle",
+    "R4_12_47_1_xfmr_123:House-4-vehicle"
   ]
 }

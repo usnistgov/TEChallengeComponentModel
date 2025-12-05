@@ -40,7 +40,7 @@ public class UserAgent extends UserAgentBase {
 
     public UserAgent(UserAgentConfig params) throws Exception {
         super(params);
-        
+
         Map<String, ArrayList<Double>> loadForecastData = new HashMap<String, ArrayList<Double>>();
 
         log.info("reading configuration file at {}", params.inputFilePath);
@@ -64,6 +64,15 @@ public class UserAgent extends UserAgentBase {
         for (Map.Entry<String, ArrayList<Double>> entry : loadForecastData.entrySet()) {
             agents.put(entry.getKey(), new HouseAgent(entry.getKey(), entry.getValue()));
             log.info("initialized House TEUA {}", entry.getKey());
+        }
+
+        for (String houseId : header) {
+            String vehicleId = houseId + "-vehicle";
+            agents.put(vehicleId, new VehicleAgent(vehicleId,
+                    params.electricVehicle.distributionCoefficient,
+                    params.electricVehicle.distributionStdDev,
+                    params.electricVehicle.distributionMean));
+            log.info("initialized Vehicle TEUA {}", vehicleId);
         }
     }
 
@@ -189,7 +198,7 @@ public class UserAgent extends UserAgentBase {
 
         for (Agent a : agents.values()) {
             if (a.getTransformerId().equals(marketId)) {
-                String tenderQuantity = a.handleQuote(priceString, quantityString, isBuyQuote);
+                String tenderQuantity = a.handleQuote(interaction.get_id(), priceString, quantityString, isBuyQuote);
 
                 if (!tenderQuantity.isEmpty()) {
                     Tender tender = create_Tender();

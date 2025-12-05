@@ -39,7 +39,7 @@ class HouseAgent implements Agent {
         return transformerId;
     }
     
-    public String handleQuote(String priceString, String quantityString, boolean isBuyQuote) {
+    public String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
         if (loadForecast.isEmpty()) {
             log.warn("{} cannot handle quote due to missing load forecast data", agentId);
             return "";
