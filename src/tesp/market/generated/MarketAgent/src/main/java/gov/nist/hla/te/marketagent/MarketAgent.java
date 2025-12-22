@@ -359,8 +359,8 @@ public class MarketAgent extends MarketAgentBase {
         }
 
         if (marketUpdated) {
-            sendQuotes();
             marketRound += 1;
+            sendQuotes();
             readyToClear = false;
         } else {
             if (readyToClear) {
@@ -373,10 +373,10 @@ public class MarketAgent extends MarketAgentBase {
                     market.reset();
                 }
                 readyToClear = false;
-                marketRound = 0;
+                marketRound = -1;
             } else {
-                sendQuotes();
                 marketRound += 1;
+                sendQuotes();
                 readyToClear = true;
             }
         }
