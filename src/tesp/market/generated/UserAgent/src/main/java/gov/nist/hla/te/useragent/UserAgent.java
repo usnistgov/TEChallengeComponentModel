@@ -26,6 +26,7 @@ public class UserAgent extends UserAgentBase {
     private final static Logger log = LogManager.getLogger();
 
     private boolean receivedSimTime = false;
+    private boolean hasReportedTransactions = false;
 
     private double currentTime = 0;
     private double logicalTimeScale;
@@ -33,9 +34,10 @@ public class UserAgent extends UserAgentBase {
     private ZonedDateTime scenarioTime;
     private ZonedDateTime scenarioTimeStop;
     
-    private Set<String> activeMarkets = new HashSet<String>();
-    private Map<String, Agent> agents = new HashMap<String, Agent>();
+    private Map<String, String> activeMarkets = new HashMap<String, String>();
 
+    private Map<String, Agent> agents = new HashMap<String, Agent>();
+    
     private boolean isMarketRunning = false;
 
     public UserAgent(UserAgentConfig params) throws Exception {
@@ -193,14 +195,21 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
+        final String NULL_RESPONSE = "0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000";
+
         final String marketId = interaction.get_marketId();
+        final String round = interaction.get_id();
         final String priceString = interaction.get_price();
         final String quantityString = interaction.get_quantity();
         final boolean isBuyQuote = (interaction.get_side() == 'b');
 
-        if (activeMarkets.add(marketId)) {
+        if (!activeMarkets.containsKey(marketId)) {
             isMarketRunning = true;
-            log.info("Detected new market {}", marketId);
+            activeMarkets.put(marketId, round);
+            log.info("market {} round {} (new)", marketId, round);
+        } else if (!activeMarkets.get(marketId).equals(round)) {
+            activeMarkets.put(marketId, round);
+            log.info("market {} round {}", marketId, round);
         }
 
         for (Agent a : agents.values()) {
@@ -218,19 +227,34 @@ public class UserAgent extends UserAgentBase {
                     tender.set_price(priceString);
                     tender.set_quantity(tenderQuantity);
                     tender.sendInteraction(getLRC());
-                    log.info("{} sent {} tender for {}", a.getAgentId(), interaction.get_side(), tenderQuantity);
+
+                    if (!tenderQuantity.equals(NULL_RESPONSE)) {
+                        final String side = (interaction.get_side() == 'b' ? "buy" : "sell");
+                        log.info("{} {} quote_response price {}", a.getAgentId(), side, priceString);
+                        log.info("{} {} quote_response quantity {}", a.getAgentId(), side, tenderQuantity);
+                    }
                 }
             }
         }
+
+        hasReportedTransactions = false;
     }
 
     private void handleInteractionClass(Transaction interaction) {
         Agent agent = agents.get(interaction.get_counterPartyId());
 
+        if (!hasReportedTransactions) {
+            log.info("reporting transactions for all markets");
+            hasReportedTransactions = true;
+        }
+
         if (agent != null) {
             final boolean isBuyQuote = (interaction.get_side() == 'b');
             agent.handleTransaction(interaction.get_price(), interaction.get_quantity(), isBuyQuote);
-            log.info("{} received {} transaction for {}", agent.getAgentId(), interaction.get_side(), interaction.get_quantity());
+
+            final String side = (isBuyQuote ? "buy" : "sell");
+            log.info("{} {} transaction price {}", agent.getAgentId(), side, interaction.get_price());
+            log.info("{} {} transaction quantity {}", agent.getAgentId(), side, interaction.get_quantity());
         } else {
             log.warn("no user agent {}", interaction.get_counterPartyId());
         }
@@ -239,7 +263,7 @@ public class UserAgent extends UserAgentBase {
     private void handleInteractionClass(MarketClosed interaction) {
         final String marketId = interaction.get_marketId();
 
-        if (activeMarkets.remove(marketId)) {
+        if (activeMarkets.remove(marketId) != null) {
             log.info("Processed MarketClosed for market {}", marketId);
         } else {
             log.warn("MarketClosed received for unknown market {}", marketId);

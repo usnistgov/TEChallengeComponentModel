@@ -136,7 +136,10 @@ public class MarketAgent extends MarketAgentBase {
                 if (nonZero) {
                     transaction.set_quantity(newQuantity);
                     transaction.sendInteraction(agent.getLRC());
-                    log.info("transaction for {} with quantity {}", transaction.get_counterPartyId(), newQuantity);
+
+                    String side = (transaction.get_side() == 'b' ? "buy" : "sell");
+                    log.info("{} {} transaction price {}", transaction.get_counterPartyId(), side, transaction.get_price());
+                    log.info("{} {} transaction quantity {}", transaction.get_counterPartyId(), side, newQuantity);
                 }
             }
             pendingTransactions.clear();
@@ -446,7 +449,7 @@ public class MarketAgent extends MarketAgentBase {
     }
 
     private void sendQuotes() {
-        log.info("round {}", marketRound);
+        log.info("market_round {}", marketRound);
         resetPendingTenders();
 
         for (MarketInfo market : marketInfo.values()) {
@@ -515,8 +518,8 @@ public class MarketAgent extends MarketAgentBase {
             buyQuote.set_price(buyPrice);
             buyQuote.set_quantity(buyQuantity);
             buyQuote.sendInteraction(getLRC());
-            log.info("{} sent buy quote with quantity {}", market.getId(), buyQuantity);
-            log.info("{} sent buy quote with price {}", market.getId(), buyPrice);
+            log.info("{} buy quote price {}", market.getId(), buyPrice);
+            log.info("{} buy quote quantity {}", market.getId(), buyQuantity);
 
             Quote sellQuote = create_Quote();
             sellQuote.set_marketId(market.getId());
@@ -528,8 +531,8 @@ public class MarketAgent extends MarketAgentBase {
             sellQuote.set_price(sellPrice);
             sellQuote.set_quantity(sellQuantity);
             sellQuote.sendInteraction(getLRC());
-            log.info("{} sent sell quote with quantity {}", market.getId(), sellQuantity);
-            log.info("{} sent sell quote with price {}", market.getId(), sellPrice);
+            log.info("{} sell quote price {}", market.getId(), sellPrice);
+            log.info("{} sell quote quantity {}", market.getId(), sellQuantity);
         }
     }
 

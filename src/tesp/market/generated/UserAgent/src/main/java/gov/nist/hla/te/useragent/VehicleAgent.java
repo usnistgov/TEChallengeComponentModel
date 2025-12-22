@@ -73,7 +73,7 @@ class VehicleAgent implements Agent {
                 if (i > 0) {
                     zeroQuantity += " ";
                 }
-                zeroQuantity += "0.0";
+                zeroQuantity += "0.0000";
             }
             return zeroQuantity;
         }
