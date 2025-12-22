@@ -26,7 +26,8 @@ class VehicleAgent implements Agent {
     private Random random = new Random();
 
     private static final int INTERVAL_LENGTH = 24;
-    private Double[] transactedAmount = new Double[INTERVAL_LENGTH];
+    private Double[] transactedCost = new Double[INTERVAL_LENGTH];
+    private Double[] transactedQuantity = new Double[INTERVAL_LENGTH];
 
     public VehicleAgent(String csvLine, double coefficient, double mu, double sigma) {
         String[] csvElements = csvLine.split(",");
@@ -52,7 +53,8 @@ class VehicleAgent implements Agent {
         this.chargeDistribution = new LogNormalDistribution(mu, sigma);
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            transactedAmount[i] = 0.0;
+            transactedCost[i] = 0.0;
+            transactedQuantity[i] = 0.0;
         }
         transactedTotal = 0.0;
         resetCharge();
@@ -130,7 +132,7 @@ class VehicleAgent implements Agent {
                 }
             }
 
-            double chargeRateLimit = MAX_CHARGE_RATE - transactedAmount[index];
+            double chargeRateLimit = MAX_CHARGE_RATE - transactedQuantity[index];
             if (chargeRateLimit > tolerance) {
                 responseAmount[index] = Math.min(chargeRateLimit, chargeRequired - transactedTotal - responseTotal);
                 responseTotal += responseAmount[index];
@@ -153,17 +155,37 @@ class VehicleAgent implements Agent {
     public void handleTransaction(String priceString, String quantityString, boolean isBuyTransaction) {
         String[] quantities = quantityString.split(" ");
 
+        ArrayList<Double> prices = new ArrayList<Double>();
+        for (String price : priceString.split(" ")) {
+            prices.add(Double.parseDouble(price));
+        }
+
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            transactedAmount[i] += Double.parseDouble(quantities[i]);
-            transactedTotal += Double.parseDouble(quantities[i]);
+            final double quantity = Double.parseDouble(quantities[i]);
+            transactedCost[i] += quantity * prices.get(i);
+            transactedQuantity[i] += quantity;
+            transactedTotal += quantity;
         }
     }
 
     public void closeMarket() {
+        String finalPrice = "";
+        String finalQuantity = "";
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            log.info("{} bought {} kWh in slot {} (out of {} total)", agentId, transactedAmount[i], i, chargeRequired);
-            transactedAmount[i] = 0.0;
+            if (i > 0) {
+                finalPrice += " ";
+                finalQuantity += " ";
+            }
+            finalPrice += String.format("%.4f", transactedCost[i]);
+            finalQuantity += String.format("%.4f", transactedQuantity[i]);
+
+            transactedCost[i] = 0.0;
+            transactedQuantity[i] = 0.0;
         }
+        log.info("{} charged {} kWh", agentId, transactedTotal);
+        log.info("{} total transaction cost {}", agentId, finalPrice);
+        log.info("{} total transaction quantity {}", agentId, finalQuantity);
+
         transactedTotal = 0.0;
         resetCharge();
     }
@@ -176,7 +198,7 @@ class VehicleAgent implements Agent {
             chargeRequired = nextChargeRequired.get(0);
             nextChargeRequired.remove(0);
 
-            log.debug("{} used next chargre profile {}:{}", agentId, isDayCharge, chargeRequired);
+            log.debug("{} used next charge profile {}:{}", agentId, isDayCharge, chargeRequired);
         } else {
             isDayCharge = (random.nextDouble() < 0.25);
             chargeRequired = chargeCoefficient * chargeDistribution.inverseCumulativeProbability(random.nextDouble());

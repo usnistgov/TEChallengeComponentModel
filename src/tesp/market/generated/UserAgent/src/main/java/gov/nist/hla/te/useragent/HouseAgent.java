@@ -14,7 +14,8 @@ class HouseAgent implements Agent {
     private ArrayList<Double> loadForecast = new ArrayList<Double>();
 
     private static final int INTERVAL_LENGTH = 24;
-    private Double[] transactedAmount = new Double[INTERVAL_LENGTH];
+    private Double[] transactedCost = new Double[INTERVAL_LENGTH];
+    private Double[] transactedQuantity = new Double[INTERVAL_LENGTH];
 
     public HouseAgent(String id, ArrayList<Double> data) {
         this.agentId = id;
@@ -27,7 +28,8 @@ class HouseAgent implements Agent {
         }
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            transactedAmount[i] = 0.0;
+            transactedCost[i] = 0.0;
+            transactedQuantity[i] = 0.0;
         }
     }
 
@@ -50,7 +52,7 @@ class HouseAgent implements Agent {
         String[] receivedQuantity = quantityString.split(" ");
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            Double quantity = loadForecast.get(i) - transactedAmount[i]; // possible rounding errors ?
+            Double quantity = loadForecast.get(i) - transactedQuantity[i]; // possible rounding errors ?
 
             if ((isBuyQuote && quantity > 0) || (!isBuyQuote && quantity < 0)) {
                 quantity = 0.0;
@@ -76,13 +78,22 @@ class HouseAgent implements Agent {
             return;
         }
 
+        ArrayList<Double> prices = new ArrayList<Double>();
+        for (String price : priceString.split(" ")) {
+            prices.add(Double.parseDouble(price));
+        }
+
         String[] quantities = quantityString.split(" ");
 
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
-            if (isBuyTransaction) {
-                transactedAmount[i] -= Double.parseDouble(quantities[i]);   
-            } else {
-                transactedAmount[i] += Double.parseDouble(quantities[i]);
+            final double quantity = Double.parseDouble(quantities[i]);
+
+            if (isBuyTransaction) { // market is buying from you
+                transactedCost[i] -= quantity * prices.get(i);
+                transactedQuantity[i] -= quantity;
+            } else { // market is selling to you
+                transactedCost[i] += quantity * prices.get(i);
+                transactedQuantity[i] += quantity;
             }
         }
     }
@@ -95,10 +106,21 @@ class HouseAgent implements Agent {
                 loadForecast.clear();
             }
 
+            String finalPrice = "";
+            String finalQuantity = "";
             for (int i = 0; i < INTERVAL_LENGTH; i++) {
-               log.info("{} bought {} kWh in slot {}", agentId, transactedAmount[i], i);
-                transactedAmount[i] = 0.0;
+                if (i > 0) {
+                    finalPrice += " ";
+                    finalQuantity += " ";
+                }
+                finalPrice += String.format("%.4f", transactedCost[i]);
+                finalQuantity += String.format("%.4f", transactedQuantity[i]);
+
+                transactedCost[i] = 0.0;
+                transactedQuantity[i] = 0.0;
             }
+            log.info("{} total transaction cost {}", agentId, finalPrice);
+            log.info("{} total transaction quantity {}", agentId, finalQuantity);
         }
     }
 }

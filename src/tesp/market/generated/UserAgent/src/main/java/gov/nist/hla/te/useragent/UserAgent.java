@@ -244,7 +244,7 @@ public class UserAgent extends UserAgentBase {
         Agent agent = agents.get(interaction.get_counterPartyId());
 
         if (!hasReportedTransactions) {
-            log.info("reporting transactions for all markets");
+            log.info("market transactions");
             hasReportedTransactions = true;
         }
 
@@ -264,7 +264,7 @@ public class UserAgent extends UserAgentBase {
         final String marketId = interaction.get_marketId();
 
         if (activeMarkets.remove(marketId) != null) {
-            log.info("Processed MarketClosed for market {}", marketId);
+            log.info("market {} closed", marketId);
         } else {
             log.warn("MarketClosed received for unknown market {}", marketId);
         }
