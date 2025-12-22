@@ -5,7 +5,10 @@ import org.cpswt.config.FederateParameter;
 
 public class UserAgentConfig extends FederateConfig {
     @FederateParameter
-    public String inputFilePath;
+    public String houseFilePath;
+
+    @FederateParameter
+    public String vehicleFilePath;
 
     @FederateParameter
     public ElectricVehicle electricVehicle;

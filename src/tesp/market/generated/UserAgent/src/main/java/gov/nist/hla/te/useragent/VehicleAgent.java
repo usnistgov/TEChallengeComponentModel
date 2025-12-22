@@ -14,9 +14,12 @@ class VehicleAgent implements Agent {
     private String transformerId;
 
     private boolean isDayCharge;
+    private List<Boolean> nextIsDayCharge = new ArrayList<Boolean>();
+
+    private double chargeRequired;
+    private List<Double> nextChargeRequired = new ArrayList<Double>();
 
     private double chargeCoefficient;
-    private double chargeRequired;
     private double transactedTotal;
 
     private LogNormalDistribution chargeDistribution;
@@ -25,9 +28,26 @@ class VehicleAgent implements Agent {
     private static final int INTERVAL_LENGTH = 24;
     private Double[] transactedAmount = new Double[INTERVAL_LENGTH];
 
-    public VehicleAgent(String id, double coefficient, double mu, double sigma) {
-        this.agentId = id;
-        this.transformerId = id.split(":")[0];
+    public VehicleAgent(String csvLine, double coefficient, double mu, double sigma) {
+        String[] csvElements = csvLine.split(",");
+
+        this.agentId = csvElements[0];
+
+        for (int i = 2; i < csvElements.length; i += 2) {
+            nextIsDayCharge.add(Boolean.parseBoolean(csvElements[i-1]));
+            nextChargeRequired.add(Double.parseDouble(csvElements[i]));
+            log.debug("{} queued charge for {}:{}",
+                    agentId,
+                    nextIsDayCharge.get(nextIsDayCharge.size()-1),
+                    nextChargeRequired.get(nextChargeRequired.size()-1)
+            );
+        }
+
+        if (csvElements.length > 1) {
+
+        }
+        
+        this.transformerId = agentId.split(":")[0]; // TODO - enforce
         this.chargeCoefficient = coefficient;
         this.chargeDistribution = new LogNormalDistribution(mu, sigma);
 
@@ -149,7 +169,18 @@ class VehicleAgent implements Agent {
     }
 
     private void resetCharge() {
-        isDayCharge = (random.nextDouble() < 0.25);
-        chargeRequired = chargeCoefficient * chargeDistribution.inverseCumulativeProbability(random.nextDouble());
+        if (!nextChargeRequired.isEmpty()) {
+            isDayCharge = nextIsDayCharge.get(0);
+            nextIsDayCharge.remove(0);
+
+            chargeRequired = nextChargeRequired.get(0);
+            nextChargeRequired.remove(0);
+
+            log.debug("{} used next chargre profile {}:{}", agentId, isDayCharge, chargeRequired);
+        } else {
+            isDayCharge = (random.nextDouble() < 0.25);
+            chargeRequired = chargeCoefficient * chargeDistribution.inverseCumulativeProbability(random.nextDouble());
+            log.debug("{} generated new charge profile {}:{}", agentId, isDayCharge, chargeRequired);
+        }
     }
 }

@@ -43,8 +43,8 @@ public class UserAgent extends UserAgentBase {
 
         Map<String, ArrayList<Double>> loadForecastData = new HashMap<String, ArrayList<Double>>();
 
-        log.info("reading configuration file at {}", params.inputFilePath);
-        BufferedReader fileReader = new BufferedReader(new FileReader(params.inputFilePath));
+        log.info("reading house configuration file at {}", params.houseFilePath);
+        BufferedReader fileReader = new BufferedReader(new FileReader(params.houseFilePath));
 
         String[] header = fileReader.readLine().split(",");
         for (String houseId : header) {
@@ -66,14 +66,21 @@ public class UserAgent extends UserAgentBase {
             log.info("initialized House TEUA {}", entry.getKey());
         }
 
-        for (String houseId : header) {
-            String vehicleId = houseId + "-vehicle";
-            agents.put(vehicleId, new VehicleAgent(vehicleId,
+        log.info("reading vehicle configuration file at {}", params.vehicleFilePath);
+        fileReader = new BufferedReader(new FileReader(params.vehicleFilePath));
+
+        line = fileReader.readLine();
+        while (line != null) {
+            VehicleAgent agent = new VehicleAgent(
+                    line,
                     params.electricVehicle.distributionCoefficient,
                     params.electricVehicle.distributionStdDev,
-                    params.electricVehicle.distributionMean));
-            log.info("initialized Vehicle TEUA {}", vehicleId);
+                    params.electricVehicle.distributionMean);
+            agents.put(agent.getAgentId(), agent);
+            log.info("initialized Vehicle TEUA {}", agent.getAgentId());
+            line = fileReader.readLine();
         }
+        fileReader.close();
     }
 
     private void incrementScenarioTime() {
