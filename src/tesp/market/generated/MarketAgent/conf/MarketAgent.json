@@ -13,10 +13,15 @@
     "R4_12_47_1_xfmr_123:House-2",
     "R4_12_47_1_xfmr_123:House-3",
     "R4_12_47_1_xfmr_123:House-4",
-    "R4_12_47_1_xfmr_122:House-1-vehicle",
-    "R4_12_47_1_xfmr_123:House-1-vehicle",
-    "R4_12_47_1_xfmr_123:House-2-vehicle",
-    "R4_12_47_1_xfmr_123:House-3-vehicle",
-    "R4_12_47_1_xfmr_123:House-4-vehicle"
+    "R4_12_47_1_xfmr_122:House-1-vehicle1",
+    "R4_12_47_1_xfmr_122:House-1-vehicle2",
+    "R4_12_47_1_xfmr_123:House-1-vehicle1",
+    "R4_12_47_1_xfmr_123:House-1-vehicle2",
+    "R4_12_47_1_xfmr_123:House-2-vehicle1",
+    "R4_12_47_1_xfmr_123:House-2-vehicle2",
+    "R4_12_47_1_xfmr_123:House-3-vehicle1",
+    "R4_12_47_1_xfmr_123:House-3-vehicle2",
+    "R4_12_47_1_xfmr_123:House-4-vehicle1",
+    "R4_12_47_1_xfmr_123:House-4-vehicle2"
   ]
 }

@@ -13,8 +13,8 @@ class VehicleAgent implements Agent {
     private String agentId;
     private String transformerId;
 
+    private boolean skipCharge;
     private boolean isDayCharge;
-    private List<Boolean> nextIsDayCharge = new ArrayList<Boolean>();
 
     private double chargeRequired;
     private List<Double> nextChargeRequired = new ArrayList<Double>();
@@ -33,19 +33,9 @@ class VehicleAgent implements Agent {
         String[] csvElements = csvLine.split(",");
 
         this.agentId = csvElements[0];
-
-        for (int i = 2; i < csvElements.length; i += 2) {
-            nextIsDayCharge.add(Boolean.parseBoolean(csvElements[i-1]));
+        for (int i = 1; i < csvElements.length; i++) {
             nextChargeRequired.add(Double.parseDouble(csvElements[i]));
-            log.debug("{} queued charge for {}:{}",
-                    agentId,
-                    nextIsDayCharge.get(nextIsDayCharge.size()-1),
-                    nextChargeRequired.get(nextChargeRequired.size()-1)
-            );
-        }
-
-        if (csvElements.length > 1) {
-
+            log.debug("{} queued charge for {}", agentId, nextChargeRequired.get(nextChargeRequired.size()-1));
         }
         
         this.transformerId = agentId.split(":")[0]; // TODO - enforce
@@ -69,7 +59,7 @@ class VehicleAgent implements Agent {
     }
 
     public String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
-        if (Integer.parseInt(id) < 2 || isBuyQuote) { // ignore first round of quotes
+        if (Integer.parseInt(id) < 2 || isBuyQuote || skipCharge) { // ignore first round of quotes
             String zeroQuantity = "";
             for (int i = 0; i < INTERVAL_LENGTH; i++) {
                 if (i > 0) {
@@ -191,14 +181,31 @@ class VehicleAgent implements Agent {
     }
 
     private void resetCharge() {
-        if (!nextChargeRequired.isEmpty()) {
-            isDayCharge = nextIsDayCharge.get(0);
-            nextIsDayCharge.remove(0);
+        skipCharge = false;
 
-            chargeRequired = nextChargeRequired.get(0);
+        if (!nextChargeRequired.isEmpty()) {
+            double nightCharge = nextChargeRequired.get(0);
             nextChargeRequired.remove(0);
 
-            log.debug("{} used next charge profile {}:{}", agentId, isDayCharge, chargeRequired);
+            double morningCharge = 0;
+            if (!nextChargeRequired.isEmpty()) {
+                morningCharge = nextChargeRequired.get(0);
+                nextChargeRequired.remove(0);
+            }
+            log.debug("{} used next charge profile {}:{}", agentId, nightCharge, morningCharge);
+
+            if (nightCharge > 0 && morningCharge > 0) {
+                log.error("invalid vehicle configuration - {} attempted to charge in both windows", agentId);
+                skipCharge = true;
+            } else if (nightCharge < 1e-4 && morningCharge < 1e-4) { // doesn't check negative
+                skipCharge = true;
+            } else if (morningCharge < 1e-4) {
+                isDayCharge = false;
+                chargeRequired = nightCharge;
+            } else {
+                isDayCharge = true;
+                chargeRequired = morningCharge;
+            }
         } else {
             isDayCharge = (random.nextDouble() < 0.25);
             chargeRequired = chargeCoefficient * chargeDistribution.inverseCumulativeProbability(random.nextDouble());
