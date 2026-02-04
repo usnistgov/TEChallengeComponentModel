@@ -66,6 +66,11 @@ public class UserAgent extends UserAgentBase {
         for (Map.Entry<String, ArrayList<Double>> entry : loadForecastData.entrySet()) {
             agents.put(entry.getKey(), new HouseAgent(entry.getKey(), entry.getValue()));
             log.info("initialized House TEUA {}", entry.getKey());
+
+            final double capacity = 13.5; // kWh
+            final String batteryId = entry.getKey() + "-battery";
+            agents.put(batteryId, new BatteryAgent(batteryId, capacity));
+            log.info("initialized Battery TEUA {}", batteryId);
         }
 
         log.info("reading vehicle configuration file at {}", params.vehicleFilePath);
@@ -214,8 +219,15 @@ public class UserAgent extends UserAgentBase {
 
         for (Agent a : agents.values()) {
             if (a.getTransformerId().equals(marketId)) {
-                String tenderQuantity = a.handleQuote(interaction.get_id(), priceString, quantityString, isBuyQuote);
-
+                String tenderQuantity;
+                if (isBuyQuote) {
+                    a.handleBuyQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
+                    tenderQuantity  = a.getBuyQuoteResponse();
+                } else {
+                    a.handleSellQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
+                    tenderQuantity = a.getSellQuoteResponse();
+                }
+                
                 if (!tenderQuantity.isEmpty()) {
                     Tender tender = create_Tender();
                     tender.set_marketId(marketId);

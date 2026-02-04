@@ -11,6 +11,9 @@ class HouseAgent implements Agent {
     private String agentId;
     private String transformerId;
 
+    private String buyResponseQuantity;
+    private String sellResponseQuantity;
+
     private ArrayList<Double> loadForecast = new ArrayList<Double>();
 
     private static final int INTERVAL_LENGTH = 24;
@@ -40,8 +43,24 @@ class HouseAgent implements Agent {
     public String getTransformerId() {
         return transformerId;
     }
+
+    public String getBuyQuoteResponse() {
+        return buyResponseQuantity;
+    }
+
+    public String getSellQuoteResponse() {
+        return sellResponseQuantity;
+    }
+
+    public void handleBuyQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
+        buyResponseQuantity = handleQuote(quantityString, true);
+    }
+
+    public void handleSellQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
+        sellResponseQuantity = handleQuote(quantityString, false);
+    }
     
-    public String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
+    private String handleQuote(String quantityString, boolean isBuyQuote) {
         if (loadForecast.isEmpty()) {
             log.warn("{} cannot handle quote due to missing load forecast data", agentId);
             return "";

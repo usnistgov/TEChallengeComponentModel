@@ -13,6 +13,9 @@ class VehicleAgent implements Agent {
     private String agentId;
     private String transformerId;
 
+    private String buyResponseQuantity;
+    private String sellResponseQuantity;
+
     private boolean skipCharge;
     private boolean isDayCharge;
 
@@ -58,7 +61,23 @@ class VehicleAgent implements Agent {
         return transformerId;
     }
 
-    public String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
+    public String getBuyQuoteResponse() {
+        return buyResponseQuantity;
+    }
+
+    public String getSellQuoteResponse() {
+        return sellResponseQuantity;
+    }
+
+    public void handleBuyQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
+        buyResponseQuantity = handleQuote(id, priceString, quantityString, true);
+    }
+
+    public void handleSellQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
+        sellResponseQuantity = handleQuote(id, priceString, quantityString, false);
+    }
+
+    private String handleQuote(String id, String priceString, String quantityString, boolean isBuyQuote) {
         if (Integer.parseInt(id) < 2 || isBuyQuote || skipCharge) { // ignore first round of quotes
             String zeroQuantity = "";
             for (int i = 0; i < INTERVAL_LENGTH; i++) {
