@@ -37,6 +37,8 @@ public class UserAgent extends UserAgentBase {
     private Map<String, String> activeMarkets = new HashMap<String, String>();
 
     private Map<String, Agent> agents = new HashMap<String, Agent>();
+
+    private Map<String, Tender> interactionQueue = new HashMap<String, Tender>();
     
     private boolean isMarketRunning = false;
 
@@ -200,8 +202,6 @@ public class UserAgent extends UserAgentBase {
     }
 
     private void handleInteractionClass(Quote interaction) {
-        final String NULL_RESPONSE = "0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000";
-
         final String marketId = interaction.get_marketId();
         final String round = interaction.get_id();
         final String priceString = interaction.get_price();
@@ -219,37 +219,62 @@ public class UserAgent extends UserAgentBase {
 
         for (Agent a : agents.values()) {
             if (a.getTransformerId().equals(marketId)) {
-                String tenderQuantity;
+                Tender tender = create_Tender();
+                tender.set_marketId(marketId);
+                tender.set_id(interaction.get_id());
+                tender.set_partyId(a.getAgentId());
+                tender.set_counterPartyId(interaction.get_partyId());
+                tender.set_side(interaction.get_side());
+                tender.set_interval(scenarioTime.toString());
+                tender.set_price(priceString);
+
                 if (isBuyQuote) {
                     a.handleBuyQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
-                    tenderQuantity  = a.getBuyQuoteResponse();
+
+                    if (interactionQueue.containsKey(a.getAgentId())) {
+                        Tender q = interactionQueue.get(a.getAgentId());
+                        q.set_quantity(a.getSellQuoteResponse());
+                        q.sendInteraction(getLRC());
+                        logQuoteResponse(q);
+                        interactionQueue.remove(a.getAgentId());
+
+                        tender.set_quantity(a.getBuyQuoteResponse());
+                        tender.sendInteraction(getLRC());
+                        logQuoteResponse(tender);
+                    } else {
+                        interactionQueue.put(a.getAgentId(), tender);
+                    }
                 } else {
                     a.handleSellQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
-                    tenderQuantity = a.getSellQuoteResponse();
-                }
-                
-                if (!tenderQuantity.isEmpty()) {
-                    Tender tender = create_Tender();
-                    tender.set_marketId(marketId);
-                    tender.set_id(interaction.get_id());
-                    tender.set_partyId(a.getAgentId());
-                    tender.set_counterPartyId(interaction.get_partyId());
-                    tender.set_side(interaction.get_side());
-                    tender.set_interval(scenarioTime.toString());
-                    tender.set_price(priceString);
-                    tender.set_quantity(tenderQuantity);
-                    tender.sendInteraction(getLRC());
 
-                    if (!tenderQuantity.equals(NULL_RESPONSE)) {
-                        final String side = (interaction.get_side() == 'b' ? "buy" : "sell");
-                        log.info("{} {} quote_response price {}", a.getAgentId(), side, priceString);
-                        log.info("{} {} quote_response quantity {}", a.getAgentId(), side, tenderQuantity);
+                    if (interactionQueue.containsKey(a.getAgentId())) {
+                        Tender q = interactionQueue.get(a.getAgentId());
+                        q.set_quantity(a.getBuyQuoteResponse());
+                        q.sendInteraction(getLRC());
+                        logQuoteResponse(q);
+                        interactionQueue.remove(a.getAgentId());
+
+                        tender.set_quantity(a.getSellQuoteResponse());
+                        tender.sendInteraction(getLRC());
+                        logQuoteResponse(tender);
+                    } else {
+                        interactionQueue.put(a.getAgentId(), tender);
                     }
                 }
             }
         }
 
-        hasReportedTransactions = false;
+        hasReportedTransactions = false; // needs to be an int per market of last transaction round
+    }
+
+    private void logQuoteResponse(Tender quoteResponse) {
+        final String NULL_RESPONSE = "0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000";
+
+        if (!quoteResponse.get_quantity().equals(NULL_RESPONSE)) {
+            final String side = (quoteResponse.get_side() == 'b' ? "buy" : "sell");
+            log.info("{} {} quote_response price {}", quoteResponse.get_partyId(), side, quoteResponse.get_price());
+            log.info("{} {} quote_response quantity {}", quoteResponse.get_partyId(), side, quoteResponse.get_quantity());
+        }
     }
 
     private void handleInteractionClass(Transaction interaction) {

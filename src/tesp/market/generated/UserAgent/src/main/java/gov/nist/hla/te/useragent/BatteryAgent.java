@@ -78,7 +78,7 @@ class BatteryAgent implements Agent {
     }
 
     public void handleBuyQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
-        if (Integer.parseInt(id) >= 2 && !hasMarketActivity) {
+        if (Integer.parseInt(id) >= 5 && !hasMarketActivity) { // TODO - 2
             isActive = true;
         }
         if (isActive) {
@@ -99,7 +99,7 @@ class BatteryAgent implements Agent {
     }
 
     public void handleSellQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
-        if (Integer.parseInt(id) >= 2 && !hasMarketActivity) {
+        if (Integer.parseInt(id) >= 5 && !hasMarketActivity) { // TODO - 2
             isActive = true;
         }
         if (isActive) {
@@ -210,6 +210,9 @@ class BatteryAgent implements Agent {
                     }
                 }
                 dischargeAmount[index] = desiredAmount;
+                for (int k = index+1; k < INTERVAL_LENGTH; k++) {
+                    predictedSOC[k] -= desiredAmount;
+                }
             }
             
             int i = 0;
