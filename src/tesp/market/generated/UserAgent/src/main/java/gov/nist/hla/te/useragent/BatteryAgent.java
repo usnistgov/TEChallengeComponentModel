@@ -35,7 +35,8 @@ class BatteryAgent implements Agent {
     private double maxChargeRate = 5.0;
 
     private int indexOfDischarge;
-    private int indexOfFirstCharge;
+    private int indexOfChargeWindow;
+    private double transactedDischargePrice;
     private double transactedQuantityMismatch;
 
     private String zeroQuantity;
@@ -45,6 +46,7 @@ class BatteryAgent implements Agent {
         this.agentId = id;
         this.transformerId = id.split(":")[0];
         this.capacity = capacity;
+        this.isActive = false;
 
         zeroQuantity = "";
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
@@ -78,9 +80,11 @@ class BatteryAgent implements Agent {
     }
 
     public void handleBuyQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
-        if (Integer.parseInt(id) >= 5 && !hasMarketActivity) { // TODO - 2
+        if (Integer.parseInt(id) >= 2 && !hasMarketActivity) {
             isActive = true;
         }
+        buyResponseQuantity = zeroQuantity;
+
         if (isActive) {
             int index = 0;
             for (String price : priceString.split(" ")) {
@@ -93,15 +97,15 @@ class BatteryAgent implements Agent {
             }
             receivedBuyQuote = true;
             handleQuotes();
-        } else {
-            buyResponseQuantity = zeroQuantity;
         }
     }
 
     public void handleSellQuote(String id, String priceString, String quantityString, boolean hasMarketActivity) {
-        if (Integer.parseInt(id) >= 5 && !hasMarketActivity) { // TODO - 2
+        if (Integer.parseInt(id) >= 2 && !hasMarketActivity) {
             isActive = true;
         }
+        sellResponseQuantity = zeroQuantity;
+
         if (isActive) {
             int index = 0;
             for (String price : priceString.split(" ")) {
@@ -114,21 +118,18 @@ class BatteryAgent implements Agent {
             }
             receivedSellQuote = true;
             handleQuotes();
-        } else {
-            sellResponseQuantity = zeroQuantity;
         }
     }
 
-    // issues:
-    //  price ties are not handled for sell quote responses
-    //  multiple price peaks for buy quotes are not handled
     private void handleQuotes() { // TODO - include losses
         if (!receivedBuyQuote || !receivedSellQuote) {
             return;
         }
+        receivedBuyQuote = false;
+        receivedSellQuote = false;
 
-        final double tolerance = 1e-4;
-        final double priceDifference = 0.04;
+        final double minimumUnit = 0.0001;
+        final double acceptablePriceDifference = 0.01;
 
         double[] dischargeAmount = new double[INTERVAL_LENGTH];
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
@@ -151,108 +152,129 @@ class BatteryAgent implements Agent {
             }
         });
 
-        if (transactedQuantityMismatch > tolerance) { // need to discharge
+        Integer[] buyIndexSorted = new Integer[INTERVAL_LENGTH];
+        for (int i = 0; i < INTERVAL_LENGTH; i++) {
+            buyIndexSorted[i] = i;
+        }
+
+        Arrays.sort(buyIndexSorted, new Comparator<Integer>() {
+            @Override public int compare(Integer i1, Integer i2) {
+                return Double.compare(buyQuotePrices[i1], buyQuotePrices[i2]);
+            }
+        });
+
+        if (transactedQuantityMismatch >= minimumUnit) { // need to discharge
             double maxPrice = 0.0;
-            double desiredQuantity = 0.0;
+            double responseQuantity = 0.0;
             int selectedIntervalIndex = 0;
 
-            for (int i = 0; i < indexOfFirstCharge; i++) {
+            for (int i = 0; i < indexOfChargeWindow; i++) {
                 if (buyQuotePrices[i] >= maxPrice) {
                     if (chargeRate[i] > 0) {
                         continue; // skip charge intervals
                     }
 
                     double availableQuantity = Math.min(buyQuoteQuantities[i], maxChargeRate - Math.abs(chargeRate[i]));
-                    for (int j = i; j < indexOfFirstCharge; j++) {
+                    for (int j = i; j < indexOfChargeWindow; j++) {
                         availableQuantity = Math.min(availableQuantity, stateOfCharge[j]);
                     }
 
-                    if (availableQuantity - tolerance > 0 && (buyQuotePrices[i] > maxPrice || availableQuantity > desiredQuantity)) {
+                    if (availableQuantity >= minimumUnit && (buyQuotePrices[i] > maxPrice || availableQuantity > responseQuantity)) {
                         maxPrice = buyQuotePrices[i];
-                        desiredQuantity = availableQuantity;
+                        responseQuantity = availableQuantity;
                         selectedIntervalIndex = i;
                     }
                 }
             }
-            dischargeAmount[selectedIntervalIndex] = desiredQuantity;
+            dischargeAmount[selectedIntervalIndex] = responseQuantity;
         } else {
-            Double[] predictedSOC = new Double[INTERVAL_LENGTH];
-            for (int i = 0; i < INTERVAL_LENGTH; i++) {
-                predictedSOC[i] = stateOfCharge[i];
-            }
+            Double[] estimatedROC = Arrays.copyOf(chargeRate, INTERVAL_LENGTH);
+            Double[] estimatedSOC = Arrays.copyOf(stateOfCharge, INTERVAL_LENGTH);
 
-            int index = 0; // can this be undefined ?
-            double desiredAmount = 0;
+            if (transactedQuantityMismatch <= -minimumUnit) {
+                double mismatch = transactedQuantityMismatch;
 
-            if (transactedQuantityMismatch < -tolerance) { // need to charge
-                index = indexOfDischarge;
-                desiredAmount = Math.abs(transactedQuantityMismatch);
+                for (int i = 0; i < INTERVAL_LENGTH; i++) {
+                    int c = sellIndexSorted[i];
+
+                    if (transactedDischargePrice < sellQuotePrices[c] + acceptablePriceDifference) {
+                        break;
+                    }
+                    if (c <= indexOfDischarge || estimatedROC[c] < 0 || maxChargeRate - estimatedROC[c] < minimumUnit) {
+                        continue;
+                    }
+
+                    double availableQuantity = maxChargeRate - estimatedROC[c];
+                    for (int j = c; j < INTERVAL_LENGTH; j++) {
+                        availableQuantity = Math.min(availableQuantity, capacity - (estimatedSOC[j] + estimatedROC[j]));
+                    }
+
+                    if (availableQuantity >= minimumUnit) {
+                        double responseQuantity = Math.min(availableQuantity, Math.abs(mismatch));
+                        chargeAmount[c] += responseQuantity;
+                        estimatedROC[c] += responseQuantity;
+                        for (int j = c+1; j < INTERVAL_LENGTH; j++) {
+                            estimatedSOC[j] += responseQuantity;
+                        }
+
+                        mismatch += responseQuantity;
+                        if (mismatch > -minimumUnit) {
+                            break;
+                        }
+                    }
+                }
             } else {
                 transactedQuantityMismatch = 0.0;
 
-                double maxPrice = 0.0;
-                for (int i = 0; i < INTERVAL_LENGTH; i++) {
-                    if (buyQuotePrices[i] >= maxPrice) {
-                        if (chargeRate[i] > 0) {
-                            continue; // skip charge intervals
+                boolean foundDischargeInterval = false;
+
+                for (int i = INTERVAL_LENGTH; i > 0; i--) {
+                    if (foundDischargeInterval) {
+                        break;
+                    }
+                    int d = buyIndexSorted[i-1];
+
+                    if (estimatedROC[d] > 0 || maxChargeRate - Math.abs(estimatedROC[d]) < minimumUnit
+                            || estimatedSOC[d] + estimatedROC[d] < minimumUnit) {
+                        continue;
+                    }
+                    double maxQuantity = Math.min(buyQuoteQuantities[d], maxChargeRate - Math.abs(estimatedROC[d]));
+
+                    for (int j = 0; j < INTERVAL_LENGTH; j++) {
+                        int c = sellIndexSorted[j];
+
+                        if (buyQuotePrices[d] < sellQuotePrices[c] + acceptablePriceDifference) {
+                            break;
+                        }
+                        if (c <= d || estimatedROC[c] < 0 || maxChargeRate - estimatedROC[c] < minimumUnit) {
+                            continue;
                         }
 
-                        double availableQuantity = Math.min(buyQuoteQuantities[i], maxChargeRate - Math.abs(chargeRate[i]));
-                        for (int j = i; j < INTERVAL_LENGTH; j++) {
-                            availableQuantity = Math.min(availableQuantity, stateOfCharge[j]);
+                        double availableQuantity = maxChargeRate - estimatedROC[c];
+                        for (int k = d; k <= c; k++) {
+                            availableQuantity = Math.min(availableQuantity, estimatedSOC[k]);
                         }
 
-                        if (availableQuantity - tolerance > 0 && (buyQuotePrices[i] > maxPrice || availableQuantity > desiredAmount)) {
-                            maxPrice = buyQuotePrices[i];
-                            desiredAmount = availableQuantity;
-                            index = i;
+                        if (availableQuantity >= minimumUnit) {
+                            foundDischargeInterval = true;
+
+                            double responseQuantity = Math.min(availableQuantity, maxQuantity);
+                            chargeAmount[c] += responseQuantity;
+                            dischargeAmount[d] += responseQuantity;
+
+                            estimatedROC[c] += responseQuantity;
+                            estimatedROC[d] -= responseQuantity;
+                            for (int k = d+1; k <= c; k++) {
+                                estimatedSOC[k] -= responseQuantity;
+                            }
+
+                            maxQuantity -= responseQuantity;
+                            if (maxQuantity < minimumUnit) {
+                                break;
+                            }
                         }
                     }
                 }
-                dischargeAmount[index] = desiredAmount;
-                for (int k = index+1; k < INTERVAL_LENGTH; k++) {
-                    predictedSOC[k] -= desiredAmount;
-                }
-            }
-            
-            int i = 0;
-            while (desiredAmount >= tolerance) {
-                if (i >= INTERVAL_LENGTH) {
-                    break;
-                }
-
-                // TODO - use previous round cost
-                if (buyQuotePrices[index] < sellQuotePrices[sellIndexSorted[i]] + priceDifference) {
-                    break;
-                }
-
-                if (index >= sellIndexSorted[i]) {
-                    continue;
-                }
-
-                if (chargeRate[sellIndexSorted[i]] < 0) {
-                    continue;
-                }
-
-                double availableQuantity = Math.min(desiredAmount, maxChargeRate - chargeRate[sellIndexSorted[i]]);
-                for (int j = sellIndexSorted[i]; j < INTERVAL_LENGTH; j++) {
-                    availableQuantity = Math.min(availableQuantity, capacity - predictedSOC[j]);
-                }
-
-                if (availableQuantity - tolerance > 0) {
-                    chargeAmount[sellIndexSorted[i]] = availableQuantity;
-                    desiredAmount -= availableQuantity;
-
-                    for (int j = sellIndexSorted[i]; j < INTERVAL_LENGTH; j++) {
-                        predictedSOC[j] += availableQuantity;
-                    }
-                }
-
-                i += 1;
-            }
-
-            if (desiredAmount > 0 && dischargeAmount[index] != 0.0) {
-                dischargeAmount[index] -= desiredAmount;
             }
         }
 
@@ -275,11 +297,7 @@ class BatteryAgent implements Agent {
 
     public void handleTransaction(String priceString, String quantityString, boolean isBuyTransaction) {
         String[] quantities = quantityString.split(" ");
-
-        ArrayList<Double> prices = new ArrayList<Double>();
-        for (String price : priceString.split(" ")) {
-            prices.add(Double.parseDouble(price));
-        }
+        String[] prices = priceString.split(" ");
 
         boolean foundFirstQuantity = false;
 
@@ -287,7 +305,7 @@ class BatteryAgent implements Agent {
             final double quantity = Double.parseDouble(quantities[i]);
             final int sign = (isBuyTransaction ? -1 : 1);
 
-            transactedCost[i] += sign * quantity * prices.get(i);
+            transactedCost[i] += sign * quantity * Double.parseDouble(prices[i]);
             transactedQuantity[i] += sign * quantity;
             transactedQuantityMismatch += sign * quantity;
 
@@ -296,11 +314,12 @@ class BatteryAgent implements Agent {
                 stateOfCharge[j] += sign * quantity;
             }
 
-            if (!foundFirstQuantity && quantity > 1e-4) {
+            if (!foundFirstQuantity && quantity > 0) {
                 if (isBuyTransaction) {
                     indexOfDischarge = i;
+                    transactedDischargePrice = Double.parseDouble(prices[i]);
                 } else {
-                    indexOfFirstCharge = i;
+                    indexOfChargeWindow = i;
                 }
             }
         }
@@ -325,6 +344,7 @@ class BatteryAgent implements Agent {
 
         // TODO - this should come from the FRC
         resetCharge(stateOfCharge[INTERVAL_LENGTH-1]); // probably need to add charge too
+        this.isActive = false;
     }
 
     private void resetCharge(double initialCharge) {
@@ -332,9 +352,5 @@ class BatteryAgent implements Agent {
             chargeRate[i] = 0.0;
             stateOfCharge[i] = initialCharge;
         }
-        transactedQuantityMismatch = 0.0;
-        indexOfFirstCharge = 0;
-        indexOfDischarge = 0;
-        isActive = false;
     }
 }

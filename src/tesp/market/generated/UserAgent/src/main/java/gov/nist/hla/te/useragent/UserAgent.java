@@ -39,6 +39,7 @@ public class UserAgent extends UserAgentBase {
     private Map<String, Agent> agents = new HashMap<String, Agent>();
 
     private Map<String, Tender> interactionQueue = new HashMap<String, Tender>();
+    private Map<String, Integer> lastTransaction = new HashMap<String, Integer>();
     
     private boolean isMarketRunning = false;
 
@@ -211,6 +212,7 @@ public class UserAgent extends UserAgentBase {
         if (!activeMarkets.containsKey(marketId)) {
             isMarketRunning = true;
             activeMarkets.put(marketId, round);
+            lastTransaction.put(marketId, Integer.parseInt(round)-1);
             log.info("market {} round {} (new)", marketId, round);
         } else if (!activeMarkets.get(marketId).equals(round)) {
             activeMarkets.put(marketId, round);
@@ -228,8 +230,10 @@ public class UserAgent extends UserAgentBase {
                 tender.set_interval(scenarioTime.toString());
                 tender.set_price(priceString);
 
+                boolean isMarketActive = (Integer.parseInt(interaction.get_id()) - lastTransaction.get(marketId) < 2);
+
                 if (isBuyQuote) {
-                    a.handleBuyQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
+                    a.handleBuyQuote(interaction.get_id(), priceString, quantityString, isMarketActive);
 
                     if (interactionQueue.containsKey(a.getAgentId())) {
                         Tender q = interactionQueue.get(a.getAgentId());
@@ -245,7 +249,7 @@ public class UserAgent extends UserAgentBase {
                         interactionQueue.put(a.getAgentId(), tender);
                     }
                 } else {
-                    a.handleSellQuote(interaction.get_id(), priceString, quantityString, hasReportedTransactions);
+                    a.handleSellQuote(interaction.get_id(), priceString, quantityString, isMarketActive);
 
                     if (interactionQueue.containsKey(a.getAgentId())) {
                         Tender q = interactionQueue.get(a.getAgentId());
@@ -264,7 +268,7 @@ public class UserAgent extends UserAgentBase {
             }
         }
 
-        hasReportedTransactions = false; // needs to be an int per market of last transaction round
+        hasReportedTransactions = false;
     }
 
     private void logQuoteResponse(Tender quoteResponse) {
@@ -295,6 +299,7 @@ public class UserAgent extends UserAgentBase {
         } else {
             log.warn("no user agent {}", interaction.get_counterPartyId());
         }
+        lastTransaction.put(interaction.get_marketId(), Integer.parseInt(interaction.get_id()));
     }
 
     private void handleInteractionClass(MarketClosed interaction) {
