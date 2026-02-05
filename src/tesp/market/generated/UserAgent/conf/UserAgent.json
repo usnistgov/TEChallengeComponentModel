@@ -7,5 +7,6 @@
   "stepSize": 1.0,
   "houseFilePath": "conf/HouseData.csv",
   "vehicleFilePath": "conf/VehicleData.csv",
-  "electricVehicle": {}
+  "electricVehicle": {},
+  "acceptablePriceDifference": 0.04
 }

@@ -13,6 +13,9 @@ public class UserAgentConfig extends FederateConfig {
     @FederateParameter
     public ElectricVehicle electricVehicle;
 
+    @FederateParameter
+    public double acceptablePriceDifference;
+
     public class ElectricVehicle {
         public double distributionCoefficient = 3.75;
         public double distributionMean = 0.9;

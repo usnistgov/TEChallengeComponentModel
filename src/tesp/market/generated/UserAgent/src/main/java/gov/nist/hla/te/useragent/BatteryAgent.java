@@ -13,6 +13,7 @@ class BatteryAgent implements Agent {
     private String transformerId;
 
     private double capacity;
+    private double acceptablePriceDifference;
 
     private String buyResponseQuantity;
     private String sellResponseQuantity;
@@ -42,10 +43,11 @@ class BatteryAgent implements Agent {
     private String zeroQuantity;
     private boolean isActive;
 
-    public BatteryAgent(String id, double capacity) {
+    public BatteryAgent(String id, double capacity, double acceptablePriceDifference) {
         this.agentId = id;
         this.transformerId = id.split(":")[0];
         this.capacity = capacity;
+        this.acceptablePriceDifference = acceptablePriceDifference;
         this.isActive = false;
 
         zeroQuantity = "";
@@ -129,7 +131,6 @@ class BatteryAgent implements Agent {
         receivedSellQuote = false;
 
         final double minimumUnit = 0.0001;
-        final double acceptablePriceDifference = 0.01;
 
         double[] dischargeAmount = new double[INTERVAL_LENGTH];
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
