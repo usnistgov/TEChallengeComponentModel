@@ -1,6 +1,6 @@
-package gov.nist.hla.te.flexibleresourcecontroller;
+package gov.nist.hla.te.useragent;
 
-import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
+import gov.nist.hla.te.useragent.rti.*;
 
 import hla.rti.EventRetractionHandle;
 import hla.rti.LogicalTime;
@@ -17,12 +17,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class FlexibleResourceControllerBase extends SynchronizedFederate {
+public class UserAgentBase extends SynchronizedFederate {
     private SubscribedInteractionFilter _subscribedInteractionFilter =
         new SubscribedInteractionFilter();
 
     // constructor
-    public FlexibleResourceControllerBase(FederateConfig config) throws Exception {
+    public UserAgentBase(FederateConfig config) throws Exception {
         super(config);
         super.createLRC();
         super.joinFederation();
@@ -31,9 +31,21 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
         enableAsynchronousDelivery();
 
         // interaction pubsub
-        RealTimePrice.subscribe(getLRC());
+        QuoteResponse.publish(getLRC());
+        Commitment.publish(getLRC());
+        Quote.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
-           RealTimePrice.get_handle(),
+           Quote.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
+        Transaction.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           Transaction.get_handle(),
+           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
+           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
+        MarketClosed.subscribe(getLRC());
+        _subscribedInteractionFilter.setFedFilters( 
+           MarketClosed.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
         SimTime.subscribe(getLRC());
@@ -41,38 +53,22 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
            SimTime.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
-        DayAheadPrice.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-           DayAheadPrice.get_handle(),
-           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
-           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
-        Commitment.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-           Commitment.get_handle(),
-           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
-           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
 
         // object pubsub
-        Waterheater.publish_lower_tank_setpoint();
-        Waterheater.publish_name();
-        Waterheater.publish_tank_setpoint();
-        Waterheater.publish_upper_tank_setpoint();
-        Waterheater.publish(getLRC());
-        House.publish_cooling_setpoint();
-        House.publish_name();
-        House.publish(getLRC());
-        Inverter.publish_P_Out();
-        Inverter.publish_Q_Out();
-        Inverter.publish_name();
-        Inverter.publish(getLRC());
-        Meter.subscribe_measured_voltage_1();
-        Meter.subscribe_name();
-        Meter.subscribe(getLRC());
-        Transformer.subscribe_name();
-        Transformer.subscribe_power_in();
-        Transformer.subscribe(getLRC());
     }
 
+    public QuoteResponse create_QuoteResponse() {
+        QuoteResponse interaction = new QuoteResponse();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
+    public Commitment create_Commitment() {
+        Commitment interaction = new Commitment();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
 
     @Override
     public void receiveInteraction(int interactionClass,

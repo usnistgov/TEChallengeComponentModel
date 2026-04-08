@@ -1,6 +1,6 @@
-package gov.nist.hla.te.flexibleresourcecontroller;
+package gov.nist.hla.te.marketagent;
 
-import gov.nist.hla.te.flexibleresourcecontroller.rti.*;
+import gov.nist.hla.te.marketagent.rti.*;
 
 import hla.rti.EventRetractionHandle;
 import hla.rti.LogicalTime;
@@ -17,12 +17,12 @@ import org.cpswt.utils.CpswtDefaults;
 import org.cpswt.*;
 
 
-public class FlexibleResourceControllerBase extends SynchronizedFederate {
+public class MarketAgentBase extends SynchronizedFederate {
     private SubscribedInteractionFilter _subscribedInteractionFilter =
         new SubscribedInteractionFilter();
 
     // constructor
-    public FlexibleResourceControllerBase(FederateConfig config) throws Exception {
+    public MarketAgentBase(FederateConfig config) throws Exception {
         super(config);
         super.createLRC();
         super.joinFederation();
@@ -31,9 +31,12 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
         enableAsynchronousDelivery();
 
         // interaction pubsub
-        RealTimePrice.subscribe(getLRC());
+        Transaction.publish(getLRC());
+        MarketClosed.publish(getLRC());
+        Quote.publish(getLRC());
+        QuoteResponse.subscribe(getLRC());
         _subscribedInteractionFilter.setFedFilters( 
-           RealTimePrice.get_handle(),
+           QuoteResponse.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
         SimTime.subscribe(getLRC());
@@ -41,38 +44,28 @@ public class FlexibleResourceControllerBase extends SynchronizedFederate {
            SimTime.get_handle(),
            SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
            SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
-        DayAheadPrice.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-           DayAheadPrice.get_handle(),
-           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
-           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
-        Commitment.subscribe(getLRC());
-        _subscribedInteractionFilter.setFedFilters( 
-           Commitment.get_handle(),
-           SubscribedInteractionFilter.OriginFedFilter.ORIGIN_FILTER_DISABLED,
-           SubscribedInteractionFilter.SourceFedFilter.SOURCE_FILTER_DISABLED);
 
         // object pubsub
-        Waterheater.publish_lower_tank_setpoint();
-        Waterheater.publish_name();
-        Waterheater.publish_tank_setpoint();
-        Waterheater.publish_upper_tank_setpoint();
-        Waterheater.publish(getLRC());
-        House.publish_cooling_setpoint();
-        House.publish_name();
-        House.publish(getLRC());
-        Inverter.publish_P_Out();
-        Inverter.publish_Q_Out();
-        Inverter.publish_name();
-        Inverter.publish(getLRC());
-        Meter.subscribe_measured_voltage_1();
-        Meter.subscribe_name();
-        Meter.subscribe(getLRC());
-        Transformer.subscribe_name();
-        Transformer.subscribe_power_in();
-        Transformer.subscribe(getLRC());
     }
 
+    public Transaction create_Transaction() {
+        Transaction interaction = new Transaction();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
+    public MarketClosed create_MarketClosed() {
+        MarketClosed interaction = new MarketClosed();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
+    public Quote create_Quote() {
+        Quote interaction = new Quote();
+        interaction.set_sourceFed(getFederateId());
+        interaction.set_originFed(getFederateId());
+        return interaction;
+    }
 
     @Override
     public void receiveInteraction(int interactionClass,

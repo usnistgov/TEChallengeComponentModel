@@ -562,6 +562,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             else if (interaction instanceof DayAheadPrice) {
                 handleInteractionClass((DayAheadPrice) interaction);
             }
+            else if (interaction instanceof Commitment) {
+                handleInteractionClass((Commitment) interaction);
+            }
             else {
                 log.debug("unhandled interaction: {}", interaction.getClassName());
             }
@@ -1040,6 +1043,12 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         final double price = interaction.get_value();
         dayAheadPriceQueue.put(time, price);
         log.debug("received DAP=({},{})", interaction.get_time(), price);
+    }
+
+    private void handleInteractionClass(Commitment interaction) {
+        ///////////////////////////////////////////////////////////////
+        // TODO implement how to handle reception of the interaction //
+        ///////////////////////////////////////////////////////////////
     }
 
     private void handleObjectClass(Meter object) {

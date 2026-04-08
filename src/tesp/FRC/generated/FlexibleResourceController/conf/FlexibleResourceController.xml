@@ -8,7 +8,7 @@
         <name>FlexibleResourceController</name>
         <type>SOM</type>
         <version>0.1.0</version>
-        <modificationDate>2023-02-15</modificationDate>
+        <modificationDate>2026-03-08</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
             This file was generated from WebGME based on the federate
@@ -263,6 +263,28 @@
                             <dataType>long</dataType>
                         </parameter>
                     </interactionClass>
+                </interactionClass>
+                <interactionClass>
+                    <name>Commitment</name>
+                    <sharing>Subscribe</sharing>
+                    <transportation>HLAreliable</transportation>
+                    <order>TimeStamp</order>
+                    <parameter> 
+                        <name>interval</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>partyId</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>totalCost</name>
+                        <dataType>String</dataType>
+                    </parameter>
+                    <parameter> 
+                        <name>totalQuantity</name>
+                        <dataType>String</dataType>
+                    </parameter>
                 </interactionClass>
                 <interactionClass>
                     <name>DayAheadPrice</name>

@@ -326,9 +326,34 @@
         (parameter unixTimeStop)
       )
       )
+      (class Commitment reliable timestamp
+        (parameter interval)
+        (parameter partyId)
+        (parameter totalCost)
+        (parameter totalQuantity)
+      )
       (class DayAheadPrice reliable timestamp
         (parameter time)
         (parameter value)
+      )
+      (class MarketClosed reliable timestamp
+        (parameter marketId)
+      )
+      (class MarketInteraction reliable timestamp
+        (parameter counterPartyId)
+        (parameter id)
+        (parameter interval)
+        (parameter marketId)
+        (parameter partyId)
+        (parameter price)
+        (parameter quantity)
+        (parameter side)
+      (class Quote reliable timestamp
+      )
+      (class QuoteResponse reliable timestamp
+      )
+      (class Transaction reliable timestamp
+      )
       )
       (class RealTimePrice reliable timestamp
         (parameter time)

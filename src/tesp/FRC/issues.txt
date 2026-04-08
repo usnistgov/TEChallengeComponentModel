@@ -1,6 +1,0 @@
-- model.glm has different values for upper_tank_setpoint and lower_tank_setpoint
-    - David will provide new CSV with additional column for the setpoint, as well as correct GLM file
-- which triplex_meter voltage to read?
-    - David will dig for more info
-- ramp function step size?
-    - Continuous (as possible, given UCEF step size)

@@ -124693,6 +124693,13 @@ object group_recorder {
   	group "class=transformer";
   	property power_in; 
 	complex_part REAL;
+  	file outputs/trans_power_real60.csv; //complex power VA
+  	interval 60;  
+};
+object group_recorder {
+  	group "class=transformer";
+  	property power_in; 
+	complex_part REAL;
   	file outputs/trans_power_real.csv; //complex power VA
   	interval 300;  
 };
@@ -124793,10 +124800,18 @@ object group_recorder {
 	file outputs/hse_real_energy.csv;
 };
 object group_recorder {
-	group "class=link";
-	property power_losses; //complex VA
+	group "class=transformer";
+	property power_losses; //VA
+	complex_part REAL;
 	interval 300;
-	file outputs/losses.csv;
+	file outputs/losses_real.csv;
+};
+object group_recorder {
+	group "class=transformer";
+	property power_losses; //VAr
+	complex_part IMAG;
+	interval 300;
+	file outputs/losses_imag.csv;
 };
 
 //object group_recorder {
