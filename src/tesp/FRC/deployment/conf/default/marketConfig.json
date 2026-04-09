@@ -1,0 +1,54 @@
+{
+  "federateTypesAllowed": [
+    "FlexibleResourceController",
+    "GridModel",
+    "PriceReader",
+    "SimulationTime",
+    "MarketAgent",
+    "UserAgent"
+  ],
+  "expectedFederates": [
+    {
+      "federateType": "FlexibleResourceController",
+      "count": 1
+    },
+    {
+      "federateType": "GridModel",
+      "count": 1
+    },
+    {
+      "federateType": "PriceReader",
+      "count": 1
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 1
+    },
+    {
+      "federateType": "MarketAgent",
+      "count": 1
+    },
+    {
+      "federateType": "UserAgent",
+      "count": 1
+    }
+  ],
+  "lateJoinerFederates": [
+    {
+      "federateType": "FlexibleResourceController",
+      "count": 0
+    },
+    {
+      "federateType": "GridModel",
+      "count": 0
+    },
+    {
+      "federateType": "PriceReader",
+      "count": 0
+    },
+    {
+      "federateType": "SimulationTime",
+      "count": 0
+    }
+  ]
+}
