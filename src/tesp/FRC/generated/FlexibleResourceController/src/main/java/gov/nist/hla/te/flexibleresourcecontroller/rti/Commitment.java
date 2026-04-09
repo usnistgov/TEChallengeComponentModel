@@ -124,10 +124,10 @@ public class Commitment extends C2WInteractionRoot {
         _datamemberNames.add("totalCost");
         _datamemberNames.add("totalQuantity");
 
-        _datamemberTypeMap.put("interval", "String");
+        _datamemberTypeMap.put("interval", "int");
         _datamemberTypeMap.put("partyId", "String");
-        _datamemberTypeMap.put("totalCost", "String");
-        _datamemberTypeMap.put("totalQuantity", "String");
+        _datamemberTypeMap.put("totalCost", "double");
+        _datamemberTypeMap.put("totalQuantity", "double");
 
         _allDatamemberNames.add("actualLogicalGenerationTime");
         _allDatamemberNames.add("federateFilter");
@@ -480,17 +480,17 @@ public class Commitment extends C2WInteractionRoot {
                 + ")";
     }
 
-    private String _interval = "";
+    private int _interval = 0;
     private String _partyId = "";
-    private String _totalCost = "";
-    private String _totalQuantity = "";
+    private double _totalCost = 0;
+    private double _totalQuantity = 0;
 
     /**
     * Set the value of the "interval" parameter to "value" for this parameter.
     *
     * @param value the new value for the "interval" parameter
     */
-    public void set_interval( String value ) {
+    public void set_interval( int value ) {
         _interval = value;
     }
 
@@ -499,7 +499,7 @@ public class Commitment extends C2WInteractionRoot {
     *
     * @return the value of the "interval" parameter
     */
-    public String get_interval() {
+    public int get_interval() {
         return _interval;
     }
     /**
@@ -524,7 +524,7 @@ public class Commitment extends C2WInteractionRoot {
     *
     * @param value the new value for the "totalCost" parameter
     */
-    public void set_totalCost( String value ) {
+    public void set_totalCost( double value ) {
         _totalCost = value;
     }
 
@@ -533,7 +533,7 @@ public class Commitment extends C2WInteractionRoot {
     *
     * @return the value of the "totalCost" parameter
     */
-    public String get_totalCost() {
+    public double get_totalCost() {
         return _totalCost;
     }
     /**
@@ -541,7 +541,7 @@ public class Commitment extends C2WInteractionRoot {
     *
     * @param value the new value for the "totalQuantity" parameter
     */
-    public void set_totalQuantity( String value ) {
+    public void set_totalQuantity( double value ) {
         _totalQuantity = value;
     }
 
@@ -550,7 +550,7 @@ public class Commitment extends C2WInteractionRoot {
     *
     * @return the value of the "totalQuantity" parameter
     */
-    public String get_totalQuantity() {
+    public double get_totalQuantity() {
         return _totalQuantity;
     }
 
@@ -618,19 +618,19 @@ public class Commitment extends C2WInteractionRoot {
     * for this interaction
     */
     public Object getParameter( String datamemberName ) {
-        if ( "interval".equals(datamemberName) ) return get_interval();
+        if ( "interval".equals(datamemberName) ) return new Integer(get_interval());
         else if ( "partyId".equals(datamemberName) ) return get_partyId();
-        else if ( "totalCost".equals(datamemberName) ) return get_totalCost();
-        else if ( "totalQuantity".equals(datamemberName) ) return get_totalQuantity();
+        else if ( "totalCost".equals(datamemberName) ) return new Double(get_totalCost());
+        else if ( "totalQuantity".equals(datamemberName) ) return new Double(get_totalQuantity());
         else return super.getParameter( datamemberName );
     }
 
     protected boolean setParameterAux( String datamemberName, String val ) {
         boolean retval = true;
-        if ( "interval".equals( datamemberName) ) set_interval( val );
+        if ( "interval".equals( datamemberName) ) set_interval( Integer.parseInt(val) );
         else if ( "partyId".equals( datamemberName) ) set_partyId( val );
-        else if ( "totalCost".equals( datamemberName) ) set_totalCost( val );
-        else if ( "totalQuantity".equals( datamemberName) ) set_totalQuantity( val );
+        else if ( "totalCost".equals( datamemberName) ) set_totalCost( Double.parseDouble(val) );
+        else if ( "totalQuantity".equals( datamemberName) ) set_totalQuantity( Double.parseDouble(val) );
         else retval = super.setParameterAux( datamemberName, val );
 
         return retval;
@@ -638,10 +638,10 @@ public class Commitment extends C2WInteractionRoot {
 
     protected boolean setParameterAux( String datamemberName, Object val ) {
         boolean retval = true;
-        if ( "interval".equals( datamemberName) ) set_interval( (String)val );
+        if ( "interval".equals( datamemberName) ) set_interval( (Integer)val );
         else if ( "partyId".equals( datamemberName) ) set_partyId( (String)val );
-        else if ( "totalCost".equals( datamemberName) ) set_totalCost( (String)val );
-        else if ( "totalQuantity".equals( datamemberName) ) set_totalQuantity( (String)val );
+        else if ( "totalCost".equals( datamemberName) ) set_totalCost( (Double)val );
+        else if ( "totalQuantity".equals( datamemberName) ) set_totalQuantity( (Double)val );
         else retval = super.setParameterAux( datamemberName, val );
 
         return retval;

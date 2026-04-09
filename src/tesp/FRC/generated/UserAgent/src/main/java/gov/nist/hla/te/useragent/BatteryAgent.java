@@ -326,26 +326,28 @@ class BatteryAgent implements Agent {
         }
     }
 
-    public void closeMarket() {
-        String finalPrice = "";
-        String finalQuantity = "";
+    public MarketDetails closeMarket() {
+        MarketDetails results = new MarketDetails();
+
         for (int i = 0; i < INTERVAL_LENGTH; i++) {
             if (i > 0) {
-                finalPrice += " ";
-                finalQuantity += " ";
+                results.cost += " ";
+                results.quantity += " ";
             }
-            finalPrice += String.format("%.4f", transactedCost[i]);
-            finalQuantity += String.format("%.4f", transactedQuantity[i]);
+            results.cost += String.format("%.4f", transactedCost[i]);
+            results.quantity += String.format("%.4f", transactedQuantity[i]);
 
             transactedCost[i] = 0.0;
             transactedQuantity[i] = 0.0;
         }
-        log.info("{} total transaction cost {}", agentId, finalPrice);
-        log.info("{} total transaction quantity {}", agentId, finalQuantity);
+        log.info("{} total transaction cost {}", agentId, results.cost);
+        log.info("{} total transaction quantity {}", agentId, results.quantity);
 
         // TODO - this should come from the FRC
         resetCharge(stateOfCharge[INTERVAL_LENGTH-1]); // probably need to add charge too
         this.isActive = false;
+
+        return results;
     }
 
     private void resetCharge(double initialCharge) {

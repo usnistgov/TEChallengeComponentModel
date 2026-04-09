@@ -8,7 +8,7 @@
         <name>FRC</name>
         <type>FOM</type>
         <version>0.1.0</version>
-        <modificationDate>2026-03-08</modificationDate>
+        <modificationDate>2026-03-09</modificationDate>
         <securityClassification>Unclassified</securityClassification>
         <description>
           This file was generated from WebGME based on the
@@ -270,7 +270,7 @@
                     <order>TimeStamp</order>
                     <parameter> 
                         <name>interval</name>
-                        <dataType>String</dataType>
+                        <dataType>int</dataType>
                     </parameter>
                     <parameter> 
                         <name>partyId</name>
@@ -278,11 +278,11 @@
                     </parameter>
                     <parameter> 
                         <name>totalCost</name>
-                        <dataType>String</dataType>
+                        <dataType>double</dataType>
                     </parameter>
                     <parameter> 
                         <name>totalQuantity</name>
-                        <dataType>String</dataType>
+                        <dataType>double</dataType>
                     </parameter>
                 </interactionClass>
                 <interactionClass>

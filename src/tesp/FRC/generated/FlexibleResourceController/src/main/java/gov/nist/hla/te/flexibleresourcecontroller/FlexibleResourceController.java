@@ -1046,9 +1046,16 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     }
 
     private void handleInteractionClass(Commitment interaction) {
-        ///////////////////////////////////////////////////////////////
-        // TODO implement how to handle reception of the interaction //
-        ///////////////////////////////////////////////////////////////
+        // the first market interval (0) is at 5:00 pm (17)
+        int hour = (interaction.get_interval() + 17) % 24;
+
+        if (interaction.get_partyId().contains("battery")) {
+
+        } else if (interaction.get_partyId().contains("vehicle")) {
+
+        } else { // house load
+            log.debug("skipped commit {}", interaction.get_partyId());
+        }
     }
 
     private void handleObjectClass(Meter object) {

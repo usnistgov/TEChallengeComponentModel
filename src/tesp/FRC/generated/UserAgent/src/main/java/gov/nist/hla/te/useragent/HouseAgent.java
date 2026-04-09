@@ -117,7 +117,9 @@ class HouseAgent implements Agent {
         }
     }
 
-    public void closeMarket() {
+    public MarketDetails closeMarket() {
+        MarketDetails results = new MarketDetails();
+
         if (!loadForecast.isEmpty()) {
             loadForecast.subList(0, INTERVAL_LENGTH).clear();
             if (loadForecast.size() < INTERVAL_LENGTH) {
@@ -125,21 +127,21 @@ class HouseAgent implements Agent {
                 loadForecast.clear();
             }
 
-            String finalPrice = "";
-            String finalQuantity = "";
             for (int i = 0; i < INTERVAL_LENGTH; i++) {
                 if (i > 0) {
-                    finalPrice += " ";
-                    finalQuantity += " ";
+                    results.cost += " ";
+                    results.quantity += " ";
                 }
-                finalPrice += String.format("%.4f", transactedCost[i]);
-                finalQuantity += String.format("%.4f", transactedQuantity[i]);
+                results.cost += String.format("%.4f", transactedCost[i]);
+                results.quantity += String.format("%.4f", transactedQuantity[i]);
 
                 transactedCost[i] = 0.0;
                 transactedQuantity[i] = 0.0;
             }
-            log.info("{} total transaction cost {}", agentId, finalPrice);
-            log.info("{} total transaction quantity {}", agentId, finalQuantity);
+
+            log.info("{} total transaction cost {}", agentId, results.cost);
+            log.info("{} total transaction quantity {}", agentId, results.quantity);
         }
+        return results;
     }
 }

@@ -176,8 +176,20 @@ public class UserAgent extends UserAgentBase {
 
             if (isMarketRunning) {
                 for (Agent a : agents.values()) {
-                    a.closeMarket();
-                    // TODO: csv output
+                    Agent.MarketDetails result = a.closeMarket();
+                    String[] cost = result.cost.split(" ");
+                    String[] quantity = result.quantity.split(" ");
+
+                    if (cost.length == quantity.length && cost.length > 0) {
+                        for (int i = 0; i < cost.length; i++) {
+                            Commitment commitment = create_Commitment();
+                            commitment.set_partyId(a.getAgentId());
+                            commitment.set_interval(i);
+                            commitment.set_totalCost(Double.parseDouble(cost[i]));
+                            commitment.set_totalQuantity(Double.parseDouble(quantity[i]));
+                            commitment.sendInteraction(getLRC(), currentTime + getLookAhead());
+                        }
+                    }
                 }
                 isMarketRunning = false;
             }
