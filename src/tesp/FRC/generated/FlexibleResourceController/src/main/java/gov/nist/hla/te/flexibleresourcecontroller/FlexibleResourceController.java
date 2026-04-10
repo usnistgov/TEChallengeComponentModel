@@ -63,6 +63,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private boolean receivedSimTime = false;
     private boolean receivedInitialPrices = false;
     private boolean firstTimeStep = true;
+    private boolean marketInProgress = false;
 
     private double currentTime = 0;
 
@@ -129,6 +130,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
     private Map<String, Double> batteryCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
+
+    private Map<String, Double[]> marketBatteryCommitment = new HashMap<String, Double[]>();
+    private Map<String, Double[]> marketVehicleCommitment = new HashMap<String, Double[]>();
 
     private File csvFilePath = null;
 
@@ -218,6 +222,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             }
             log.debug("house parameters header: {}", line);
 
+            Double[] zeroedDoubleArray = new Double[24];
+            Arrays.fill(zeroedDoubleArray, 0.0);
+
             // process each line of data
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(delimiter);
@@ -233,6 +240,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 Inverter inverter = new Inverter();
                 inverter.registerObject(getLRC());
                 inverters.put(houseConfiguration.getBatteryID(), inverter);
+                marketBatteryCommitment.put(houseConfiguration.getID(), zeroedDoubleArray.clone());
 
                 Waterheater waterheater = new Waterheater();
                 waterheater.registerObject(getLRC());
@@ -243,6 +251,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     Inverter vehicle = new Inverter();
                     vehicle.registerObject(getLRC());
                     vehicles.put(houseConfiguration.getVehicleID(), vehicle);
+                    marketVehicleCommitment.put(houseConfiguration.getVehicleID(), zeroedDoubleArray.clone());
                     log.debug("registered electric vehicle {}", houseConfiguration.getVehicleID());
                 }
             }
@@ -675,6 +684,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 if (currentHour == 8) {
                     resetVehicles();
                 }
+
+                if (currentHour == 17) {
+                    marketInProgress = true;
+                }
             }
 
             // heat pump control
@@ -1049,10 +1062,35 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         // the first market interval (0) is at 5:00 pm (17)
         int hour = (interaction.get_interval() + 17) % 24;
 
+        if (marketInProgress) { // processing the first commitment
+            Double[] zeroedDoubleArray = new Double[24];
+            Arrays.fill(zeroedDoubleArray, 0.0);
+
+            for (String houseId : marketBatteryCommitment.keySet()) {
+                marketBatteryCommitment.put(houseId, zeroedDoubleArray.clone());
+            }
+            for (String vehicleId : marketVehicleCommitment.keySet()) {
+                marketVehicleCommitment.put(vehicleId, zeroedDoubleArray.clone());
+            }
+
+            marketInProgress = false;
+        }
+
         if (interaction.get_partyId().contains("battery")) {
+            String houseId = interaction.get_partyId();
+            houseId = houseId.substring(0, houseId.length() - "-battery".length());
+            houseId = houseId.replaceAll("xfmr", "tn").replaceAll(":House-", "_hse_");
 
+            Double[] commitSchedule = marketBatteryCommitment.get(houseId);
+            commitSchedule[hour] = interaction.get_totalQuantity();
         } else if (interaction.get_partyId().contains("vehicle")) {
+            String vehicleId = interaction.get_partyId();
+            vehicleId = vehicleId.replaceAll("xfmr", "tn").replaceAll(":House-", "_iev_").replaceAll("-vehicle.*", "");
 
+            // the market can have multiple vehicles per house, but the current GridLAB-D model has one
+            //  so all the vehicles are aggregated (+=) from the market result into a single battery
+            Double[] commitSchedule = marketVehicleCommitment.get(vehicleId);
+            commitSchedule[hour] += interaction.get_totalQuantity();
         } else { // house load
             log.debug("skipped commit {}", interaction.get_partyId());
         }
