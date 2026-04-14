@@ -25,6 +25,9 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
     @FederateParameter
     public CongestionDynamicPrice congestionDynamicPrice;
 
+    @FederateParameter
+    public TransactiveMarket transactiveMarket;
+
     public class CongestionDynamicPrice {  
         public boolean useCongestionDynamicPrice;
         public double backoffCoefficient;
@@ -63,5 +66,9 @@ public class FlexibleResourceControllerConfig extends FederateConfig {
         public double distributionMean = 0.9;
         public double distributionStdDev = 1.1;
         public long seed = 0;
+    }
+
+    public class TransactiveMarket {
+        public boolean runMarket = false;
     }
 }

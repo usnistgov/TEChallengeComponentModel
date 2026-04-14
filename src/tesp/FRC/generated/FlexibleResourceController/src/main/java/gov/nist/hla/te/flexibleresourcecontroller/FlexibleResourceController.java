@@ -131,6 +131,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
     private Map<String, Double> batteryCharge = new HashMap<String, Double>();
     private Map<String, ChargeState> batteryChargeState = new HashMap<String, ChargeState>();
 
+    private boolean runMarket = false;
     private Map<String, Double[]> marketBatteryCommitment = new HashMap<String, Double[]>();
     private Map<String, Double[]> marketVehicleCommitment = new HashMap<String, Double[]>();
 
@@ -208,6 +209,11 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             log.info("VOLT-VAR Qset = {} Vmin = {} Vlo = {} Vhi = {} Vmax = {}", q_set, v_min, v_lo, v_hi, v_max);
         }
 
+        runMarket = params.transactiveMarket.runMarket;
+        if (runMarket) {
+            log.info("Transactive Energy Market is ACTIVE");
+        }
+
         final String filepath = params.houseConfigurationFile;
         final String delimiter = ","; // csv input file
 
@@ -240,7 +246,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 Inverter inverter = new Inverter();
                 inverter.registerObject(getLRC());
                 inverters.put(houseConfiguration.getBatteryID(), inverter);
-                marketBatteryCommitment.put(houseConfiguration.getID(), zeroedDoubleArray.clone());
+                marketBatteryCommitment.put(houseConfiguration.getBatteryID(), zeroedDoubleArray.clone());
 
                 Waterheater waterheater = new Waterheater();
                 waterheater.registerObject(getLRC());
@@ -806,7 +812,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 double p_out = 0;
                 double q_out = 0;
 
-                if (batteryActiveReal) {
+                if (runMarket) {
+                    p_out = -marketBatteryCommitment.get(id)[scenarioTime.getHour()];
+                    log.debug("{} = {}", id, p_out);
+                } else if (batteryActiveReal) {
                     boolean isDischargePossible = false;
 
                     final double lambda = houseConfiguration.getLambda();
@@ -965,7 +974,10 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 Inverter inverter = vehicles.get(id);
                 double p_out = 0;
 
-               if (vehicleChargeState.get(id) == ChargeState.BASELINE) {
+                if (runMarket) { // probably should skip a lot of stuff above too
+                    p_out = -marketVehicleCommitment.get(id)[scenarioTime.getHour()];
+                    log.debug("{} = {}", id, p_out);
+                } else if (vehicleChargeState.get(id) == ChargeState.BASELINE) {
                     if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window
                         p_out = 0;
                     } else if (useCongestionControl && checkForCongestion && (mPrice > 1 + lambda / 2)) { // switch to congestion control
@@ -1077,12 +1089,13 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
         }
 
         if (interaction.get_partyId().contains("battery")) {
-            String houseId = interaction.get_partyId();
-            houseId = houseId.substring(0, houseId.length() - "-battery".length());
-            houseId = houseId.replaceAll("xfmr", "tn").replaceAll(":House-", "_hse_");
+            String batteryId = interaction.get_partyId();
+            batteryId = batteryId.substring(0, batteryId.length() - "-battery".length());
+            batteryId = batteryId.replaceAll("xfmr", "tn").replaceAll(":House-", "_ibat_");
 
-            Double[] commitSchedule = marketBatteryCommitment.get(houseId);
+            Double[] commitSchedule = marketBatteryCommitment.get(batteryId);
             commitSchedule[hour] = interaction.get_totalQuantity();
+            log.debug("COMMIT {} {}:{}", batteryId, hour, commitSchedule[hour]);
         } else if (interaction.get_partyId().contains("vehicle")) {
             String vehicleId = interaction.get_partyId();
             vehicleId = vehicleId.replaceAll("xfmr", "tn").replaceAll(":House-", "_iev_").replaceAll("-vehicle.*", "");
@@ -1091,6 +1104,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
             //  so all the vehicles are aggregated (+=) from the market result into a single battery
             Double[] commitSchedule = marketVehicleCommitment.get(vehicleId);
             commitSchedule[hour] += interaction.get_totalQuantity();
+            log.debug("COMMIT {} {}:{}", vehicleId, hour, commitSchedule[hour]);
         } else { // house load
             log.debug("skipped commit {}", interaction.get_partyId());
         }

@@ -1,0 +1,40 @@
+{
+  "federateRTIInitWaitTimeMs": 200,
+  "federateType": "FlexibleResourceController",
+  "federationId": "FRC",
+  "isLateJoiner": false,
+  "lookAhead": 0.2,
+  "stepSize": 1.0,
+  "houseConfigurationFile": "conf/houseParametersEV.csv",
+  "transformerConfigurationFile": "conf/transformers.csv",
+  "heatPump": {
+    "isControlled": true,
+    "useRtpAdjust": true
+  },
+  "waterHeater": {
+    "isControlled": true,
+    "useRtpAdjust": true
+  },
+  "battery": {
+    "isControlledReal": true,
+    "isControlledReactive": true,
+    "useRtpAdjust": true,
+    "q_set": 0.44,
+    "priceDifferentialEcon": 0.03,
+    "priceDifferentialRange": 0.01
+  },
+  "electricVehicle": {
+    "useDayAheadPrice": true,
+    "seed": 1
+  },
+  "congestionDynamicPrice": {
+    "useCongestionDynamicPrice": true,
+    "backoffCoefficient": 5.0,
+    "perMinuteIncrease": 0.1,
+    "minutesBetweenUpdates": 5,
+    "minutesAveragePower": 5
+  },
+  "transactiveMarket": {
+    "runMarket": true
+  }
+}
