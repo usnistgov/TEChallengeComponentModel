@@ -814,7 +814,6 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
 
                 if (runMarket) {
                     p_out = -marketBatteryCommitment.get(id)[scenarioTime.getHour()];
-                    log.debug("{} = {}", id, p_out);
                 } else if (batteryActiveReal) {
                     boolean isDischargePossible = false;
 
@@ -944,9 +943,9 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                     // calculate total charge (effective next time step)
                     double charge_delta = (-p_out / 1000) * logicalTimeScale / 3600; // kWh
                     batteryCharge.put(id, batteryCharge.get(id) + charge_delta);
-                    log.debug("BATTERY {}: P_OUT = {} W, TOTAL_CHARGE = {} kWh", houseConfiguration.getID(), p_out, batteryCharge.get(id));
+                    log.info("BATTERY {}: P_OUT = {} W, TOTAL_CHARGE = {} kWh", houseConfiguration.getID(), p_out, batteryCharge.get(id));
                 } else if (p_out > 0) {
-                    log.debug("BATTERY {}: P_OUT = {} W", houseConfiguration.getID(), p_out);
+                    log.info("BATTERY {}: P_OUT = {} W", houseConfiguration.getID(), p_out);
                 }
 
                 // TODO: should this be prevented if real or reactive are disabled?

@@ -9,10 +9,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.FlexibleResourceController" level="DEBUG" additivity="false">
+        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.FlexibleResourceController" level="INFO" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
-        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.TransformerDetails" level="DEBUG" additivity="false">
+        <Logger name="gov.nist.hla.te.flexibleresourcecontroller.TransformerDetails" level="INFO" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
         <Root level="INFO">
