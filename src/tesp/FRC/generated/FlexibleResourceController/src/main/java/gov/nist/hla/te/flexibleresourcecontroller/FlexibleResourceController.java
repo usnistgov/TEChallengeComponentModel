@@ -813,7 +813,8 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 double q_out = 0;
 
                 if (runMarket) {
-                    p_out = -marketBatteryCommitment.get(id)[scenarioTime.getHour()];
+                    p_out = -1000 * marketBatteryCommitment.get(id)[scenarioTime.getHour()];
+                    log.debug("{} = {}", id, p_out);
                 } else if (batteryActiveReal) {
                     boolean isDischargePossible = false;
 
@@ -974,7 +975,7 @@ public class FlexibleResourceController extends FlexibleResourceControllerBase {
                 double p_out = 0;
 
                 if (runMarket) { // probably should skip a lot of stuff above too
-                    p_out = -marketVehicleCommitment.get(id)[scenarioTime.getHour()];
+                    p_out = -1000 * marketVehicleCommitment.get(id)[scenarioTime.getHour()];
                     log.debug("{} = {}", id, p_out);
                 } else if (vehicleChargeState.get(id) == ChargeState.BASELINE) {
                     if (elapsedMinutes < 0 || elapsedMinutes >= charge_duration) { // outside of charge window

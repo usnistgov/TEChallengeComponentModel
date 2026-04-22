@@ -11,10 +11,18 @@ public class UserAgentConfig extends FederateConfig {
     public String vehicleFilePath;
 
     @FederateParameter
+    public Battery battery;
+
+    @FederateParameter
     public ElectricVehicle electricVehicle;
 
     @FederateParameter
     public double acceptablePriceDifference;
+
+    public class Battery {
+        public double capacity = 13.5;
+        public double maxChargeRate = 5.0;
+    }
 
     public class ElectricVehicle {
         public double distributionCoefficient = 3.75;

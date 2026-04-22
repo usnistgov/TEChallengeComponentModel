@@ -70,9 +70,10 @@ public class UserAgent extends UserAgentBase {
             agents.put(entry.getKey(), new HouseAgent(entry.getKey(), entry.getValue()));
             log.info("initialized House TEUA {}", entry.getKey());
 
-            final double capacity = 13.5; // kWh
+            final double capacity = params.battery.capacity;
+            final double maxChargeRate = params.battery.maxChargeRate;
             final String batteryId = entry.getKey() + "-battery";
-            agents.put(batteryId, new BatteryAgent(batteryId, capacity, params.acceptablePriceDifference));
+            agents.put(batteryId, new BatteryAgent(batteryId, capacity, maxChargeRate, params.acceptablePriceDifference));
             log.info("initialized Battery TEUA {}", batteryId);
         }
 
