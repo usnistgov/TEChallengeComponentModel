@@ -135,7 +135,7 @@ class VehicleAgent implements Agent {
                 }
             }
             else { // 10 to 7
-                if (index < 5 || index > 14 ) {
+                if (index < 5 || index > 13 ) {
                     iteration += 1;
                     continue;
                 }
